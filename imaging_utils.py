@@ -2,21 +2,6 @@
 
 import sys
 
-new_to_path = ['/panfs/roc/msisoft/anaconda/anaconda3-5.0.1/lib/python36.zip',
- '/panfs/roc/msisoft/anaconda/anaconda3-5.0.1/lib/python3.6',
- '/panfs/roc/msisoft/anaconda/anaconda3-5.0.1/lib/python3.6/lib-dynload',
- '/home/svinogra/leex6144/.local/lib/python3.6/site-packages',
- '/panfs/roc/msisoft/anaconda/anaconda3-5.0.1/lib/python3.6/site-packages',
- '/panfs/roc/msisoft/anaconda/anaconda3-5.0.1/lib/python3.6/site-packages/IPython/extensions',
- '/panfs/roc/groups/5/svinogra/leex6144/.ipython',
- '/panfs/roc/msisoft/anaconda/anaconda3-2018.12/lib/python3.7/site-packages',
- '/panfs/roc/msisoft/anaconda/anaconda3-5.0.1/lib/python36.zip',
- '/panfs/roc/msisoft/anaconda/anaconda3-5.0.1/lib/python3.6',
- '/panfs/roc/msisoft/anaconda/anaconda3-5.0.1/lib/python3.6/lib-dynload',
- '/home/svinogra/leex6144/.local/lib/python3.6/site-packages',
- '/panfs/roc/msisoft/anaconda/anaconda3-5.0.1/lib/python3.6/site-packages',
- '/panfs/roc/msisoft/anaconda/anaconda3-5.0.1/lib/python3.6/site-packages/IPython/extensions',
- '/panfs/roc/groups/5/svinogra/leex6144/.ipython']
 
 for temp in new_to_path:
 
