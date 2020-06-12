@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 
 import sys
-
-
-for temp in new_to_path:
-
-    sys.path.append(temp)
-
 from nibabel import load as nib_load
 import nibabel as nib
 import numpy as np
