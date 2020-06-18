@@ -5,14 +5,14 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="discovery_imaging_utils", # Replace with your own username
-    version="0.0.3",
+    version="0.0.4",
     author="Erik Lee",
     author_email="leex6144@umn.edu",
     description="A package to aid in resting-state fMRI analysis",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/erikglee/discovery_imaging_utils",
-    download_url="https://github.com/erikglee/discovery_imaging_utils/archive/v0.0.3.tar.gz",
+    download_url="https://github.com/erikglee/discovery_imaging_utils/archive/v0.0.4.tar.gz",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
