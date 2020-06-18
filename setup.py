@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="discovery_imaging_utils", # Replace with your own username
-    version="0.0.1",
+    version="0.0.2",
     author="Erik Lee",
     author_email="leex6144@umn.edu",
     description="A package to aid in resting-state fMRI analysis",
