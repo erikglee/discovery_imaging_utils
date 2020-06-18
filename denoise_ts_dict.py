@@ -2,7 +2,7 @@ import os
 import glob
 import json
 import _pickle as pickle
-from eriks_packages import imaging_utils
+from discovery_imaging_utils import imaging_utils
 import pandas as pd
 import numpy as np
 
