@@ -8,4 +8,3 @@ scipy >= 1.4.1
 scikit-learn >= 0.22.1
 nibabel >= 2.5.0
 statsmodels
-mpl_toolkits
