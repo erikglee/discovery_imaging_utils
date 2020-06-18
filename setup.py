@@ -1,7 +1,5 @@
 import setuptools
 
-setup(name='eriks_packages','..')
-
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
