@@ -14,6 +14,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/erikglee/discovery_imaging_utils",
+    download_url="https://github.com/erikglee/discovery_imaging_utils/archive/v0.0.1.tar.gz"
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
