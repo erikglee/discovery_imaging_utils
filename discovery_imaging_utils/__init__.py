@@ -1,5 +1,5 @@
 from discovery_imaging_utils import imaging_utils
-from discovery_imaging_utils import desnoise_ts_dict
+from discovery_imaging_utils import denoise_ts_dict
 from discovery_imaging_utils import func_denoising
 from discovery_imaging_utils import dictionary_utils
 from discovery_imaging_utils import imaging_visualizations
