@@ -1,7 +1,7 @@
 import sklearn
 import os
 import numpy as np
-from eriks_packages import dictionary_utils
+from discovery_imaging_utils import dictionary_utils
 import matplotlib.pyplot as plt
 
 def calc_triple_network_model(parcellated_timeseries, parcel_ids):
