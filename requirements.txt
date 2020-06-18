@@ -5,7 +5,7 @@ numpy >= 1.17.1
 seaborn
 pandas >= 0.25.3
 scipy >= 1.4.1
-sklearn >= 0.22.1
+scikit-learn >= 0.22.1
 nibabel >= 2.5.0
 statsmodels
 mpl_toolkits
