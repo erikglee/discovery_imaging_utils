@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 import os
 import glob
-from eriks_packages import imaging_utils
-from eriks_packages import nifti_utils
+from discovery_imaging_utils import imaging_utils
+from discovery_imaging_utils import nifti_utils
 import json
 
 #Run in this order:
