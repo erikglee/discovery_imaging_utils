@@ -106,9 +106,9 @@ def populate_parc_dictionary(file_path_dictionary, TR):
         rh_data = imaging_utils.load_gifti_func(file_path_dictionary['rh_func_path'])
         time_series_cortex, parcel_labels_cortex, parc_median_signal_intensities = imaging_utils.demedian_parcellate_func_combine_hemis(lh_data, rh_data, file_path_dictionary['lh_parcellation_path'], file_path_dictionary['rh_parcellation_path'])
 
-        parc_ts_dictionary['labels_surface'] = parcel_labels_cortex
-        parc_ts_dictionary['time_series_surface'] = time_series_cortex
-        parc_ts_dictionary['median_ts_intensities_surface'] = parc_median_signal_intensities
+        parc_ts_dictionary['surface_labels'] = parcel_labels_cortex
+        parc_ts_dictionary['surface_time_series'] = time_series_cortex
+        parc_ts_dictionary['surface_median_ts_intensities'] = parc_median_signal_intensities
         
         
         
@@ -144,57 +144,36 @@ def populate_parc_dictionary(file_path_dictionary, TR):
                     
             parcel_labels_nifti = output_labels
             
-        parc_ts_dictionary['labels_nifti'] = parcel_labels_nifti
-        parc_ts_dictionary['time_series_nifti'] = time_series_nifti
-        parc_ts_dictionary['median_ts_intensities_nifti'] = parc_median_signal_intensities_nifti
+        parc_ts_dictionary['nifti_labels'] = parcel_labels_nifti
+        parc_ts_dictionary['nifti_time_series'] = time_series_nifti
+        parc_ts_dictionary['nifti_median_ts_intensities'] = parc_median_signal_intensities_nifti
         
         
     if (has_nifti and has_gifti):
         
-        parc_ts_dictionary['time_series'] = np.vstack((parc_ts_dictionary['time_series_surface'],parc_ts_dictionary['time_series_nifti']))
-        parc_ts_dictionary['labels'] = parc_ts_dictionary['labels_surface'] + parc_ts_dictionary['labels_nifti']
-        parc_ts_dictionary['median_ts_intensities'] = np.hstack((parc_ts_dictionary['median_ts_intensities_surface'],parc_ts_dictionary['median_ts_intensities_nifti']))
+        parc_ts_dictionary['time_series'] = np.vstack((parc_ts_dictionary['surface_time_series'],parc_ts_dictionary['nifti_time_series']))
+        parc_ts_dictionary['labels'] = parc_ts_dictionary['surface_labels'] + parc_ts_dictionary['nifti_labels']
+        parc_ts_dictionary['median_ts_intensities'] = np.hstack((parc_ts_dictionary['surface_median_ts_intensities'],parc_ts_dictionary['nifti_median_ts_intensities']))
     
     elif has_nifti:
         
-        parc_ts_dictionary['time_series'] = parc_ts_dictionary['time_series_nifti']
-        parc_ts_dictionary['labels'] = parc_ts_dictionary['labels_nifti']
-        parc_ts_dictionary['median_ts_intensities'] = parc_ts_dictionary['median_ts_intensities_nifti']
+        parc_ts_dictionary['time_series'] = parc_ts_dictionary['nifti_time_series']
+        parc_ts_dictionary['labels'] = parc_ts_dictionary['nifti_labels']
+        parc_ts_dictionary['median_ts_intensities'] = parc_ts_dictionary['nifti_median_ts_intensities']
         
     elif has_gifti:
         
-        parc_ts_dictionary['time_series'] = parc_ts_dictionary['time_series_surface']
-        parc_ts_dictionary['labels'] = parc_ts_dictionary['labels_surface']
-        parc_ts_dictionary['median_ts_intensities'] = parc_ts_dictionary['median_ts_intensities_surface']
+        parc_ts_dictionary['time_series'] = parc_ts_dictionary['surface_time_series']
+        parc_ts_dictionary['labels'] = parc_ts_dictionary['surface_labels']
+        parc_ts_dictionary['median_ts_intensities'] = parc_ts_dictionary['surface_median_ts_intensities']
         
     else:
         
         raise NameError('Error: File Path Dictionary must either have gifti or nifti specified')
     
-    
+    #Set the TR
     parc_ts_dictionary['TR'] = TR
     
-    
-    
-    ####################################################
-    #Load the melodic IC time series
-    melodic_df = pd.read_csv(file_path_dictionary['melodic_mixing_path'], sep="\t", header=None)
-    parc_ts_dictionary['melodic_mixing_matrix'] = melodic_df.values 
-
-    ####################################################
-    #Load the indices of the aroma ics
-    aroma_ics_df = pd.read_csv(file_path_dictionary['aroma_noise_ics_path'], header=None)
-    parc_ts_dictionary['aroma_noise_ic_inds'] = (aroma_ics_df.values - 1).reshape(-1,1)
-    
-
-    ####################################################
-    #Gather the ICs identified as noise/clean by AROMA
-    noise_comps = parc_ts_dictionary['aroma_noise_ic_inds']
-    all_ics = melodic_df.values 
-    mask = np.zeros(all_ics.shape[1],dtype=bool)
-    mask[noise_comps] = True
-    parc_ts_dictionary['aroma_noise_ic_timeseries'] = all_ics[:,~mask]
-    parc_ts_dictionary['aroma_clean_ic_timeseries'] = all_ics[:,mask]
 
     ####################################################
     #Get the variables from the confounds regressors file
@@ -225,7 +204,7 @@ def populate_general_info_dict(parc_ts_dictionary):
     #Calculate the number of timepoints to skip at the beginning for this person.
     #If equal to zero, we will actually call it one so that we don't run into any
     #issues during denoising with derivatives
-    general_info_dict['n_skip_vols'] = len(np.where(np.sum(np.absolute(parc_ts_dictionary['melodic_mixing_matrix']), axis=1) < 0.1)[0])
+    general_info_dict['n_skip_vols'] = len(np.where(np.absolute(parc_ts_dictionary['confounds']['a_comp_cor_00']) < 0.00001)[0])
     if general_info_dict['n_skip_vols'] == 0:
         general_info_dict['n_skip_vols'] = 1
                 
@@ -322,6 +301,24 @@ def populate_confounds_dict(file_path_dictionary):
         confounds_dictionary['five_acompcors'] = np.vstack((confounds_dictionary['a_comp_cor_00'], confounds_dictionary['a_comp_cor_01'],
                                          confounds_dictionary['a_comp_cor_02'], confounds_dictionary['a_comp_cor_03'],
                                          confounds_dictionary['a_comp_cor_04']))
+        
+        ####################################################
+        #Load the melodic IC time series
+        melodic_df = pd.read_csv(file_path_dictionary['melodic_mixing_path'], sep="\t", header=None)        
+        
+        ####################################################
+        #Load the indices of the aroma ics
+        aroma_ics_df = pd.read_csv(file_path_dictionary['aroma_noise_ics_path'], header=None)
+        noise_comps = (aroma_ics_df.values - 1).reshape(-1,1)
+
+
+        ####################################################
+        #Gather the ICs identified as noise/clean by AROMA
+        all_ics = melodic_df.values 
+        mask = np.zeros(all_ics.shape[1],dtype=bool)
+        mask[noise_comps] = True
+        confounds_dictionary['aroma_noise_ics'] = np.transpose(all_ics[:,~mask])
+        confounds_dictionary['aroma_clean_ics'] = np.transpose(all_ics[:,mask])
         
         return confounds_dictionary
     

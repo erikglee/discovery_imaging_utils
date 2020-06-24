@@ -78,9 +78,12 @@ def nifti_rois_to_time_signals(input_timeseries_nii_path, input_mask_nii_path, d
         temp_timeseries = input_ts_matrix[inds]
 
         voxel_medians = np.nanmedian(temp_timeseries, axis=1)
+        voxel_medians[np.where(voxel_medians < 0.001)] = np.nan
 
         if demedian_before_averaging:
             temp_timeseries = temp_timeseries/voxel_medians[:,None]
+            
+        
             
         nifti_time_series[i,:] = np.nanmean(temp_timeseries, axis=0)
         parc_mean_median_signal_intensities[i] = np.nanmean(voxel_medians)
