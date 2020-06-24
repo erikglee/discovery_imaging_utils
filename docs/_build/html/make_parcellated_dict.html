@@ -37,6 +37,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cleaning A Dictionary Made From parc_ts_dictionary" href="cleaning_parcellated_dictionary.html" />
     <link rel="prev" title="Cleaning Resting State Data" href="cleaning_resting_state_data.html" /> 
 </head>
 
@@ -88,6 +89,9 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cleaning_resting_state_data.html">Cleaning Resting State Data</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Make Dictionary For Parcellated Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#example-usage">Example Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cleaning_parcellated_dictionary.html">Cleaning A Dictionary Made From parc_ts_dictionary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cleaning_parcellated_dictionary.html#example">Example</a></li>
 </ul>
 
             
@@ -198,7 +202,8 @@
 <li><p>file_path_dictionary.json: A dictionary with the file paths used to generate this parc_ts_dictionary.</p></li>
 <li><p>general_info.json: A json file with some general information, including the TR, label names, mean_dvars, mean_fd, the number of volumes to skip at the beginning of the scan, the number of high motion and high dvars timepoints, the name of the session, and the name of the subject (some information here includes duplicates of what is present somewhere else)</p></li>
 <li><p>TR: the repition time of the scan in seconds</p></li>
-<li><p>confounds: Includes confounds found in the run’s <a href="#id3"><span class="problematic" id="id4">*</span></a>desc-confounds_regressors.tsv file along with some custom groupings including:</p></li>
+<li><dl class="simple">
+<dt>confounds: Includes confounds found in the run’s desc-confounds_regressors.tsv file along with some custom groupings including:</dt><dd><ul>
 <li><p>motion_regs_six - the six realignment parameters</p></li>
 <li><p>motion_regs_twelve - the six realignment parameters + derivatives</p></li>
 <li><p>motion_regs_twentyfour - the six realignment parameters + derivatives and both of their squares</p></li>
@@ -206,6 +211,10 @@
 <li><p>aroma_noise_ics - all the ics identified as noise by aroma</p></li>
 <li><p>five_acompcors - first five anatomical comp cor components</p></li>
 <li><p>And wmcsf, wmcsfgsr, wmcsf_derivs, wmcsfgsr_derivs, with derivs indicating both the original timeseries for different regions plus their temporal derivatives</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 <p>Because the function populate_parc_dictionary takes around a minute to run, after finishing this sequence of commands, you will likely want to save the output matrix as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">save_dictionary</span><span class="p">(</span><span class="n">parc_ts_dictionary</span><span class="p">,</span> <span class="n">path_for_dictionary_dir</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -216,6 +225,43 @@
 <li><p>path_for_dictionary_dir: a string pointing to the path where a folder to contain the dictionary structure should be created (the dictionary object will be saved as a new directory and this should not exist yet unless you want to overwrite it)</p></li>
 <li><p>overwrite: boolean declaring whether or not path_for_dictionary_dir should be overwritten</p></li>
 </ul>
+<p>If you are looking for some template parcellations to use, the parcellations generated from Schaefer’s 2018 paper are available in a variety of formats and resolutins on <cite>Github &lt;https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal&gt;</cite>. Alternatively a variety of other parcellations are listed on the <cite>Lead-DBS webpage &lt;https://www.lead-dbs.org/helpsupport/knowledge-base/atlasesresources/cortical-atlas-parcellations-mni-space/&gt;</cite></p>
+</div>
+<div class="section" id="example-usage">
+<h1>Example Usage<a class="headerlink" href="#example-usage" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">discovery_imaging_utils</span> <span class="kn">import</span> <span class="n">parc_ts_dictionary</span>
+<span class="kn">from</span> <span class="nn">discovery_imaging_utils</span> <span class="kn">import</span> <span class="n">dictionary_utils</span>
+
+<span class="c1">#Specify the path to lh gifti and annot files</span>
+<span class="n">lh_gii_path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/sub-1234_ses-1234_task-REST_acq-AP_run-1_space-fsaverage_hemi-L_bold.func.gii&#39;</span>
+<span class="n">lh_parcellation_path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/lh.name_of_parc.annot&#39;</span>
+
+<span class="c1">#Specify the path to the nifti timeseries and</span>
+<span class="c1">#parcellation (optional). Reminder: parcel names</span>
+<span class="c1">#from a .json file can be incorporated if the .json</span>
+<span class="c1">#file is named matching the parcellation file</span>
+<span class="n">nifti_ts_path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/sub-1234_ses-1234_task-REST_acq-AP_run-1_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz</span>
+<span class="n">nifti_parcellation_path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/parcellation.nii.gz&#39;</span>
+
+<span class="c1">#Create the file paths dictionary</span>
+<span class="n">file_path_dictionary</span> <span class="o">=</span> <span class="n">parc_ts_dictionary</span><span class="o">.</span><span class="n">generate_file_paths</span><span class="p">(</span><span class="n">lh_gii_path</span><span class="o">=</span><span class="n">lh_gii_path</span><span class="p">,</span>
+                    <span class="n">lh_parcellation_path</span><span class="o">=</span><span class="n">lh_parcellation_path</span><span class="p">,</span>
+                    <span class="n">nifti_ts_path</span><span class="o">=</span><span class="n">nifti_ts_path</span><span class="p">,</span>
+                    <span class="n">nifti_parcellation_path</span><span class="o">=</span><span class="n">nifti_parcellation_path</span><span class="p">,</span>
+                    <span class="n">aroma_included</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#Assuming aroma was ran</span>
+
+<span class="c1">#Check that all file paths exist</span>
+<span class="n">paths_present</span> <span class="o">=</span> <span class="n">parc_ts_dictionary</span><span class="o">.</span><span class="n">file_paths_exist</span><span class="p">(</span><span class="n">file_path_dictionary</span><span class="p">)</span>
+
+<span class="c1">#Populate the dictionary for the parcellation/nuisance metrics/etc</span>
+<span class="n">TR</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="c1">#TR is in seconds</span>
+<span class="n">parc_ts_dict</span> <span class="o">=</span> <span class="n">parc_ts_dictionary</span><span class="o">.</span><span class="n">populate_parc_dictionary</span><span class="p">(</span><span class="n">file_path_dictionary</span><span class="p">,</span> <span class="n">TR</span><span class="p">)</span>
+
+<span class="c1">#Save the dictionary for later use</span>
+<span class="n">path_for_dictionary_dir</span> <span class="o">=</span> <span class="s1">&#39;/path/to/dir/that/will/store/dictionary/structure&#39;</span>
+<span class="n">save_dictionary</span><span class="p">(</span><span class="n">parc_ts_dict</span><span class="p">,</span> <span class="n">path_for_dictionary_dir</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 
 
@@ -225,6 +271,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cleaning_parcellated_dictionary.html" class="btn btn-neutral float-right" title="Cleaning A Dictionary Made From parc_ts_dictionary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="cleaning_resting_state_data.html" class="btn btn-neutral float-left" title="Cleaning Resting State Data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -52,7 +52,7 @@ Running these commands will generate an output dictionary with a varying number 
 *  file_path_dictionary.json: A dictionary with the file paths used to generate this parc_ts_dictionary.
 *  general_info.json: A json file with some general information, including the TR, label names, mean_dvars, mean_fd, the number of volumes to skip at the beginning of the scan, the number of high motion and high dvars timepoints, the name of the session, and the name of the subject (some information here includes duplicates of what is present somewhere else)
 *  TR: the repition time of the scan in seconds
-*  confounds: Includes confounds found in the run's desc-confounds_regressors.tsv file along with some custom groupings including:
+*  confounds: Includes confounds found in the run's *desc-confounds_regressors.tsv file along with some custom groupings including:
 	- motion_regs_six - the six realignment parameters
 	- motion_regs_twelve - the six realignment parameters + derivatives
 	- motion_regs_twentyfour - the six realignment parameters + derivatives and both of their squares
