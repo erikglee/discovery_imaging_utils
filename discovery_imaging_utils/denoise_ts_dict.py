@@ -520,11 +520,6 @@ def reduce_ics(input_matrix, num_dimensions, n_skip_vols):
     transformed_pcs = pca_temp.transform(partial_input_matrix)
     pca_time_signal = np.zeros((num_dimensions,input_matrix.shape[1]))
     pca_time_signal[:,n_skip_vols:] = transformed_pcs.transpose()[0:num_dimensions,:]
-
-    #This section is from old iteration WITH ERROR!!!
-    #good_components_inds = np.linspace(0,num_dimensions - 1, num = num_dimensions).astype(int)
-    #pca_time_signal = np.zeros((num_dimensions, input_matrix.shape[1]))
-    #pca_time_signal[:,n_skip_vols:] = pca_temp.components_[good_components_inds,:]
     
     return pca_time_signal
 
