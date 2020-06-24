@@ -288,11 +288,11 @@ def denoise(parc_dict, hpf_before_regression, scrub_criteria_dictionary, interpo
     output_dict['dvars_post_cleaning'] = final_dvars
     
     dvars_stats = {}
-    dvars_stats['mean_dvars_pre_cleaning'] = np.mean(initial_dvars)
+    dvars_stats['mean_dvars_pre_cleaning'] = np.mean(initial_dvars[(initial_dvars > 0)])
     dvars_stats['mean_dvars_post_cleaning'] = np.mean(final_dvars[(final_dvars > 0)])
     dvars_stats['max_dvars_pre_cleaning'] = np.max(initial_dvars)
     dvars_stats['max_dvars_post_cleaning'] = np.max(final_dvars)
-    dvars_stats['dvars_remaining_ratio'] = np.mean(final_dvars[(final_dvars > 0)])/np.mean(initial_dvars)
+    dvars_stats['dvars_remaining_ratio'] = np.mean(final_dvars[(final_dvars > 0)])/np.mean(initial_dvars[(initial_dvars > 0)])
     dvars_stats['def'] = 'DVARS calculated before any denoising steps (or filtering), and also after.\nBad timepoints not included in any stats.'
     output_dict['dvars_stats.json'] = dvars_stats
     
