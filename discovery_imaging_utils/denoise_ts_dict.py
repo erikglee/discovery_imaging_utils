@@ -442,6 +442,69 @@ def load_comps_dict(parc_dict, comps_dict):
     #different components specified by comp_dict, and
     #outputs them as a 2d array.
     
+    #All variables specified must be a key in the dictionary
+    #accessed by parc_dict['confounds']
+    
+    #For pre-computed groupings of variables, this function
+    #supports PCA reduction of the variable grouping.
+    
+    #An example comps_dict is shown below:
+    #
+    # example_comps_dict = {'framewise_displacement' : False,
+    #                       'twelve_motion_regs' : 3,
+    #                       'aroma_noise_ics' : 3}
+    #
+    #This dictionary would form an output array <7,n_timepoints> including
+    #framewise displacement, 3 PCs from twelve motion regressors, and 
+    #3 PCs from the aroma noise ICs. False specifies that no PC reduction
+    #should be done on the variable, and otherwise the value in the dictionary
+    #specifies the number of PCs to be reduced to.
+    #
+    #PCA is taken while ignoring the n_skip_vols
+    #
+    
+    if comps_dict == False:
+        return False
+    comps_matrix = []
+        
+    #Iterate through all key value pairs
+    for key, value in comps_dict.items():
+        
+        #Load the current attribute of interest
+        temp_arr = parc_dict['confounds'][key]
+        
+        #If temp_arr is only 1d, at a second dimension for comparison
+        if len(temp_arr.shape) == 1:
+            
+            temp_arr = np.reshape(temp_arr, (temp_arr.shape[0],1))
+        
+        #If necessary, use PCA on the temp_arr
+        if value != False:
+            
+            temp_arr = reduce_ics(temp_arr, value, parc_dict['general_info.json']['n_skip_vols'])
+        
+        #Either start a new array or stack to existing
+        if comps_matrix == []:
+        
+            comps_matrix = temp_arr
+                        
+        else:
+            
+            comps_matrix = np.vstack((comps_matrix, temp_arr))
+                    
+    return comps_matrix
+
+
+
+
+def load_comps_dict_orig(parc_dict, comps_dict):
+    
+    #Internal function, which is given a "parc_dict",
+    #with different useful resting-state properties
+    #(made by module parc_ts_dictionary), and accesses
+    #different components specified by comp_dict, and
+    #outputs them as a 2d array.
+    
     #For pre-computed groupings of variables, this function
     #supports PCA reduction of the variable grouping.
     
@@ -629,7 +692,7 @@ def find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
     #Iterate through all key/value pairs and set the good_arr
     #value for indices which the nuisance threshold is exceeded
     #equal to 0
-    for temp_key, temp_thresh in scrubbing_dictionary.items():
+    for temp_metric, temp_thresh in scrubbing_dictionary.items():
         
         temp_values = parc_object['confounds'][temp_metric]
         bad_inds = np.where(temp_values > temp_thresh)[0]
