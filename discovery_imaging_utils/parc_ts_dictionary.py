@@ -16,6 +16,26 @@ import json
 
 
 def all_file_paths_exist(file_path_dictionary):
+    """Takes a dictionary of file paths and checks if they exist.
+    
+    Takes a dictionary where each entry is a string representing a file
+    path, and iterates over all entries checking whether or not they each
+    point to a file.
+    
+    Parameters
+    ----------
+    file_path_dictionary : dict
+        a dictionary where all entries are paths to files
+        
+    Returns
+    -------
+    files_present : bool
+        a boolean saying whether or not all files in the dictionary were found
+    
+    
+    
+    
+    """
     
     #Check if all files exist, and if they don't
     #return False
