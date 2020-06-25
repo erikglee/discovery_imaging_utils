@@ -1,0 +1,9 @@
+Cleaning fMRI Data from Beginning to End
+========================================
+
+.. toctree::
+   :maxdepth: 1
+
+   running_through_fmriprep
+   make_parcellated_dict
+   cleaning_parcellated_dictionary
