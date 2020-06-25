@@ -32,9 +32,6 @@ def all_file_paths_exist(file_path_dictionary):
     files_present : bool
         a boolean saying whether or not all files in the dictionary were found
     
-    
-    
-    
     """
     
     #Check if all files exist, and if they don't
@@ -51,11 +48,12 @@ def all_file_paths_exist(file_path_dictionary):
 
 def generate_file_paths(lh_gii_path=None, lh_parcellation_path=None, nifti_ts_path=None,
                          nifti_parcellation_path=None, aroma_included=True):
-    
+    """
     #This function gathers paths useful for imaging analyses... either a gifti or nifti
     #or both must be specified along with accompanying parcellation paths, outputs a dictionary
     #with relevant paths, output of this function can be used with "all_file_paths_exist", then
     #with "populate_parc_dictionary", then can be saved with "save_dictionary"
+    """
     
     path_dictionary = {}
     prefix = ''
@@ -344,104 +342,3 @@ def populate_confounds_dict(file_path_dictionary):
     
     
     
-def save_dictionary(dictionary, path_for_dictionary_dir, overwrite = False):
-    
-        
-    if path_for_dictionary_dir[-5:] == '.json':
-        
-        with open(os.path.join(path_for_dictionary_dir), 'w') as temp_file:
-            json_dict = json.dumps(dictionary, indent = 4, sort_keys = True)
-            temp_file.write(json_dict)        
-
-    else:
-        
-        if os.path.exists(path_for_dictionary_dir) == True:
-        
-            if overwrite == False:
-
-                raise NameError('Error: Parc Timeseries Dictionary Directory Already Exists at this path')
-
-        else:
-        
-            os.makedirs(path_for_dictionary_dir)
-        
-        
-        
-        for temp_key in dictionary.keys():
-
-
-            if type(dictionary[temp_key]) == dict:
-
-                to_overwrite = overwrite
-                save_dictionary(dictionary[temp_key], os.path.join(path_for_dictionary_dir, temp_key), overwrite = to_overwrite)
-
-            else:
-
-
-                if path_for_dictionary_dir[-3:] == 'txt':
-
-                    with open(os.path.join(path_for_dictionary_dir, temp_key), 'w') as temp_file:
-                        temp_file.write(str(dictionary[temp_key]))
-
-                else:
-
-                    np.save(os.path.join(path_for_dictionary_dir, temp_key), dictionary[temp_key])
-                 
-            
-    return
-                
-                
-    
-    
-    
-def load_dictionary(dictionary_dir_path):
-    
-    dictionary = {}
-    
-    os.chdir(dictionary_dir_path)
-    directory_contents = os.listdir()
-    directory_final_name = dictionary_dir_path.split('/')[-1]
-    for temp_file in directory_contents:
-        
-        if os.path.isdir(temp_file):
-            
-            dictionary[temp_file] = load_dictionary(os.path.join(dictionary_dir_path, temp_file))
-            os.chdir(dictionary_dir_path)
-            
-        else:
-            
-            if temp_file[-5:] == '.json':
-                                
-                with open(temp_file, 'r') as temp_json:
-                    json_contents = temp_json.read()
-                    dictionary[temp_file] = json.loads(json_contents)
-                    
-            else:
-            
-                if dictionary_dir_path[-3:] == 'txt':
-
-                    with open(temp_file,'r') as temp_reading:
-                        file_contents = temp_reading.read()
-
-                        try:
-                            dictionary[temp_file.split('.')[0]] = float(file_contents)
-                        except:
-
-                            if file_contents[0] == '[' and file_contents[-1] == ']':
-                                split_contents = file_contents[1:-1].split(',')
-                                dictionary[temp_file.split('.')[0]] = []
-                                for temp_item in split_contents:
-                                    split_limited_1 = temp_item.replace(' ','')
-                                    split_limited_2 = split_limited_1.replace("'","")
-                                    dictionary[temp_file.split('.')[0]].append(split_limited_2)
-
-                            else:
-                                dictionary[temp_file.split('.')[0]] = file_contents                
-
-                else:
-
-                    dictionary[temp_file.split('.')[0]] = np.load(temp_file)
-                
-                
-                
-    return dictionary

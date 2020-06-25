@@ -5,7 +5,7 @@ import nibabel as nib
 
 
 def convert_spherical_roi_coords_to_nifti(template_nifti_path, spherical_coords, radius, output_nifti_path, spherical_labels=None):
-    
+    """
     #Template_nifti_path should point to a nifti with the desired
     #affine matrix/size, should be 3d, not a timeseries. Spherical_coords
     #should be a list of RAS coordinates for the spheres, radius should be a list
@@ -13,6 +13,7 @@ def convert_spherical_roi_coords_to_nifti(template_nifti_path, spherical_coords,
     #will be saved. Spherical labels is an optional list that can specify the number
     #assigned to values for different spheres. If this isn't set, spheres will be labeled
     #1, 2, 3 ... etc. 
+    """
     
     template_nifti = nib.load(template_nifti_path)
     affine = template_nifti.affine
@@ -46,6 +47,7 @@ def convert_spherical_roi_coords_to_nifti(template_nifti_path, spherical_coords,
     
 def nifti_rois_to_time_signals(input_timeseries_nii_path, input_mask_nii_path, demedian_before_averaging = True):
     
+    """
     #Function that takes a 4d nifti file with path input_timeseries_nii_path,
     #and a 3d mask registered to the 4d timeseries (input_mask_nii_path) who has,
     #different values which specify different regions, and returns average time
@@ -57,6 +59,7 @@ def nifti_rois_to_time_signals(input_timeseries_nii_path, input_mask_nii_path, d
     #Output nifti_time_series - size n_regions, n_timepoints
     #unique_mask_vals - size n_regions (specifying the ID for each mask)
     #parc_mean_median_signal_intensities - size n_regions
+    """
     
     input_ts_nii = nib.load(input_timeseries_nii_path)
     input_mask_nii = nib.load(input_mask_nii_path)
