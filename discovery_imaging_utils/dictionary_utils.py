@@ -1,3 +1,18 @@
+"""
+Dictionary Utilities
+--------------------
+
+.. autofunction:: json_path_to_dict
+.. autofunction:: save_dictionary
+.. autofunction:: load_dictionary
+.. autofunction:: flatten_dictionary
+
+"""
+
+
+
+
+
 import os
 import glob
 import json
