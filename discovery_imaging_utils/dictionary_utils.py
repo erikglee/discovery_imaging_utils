@@ -16,7 +16,7 @@ def json_path_to_dict(path_to_json_file):
         
     Returns
     -------
-    dict_object : dict
+    dict
         a dictionary containing the contents from the json pointed to by path_to_json_file
         
     """
@@ -115,7 +115,7 @@ def load_dictionary(dictionary_dir_path):
         
     Returns
     -------
-    dictionary : dict
+    dict
         a dictionary constructed from the conentents found in dictionary_dir_path
     
     """
@@ -188,7 +188,7 @@ def flatten_dictionary(dictionary):
         
     Returns
     -------
-    flattened_dictionary : dict
+    dict
         the flattened dictionary
     
     """
