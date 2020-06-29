@@ -5,4 +5,3 @@ This package is undergoing active development and should be used with caution.
 
 The package can be installed through "pip install discovery-imaging-utils", and required dependancies can be installed by going to the requirements.txt file and running "pip install -r requirements.txt"
 
-TESTING
