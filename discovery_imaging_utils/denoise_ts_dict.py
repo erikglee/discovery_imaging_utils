@@ -617,18 +617,37 @@ def demean_normalize(one_d_array):
 
 
 def find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
+    """" Internal function used to find timepoints to scrub.
     
-    """
-    #This function is an internal function for the main denoising script.
-    #The purpose of this function is to return a array valued true for 
-    #volumes to be included in subsequent analyses and a false for volumes
-    #that need to be scrubbed.
+    Function that takes a parcellated dictionary object and
+    another dictionary to specify the scrubbing settings, and
+    uses this to find which timepoints to scrub.
     
-    #This script will also get rid of the n_skip_vols at the beginning of the
-    #scan. And these volumes don't get accounted for in Uniform.
+    If scrubbing dictionary is set to False, then the initial timepoints
+    to remove at the beginning of the scan (specified under parc_object)
+    will be the only ones specified for removal. If scrubbing dictioanary
+    is defined, either hard thresholds or Uniform scrubbing based on 
+    criteria specified under the scrubbing dictionary will be used for 
+    determining bad timepoints. All timepoints identified as bad (outside
+    of the initial timepoints) will be padded, and because of this the output
+    to the uniform scrubbing may differ by a couple of timepoints depending on
+    how the overlap among bad timepoints happens to fall.
     
-    #If you don't want to scrub, just set scrubbing_dictionary equal to False, and
-    #this script will only get rid of the initial volumes
+    Parameters
+    ----------
+    parc_object : dict
+        parcellated object dictionary containing confounds class and n_skip_vols
+    
+    scrubbing_dictionary : bool or dict
+        dictionary to specify scrubbing criteria (see documentation for main denoising
+        script)
+    
+    Returns
+    -------
+    ndarray
+        array with the same length as the input data, having 1s at defined timepoints and
+        0s at undefined timepoints
+        
     """
     
     
@@ -667,9 +686,24 @@ def find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
                 
         num_timepoints_to_keep = int(evaluation_array.shape[0]*amount_to_keep)
         sorted_inds = np.argsort(evaluation_array)
+        good_inds = np.linspace(0, evaluation_array.shape[0] - 1, evaluation_array.shape[0])
+        
+        #Add padding
+        for temp_ind in sorted_inds:
+            
+            if good_inds.shape[0] > num_timepoints_to_keep:
+                
+                temp_ind_pre = temp_ind - 1
+                temp_ind_post = temp_ind + 1
+                
+                good_inds = good_inds[good_inds != temp_ind_pre]
+                good_inds = good_inds[good_inds != temp_ind]
+                good_inds = good_inds[good_inds != temp_ind_post]
+            
+        
         good_inds = sorted_inds[0:num_timepoints_to_keep]
         good_arr = np.zeros(evaluation_array.shape)
-        good_arr[good_inds] = 1
+        good_arr[good_inds.astype(int)] = 1
         good_arr[0:parc_object['general_info.json']['n_skip_vols']] = 0
         
         return good_arr
@@ -679,21 +713,32 @@ def find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
     #If neither of the first two options were used, we will assume
     #they dictionary has appropriate key/value pairs describing scrubbing
     #criteria
-    
-    temp_val = parc_object['confounds']['framewise_displacement']
-    good_arr = np.ones(temp_val.shape)
-    good_arr[0:parc_object['general_info.json']['n_skip_vols']] = 0
-    
-    #Iterate through all key/value pairs and set the good_arr
-    #value for indices which the nuisance threshold is exceeded
-    #equal to 0
-    for temp_metric, temp_thresh in scrubbing_dictionary.items():
-        
-        temp_values = parc_object['confounds'][temp_metric]
-        bad_inds = np.where(temp_values > temp_thresh)[0]
-        good_arr[bad_inds] = 0
-        
-    return good_arr
+    else:
+        temp_val = parc_object['confounds']['framewise_displacement']
+        good_inds = np.linspace(0, temp_val.shape[0] - 1, temp_val.shape[0])
+
+        #Iterate through all key/value pairs and set the good_arr
+        #value for indices which the nuisance threshold is exceeded
+        #equal to 0
+        for temp_metric, temp_thresh in scrubbing_dictionary.items():
+
+            temp_values = parc_object['confounds'][temp_metric]
+            bad_inds = np.where(temp_values > temp_thresh)[0]
+            
+            for temp_ind in bad_inds:
+                
+                temp_ind_pre = temp_ind - 1
+                temp_ind_post = temp_ind + 1
+                
+                good_inds = good_inds[good_inds != temp_ind_pre]
+                good_inds = good_inds[good_inds != temp_ind]
+                good_inds = good_inds[good_inds != temp_ind_post]            
+            
+        good_arr = np.zeros(temp_val.shape)
+        good_arr[good_inds.astype(int)] = 1
+        good_arr[0:parc_object['general_info.json']['n_skip_vols']] = 0
+
+        return good_arr
 
 
 
