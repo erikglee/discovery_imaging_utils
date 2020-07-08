@@ -196,8 +196,6 @@ def populate_parc_dictionary(file_path_dictionary, TR):
     ####################################################
     #Get the variables from the confounds regressors file
     #confound_df = pd.read_csv(self.confounds_regressors_path, sep='\t')
-    #for (columnName, columnData) in confound_df.iteritems():
-    #    setattr(self, columnName, columnData.as_matrix())
     parc_ts_dictionary['confounds'] = populate_confounds_dict(file_path_dictionary)
     
     parc_ts_dictionary['file_path_dictionary.json'] = file_path_dictionary
@@ -271,7 +269,7 @@ def populate_confounds_dict(file_path_dictionary):
         confounds_regressors_tsv_path = file_path_dictionary['confounds_regressors_path']
         confound_df = pd.read_csv(confounds_regressors_tsv_path, sep='\t')
         for (columnName, columnData) in confound_df.iteritems():
-            confounds_dictionary[columnName] = columnData.as_matrix()
+            confounds_dictionary[columnName] = columnData.values
             
         
         #For convenience, bunch together some commonly used nuisance components
