@@ -469,9 +469,8 @@ def _parcellate_gifti(func_data, parcellation_path, demean_before_averaging = Tr
 		depth = func_data.shape[1]
 	else:
 		depth = 1
-		parcellated_gifti_data = np.zeros((len(parcellation[2]) - 1, depth))
 
-
+	parcellated_gifti_data = np.zeros((len(parcellation[2]) - 1, depth))
 	parcel_dictionary = {}
 
 	#Skip the first parcel (should be medial wall)
