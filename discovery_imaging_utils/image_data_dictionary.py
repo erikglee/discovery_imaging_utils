@@ -293,8 +293,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 			#Make function to set appropriate values to NaN.....
 			lh_data, lh_inclusion_inds = _incorporate_gifti_inclusion_mask(lh_data, file_path_dictionary['lh_inclusion_mask_path'])
 			rh_data, rh_inclusion_inds = _incorporate_gifti_inclusion_mask(rh_data, file_path_dictionary['rh_inclusion_mask_path'])
-			metadata_dict['lh_gifti_inclusion_mask_path'] = file_path_dictionary['lh_inclusion_mask_path']
-			metadata_dict['rh_gifti_inclusion_mask_path'] = file_path_dictionary['rh_inclusion_mask_path']
+			metadata_dict['lh_inclusion_mask_path'] = file_path_dictionary['lh_inclusion_mask_path']
+			metadata_dict['rh_inclusion_mask_path'] = file_path_dictionary['rh_inclusion_mask_path']
 
 			lh_gifti_ids = lh_inclusion_inds
 			rh_gifti_ids = rh_inclusion_inds
@@ -306,8 +306,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 			#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
 			lh_data, lh_labels, lh_parcels_dict = _parcellate_gifti(lh_data, file_path_dictionary['lh_parcellation_path'])
 			rh_data, rh_labels, rh_parcels_dict = _parcellate_gifti(rh_data, file_path_dictionary['rh_parcellation_path'])
-			metadata_dict['lh_gifti_parcellation_path'] = file_path_dictionary['lh_gii_parcellation_path']
-			metadata_dict['rh_gifti_parcellation_path'] = file_path_dictionary['rh_gii_parcellation_path']
+			metadata_dict['lh_parcellation_path'] = file_path_dictionary['lh_parcellation_path']
+			metadata_dict['rh_parcellation_path'] = file_path_dictionary['rh_parcellation_path']
 
 			lh_gifti_ids = lh_labels
 			rh_gifti_ids = rh_labels
