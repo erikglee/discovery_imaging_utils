@@ -488,7 +488,8 @@ def _parcellate_gifti(func_data, parcellation_path, demean_before_averaging = Tr
 			vertex_means = temp_timeseries
 
 			vertex_means[np.where(np.abs(vertex_means) < 0.000001)] = np.nan
-			parcel_mean = np.nanmean(vertex_means)
+
+		parcel_mean = np.nanmean(vertex_means)
 
 		if demean_before_averaging:
 
