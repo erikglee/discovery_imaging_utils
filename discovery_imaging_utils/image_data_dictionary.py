@@ -697,51 +697,51 @@ def _populate_confounds_dict(file_path_dictionary, aroma_used = True):
 		confounds_dictionary[columnName] = columnData.values
 
 
-		#For convenience, bunch together some commonly used nuisance components
+	#For convenience, bunch together some commonly used nuisance components
 
-		#Six motion realignment paramters
-		confounds_dictionary['motion_regs_six'] = np.vstack((confounds_dictionary['trans_x'], confounds_dictionary['trans_y'], confounds_dictionary['trans_z'],
-		confounds_dictionary['rot_x'], confounds_dictionary['rot_y'], confounds_dictionary['rot_z']))
+	#Six motion realignment paramters
+	confounds_dictionary['motion_regs_six'] = np.vstack((confounds_dictionary['trans_x'], confounds_dictionary['trans_y'], confounds_dictionary['trans_z'],
+	confounds_dictionary['rot_x'], confounds_dictionary['rot_y'], confounds_dictionary['rot_z']))
 
-		#Six motion realignment parameters plus their temporal derivatives
-		confounds_dictionary['motion_regs_twelve'] = np.vstack((confounds_dictionary['trans_x'], confounds_dictionary['trans_y'], confounds_dictionary['trans_z'],
-		confounds_dictionary['rot_x'], confounds_dictionary['rot_y'], confounds_dictionary['rot_z'],
-		confounds_dictionary['trans_x_derivative1'], confounds_dictionary['trans_y_derivative1'],
-		confounds_dictionary['trans_z_derivative1'], confounds_dictionary['rot_x_derivative1'],
-		confounds_dictionary['rot_y_derivative1'], confounds_dictionary['rot_z_derivative1']))
+	#Six motion realignment parameters plus their temporal derivatives
+	confounds_dictionary['motion_regs_twelve'] = np.vstack((confounds_dictionary['trans_x'], confounds_dictionary['trans_y'], confounds_dictionary['trans_z'],
+	confounds_dictionary['rot_x'], confounds_dictionary['rot_y'], confounds_dictionary['rot_z'],
+	confounds_dictionary['trans_x_derivative1'], confounds_dictionary['trans_y_derivative1'],
+	confounds_dictionary['trans_z_derivative1'], confounds_dictionary['rot_x_derivative1'],
+	confounds_dictionary['rot_y_derivative1'], confounds_dictionary['rot_z_derivative1']))
 
-		#Six motion realignment parameters, their temporal derivatives, and
-		#the square of both
-		confounds_dictionary['motion_regs_twentyfour'] = np.vstack((confounds_dictionary['trans_x'], confounds_dictionary['trans_y'], confounds_dictionary['trans_z'],
-		confounds_dictionary['rot_x'], confounds_dictionary['rot_y'], confounds_dictionary['rot_z'],
-		confounds_dictionary['trans_x_derivative1'], confounds_dictionary['trans_y_derivative1'],
-		confounds_dictionary['trans_z_derivative1'], confounds_dictionary['rot_x_derivative1'],
-		confounds_dictionary['rot_y_derivative1'], confounds_dictionary['rot_z_derivative1'],
-		confounds_dictionary['trans_x_power2'], confounds_dictionary['trans_y_power2'], confounds_dictionary['trans_z_power2'],
-		confounds_dictionary['rot_x_power2'], confounds_dictionary['rot_y_power2'], confounds_dictionary['rot_z_power2'],
-		confounds_dictionary['trans_x_derivative1_power2'], confounds_dictionary['trans_y_derivative1_power2'],
-		confounds_dictionary['trans_z_derivative1_power2'], confounds_dictionary['rot_x_derivative1_power2'],
-		confounds_dictionary['rot_y_derivative1_power2'], confounds_dictionary['rot_z_derivative1_power2']))
+	#Six motion realignment parameters, their temporal derivatives, and
+	#the square of both
+	confounds_dictionary['motion_regs_twentyfour'] = np.vstack((confounds_dictionary['trans_x'], confounds_dictionary['trans_y'], confounds_dictionary['trans_z'],
+	confounds_dictionary['rot_x'], confounds_dictionary['rot_y'], confounds_dictionary['rot_z'],
+	confounds_dictionary['trans_x_derivative1'], confounds_dictionary['trans_y_derivative1'],
+	confounds_dictionary['trans_z_derivative1'], confounds_dictionary['rot_x_derivative1'],
+	confounds_dictionary['rot_y_derivative1'], confounds_dictionary['rot_z_derivative1'],
+	confounds_dictionary['trans_x_power2'], confounds_dictionary['trans_y_power2'], confounds_dictionary['trans_z_power2'],
+	confounds_dictionary['rot_x_power2'], confounds_dictionary['rot_y_power2'], confounds_dictionary['rot_z_power2'],
+	confounds_dictionary['trans_x_derivative1_power2'], confounds_dictionary['trans_y_derivative1_power2'],
+	confounds_dictionary['trans_z_derivative1_power2'], confounds_dictionary['rot_x_derivative1_power2'],
+	confounds_dictionary['rot_y_derivative1_power2'], confounds_dictionary['rot_z_derivative1_power2']))
 
-		#white matter, and csf
-		confounds_dictionary['wmcsf'] = np.vstack((confounds_dictionary['white_matter'], confounds_dictionary['csf']))
+	#white matter, and csf
+	confounds_dictionary['wmcsf'] = np.vstack((confounds_dictionary['white_matter'], confounds_dictionary['csf']))
 
-		#white matter, csf, and their temporal derivatives
-		confounds_dictionary['wmcsf_derivs'] = np.vstack((confounds_dictionary['white_matter'], confounds_dictionary['csf'],
-		confounds_dictionary['white_matter_derivative1'], confounds_dictionary['csf_derivative1']))
+	#white matter, csf, and their temporal derivatives
+	confounds_dictionary['wmcsf_derivs'] = np.vstack((confounds_dictionary['white_matter'], confounds_dictionary['csf'],
+	confounds_dictionary['white_matter_derivative1'], confounds_dictionary['csf_derivative1']))
 
-		#White matter, csf, and global signal
-		confounds_dictionary['wmcsfgsr'] = np.vstack((confounds_dictionary['white_matter'], confounds_dictionary['csf'], confounds_dictionary['global_signal']))
+	#White matter, csf, and global signal
+	confounds_dictionary['wmcsfgsr'] = np.vstack((confounds_dictionary['white_matter'], confounds_dictionary['csf'], confounds_dictionary['global_signal']))
 
-		#White matter, csf, and global signal plus their temporal derivatives
-		confounds_dictionary['wmcsfgsr_derivs'] = np.vstack((confounds_dictionary['white_matter'], confounds_dictionary['csf'], confounds_dictionary['global_signal'],
-		confounds_dictionary['white_matter_derivative1'], confounds_dictionary['csf_derivative1'],
-		confounds_dictionary['global_signal_derivative1']))
+	#White matter, csf, and global signal plus their temporal derivatives
+	confounds_dictionary['wmcsfgsr_derivs'] = np.vstack((confounds_dictionary['white_matter'], confounds_dictionary['csf'], confounds_dictionary['global_signal'],
+	confounds_dictionary['white_matter_derivative1'], confounds_dictionary['csf_derivative1'],
+	confounds_dictionary['global_signal_derivative1']))
 
-		#The first five anatomical comp cor components
-		confounds_dictionary['five_acompcors'] = np.vstack((confounds_dictionary['a_comp_cor_00'], confounds_dictionary['a_comp_cor_01'],
-		confounds_dictionary['a_comp_cor_02'], confounds_dictionary['a_comp_cor_03'],
-		confounds_dictionary['a_comp_cor_04']))
+	#The first five anatomical comp cor components
+	confounds_dictionary['five_acompcors'] = np.vstack((confounds_dictionary['a_comp_cor_00'], confounds_dictionary['a_comp_cor_01'],
+	confounds_dictionary['a_comp_cor_02'], confounds_dictionary['a_comp_cor_03'],
+	confounds_dictionary['a_comp_cor_04']))
 
 
 	if aroma_used:
