@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 import glob
-import nibabel
+import nibabel as nib
 from discovery_imaging_utils import imaging_utils
 from discovery_imaging_utils import nifti_utils
 from discovery_imaging_utils import gifti_utils
