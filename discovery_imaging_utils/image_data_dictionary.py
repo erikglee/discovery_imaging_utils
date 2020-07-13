@@ -401,12 +401,12 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 		if data.shape[1] > 1:
 
 			image_data_dict['data_means'] = np.mean(data,axis=1)
-			data = data/image_data_dict['data_means']*10000
+			data = data/image_data_dict['data_means'][:,np.newaxis]*10000
 
 
-			image_data_dict['data'] = data
+	image_data_dict['data'] = data
 
-			return image_data_dict
+	return image_data_dict
 
 
 def _parcellate_gifti(func_data, parcellation_path, demean_before_averaging = True):
