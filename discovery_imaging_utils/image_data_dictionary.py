@@ -96,38 +96,38 @@ def generate_file_paths(lh_gii_data_path=None,
 			raise NameError('Error: At minimum must specify lh_gii_data_path or nifti_data_path')
 
 
-			path_dictionary = {}
-			prefix = ''
+	path_dictionary = {}
+	prefix = ''
 
-			#Gifti related paths
-			if type(lh_gii_data_path) != type(None):
+	#Gifti related paths
+	if type(lh_gii_data_path) != type(None):
 
-				path_dictionary['lh_data_path'] = lh_gii_data_path
+		path_dictionary['lh_data_path'] = lh_gii_data_path
 
-				#For new fMRIPREP naming convention
-				if 'hemi-L' in lh_gii_data_path:
-					path_dictionary['rh_data_path'] = lh_gii_data_path.replace('hemi-L', 'hemi-R')
+		#For new fMRIPREP naming convention
+		if 'hemi-L' in lh_gii_data_path:
+			path_dictionary['rh_data_path'] = lh_gii_data_path.replace('hemi-L', 'hemi-R')
 
-					#For old fMRIPREP naming convention
-				else:
-					path_dictionary['rh_data_path'] = lh_gii_data_path.replace('L.func.gii','R.func.gii')
+			#For old fMRIPREP naming convention
+		else:
+			path_dictionary['rh_data_path'] = lh_gii_data_path.replace('L.func.gii','R.func.gii')
 
-					#For finding aroma/nuisance files
-					prefix = lh_gii_data_path[0:lh_gii_data_path.find('_space')]
+			#For finding aroma/nuisance files
+			prefix = lh_gii_data_path[0:lh_gii_data_path.find('_space')]
 
 
-			#MAYBE SHOULDN'T RELY ON NAME STARTING WITH lh....???
-			#Paths for potential surface inclusion masks
-			if type(lh_inclusion_mask_path) != type(None):
+	#MAYBE SHOULDN'T RELY ON NAME STARTING WITH lh....???
+	#Paths for potential surface inclusion masks
+	if type(lh_inclusion_mask_path) != type(None):
 
-				path_dictionary['lh_inclusion_mask_path'] = lh_inclusion_mask_path
-				path_dictionary['rh_inclusion_mask_path'] = 'rh' + lh_inclusion_mask_path[2:]
+		path_dictionary['lh_inclusion_mask_path'] = lh_inclusion_mask_path
+		path_dictionary['rh_inclusion_mask_path'] = 'rh' + lh_inclusion_mask_path[2:]
 
-				#Paths for potential surface inclusion masks
-				if type(lh_parcellation_path) != type(None):
+		#Paths for potential surface inclusion masks
+		if type(lh_parcellation_path) != type(None):
 
-					path_dictionary['lh_parcellation_path'] = lh_parcellation_path
-					path_dictionary['rh_parcellation_path'] = 'rh' + lh_parcellation_path[2:]
+			path_dictionary['lh_parcellation_path'] = lh_parcellation_path
+			path_dictionary['rh_parcellation_path'] = 'rh' + lh_parcellation_path[2:]
 
 
 
