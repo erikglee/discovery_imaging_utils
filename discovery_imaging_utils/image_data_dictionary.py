@@ -141,16 +141,16 @@ def generate_file_paths(lh_gii_data_path=None,
 		if prefix != '':
 			if nifti_prefix != prefix:
 				raise NameError('Error: It doesnt look like the nifti and gifti timeseries point to the same run')
-			else:
-				prefix = nifti_prefix
+		else:
+			prefix = nifti_prefix
 
-			if type(nifti_inclusion_mask_path) != type(None):
+		if type(nifti_inclusion_mask_path) != type(None):
 
-				path_dictionary['nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
+			path_dictionary['nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
 
-			if type(nifti_parcellation_path) != type(None):
+		if type(nifti_parcellation_path) != type(None):
 
-				path_dictionary['nifti_parcellation_path'] = nifti_parcellation_path
+			path_dictionary['nifti_parcellation_path'] = nifti_parcellation_path
 
 	#Aroma related paths
 	if aroma_included:
