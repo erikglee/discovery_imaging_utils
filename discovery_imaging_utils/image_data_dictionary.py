@@ -113,7 +113,7 @@ def generate_file_paths(lh_gii_data_path=None,
 			path_dictionary['rh_data_path'] = lh_gii_data_path.replace('L.func.gii','R.func.gii')
 
 			#For finding aroma/nuisance files
-			prefix = lh_gii_data_path[0:lh_gii_data_path.find('_space')]
+		prefix = lh_gii_data_path[0:lh_gii_data_path.find('_space')]
 
 
 	#MAYBE SHOULDN'T RELY ON NAME STARTING WITH lh....???
