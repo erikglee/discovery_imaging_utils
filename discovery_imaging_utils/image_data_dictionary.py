@@ -655,7 +655,7 @@ def _populate_general_info_dict(confounds_dict, file_path_dict, TR):
 		temp_path = file_path_dict['nifti_data_path'].split('/')[-1]
 		split_end_path = temp_path.split('_')
 
-		general_info_dict['subject'] = split_end_path[0]
+	general_info_dict['subject'] = split_end_path[0]
 
 	if split_end_path[1][0:3] == 'ses':
 		general_info_dict['session'] = split_end_path[1]
