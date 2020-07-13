@@ -102,15 +102,15 @@ def generate_file_paths(lh_gii_data_path=None,
 	#Gifti related paths
 	if type(lh_gii_data_path) != type(None):
 
-		path_dictionary['lh_data_path'] = lh_gii_data_path
+		path_dictionary['lh_gii_data_path'] = lh_gii_data_path
 
 		#For new fMRIPREP naming convention
 		if 'hemi-L' in lh_gii_data_path:
-			path_dictionary['rh_data_path'] = lh_gii_data_path.replace('hemi-L', 'hemi-R')
+			path_dictionary['lh_gii_data_path'] = lh_gii_data_path.replace('hemi-L', 'hemi-R')
 
 			#For old fMRIPREP naming convention
 		else:
-			path_dictionary['rh_data_path'] = lh_gii_data_path.replace('L.func.gii','R.func.gii')
+			path_dictionary['lh_gii_data_path'] = lh_gii_data_path.replace('L.func.gii','R.func.gii')
 
 			#For finding aroma/nuisance files
 		prefix = lh_gii_data_path[0:lh_gii_data_path.find('_space')]
@@ -645,9 +645,9 @@ def _populate_general_info_dict(confounds_dict, file_path_dict, TR):
 	general_info_dict['TR'] = TR
 
 	#Find session/subject names
-	if 'lh_data_path' in file_path_dict.keys():
+	if 'lh_gii_data_path' in file_path_dict.keys():
 
-		temp_path = file_path_dict['lh_data_path'].split('/')[-1]
+		temp_path = file_path_dict['lh_gii_data_path'].split('/')[-1]
 		split_end_path = temp_path.split('_')
 
 	else:
