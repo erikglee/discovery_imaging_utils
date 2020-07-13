@@ -300,20 +300,20 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 			rh_gifti_ids = rh_inclusion_inds
 
 
-			if 'lh_parcellation_path' in file_path_dictionary.keys():
+		if 'lh_parcellation_path' in file_path_dictionary.keys():
 
-				has_gifti_parcellation = True
-				#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
-				lh_data, lh_labels, lh_parcels_dict = _parcellate_gifti(lh_data, file_path_dictionary['lh_parcellation_path'])
-				rh_data, rh_labels, rh_parcels_dict = _parcellate_gifti(rh_data, file_path_dictionary['rh_parcellation_path'])
-				metadata_dict['lh_gifti_parcellation_path'] = file_path_dictionary['lh_gii_parcellation_path']
-				metadata_dict['rh_gifti_parcellation_path'] = file_path_dictionary['rh_gii_parcellation_path']
+			has_gifti_parcellation = True
+			#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
+			lh_data, lh_labels, lh_parcels_dict = _parcellate_gifti(lh_data, file_path_dictionary['lh_parcellation_path'])
+			rh_data, rh_labels, rh_parcels_dict = _parcellate_gifti(rh_data, file_path_dictionary['rh_parcellation_path'])
+			metadata_dict['lh_gifti_parcellation_path'] = file_path_dictionary['lh_gii_parcellation_path']
+			metadata_dict['rh_gifti_parcellation_path'] = file_path_dictionary['rh_gii_parcellation_path']
 
-				lh_gifti_ids = lh_labels
-				rh_gifti_ids = rh_labels
+			lh_gifti_ids = lh_labels
+			rh_gifti_ids = rh_labels
 
-				image_data_dict['lh_parcels_dict'] = lh_parcels_dict
-				image_data_dict['rh_parcels_dict'] = rh_parcels_dict
+			image_data_dict['lh_parcels_dict'] = lh_parcels_dict
+			image_data_dict['rh_parcels_dict'] = rh_parcels_dict
 
 
 	#If there is nifti data
