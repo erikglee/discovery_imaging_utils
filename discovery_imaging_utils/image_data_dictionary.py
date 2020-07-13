@@ -121,13 +121,13 @@ def generate_file_paths(lh_gii_data_path=None,
 	if type(lh_inclusion_mask_path) != type(None):
 
 		path_dictionary['lh_inclusion_mask_path'] = lh_inclusion_mask_path
-		path_dictionary['rh_inclusion_mask_path'] = 'rh' + lh_inclusion_mask_path[2:]
+		path_dictionary['rh_inclusion_mask_path'] = '/'.join(lh_inclusion_mask_path.split('/')[0:-1]) + '/rh' + lh_inclusion_mask_path.split('/')[-1][2:]
 
 	#Paths for potential surface inclusion masks
 	if type(lh_parcellation_path) != type(None):
 
 		path_dictionary['lh_parcellation_path'] = lh_parcellation_path
-		path_dictionary['rh_parcellation_path'] = 'rh' + lh_parcellation_path[2:]
+		path_dictionary['rh_parcellation_path'] = '/'.join(lh_parcellation_path.split('/')[0:-1]) + '/rh' + lh_parcellation_path.split('/')[-1][2:]
 
 
 
