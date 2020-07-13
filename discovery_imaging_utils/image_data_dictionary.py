@@ -329,11 +329,14 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 		image_data_dict['nifti_affine'] = nifti_img.affine
 		image_data_dict['nifti_shape'] = nifti_data.shape
 
+		print(1)
+
 		if 'nifti_inclusion_mask_path' in file_path_dictionary.keys():
 
 			nifti_data, nifti_inclusions_inds = _incorporate_nifti_inclusion_mask(nifti_data, file_path_dictionary['nifti_inclusion_mask'])
 			metadata_dict['nifti_inclusion_mask_path'] = file_path_dictionary['nifti_inclusion_mask']
 			nifti_ids = nifti_inclusion_inds
+			print(2)
 
 		if 'nifti_parcellation_path' in file_path_dictionary.keys():
 
@@ -343,6 +346,7 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 			nifti_ids = nifti_labels
 
 			image_data_dict['nifti_parcels_dict'] = nifti_parcels_dict
+			print(3)
 
 		#If the data hasn't already been brought down to 2d, then do that now
 		if nifti_data.ndim > 2:
@@ -361,6 +365,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 			else:
 
 				nifti_data = np.reshape(nifti_data, (nifti_data.shape[0]*nifti_data.shape[1]*nifti_data.shape[2], depth))
+
+		print(4)
 
 
 	data = None
@@ -383,6 +389,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 		image_data_dict['lh_ids'] = lh_gifti_ids
 		image_data_dict['rh_ids'] = rh_gifti_ids
 
+	print(5)
+
 
 	#Add nifti data
 	if type(nifti_data) != type(None):
@@ -396,6 +404,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 			image_data_dict['nifti_data_inds'] = nifti_data_inds
 			image_data_dict['nifti_ids'] = nifti_ids
 
+	print(6)
+
 	#Normaize data if necessary
 	if normalize == True:
 		if data.shape[1] > 1:
@@ -403,8 +413,10 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 			image_data_dict['data_means'] = np.mean(data,axis=1)
 			data = data/image_data_dict['data_means'][:,np.newaxis]*10000
 
+	print(7)
 
 	image_data_dict['data'] = data
+
 
 	return image_data_dict
 
@@ -544,6 +556,8 @@ def _parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before
 	unique_mask_vals.sort()
 	unique_mask_vals = unique_mask_vals[1:]
 
+	print('a')
+
 	#extract data from nifti to be parcellated
 	input_ts_matrix = nifti_data_to_parcellate
 
@@ -557,6 +571,8 @@ def _parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before
 	parcellated_nifti_data = np.zeros((unique_mask_vals.shape[0], depth))
 	parc_mean_signal_intensities = np.zeros(unique_mask_vals.shape[0])
 	parcel_dictionary = {}
+
+	print('b')
 
 	for i in range(len(unique_mask_vals)):
 
@@ -589,6 +605,8 @@ def _parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before
 
 
 	unique_mask_vals = unique_mask_vals.tolist()
+
+	print('c')
 
 
 	return parcellated_nifti_data, unique_mask_vals, parcel_dictionary
