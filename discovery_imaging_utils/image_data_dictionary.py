@@ -15,7 +15,7 @@ import json
 #(4) then use save/load functions to store in directory structure
 
 
-def generate_file_paths(lh_gii_path=None,
+def generate_file_paths(lh_gii_data_path=None,
 						lh_inclusion_mask_path=None,
 						lh_parcellation_path=None,
 						nifti_path=None,
