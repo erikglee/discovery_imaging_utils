@@ -30,9 +30,6 @@ def arr2nifti(array, affine, output_path):
     return
 
 
-array_img = nib.Nifti1Image(nifti_obj.get_fdata(), nifti_obj.affine)
-nib.save(array_img, 'testing_nifti.nii')
-
 def convert_spherical_roi_coords_to_nifti(template_nifti_path, spherical_coords, radius, output_nifti_path, spherical_labels=None):
     """
     #Template_nifti_path should point to a nifti with the desired
