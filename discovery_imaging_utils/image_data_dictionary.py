@@ -378,8 +378,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 	rh_data_inds = None #for nifti later
 	if type(lh_data) != type(None):
 		data = np.vstack((lh_data, rh_data))
-		image_data_dict['lh_data_inds'] = np.arange(0, lh_gifti_ids.shape[0], 1, dtype=int)
-		image_data_dict['rh_data_inds'] = np.arange(lh_gifti_ids.shape[0], lh_gifti_ids.shape[0] + rh_gifti_ids.shape[0], 1, dtype=int)
+		image_data_dict['lh_data_inds'] = np.arange(0, len(lh_gifti_ids), 1, dtype=int)
+		image_data_dict['rh_data_inds'] = np.arange(len(lh_gifti_ids), len(lh_gifti_ids) + len(rh_gifti_ids), 1, dtype=int)
 		image_data_dict['lh_ids'] = lh_gifti_ids
 		image_data_dict['rh_ids'] = rh_gifti_ids
 
