@@ -181,7 +181,7 @@ def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_
 	for i in range(len(unique_mask_vals)):
 
 		inds = np.where(input_mask_matrix == unique_mask_vals[i])
-		parcel_dictionary[unique_mask_vals[i]] = inds
+		parcel_dictionary['nii_' + str(unique_mask_vals[i])] = inds
 		temp_timeseries = input_ts_matrix[inds]
 
 		if depth > 1:
