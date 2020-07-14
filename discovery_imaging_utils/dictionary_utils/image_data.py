@@ -380,7 +380,7 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 		else:
 
 			if nifti_partial_data.shape[1] == 1:
-				nifti_data[image_data_dict['nifti_ids']] = nifti_partial_data[:,None]
+				nifti_data[image_data_dict['nifti_ids']] = np.squeeze(nifti_partial_data)
 			else:
 				nifti_data[image_data_dict['nifti_ids']] = nifti_partial_data
 
