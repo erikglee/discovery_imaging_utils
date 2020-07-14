@@ -1,3 +1,3 @@
-from dictionary_utils import fmriprep
-from dictionary_utils import general
-from dictionary_utils import image_data
+from discovery_imaging_utils.dictionary_utils import fmriprep
+from discovery_imaging_utils.dictionary_utils import general
+from discovery_imaging_utils.dictionary_utils import image_data
