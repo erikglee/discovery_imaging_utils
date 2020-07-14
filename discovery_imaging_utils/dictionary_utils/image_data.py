@@ -379,7 +379,10 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 
 		else:
 
-			nifti_data[image_data_dict['nifti_ids']] = nifti_partial_data
+			if nifti_partial_data.shape[1] == 1:
+				nifti_data[image_data_dict['nifti_ids']] = nifti_partial_data[:,None]
+			else:
+				nifti_data[image_data_dict['nifti_ids']] = nifti_partial_data
 
 		nifti_path = os.path.join(output_folder, 'data.nii.gz')
 		nifti_utils.arr2nifti(nifti_data, image_data_dict['nifti_affine'], nifti_path)
