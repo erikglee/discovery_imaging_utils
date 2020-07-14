@@ -891,7 +891,7 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 			nifti_data[image_data_dict['nifti_ids']] = nifti_partial_data
 
 		print('hello2')
-		nifti_path = os.path.join(output_folder, 'data.nii')
+		nifti_path = os.path.join(output_folder, 'data.nii.gz')
 		nifti_utils.arr2nifti(nifti_data, image_data_dict['nifti_affine'], nifti_path)
 
 	return
