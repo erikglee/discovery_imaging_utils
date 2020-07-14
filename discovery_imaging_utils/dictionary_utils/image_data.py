@@ -243,7 +243,7 @@ def populate(lh_gii_data_path=None,
 			data = nifti_data
 
 		image_data_dict['nifti_data_inds'] = nifti_data_inds
-		image_data_dict['nifti_ids'] = nifti_ids
+		image_data_dict['nifti_ids'] = ['nii_' + str(temp_label) for temp_label in nifti_data_inds]
 
 	print(6)
 
