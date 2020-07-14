@@ -39,5 +39,6 @@ def arr2gifti(array, output_path, hemi = ''):
 
     img = nib.gifti.gifti.GiftiImage(darrays=darrays)
     nib.save(img, output_path)
+    print(output_path)
 
     return

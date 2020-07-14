@@ -66,6 +66,11 @@ def convert_spherical_roi_coords_to_nifti(template_nifti_path, spherical_coords,
     img = nib.nifti1Image(mask_vol, affine, header = template_header)
     nib.save(img, output_nifti_path)
 
+    print(output_nifti_path)
+
+
+    return
+
 
 
 
