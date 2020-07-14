@@ -407,8 +407,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 			data = nifti_data
 			nifti_data_inds = np.arange(0, nifti_data.shape[0], 1, dtype=int)
 
-			image_data_dict['nifti_data_inds'] = nifti_data_inds
-			image_data_dict['nifti_ids'] = nifti_ids
+		image_data_dict['nifti_data_inds'] = nifti_data_inds
+		image_data_dict['nifti_ids'] = nifti_ids
 
 	print(6)
 
