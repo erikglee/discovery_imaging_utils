@@ -189,7 +189,7 @@ def populate(lh_gii_data_path=None,
 			if nifti_data.ndim == 3:
 				depth = 1
 			else:
-				depth = nifti_data.shape[4]
+				depth = nifti_data.shape[3]
 
 
 			if type(nifti_inclusion_inds) != type(None):
