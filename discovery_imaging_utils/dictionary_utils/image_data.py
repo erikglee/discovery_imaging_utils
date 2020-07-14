@@ -78,6 +78,7 @@ def populate(lh_gii_data_path=None,
 	metadata_dict['filepaths_dict'] = file_path_dictionary
 
 	lh_data = None
+	rh_data = None
 	nifti_data = None
 
 	has_lh_gifti = False
