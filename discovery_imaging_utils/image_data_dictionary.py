@@ -339,8 +339,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 
 		if 'nifti_inclusion_mask_path' in file_path_dictionary.keys():
 
-			nifti_data, nifti_inclusions_inds = _incorporate_nifti_inclusion_mask(nifti_data, file_path_dictionary['nifti_inclusion_mask'])
-			metadata_dict['nifti_inclusion_mask_path'] = file_path_dictionary['nifti_inclusion_mask']
+			nifti_data, nifti_inclusions_inds = _incorporate_nifti_inclusion_mask(nifti_data, file_path_dictionary['nifti_inclusion_mask_path'])
+			metadata_dict['nifti_inclusion_mask_path'] = file_path_dictionary['nifti_inclusion_mask_path']
 			nifti_ids = nifti_inclusion_inds
 			print(2)
 
