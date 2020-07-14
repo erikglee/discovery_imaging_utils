@@ -822,10 +822,6 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 
 			raise NameError('Error: folder already exists')
 
-		else:
-
-			continue
-
 	else:
 
 		os.mkdir(output_folder)
