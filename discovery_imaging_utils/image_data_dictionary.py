@@ -824,7 +824,7 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 
 		else:
 
-			os.mkdir(output_folder)
+			continue
 
 	else:
 
