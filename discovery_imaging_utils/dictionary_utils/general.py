@@ -105,6 +105,7 @@ def save_dictionary(dictionary, path_for_dictionary_dir, overwrite = False):
 
                 else:
 
+                    print(temp_key)
                     np.save(os.path.join(path_for_dictionary_dir, temp_key), dictionary[temp_key])
 
 
