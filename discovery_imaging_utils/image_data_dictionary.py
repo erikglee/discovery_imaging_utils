@@ -396,7 +396,7 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 	if type(nifti_data) != type(None):
 		if type(data) != type(None):
 			data = np.vstack((data, nifti_data))
-			nifti_data_inds = np.arange(rh_data_inds[-1], rh_data_inds[-1] + nifti_data.shape[0], 1, dtype=int)
+			nifti_data_inds = np.arange(len(lh_gifti_ids) + len(rh_gifti_ids), len(lh_gifti_ids) + len(rh_gifti_ids) + nifti_data.shape[0], 1, dtype=int)
 		else:
 			data = nifti_data
 			nifti_data_inds = np.arange(0, nifti_data.shape[0], 1, dtype=int)
