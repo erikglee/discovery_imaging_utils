@@ -845,12 +845,12 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 
 			print(2.0)
 			i = 0
-			for parcel, inds in image_data_dict['lh_parcels_dict'].iteritems():
+			for parcel, inds in image_data_dict['lh_parcels_dict'].items():
 				lh_gifti_data[inds] = lh_data[i]
 				i += 1
 
 			i = 0
-			for parcel, inds in image_data_dict['rh_parcels_dict'].iteritems():
+			for parcel, inds in image_data_dict['rh_parcels_dict'].items():
 				rh_gifti_data[inds] = rh_data[i]
 				i += 1
 

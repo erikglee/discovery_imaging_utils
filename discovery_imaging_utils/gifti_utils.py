@@ -28,7 +28,7 @@ def arr2gifti(array, output_path, hemi = ''):
         darrays.append(temp_darray)
     else:
         for i in range(array.shape[1]):
-            temp_darray = nib.gifti.gifti.GiftiDataArray(data=array.astype(np.float32))
+            temp_darray = nib.gifti.gifti.GiftiDataArray(data=array[:,i].astype(np.float32))
             darrays.append(temp_darray)
             print(i)
 
