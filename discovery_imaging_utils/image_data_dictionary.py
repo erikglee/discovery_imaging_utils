@@ -883,7 +883,7 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 		if 'nifti_parcels_dict' in image_data_dict.keys():
 
 			i = 0
-			for parcel, inds in image_data_dict['nifti_parcels_dict'].iteritems():
+			for parcel, inds in image_data_dict['nifti_parcels_dict'].items():
 				nifti_data[inds] = nifti_partial_data[i]
 				i += 1
 
