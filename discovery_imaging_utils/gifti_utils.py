@@ -30,6 +30,7 @@ def arr2gifti(array, output_path, hemi = ''):
         for i in range(array.shape[1]):
             temp_darray = nib.gifti.gifti.GiftiDataArray(data=array.astype(np.float32))
             darrays.append(temp_darray)
+            print(i)
 
     #How to upgrade to have anat built in:
     #saved_from_wb._meta.data[0].__dict__
