@@ -286,6 +286,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 		lh_gifti_ids = np.arange(0, lh_data.shape[0], 1, dtype=int)
 		rh_gifti_ids = np.arange(0, rh_data.shape[0], 1, dtype=int)
 
+		print('a')
+
 		#If inclusion mask is specified, set zero values in inclusion
 		#mask to NaN.. the _parcellate_gifti function knows how to handle this
 		if 'lh_inclusion_mask_path' in file_path_dictionary.keys():
@@ -298,6 +300,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 
 			lh_gifti_ids = lh_inclusion_inds
 			rh_gifti_ids = rh_inclusion_inds
+
+			print('b')
 
 
 		if 'lh_parcellation_path' in file_path_dictionary.keys():
@@ -314,6 +318,8 @@ def populate_image_data_dictionary(file_path_dictionary, normalize = False):
 
 			image_data_dict['lh_parcels_dict'] = lh_parcels_dict
 			image_data_dict['rh_parcels_dict'] = rh_parcels_dict
+
+			print('c')
 
 
 	#If there is nifti data
