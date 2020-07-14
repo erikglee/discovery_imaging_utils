@@ -123,3 +123,104 @@ def nifti_rois_to_time_signals(input_timeseries_nii_path, input_mask_nii_path, d
         parc_mean_median_signal_intensities[i] = np.nanmean(voxel_medians)
 
     return nifti_time_series, unique_mask_vals, parc_mean_median_signal_intensities
+
+
+def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_averaging = True):
+
+	"""
+
+	Parameters
+	----------
+
+	loaded_nifti_to_parcellate : numpy.ndarray
+	3d or 4d ndarray with data to parcellate
+	parcellation_path : str
+	path to the 3d parcellation nifti to use
+	demean_before_averaging : bool, optional
+	whether or not to demean voxels before averaging
+
+	#Function that takes a 4d nifti file with path input_timeseries_nii_path,
+	#and a 3d mask registered to the 4d timeseries (input_mask_nii_path) who has,
+	#different values which specify different regions, and returns average time
+	#signals for the different regions. By default, each voxel in a given ROI will be
+	#divided by its median prior to averaging. The mean of all voxel medians will be
+	#provided as output. To turn off this normalization, set demedian_before_averaging
+	#to False.
+	#
+	#Output nifti_time_series - size n_regions, n_timepoints
+	#unique_mask_vals - size n_regions (specifying the ID for each mask)
+	#parc_mean_median_signal_intensities - size n_regions
+	"""
+
+	#Load the parcellation nifti and find the
+	#ids for the different parcels
+	input_mask_nii = nib.load(parcellation_path)
+	input_mask_matrix = input_mask_nii.get_fdata()
+	unique_mask_vals = np.unique(input_mask_matrix)
+	unique_mask_vals.sort()
+	unique_mask_vals = unique_mask_vals[1:]
+
+	print('a')
+
+	#extract data from nifti to be parcellated
+	input_ts_matrix = nifti_data_to_parcellate
+
+
+	#Create array to store parcellated output
+	if input_ts_matrix.ndim == 4:
+		depth = input_ts_matrix.shape[3]
+	else:
+		depth = 1
+
+	parcellated_nifti_data = np.zeros((unique_mask_vals.shape[0], depth))
+	parc_mean_signal_intensities = np.zeros(unique_mask_vals.shape[0])
+	parcel_dictionary = {}
+
+	print('b')
+
+	for i in range(len(unique_mask_vals)):
+
+		inds = np.where(input_mask_matrix == unique_mask_vals[i])
+		parcel_dictionary[unique_mask_vals[i]] = inds
+		temp_timeseries = input_ts_matrix[inds]
+
+		if depth > 1:
+			voxel_means = np.nanmean(temp_timeseries, axis=1)
+		else:
+			voxel_means = temp_timeseries
+
+		voxel_means[np.where(np.abs(voxel_means) < 0.000001)] = np.nan
+		parcel_mean = np.nanmean(voxel_means)
+
+		if demean_before_averaging:
+
+			if depth > 1:
+				temp_timeseries = temp_timeseries/voxel_means[:,None]
+				parcellated_nifti_data[i,:] = np.nanmean(temp_timeseries, axis=0)*parcel_mean
+			else:
+				parcellated_nifti_data[i,:] = np.nanmean(temp_timeseries)
+
+		else:
+
+			if depth > 1:
+				parcellated_nifti_data[i,:] = np.nanmean(temp_timeseries, axis=0)
+			else:
+				parcellated_nifti_data[i,:] = np.nanmean(temp_timeseries)
+
+
+	unique_mask_vals = unique_mask_vals.tolist()
+
+	print('c')
+
+
+	return parcellated_nifti_data, unique_mask_vals, parcel_dictionary
+
+def incorporate_nifti_inclusion_mask(func_data, inclusion_mask_path, cutoff = 0.5):
+
+	inclusion_mask_data = nib.load(inclusion_mask_path).get_fdata()
+	inds_to_include = np.where(inclusion_mask_data > cutoff)
+	inds_to_exclude = np.where(inclusion_mask_data <= cutoff)
+
+	func_data[inds_to_exclude] = np.nan
+
+	return func_data, inds_to_include
