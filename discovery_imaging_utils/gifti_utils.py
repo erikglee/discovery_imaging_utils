@@ -1,5 +1,6 @@
 import numpy as np
 import nibabel as nib
+from nibabel import load as nib_load
 
 def load_gifti_func(path_to_file):
     """
