@@ -826,6 +826,10 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 
 			os.mkdir(output_folder)
 
+	else:
+
+		os.mkdir(output_folder)
+
 
 	if 'lh_data_inds' in image_data_dict.keys():
 
