@@ -157,7 +157,11 @@ def populate(lh_gii_data_path=None,
 		has_nifti = True
 		nifti_img = nib.load(file_path_dictionary['nifti_data_path'])
 		nifti_data = nifti_img.get_fdata()
-		nifti_ids = np.where(nifti_data != None)
+		if nifti_data.ndim > 3:
+			nifti_3d = np.squeeze(nifti_data[:,:,:,0])
+			nifti_ids = np.where(nifti_data != None)
+		else:
+			nifti_ids = np.where(nifti_data != None)
 		nifti_inclusion_inds = None
 
 		image_data_dict['nifti_affine'] = nifti_img.affine
