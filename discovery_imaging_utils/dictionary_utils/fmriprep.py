@@ -162,7 +162,7 @@ def generate_file_paths(lh_gii_data_path=None,
 
 
 
-def populate_dict_for_denoising(file_path_dictionary, TR, normalize = True):
+def populate(file_path_dictionary, TR, normalize = True):
 	"""Function to populate a dictionary with data to use in denoising
 
 	Parameters
@@ -225,7 +225,7 @@ def populate_dict_for_denoising(file_path_dictionary, TR, normalize = True):
 		nifti_parcellation_path = None
 
 
-	dict_for_denoising['image_data_dictionary'] = image_data.populate_image_data_dictionary(lh_gii_data_path=lh_gii_data_path,
+	dict_for_denoising['image_data_dictionary'] = image_data.populate(lh_gii_data_path=lh_gii_data_path,
 										lh_inclusion_mask_path=lh_inclusion_mask_path,
 										lh_parcellation_path=lh_parcellation_path,
 										rh_gii_data_path=rh_gii_data_path,
