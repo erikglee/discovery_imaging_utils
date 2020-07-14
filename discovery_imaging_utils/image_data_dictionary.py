@@ -841,6 +841,7 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 		#are now ordered in python....)
 		if 'lh_parcels_dict' in image_data_dict.keys():
 
+			print(2.0)
 			i = 0
 			for parcel, inds in image_data_dict['lh_parcels_dict'].iteritems():
 				lh_gifti_data[inds] = lh_data[i]
@@ -851,20 +852,21 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 				rh_gifti_data[inds] = rh_data[i]
 				i += 1
 
-			print(2)
+			print(2.1)
 
 		else:
 
+			print(3.0)
 			lh_gifti_data[image_data_dict['lh_ids']] = lh_data
 			rh_gifti_data[image_data_dict['rh_ids']] = rh_data
 
-
+			print(3.1)
 			lh_gifti_path = os.path.join(output_folder, 'lh.data.func.gii')
 			rh_gifti_path = os.path.join(output_folder, 'rh.data.func.gii')
 			gifti_utils.arr2gifti(lh_gifti_data, lh_gifti_path)
 			gifti_utils.arr2gifti(rh_gifti_data, rh_gifti_path)
 
-			print(3)
+			print(3.2)
 
 	if 'nifti_data_inds' in image_data_dict.keys():
 
