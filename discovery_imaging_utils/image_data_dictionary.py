@@ -840,25 +840,25 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 		if 'lh_parcels_dict' in image_data_dict.keys():
 
 			i = 0
-			for parcel, inds in image_data_dict['lh_parcels_dict']:
+			for parcel, inds in image_data_dict['lh_parcels_dict'].iteritems():
 				lh_gifti_data[inds] = lh_data[i]
 				i += 1
 
-				i = 0
-				for parcel, inds in image_data_dict['rh_parcels_dict']:
-					rh_gifti_data[inds] = rh_data[i]
-					i += 1
+			i = 0
+			for parcel, inds in image_data_dict['rh_parcels_dict'].iteritems():
+				rh_gifti_data[inds] = rh_data[i]
+				i += 1
 
-				else:
+		else:
 
-					lh_gifti_data[image_data_dict['lh_ids']] = lh_data
-					rh_gifti_data[image_data_dict['rh_ids']] = rh_data
+			lh_gifti_data[image_data_dict['lh_ids']] = lh_data
+			rh_gifti_data[image_data_dict['rh_ids']] = rh_data
 
 
-					lh_gifti_path = os.path.join(output_folder, 'lh.data.func.gii')
-					rh_gifti_path = os.path.join(output_folder, 'rh.data.func.gii')
-					gifti_utils.arr2gifti(lh_gifti_data, lh_gifti_path)
-					gifti_utils.arr2gifti(rh_gifti_data, rh_gifti_path)
+			lh_gifti_path = os.path.join(output_folder, 'lh.data.func.gii')
+			rh_gifti_path = os.path.join(output_folder, 'rh.data.func.gii')
+			gifti_utils.arr2gifti(lh_gifti_data, lh_gifti_path)
+			gifti_utils.arr2gifti(rh_gifti_data, rh_gifti_path)
 
 	if 'nifti_data_inds' in image_data_dict.keys():
 
@@ -869,7 +869,7 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 		if 'nifti_parcels_dict' in image_data_dict.keys():
 
 			i = 0
-			for parcel, inds in image_data_dict['nifti_parcels_dict']:
+			for parcel, inds in image_data_dict['nifti_parcels_dict'].iteritems():
 				nifti_data[inds] = nifti_partial_data[i]
 				i += 1
 
