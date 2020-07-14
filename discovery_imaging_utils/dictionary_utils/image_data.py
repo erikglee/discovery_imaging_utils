@@ -322,7 +322,6 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 
 		lh_gifti_path = os.path.join(output_folder, 'lh.data.func.gii')
 		gifti_utils.arr2gifti(lh_gifti_data, lh_gifti_path)
-		print(3.2)
 
 
 	#Make RH gifti if necessary
@@ -350,12 +349,8 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 
 	if 'nifti_data_inds' in image_data_dict.keys():
 
-		print(4.0)
-
 		nifti_partial_data = image_data_dict['data'][image_data_dict['nifti_data_inds']]
 		nifti_data = np.zeros(image_data_dict['nifti_shape'])
-
-		print(4.1)
 
 		#Unparcellate the data
 		if 'nifti_parcels_dict' in image_data_dict.keys():
@@ -369,7 +364,6 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 
 			nifti_data[image_data_dict['nifti_ids']] = nifti_partial_data
 
-		print('hello2')
 		nifti_path = os.path.join(output_folder, 'data.nii.gz')
 		nifti_utils.arr2nifti(nifti_data, image_data_dict['nifti_affine'], nifti_path)
 
