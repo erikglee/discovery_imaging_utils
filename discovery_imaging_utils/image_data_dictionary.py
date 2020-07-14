@@ -862,11 +862,9 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 			lh_gifti_data[image_data_dict['lh_ids']] = lh_data
 			rh_gifti_data[image_data_dict['rh_ids']] = rh_data
 
-			print(3.1)
-			lh_gifti_path = os.path.join(output_folder, 'lh.data.func.gii')
-			rh_gifti_path = os.path.join(output_folder, 'rh.data.func.gii')
-
-		print('hello1')
+		print(3.1)
+		lh_gifti_path = os.path.join(output_folder, 'lh.data.func.gii')
+		rh_gifti_path = os.path.join(output_folder, 'rh.data.func.gii')
 		gifti_utils.arr2gifti(lh_gifti_data, lh_gifti_path)
 		gifti_utils.arr2gifti(rh_gifti_data, rh_gifti_path)
 		print(3.2)
