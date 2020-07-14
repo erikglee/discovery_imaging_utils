@@ -866,10 +866,10 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 			lh_gifti_path = os.path.join(output_folder, 'lh.data.func.gii')
 			rh_gifti_path = os.path.join(output_folder, 'rh.data.func.gii')
 
+		print('hello1')
 		gifti_utils.arr2gifti(lh_gifti_data, lh_gifti_path)
 		gifti_utils.arr2gifti(rh_gifti_data, rh_gifti_path)
-
-			print(3.2)
+		print(3.2)
 
 	if 'nifti_data_inds' in image_data_dict.keys():
 
@@ -892,6 +892,7 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 
 			nifti_data[image_data_dict['nifti_ids']] = nifti_partial_data
 
+		print('hello2')
 		nifti_path = os.path.join(output_folder, 'data.nii')
 		nifti_utils.arr2nifti(nifti_data, image_data_dict['nifti_affine'], nifti_path)
 
