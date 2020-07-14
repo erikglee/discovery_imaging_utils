@@ -223,6 +223,7 @@ def populate(lh_gii_data_path=None,
 	if np.unique(num_dimensions).shape[0] != 1:
 		raise NameError('Error: LH, RH, and Nifti data must all have the same length.')
 
+	data = None
 
 	#Add lh gifti data
 	if type(lh_data) != type(None):
