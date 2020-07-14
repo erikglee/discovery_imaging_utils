@@ -208,6 +208,20 @@ def populate(lh_gii_data_path=None,
 	#key, and the ids will alternatively specify what those inds mean in terms
 	#of the lh/rh/nifti or parcellation schemes
 
+	if (has_lh_gifti or has_rh_gifti or has_nifti) == False:
+		raise NameError('Error: Must define path for at least one of the following - lh_gifti_data, rh_gifti_data, nifti_data')
+
+	num_dimensions = []
+	if type(lh_data) != type(None):
+		num_dimensions.append(lh_data.shape[1])
+	if type(rh_data) != type(None):
+		num_dimensions.append(rh_data.shape[1])
+	if type(nifti_data) != type(None):
+		num_dimensions.append(nifti_data.shape[1])
+
+	if np.unique(num_dimensions).shape[0] != 1:
+		raise NameError('Error: LH, RH, and Nifti data must all have the same length.')
+
 
 	#Add lh gifti data
 	if type(lh_data) != type(None):
