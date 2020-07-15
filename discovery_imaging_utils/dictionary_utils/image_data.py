@@ -318,7 +318,7 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 
 	else:
 
-		os.mkdir(output_folder)
+		os.makedirs(output_folder)
 
 
 	#Make LH gifti if necessary

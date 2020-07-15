@@ -3,10 +3,22 @@ import nibabel as nib
 from nibabel import load as nib_load
 
 def load_gifti_func(path_to_file):
-    """
-    #Wrapper function to load functional data from
-    #a gifti file using nibabel. Returns data in shape
-    #<num_verts x num_timepoints>
+    """Function to load gifti data
+
+    Wrapper to nibabel's load function that load's the gifti file and
+    return's its data elements
+
+    Parameters
+    ----------
+
+    path_to_file : str
+        path to gifti file
+
+    Returns
+    -------
+
+    gifti_data : np.ndarray
+        array with gifti data having shape <n_vertices, n_dimensions>
     """
 
     gifti_img = nib_load(path_to_file)
@@ -71,29 +83,29 @@ def parcellate_gifti(func_data, parcellation_path, demean_before_averaging = Tru
 	----------
 
 	func_data : numpy.ndarray
-	data to be parcellated with shape <n_vertices, n_timepoints> or
-	shape <n_vertices>. NaN and values less than 0.000001 will be ignored
+	   data to be parcellated with shape <n_vertices, n_timepoints> or
+	   shape <n_vertices>. NaN and values less than 0.000001 will be ignored
 	parcellation_path : str
-	path to FreeSurfer .annot file containing regions
+	   path to FreeSurfer .annot file containing regions
 	demean_before_averaging : bool, optional
-	whether or not to demean vertices before parcellation so that
-	each vertex is weighted evenly. If used, the mean will be
-	put back into the data at the parcel level
+	   whether or not to demean vertices before parcellation so that
+	   each vertex is weighted evenly. If used, the mean will be
+	   put back into the data at the parcel level
 
 
 	Returns
 	-------
 
 	parcellated_giti_data : numpy.ndarray
-	parcellated data with shape <n_regions, n_features>, where n_regions is
-	the number of parcels from the parcellation (minus medial wall) and
-	n_features is the shape of the second dimension of func_data
+	   parcellated data with shape <n_regions, n_features>, where n_regions is
+	   the number of parcels from the parcellation (minus medial wall) and
+	   n_features is the shape of the second dimension of func_data
 	parcel_labels : list of strings
-	the names for the different parcels
+	   the names for the different parcels
 	parcel_dictionary : dict
-	dictionary whose keys are parcel names and values are zero-indexed
-	indices of vertices belonging to each parcel (in case you want to
-	project parcel data back to the surface later after manipulations)
+	   dictionary whose keys are parcel names and values are zero-indexed
+       indices of vertices belonging to each parcel (in case you want to
+	   project parcel data back to the surface later after manipulations)
 
 
 	"""
@@ -158,13 +170,39 @@ def parcellate_gifti(func_data, parcellation_path, demean_before_averaging = Tru
 	return parcellated_gifti_data, parcel_labels, parcel_dictionary
 
 
-def incorporate_gifti_inclusion_mask(func_data, inclusion_mask_path, cutoff = 0.5):
+def incorporate_gifti_inclusion_mask(data, inclusion_mask_path, cutoff = 0.5):
+    """Function to mask out values based on a mask
+
+    Function that takes loaded data and a path to a gifti mask file, and sets
+    inds corresponding with values less than the cutoff in the mask to be
+    np.nan in the data matrix
+
+    Parameters
+    ----------
+
+    data : np.ndarray
+        shape <n_vertices, n_dimensions> data that inclusion mask should be
+        applied to.
+    inclusion_mask_path : str
+        path to a gifti file with shape <n_vertices>
+    cutoff : float
+        values in the inclusion mask less than this value will be set to np.nan
+        in data
+
+    Returns
+    -------
+
+    data : np.ndarray
+        the initial array with relevant elements set to np.nan
+
+
+    """
 
 	inclusion_mask_data = imaging_utils.load_gifti_func(inclusion_mask_path)
 	inds_to_include = np.where(inclusion_mask_data > cutoff)
 	inds_to_exclude = np.where(inclusion_mask_data <= cutoff)
 
-	func_data[inds_to_exclude] = np.nan
+	data[inds_to_exclude] = np.nan
 
 
-	return func_data, inds_to_include
+	return data, inds_to_include
