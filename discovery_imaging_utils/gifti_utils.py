@@ -170,39 +170,39 @@ def parcellate_gifti(func_data, parcellation_path, demean_before_averaging = Tru
 	return parcellated_gifti_data, parcel_labels, parcel_dictionary
 
 
-def incorporate_gifti_inclusion_mask(data, inclusion_mask_path, cutoff = 0.5):
-    """Function to mask out values based on a mask
+    def incorporate_gifti_inclusion_mask(data, inclusion_mask_path, cutoff = 0.5):
+        """Function to mask out values based on a mask
 
-    Function that takes loaded data and a path to a gifti mask file, and sets
-    inds corresponding with values less than the cutoff in the mask to be
-    np.nan in the data matrix
+        Function that takes loaded data and a path to a gifti mask file, and sets
+        inds corresponding with values less than the cutoff in the mask to be
+        np.nan in the data matrix
 
-    Parameters
-    ----------
+        Parameters
+        ----------
 
-    data : np.ndarray
+        data : np.ndarray
         shape <n_vertices, n_dimensions> data that inclusion mask should be
         applied to.
-    inclusion_mask_path : str
+        inclusion_mask_path : str
         path to a gifti file with shape <n_vertices>
-    cutoff : float
+        cutoff : float
         values in the inclusion mask less than this value will be set to np.nan
         in data
 
-    Returns
-    -------
+        Returns
+        -------
 
-    data : np.ndarray
+        data : np.ndarray
         the initial array with relevant elements set to np.nan
 
 
-    """
+        """
 
-	inclusion_mask_data = load_gifti_func(inclusion_mask_path)
-	inds_to_include = np.where(inclusion_mask_data > cutoff)
-	inds_to_exclude = np.where(inclusion_mask_data <= cutoff)
+        inclusion_mask_data = load_gifti_func(inclusion_mask_path)
+        inds_to_include = np.where(inclusion_mask_data > cutoff)
+        inds_to_exclude = np.where(inclusion_mask_data <= cutoff)
 
-	data[inds_to_exclude] = np.nan
+        data[inds_to_exclude] = np.nan
 
 
-	return data, inds_to_include
+        return data, inds_to_include
