@@ -199,8 +199,8 @@ def incorporate_gifti_inclusion_mask(data, inclusion_mask_path, cutoff = 0.5):
     """
 
     inclusion_mask_data = load_gifti_func(inclusion_mask_path)
-    inds_to_include = np.where(inclusion_mask_data > cutoff)
-    inds_to_exclude = np.where(inclusion_mask_data <= cutoff)
+    inds_to_include = np.where(inclusion_mask_data > cutoff)[0]
+    inds_to_exclude = np.where(inclusion_mask_data <= cutoff)[0]
 
     data[inds_to_exclude] = np.nan
 
