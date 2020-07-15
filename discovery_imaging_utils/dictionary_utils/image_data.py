@@ -159,7 +159,7 @@ def populate(lh_gii_data_path=None,
 		nifti_data = nifti_img.get_fdata()
 		if nifti_data.ndim > 3:
 			nifti_3d = np.squeeze(nifti_data[:,:,:,0])
-			nifti_ids = np.where(nifti_data != None)
+			nifti_ids = np.where(nifti_3d != None)
 		else:
 			nifti_ids = np.where(nifti_data != None)
 		nifti_inclusion_inds = None
@@ -386,7 +386,10 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 			if nifti_partial_data.shape[1] == 1:
 				nifti_data[image_data_dict['nifti_ids']] = np.squeeze(nifti_partial_data)
 			else:
-				nifti_data[image_data_dict['nifti_ids']] = nifti_partial_data
+				x = nifti_data[image_data_dict['nifti_ids']][0]
+				y = nifti_data[image_data_dict['nifti_ids']][1]
+				z = nifti_data[image_data_dict['nifti_ids']][2]
+				nifti_data[x,y,z,:] = nifti_partial_data
 
 		nifti_path = os.path.join(output_folder, 'data.nii.gz')
 		nifti_utils.arr2nifti(nifti_data, image_data_dict['nifti_affine'], nifti_path)
