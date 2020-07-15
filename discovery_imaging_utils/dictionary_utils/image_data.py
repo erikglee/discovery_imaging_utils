@@ -386,9 +386,9 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 			if nifti_partial_data.shape[1] == 1:
 				nifti_data[image_data_dict['nifti_ids']] = np.squeeze(nifti_partial_data)
 			else:
-				x = nifti_data[image_data_dict['nifti_ids']][0]
-				y = nifti_data[image_data_dict['nifti_ids']][1]
-				z = nifti_data[image_data_dict['nifti_ids']][2]
+				x = image_data_dict['nifti_ids'][0]
+				y = image_data_dict['nifti_ids'][1]
+				z = image_data_dict['nifti_ids'][2]
 				nifti_data[x,y,z,:] = nifti_partial_data
 
 		nifti_path = os.path.join(output_folder, 'data.nii.gz')
