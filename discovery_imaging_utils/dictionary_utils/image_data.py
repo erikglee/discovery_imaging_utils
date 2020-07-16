@@ -162,8 +162,8 @@ def populate(lh_gii_data_path=None,
 			nifti_ids = np.where(nifti_3d != None)
 		else:
 			nifti_ids = np.where(nifti_data != None)
-		nifti_inclusion_inds = None
 
+		nifti_inclusion_inds = None
 		image_data_dict['nifti_affine'] = nifti_img.affine
 		image_data_dict['nifti_shape'] = nifti_data.shape
 
@@ -197,13 +197,13 @@ def populate(lh_gii_data_path=None,
 				depth = nifti_data.shape[3]
 
 
-			if type(nifti_inclusion_inds) != type(None):
+			if type(nifti_inclusion_inds) == type(None):
 
-				nifti_data = np.reshape(nifti_data[nifti_inclusion_inds], (nifti_inclusion_inds[0].shape[0], depth))
+				nifti_data = np.reshape(nifti_data, (nifti_data.shape[0]*nifti_data.shape[1]*nifti_data.shape[2], depth))
 
 			else:
 
-				nifti_data = np.reshape(nifti_data, (nifti_data.shape[0]*nifti_data.shape[1]*nifti_data.shape[2], depth))
+				nifti_data = np.reshape(nifti_data[nifti_inclusion_inds], (nifti_inclusion_inds[0].shape[0], depth))
 
 		print(4)
 
