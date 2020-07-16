@@ -73,6 +73,9 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
     else:
         clean_comps = False
 
+    print(noise_comps)
+    print(clean_comps)
+
 
     temp_out_dict = run_denoising(time_series,
                                     hpf_before_regression,
@@ -139,16 +142,16 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
 
 
 
-def _load_comps_dict(parc_dict, comps_dict):
+def _load_comps_dict(fmriprep_out_dict, comps_dict):
     """
-    #Internal function, which is given a "parc_dict",
+    #Internal function, which is given a "fmriprep_out_dict",
     #with different useful resting-state properties
     #(made by module parc_ts_dictionary), and accesses
     #different components specified by comp_dict, and
     #outputs them as a 2d array.
 
     #All variables specified must be a key in the dictionary
-    #accessed by parc_dict['confounds']
+    #accessed by fmriprep_out_dict['confounds']
 
     #For pre-computed groupings of variables, this function
     #supports PCA reduction of the variable grouping.
@@ -177,7 +180,7 @@ def _load_comps_dict(parc_dict, comps_dict):
     for key, value in comps_dict.items():
 
         #Load the current attribute of interest
-        temp_arr = parc_dict['confounds'][key]
+        temp_arr = fmriprep_out_dict['confounds'][key]
 
         #If temp_arr is only 1d, at a second dimension for comparison
         if len(temp_arr.shape) == 1:
@@ -187,7 +190,7 @@ def _load_comps_dict(parc_dict, comps_dict):
         #If necessary, use PCA on the temp_arr
         if value != False:
 
-            temp_arr = reduce_ics(temp_arr, value, parc_dict['general_info.json']['n_skip_vols'])
+            temp_arr = reduce_ics(temp_arr, value, fmriprep_out_dict['general_info.json']['n_skip_vols'])
 
         #Either start a new array or stack to existing
         if comps_matrix == []:
@@ -241,7 +244,7 @@ def demean_normalize(one_d_array):
     return temp_arr/np.nanstd(temp_arr)
 
 
-def _find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
+def _find_timepoints_to_scrub(fmriprep_out_dict, scrubbing_dictionary):
     """" Internal function used to find timepoints to scrub.
 
     Function that takes a parcellated dictionary object and
@@ -249,7 +252,7 @@ def _find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
     uses this to find which timepoints to scrub.
 
     If scrubbing dictionary is set to False, then the initial timepoints
-    to remove at the beginning of the scan (specified under parc_object)
+    to remove at the beginning of the scan (specified under fmriprep_out_dict)
     will be the only ones specified for removal. If scrubbing dictioanary
     is defined, either hard thresholds or Uniform scrubbing based on
     criteria specified under the scrubbing dictionary will be used for
@@ -260,7 +263,7 @@ def _find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
 
     Parameters
     ----------
-    parc_object : dict
+    fmriprep_out_dict : dict
         parcellated object dictionary containing confounds class and n_skip_vols
 
     scrubbing_dictionary : bool or dict
@@ -280,9 +283,9 @@ def _find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
 
         if scrubbing_dictionary == False:
 
-            temp_val = parc_object['confounds']['framewise_displacement']
+            temp_val = fmriprep_out_dict['confounds']['framewise_displacement']
             good_arr = np.ones(temp_val.shape)
-            good_arr[0:parc_object['general_info.json']['n_skip_vols']] = 0
+            good_arr[0:fmriprep_out_dict['general_info.json']['n_skip_vols']] = 0
             return good_arr
 
         else:
@@ -302,11 +305,11 @@ def _find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
 
             if evaluation_array == []:
 
-                evaluation_array = demean_normalize(parc_object['confounds'][temp_metric])
+                evaluation_array = demean_normalize(fmriprep_out_dict['confounds'][temp_metric])
 
             else:
 
-                temp_val = np.absolute(demean_normalize(parc_object['confounds'][temp_metric]))
+                temp_val = np.absolute(demean_normalize(fmriprep_out_dict['confounds'][temp_metric]))
                 evaluation_array = np.add(evaluation_array, temp_val)
 
         num_timepoints_to_keep = int(evaluation_array.shape[0]*amount_to_keep)
@@ -329,7 +332,7 @@ def _find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
         good_inds = sorted_inds[0:num_timepoints_to_keep]
         good_arr = np.zeros(evaluation_array.shape)
         good_arr[good_inds.astype(int)] = 1
-        good_arr[0:parc_object['general_info.json']['n_skip_vols']] = 0
+        good_arr[0:fmriprep_out_dict['general_info.json']['n_skip_vols']] = 0
 
         return good_arr
 
@@ -339,7 +342,7 @@ def _find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
     #they dictionary has appropriate key/value pairs describing scrubbing
     #criteria
     else:
-        temp_val = parc_object['confounds']['framewise_displacement']
+        temp_val = fmriprep_out_dict['confounds']['framewise_displacement']
         good_inds = np.linspace(0, temp_val.shape[0] - 1, temp_val.shape[0])
 
         #Iterate through all key/value pairs and set the good_arr
@@ -347,7 +350,7 @@ def _find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
         #equal to 0
         for temp_metric, temp_thresh in scrubbing_dictionary.items():
 
-            temp_values = parc_object['confounds'][temp_metric]
+            temp_values = fmriprep_out_dict['confounds'][temp_metric]
             bad_inds = np.where(temp_values > temp_thresh)[0]
 
             for temp_ind in bad_inds:
@@ -361,6 +364,6 @@ def _find_timepoints_to_scrub(parc_object, scrubbing_dictionary):
 
         good_arr = np.zeros(temp_val.shape)
         good_arr[good_inds.astype(int)] = 1
-        good_arr[0:parc_object['general_info.json']['n_skip_vols']] = 0
+        good_arr[0:fmriprep_out_dict['general_info.json']['n_skip_vols']] = 0
 
         return good_arr
