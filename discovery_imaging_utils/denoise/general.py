@@ -184,7 +184,6 @@ def run_denoising(time_series, hpf_before_regression, inds_to_include, interpola
     denoising_stats = {}
 
     output_dict['cleaned_timeseries'] = cleaned_time_signal
-    denoising_stats['median_ts_intensities'] = parc_dict['median_ts_intensities']
 
     denoising_stats['dvars_pre_cleaning'] = initial_dvars
     denoising_stats['dvars_post_cleaning'] = final_dvars
