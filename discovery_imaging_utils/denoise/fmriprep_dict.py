@@ -1,4 +1,5 @@
 import numpy as np
+from imaging_data_dictionary.denoise.general import run_denoising
 
 
 def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass):
@@ -73,14 +74,14 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
         clean_comps = False
 
 
-    temp_out_dict = denoise.general.run_denoising(time_series,
-                                                hpf_before_regression,
-                                                inds_to_include,
-                                                interpolation_method,
-                                                noise_comps,
-                                                clean_comps,
-                                                high_pass,
-                                                low_pass)
+    temp_out_dict = run_denoising(time_series,
+                                    hpf_before_regression,
+                                    inds_to_include,
+                                    interpolation_method,
+                                    noise_comps,
+                                    clean_comps,
+                                    high_pass,
+                                    low_pass)
 
 
 
