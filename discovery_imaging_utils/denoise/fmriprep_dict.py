@@ -81,7 +81,9 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
                                     noise_comps,
                                     clean_comps,
                                     high_pass,
-                                    low_pass)
+                                    low_pass,
+                                    fmriprep_out_dict['general_info.json']['n_skip_vols'],
+                                    fmriprep_out_dict['general_info.json']['TR'])
 
 
 
