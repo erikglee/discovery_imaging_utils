@@ -162,7 +162,7 @@ def generate_paths(lh_gii_data_path=None,
 
 
 
-def populate(file_path_dictionary, TR, normalize = True):
+def populate(file_path_dictionary, TR, normalize = False):
 	"""Function to populate a dictionary with data to use in denoising
 
 	Parameters
@@ -218,7 +218,7 @@ def populate(file_path_dictionary, TR, normalize = True):
 	if 'nifti_inclusion_mask_path' in file_path_dictionary.keys():
 		nifti_inclusion_mask_path = file_path_dictionary['nifti_inclusion_mask_path']
 	else:
-		rh_inclusion_mask_path = None
+		nifti_inclusion_mask_path = None
 	if 'nifti_parcellation_path' in file_path_dictionary.keys():
 		nifti_parcellation_path = file_path_dictionary['nifti_parcellation_path']
 	else:
