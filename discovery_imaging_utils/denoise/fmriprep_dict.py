@@ -54,7 +54,7 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
     """
 
 
-    time_series = fmriprep_out_dict['image_data_dictioanary']['data']
+    time_series = fmriprep_out_dict['image_data_dictionary']['data']
 
     if scrub_criteria_dictionary != False:
         inds_to_include = _find_timepoints_to_scrub(fmriprep_out_dict, scrubbing_dictionary)
