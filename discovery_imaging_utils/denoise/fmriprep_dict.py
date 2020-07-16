@@ -120,6 +120,7 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
     denoise_out_dict['general_info.json'] = fmriprep_out_dict['general_info.json']
     denoise_out_dict['denoising_settings.json'] = denoising_settings
     denoise_out_dict['mean_roi_signal_intensities.json'] = mean_roi_signal_intensities
+    denoise_out_dict['inclusion_inds'] = inclusion_inds
 
 
     if 'file_paths.json' in fmriprep_out_dict.keys():
