@@ -131,7 +131,7 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
 
 
 
-return denoise_out_dict
+    return denoise_out_dict
 
 
 
