@@ -160,7 +160,6 @@ def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_
 	unique_mask_vals.sort()
 	unique_mask_vals = unique_mask_vals[1:]
 
-	print('a')
 
 	#extract data from nifti to be parcellated
 	input_ts_matrix = nifti_data_to_parcellate
@@ -176,7 +175,6 @@ def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_
 	parc_mean_signal_intensities = np.zeros(unique_mask_vals.shape[0])
 	parcel_dictionary = {}
 
-	print('b')
 
 	for i in range(len(unique_mask_vals)):
 
@@ -210,7 +208,6 @@ def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_
 
 	unique_mask_vals = unique_mask_vals.tolist()
 
-	print('c')
 
 
 	return parcellated_nifti_data, unique_mask_vals, parcel_dictionary
