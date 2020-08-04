@@ -330,7 +330,7 @@ def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, cro
     #This file can be found in your $FREESURFER_HOME directory.
     def load_color_lut_dictionary():
 
-        path_to_fs_color_lut = '/'.join(os.path.abspath(inspect.getfile(make_harv_oxf_qc_image)).split('/')[:-1]) + '/FreeSurferColorLUT.txt'
+        path_to_fs_color_lut = '/'.join(os.path.abspath(inspect.getfile(make_harv_oxf_qc_image)).split('/')[:-1]) + '/ColorLUT.txt'
 
         color_lut_file = open(path_to_fs_color_lut,'r')
         color_lut_dictionary = {}
