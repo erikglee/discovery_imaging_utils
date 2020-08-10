@@ -157,11 +157,14 @@ def flatten_dictionary(dictionary):
     flattened_dictionary = inner_function(dictionary, '')
     return flattened_dictionary
 
-def anat_dictionaries_to_csv(list_of_anat_dictionaries, output_file_path):
+def anat_dictionaries_to_csv(list_of_anat_dictionaries, output_file_path, anonymize = False):
 
     import csv
     toCSV = list_of_anat_dictionaries
     keys = toCSV[0].keys()
+    if anonymize == True:
+        keys.remove('extra_elements_subjectname')
+        
     with open(output_file_path, 'w') as output_file:
         dict_writer = csv.DictWriter(output_file, keys)
         dict_writer.writeheader()

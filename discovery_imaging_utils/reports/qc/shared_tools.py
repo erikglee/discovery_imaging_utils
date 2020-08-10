@@ -5,7 +5,7 @@ from discovery_imaging_utils.reports.qc import ind_structural_qc
 from discovery_imaging_utils.reports.qc import ind_group_structural_qc
 
 
-def construct_report(subject_path, report_path, structural_reference_csv_path = None, functional_reference_csv_path = None, overwrite = False):
+def construct_report(subject_fmriprep_path, subject_fs_path, report_path, structural_reference_csv_path = None, functional_reference_csv_path = None, overwrite = False):
     """Function to construct QC report from fMRIPREP output
 
 
@@ -42,11 +42,18 @@ def construct_report(subject_path, report_path, structural_reference_csv_path = 
     if os.path.exists(individual_functional_path) == False:
         os.makedirs(individual_functional_path)
 
+    if type(structural_reference_csv_path) == type(None):
+        #NEED TO IMPLEMENT
+    if type(functional_reference_csv_path) == type(None):
+        #NEED TO IMPLEMENT
 
 
-    ind_functional_qc.construct_report(subject_path, individual_structural_path)
-    ind_group_functional_qc.construct_report(subject_path, individual_functional_path)
-    ind_structural_qc.construct_report()
-    ind_group_structural_qc.construct_report()
+
+    ind_functional_qc.construct_report(subject_fmriprep_path, individual_structural_path)
+    ind_group_functional_qc.construct_report(subject_fmriprep_path, individual_functional_path)
+    ind_structural_qc.construct_report(subject_fmriprep_path, )
+    if type(structural_reference_csv_path) == type(None):
+        #NEED TO IMPLEMENT
+    ind_group_structural_qc.construct_report(subject_fs_path, group_structural_path, reference_csv_path, num_pcs=1, overwrite=False)
     #construct_group_structural_qc(subject_path, report_path)
     #construct_group_functional_qc(subject_path, report_path)
