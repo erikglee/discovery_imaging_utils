@@ -25,6 +25,9 @@ def construct_report(subject_path, report_path):
 
 
     subject_name = subject_path.split('/')[-1]
+    if len(subject_name) == 0:
+        subject_name = subject_path.split('/')[-2]
+
     os.chdir(subject_path)
 
     path_to_t1 = './anat/' + subject_name + '_desc-preproc_T1w.nii.gz'
