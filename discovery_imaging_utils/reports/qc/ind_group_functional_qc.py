@@ -1,4 +1,4 @@
-from discovery_imaging_utils.qc.visualizations import plt_ind_on_dist
+from discovery_imaging_utils.reports.qc.visualizations import plt_ind_on_dist
 import os
 import glob
 

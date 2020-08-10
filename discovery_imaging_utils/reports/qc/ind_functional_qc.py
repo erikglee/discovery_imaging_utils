@@ -1,6 +1,6 @@
 import os
 import glob
-from discovery_imaging_utils.reports.qc import make_outline_overlay_underlay_plot
+from discovery_imaging_utils.reports.qc.visualizations import make_outline_overlay_underlay_plot
 
 def construct_report(subject_path, report_path):
 

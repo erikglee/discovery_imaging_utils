@@ -2,6 +2,9 @@ import glob
 import os
 import inspect
 
+from discovery_imaging_utils.reports.qc.visualizations import make_outline_overlay_underlay_plot
+from discovery_imaging_utils.reports.qc.visualizations import make_gmwmcsf_underlay_plot
+from discovery_imaging_utils.reports.qc.visualizations import make_harv_oxf_qc_image
 #Good for now
 
 
