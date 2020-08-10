@@ -42,7 +42,7 @@ def make_reference_csv(fs_subjects_dir, output_csv_name):
         subj_anat_dicts.append(fs_anat_to_dict(temp_subj, flatten=True))
 
 
-    anat_dictionaries_to_csv(subj_anat_dicts, output_csv_name, anonymize = True)
+    anat_dictionaries_to_csv(subj_anat_dicts, output_csv_name)
 
     return
 
