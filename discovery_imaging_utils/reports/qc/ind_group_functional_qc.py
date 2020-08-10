@@ -153,14 +153,14 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
                 max_fd.append(confounds_dict['max_fd'])
 
 
-        temp_dict = {'mean_gs' : mean_gs,
-                     'mean_std_dvars' : mean_std_dvars,
-                     'num_high_std_dvars_tps' : num_high_std_dvars_tps,
-                     'max_std_dvars' : max_std_dvars,
-                     'mean_dvars' : mean_dvars,
-                     'mean_fd' : mean_fd,
-                     'num_high_motion_tps' : num_high_motion_tps,
-                     'max_fd' : max_fd}
+    temp_dict = {'mean_gs' : mean_gs,
+                 'mean_std_dvars' : mean_std_dvars,
+                 'num_high_std_dvars_tps' : num_high_std_dvars_tps,
+                 'max_std_dvars' : max_std_dvars,
+                 'mean_dvars' : mean_dvars,
+                 'mean_fd' : mean_fd,
+                 'num_high_motion_tps' : num_high_motion_tps,
+                 'max_fd' : max_fd}
 
-        output_df = pd.DataFrame(temp_dict)
-        output_df.to_csv(output_reference_csv_path)
+    output_df = pd.DataFrame(temp_dict)
+    output_df.to_csv(output_reference_csv_path)
