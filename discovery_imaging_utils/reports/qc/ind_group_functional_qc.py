@@ -119,45 +119,46 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
     for temp_subj in subjects:
 
         subject_path = os.path.join(path_to_fmriprep_dir, temp_subj)
-        os.chdir(subject_path)
-        subject_name = subject_path.split('/')[-1]
+        if os.path.isdir(subject_path):
+            os.chdir(subject_path)
+            subject_name = subject_path.split('/')[-1]
 
-        functional_images = glob.glob('./ses-*/func/sub*_boldref.nii.gz')
-        functional_image_ids = []
-        ses_ids = []
-        for temp_img_path in functional_images:
-            if 'space' not in temp_img_path:
-                end_path = temp_img_path.split('/')[-1]
-                ses_run = '_'.join(end_path.split('_')[1:5])
-                functional_image_ids.append(ses_run)
-                ses_ids.append(ses_run.split('_')[0])
-
-
-        for i, temp_func_id in enumerate(functional_image_ids):
-            temp_run = temp_func_id
-            temp_ses = ses_ids[i]
-
-            path_to_confounds = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_desc-confounds_regressors.tsv'
-            confounds_dict = calc_run_stats(path_to_confounds)
-
-            mean_gs.append(output_dict['mean_gs'])
-            mean_std_dvars.append(output_dict['mean_std_dvars'])
-            num_high_std_dvars_tps.append(output_dict['num_high_std_dvars_tps'])
-            max_std_dvars.append(output_dict['max_std_dvars'])
-            mean_dvars.append(utput_dict['mean_dvars'])
-            mean_fd.append(output_dict['mean_fd'])
-            num_high_motion_tps.append(output_dict['num_high_motion_tps'])
-            max_fd.append(output_dict['max_fd'])
+            functional_images = glob.glob('./ses-*/func/sub*_boldref.nii.gz')
+            functional_image_ids = []
+            ses_ids = []
+            for temp_img_path in functional_images:
+                if 'space' not in temp_img_path:
+                    end_path = temp_img_path.split('/')[-1]
+                    ses_run = '_'.join(end_path.split('_')[1:5])
+                    functional_image_ids.append(ses_run)
+                    ses_ids.append(ses_run.split('_')[0])
 
 
-    temp_dict = {'mean_gs' : mean_gs,
-                 'mean_std_dvars' : mean_std_dvars,
-                 'num_high_std_dvars_tps' : num_high_std_dvars_tps,
-                 'max_std_dvars' : max_std_dvars,
-                 'mean_dvars' : mean_dvars,
-                 'mean_fd' : mean_fd,
-                 'num_high_motion_tps' : num_high_motion_tps,
-                 'max_fd' : max_fd}
+            for i, temp_func_id in enumerate(functional_image_ids):
+                temp_run = temp_func_id
+                temp_ses = ses_ids[i]
 
-    output_df = pd.dataframe(temp_df)
-    output_df.to_csv(output_reference_csv_path)
+                path_to_confounds = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_desc-confounds_regressors.tsv'
+                confounds_dict = calc_run_stats(path_to_confounds)
+
+                mean_gs.append(output_dict['mean_gs'])
+                mean_std_dvars.append(output_dict['mean_std_dvars'])
+                num_high_std_dvars_tps.append(output_dict['num_high_std_dvars_tps'])
+                max_std_dvars.append(output_dict['max_std_dvars'])
+                mean_dvars.append(utput_dict['mean_dvars'])
+                mean_fd.append(output_dict['mean_fd'])
+                num_high_motion_tps.append(output_dict['num_high_motion_tps'])
+                max_fd.append(output_dict['max_fd'])
+
+
+        temp_dict = {'mean_gs' : mean_gs,
+                     'mean_std_dvars' : mean_std_dvars,
+                     'num_high_std_dvars_tps' : num_high_std_dvars_tps,
+                     'max_std_dvars' : max_std_dvars,
+                     'mean_dvars' : mean_dvars,
+                     'mean_fd' : mean_fd,
+                     'num_high_motion_tps' : num_high_motion_tps,
+                     'max_fd' : max_fd}
+
+        output_df = pd.dataframe(temp_df)
+        output_df.to_csv(output_reference_csv_path)
