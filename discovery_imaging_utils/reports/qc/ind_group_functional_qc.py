@@ -4,7 +4,7 @@ import glob
 
 
 
-def construct_ind_group_functional_qc(subject_path, report_path, reference_csv_path):
+def construct_report(subject_path, report_path, reference_csv_path):
 
 
 
@@ -93,8 +93,21 @@ def calc_run_stats(path_to_confounds, high_std_dvars_thresh = 1.5, high_motion_t
 
     return output_dict
 
-def generate_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
-    """Generate reference csv for func stats
+def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
+    """Generate reference cohort func stats
+
+
+    Parameters
+    ----------
+
+    path_to_fmriprep_dir : str
+        path to directory of fmriprep output, all runs
+        found under this directory will be used to construct
+        norms
+
+    output_reference_csv_path : str
+        path to location where reference csv file
+        will be stored.
 
 
     """

@@ -2,7 +2,7 @@ import os
 import glob
 from discovery_imaging_utils.reports.qc import make_outline_overlay_underlay_plot
 
-def construct_ind_functional_qc(subject_path, report_path):
+def construct_report(subject_path, report_path):
 
 
 

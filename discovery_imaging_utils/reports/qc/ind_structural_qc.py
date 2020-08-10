@@ -5,7 +5,20 @@ import inspect
 #Good for now
 
 
-def construct_ind_structural_qc(subject_path, report_path):
+def construct_report(subject_path, report_path):
+    """Construct structural QC report
+
+
+    Parameters
+    ----------
+
+    subject_path : str
+        path to subject's fMRIPREP output
+    report_path : str
+        path to folder where QC results will be stored
+
+
+    """
 
 
     subject_name = subject_path.split('/')[-1]

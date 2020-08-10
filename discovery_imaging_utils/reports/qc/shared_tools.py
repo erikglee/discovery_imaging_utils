@@ -1,7 +1,11 @@
 import os
+from discovery_imaging_utils.reports.qc import ind_functional_qc
+from discovery_imaging_utils.reports.qc import ind_group_functional_qc
+from discovery_imaging_utils.reports.qc import ind_structural_qc
+from discovery_imaging_utils.reports.qc import ind_group_structural_qc
 
 
-def construct_report(subject_path, report_path, dataset_qc_location = None, overwrite = False):
+def construct_report(subject_path, report_path, structural_reference_csv_path = None, functional_reference_csv_path = None, overwrite = False):
     """Function to construct QC report from fMRIPREP output
 
 
@@ -40,7 +44,9 @@ def construct_report(subject_path, report_path, dataset_qc_location = None, over
 
 
 
-    construct_ind_structural_qc(subject_path, individual_structural_path)
-    construct_ind_functional_qc(subject_path, individual_functional_path)
+    ind_functional_qc.construct_report(subject_path, individual_structural_path)
+    ind_group_functional_qc.construct_report(subject_path, individual_functional_path)
+    ind_structural_qc.construct_report()
+    ind_group_structural_qc.construct_report()
     #construct_group_structural_qc(subject_path, report_path)
     #construct_group_functional_qc(subject_path, report_path)

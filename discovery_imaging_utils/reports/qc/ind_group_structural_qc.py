@@ -14,7 +14,7 @@ from discovery_imaging_utils.freesurfer import fs_anat_to_dict
 from discovery_imaging_utils.freesurfer import anat_dictionaries_to_csv
 
 
-def make_fs_reference_table(subjects_dir, output_csv_name):
+def make_reference_csv(fs_subjects_dir, output_csv_name):
     """Function to make reference table FreeSurfer stats
 
     Function takes path to FreeSurfer subjects dir and
@@ -25,14 +25,14 @@ def make_fs_reference_table(subjects_dir, output_csv_name):
     Parameters
     ----------
 
-    subjects_dir : str
+    fs_subjects_dir : str
         path to location of FreeSurfer subjects dir
     output_csv_name : str
         path to csv file that will be created with output
 
     """
 
-    os.chdir(subjects_dir)
+    os.chdir(fs_subjects_dir)
     subjects = glob.glob('*/stats')
     subj_anat_dicts = []
 
@@ -47,7 +47,7 @@ def make_fs_reference_table(subjects_dir, output_csv_name):
     return
 
 
-def make_fs_qc_tables(subject_fs_path, reference_csv_path, output_folder, num_pcs=1, overwrite=False):
+def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, overwrite=False):
     """Function to make quality control tables from FreeSurfer output
 
 
@@ -66,13 +66,13 @@ def make_fs_qc_tables(subject_fs_path, reference_csv_path, output_folder, num_pc
     Parameters
     ----------
 
-    subject_fs_path : str
+    subject_path : str
         path to subject's FreeSurfer folder
     reference_csv_path : str
         path to file containing FreeSurfer data to use as
         reference, should be made from make_fs_reference_table
         function
-    output_folder : str
+    report_path : str
         path to folder that will be made for this subject's
         quality control output (tables, etc.)
     num_pcs : int, optional
@@ -86,7 +86,7 @@ def make_fs_qc_tables(subject_fs_path, reference_csv_path, output_folder, num_pc
 
 
     reference_df = pd.read_csv(reference_csv_path)
-    subj_fs_dict = fs_anat_to_dict(subject_fs_path, flatten=True)
+    subj_fs_dict = fs_anat_to_dict(subject_path, flatten=True)
 
     #remove any nans from reference_df
     reference_df = reference_df[reference_df.isna().any(axis=1) == False]
@@ -246,14 +246,14 @@ def make_fs_qc_tables(subject_fs_path, reference_csv_path, output_folder, num_pc
     styler = qc_df.style.apply(absolute_viridis)
     html_content = styler.render()
 
-    if os.path.exists(output_folder) == False:
-        os.makedirs(output_folder)
+    if os.path.exists(report_path) == False:
+        os.makedirs(report_path)
     elif overwrite == False:
         raise NameError('Error: directory should not exist, or overwrite should be turned on')
 
-    with open(os.path.join(output_folder, 'table.html'),'w') as temp_file:
+    with open(os.path.join(report_path, 'table.html'),'w') as temp_file:
         temp_file.write(html_content)
 
-    qc_df.to_csv(os.path.join(output_folder, 'subject_qc_stats.csv'))
+    qc_df.to_csv(os.path.join(report_path, 'subject_qc_stats.csv'))
 
     return qc_df
