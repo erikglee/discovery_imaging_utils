@@ -127,7 +127,6 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
             os.chdir(subject_path)
             subject_name = subject_path.split('/')[-1]
 
-            sub-HCA6117051_ses-V1MR_task-REST1_acq-PA_run-1_desc-confounds_regressors.tsv
             functional_images = glob.glob('./ses-*/func/sub*_desc-confounds_regressors.tsv')
             functional_image_ids = []
             ses_ids = []
