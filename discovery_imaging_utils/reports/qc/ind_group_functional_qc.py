@@ -137,6 +137,7 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
                     functional_image_ids.append(ses_run)
                     ses_ids.append(ses_run.split('_')[0])
 
+            print(len(functional_image_ids))
 
             for i, temp_func_id in enumerate(functional_image_ids):
                 temp_run = temp_func_id
