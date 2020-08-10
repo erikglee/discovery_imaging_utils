@@ -127,15 +127,15 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
             os.chdir(subject_path)
             subject_name = subject_path.split('/')[-1]
 
-            functional_images = glob.glob('./ses-*/func/sub*_boldref.nii.gz')
+            sub-HCA6117051_ses-V1MR_task-REST1_acq-PA_run-1_desc-confounds_regressors.tsv
+            functional_images = glob.glob('./ses-*/func/sub*_desc-confounds_regressors.tsv')
             functional_image_ids = []
             ses_ids = []
             for temp_img_path in functional_images:
-                if 'space' not in temp_img_path:
-                    end_path = temp_img_path.split('/')[-1]
-                    ses_run = '_'.join(end_path.split('_')[1:5])
-                    functional_image_ids.append(ses_run)
-                    ses_ids.append(ses_run.split('_')[0])
+                end_path = temp_img_path.split('/')[-1]
+                ses_run = '_'.join(end_path.split('_')[1:5])
+                functional_image_ids.append(ses_run)
+                ses_ids.append(ses_run.split('_')[0])
 
             print(len(functional_image_ids))
 
@@ -146,14 +146,14 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
                 path_to_confounds = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_desc-confounds_regressors.tsv'
                 confounds_dict = calc_run_stats(path_to_confounds)
 
-                mean_gs.append(confounds_dict['mean_gs'].copy())
-                mean_std_dvars.append(confounds_dict['mean_std_dvars'].copy())
-                num_high_std_dvars_tps.append(confounds_dict['num_high_std_dvars_tps'].copy())
-                max_std_dvars.append(confounds_dict['max_std_dvars'].copy())
-                mean_dvars.append(confounds_dict['mean_dvars'].copy())
-                mean_fd.append(confounds_dict['mean_fd'].copy())
-                num_high_motion_tps.append(confounds_dict['num_high_motion_tps'].copy())
-                max_fd.append(confounds_dict['max_fd'].copy())
+                mean_gs.append(confounds_dict['mean_gs'])
+                mean_std_dvars.append(confounds_dict['mean_std_dvars'])
+                num_high_std_dvars_tps.append(confounds_dict['num_high_std_dvars_tps'])
+                max_std_dvars.append(confounds_dict['max_std_dvars'])
+                mean_dvars.append(confounds_dict['mean_dvars'])
+                mean_fd.append(confounds_dict['mean_fd'])
+                num_high_motion_tps.append(confounds_dict['num_high_motion_tps'])
+                max_fd.append(confounds_dict['max_fd'])
 
 
     temp_dict = {'mean_gs' : mean_gs,
