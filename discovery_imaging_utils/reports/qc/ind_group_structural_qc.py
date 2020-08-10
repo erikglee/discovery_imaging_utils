@@ -248,8 +248,6 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
     if os.path.exists(report_path) == False:
         os.makedirs(report_path)
-    elif overwrite == False:
-        raise NameError('Error: directory should not exist, or overwrite should be turned on')
 
     with open(os.path.join(report_path, 'table.html'),'w') as temp_file:
         temp_file.write(html_content)
