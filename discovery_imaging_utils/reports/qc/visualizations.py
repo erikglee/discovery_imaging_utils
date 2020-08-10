@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib import colors
 from pandas.plotting import table
 import nibabel as nib
+import inspect
 
 
 
