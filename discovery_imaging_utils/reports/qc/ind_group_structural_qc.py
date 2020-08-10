@@ -38,7 +38,7 @@ def make_reference_csv(fs_subjects_dir, output_csv_name):
 
     for temp_subj in subjects:
 
-        temp_subj = temp_subj.split('/'')[0]
+        temp_subj = temp_subj.split('/')[0]
         subj_anat_dicts.append(fs_anat_to_dict(temp_subj, flatten=True))
 
 
