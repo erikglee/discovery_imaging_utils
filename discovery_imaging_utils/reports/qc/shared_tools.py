@@ -3,6 +3,7 @@ from discovery_imaging_utils.reports.qc import ind_functional_qc
 from discovery_imaging_utils.reports.qc import ind_group_functional_qc
 from discovery_imaging_utils.reports.qc import ind_structural_qc
 from discovery_imaging_utils.reports.qc import ind_group_structural_qc
+import inspect
 
 
 def construct_report(subject_fmriprep_path, subject_fs_path, report_path, structural_reference_csv_path = None, functional_reference_csv_path = None, overwrite = False):
@@ -42,10 +43,12 @@ def construct_report(subject_fmriprep_path, subject_fs_path, report_path, struct
     if os.path.exists(individual_functional_path) == False:
         os.makedirs(individual_functional_path)
 
+    #If path path to reference files not given, then
+    #use template references stored in reference_data folder
     if type(structural_reference_csv_path) == type(None):
-        #NEED TO IMPLEMENT
+        structural_reference_csv_path = '/'.join(os.path.abspath(inspect.getfile(construct_report)).split('/')[:-1]) + '/reference_data/structural_reference_data.csv'
     if type(functional_reference_csv_path) == type(None):
-        #NEED TO IMPLEMENT
+        functional_reference_csv_path = '/'.join(os.path.abspath(inspect.getfile(construct_report)).split('/')[:-1]) + '/reference_data/functional_reference_data.csv'
 
 
 
