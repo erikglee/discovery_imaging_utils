@@ -77,13 +77,15 @@ def calc_run_stats(path_to_confounds, high_std_dvars_thresh = 1.5, high_motion_t
 
 
     output_dict['mean_gs'] = np.nanmean(confounds_df['global_signal'].values)
+    output_dict['mean_wm'] = np.nanmean(confounds_df['white_matter'].values)
+    output_dict['mean_csf'] = np.nanmean(confounds_df['csf'].values)
     output_dict['mean_std_dvars'] = np.nanmean(confounds_df['std_dvars'].values)
     output_dict['num_high_std_dvars_tps'] = np.where(confounds_df['std_dvars'] > high_std_dvars_thresh)[0].shape[0]
-    output_dict['max_std_dvars'] = np.max(confounds_df['dvars'].values)
+    output_dict['max_std_dvars'] = np.nanmax(confounds_df['std_dvars'].values)
     output_dict['mean_dvars'] = np.nanmean(confounds_df['dvars'].values)
-    output_dict['mean_fd'] = np.max(confounds_df['framewise_displacement'].values)
+    output_dict['mean_fd'] = np.nanmean(confounds_df['framewise_displacement'].values)
     output_dict['num_high_motion_tps'] = np.where(confounds_df['framewise_displacement'] > high_motion_thresh)[0].shape[0]
-    output_dict['max_fd'] = np.max(confounds_df['framewise_displacement'].values)
+    output_dict['max_fd'] = np.nanmax(confounds_df['framewise_displacement'].values)
 
     return output_dict
 
