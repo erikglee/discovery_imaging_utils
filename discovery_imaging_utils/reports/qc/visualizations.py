@@ -11,6 +11,8 @@ from matplotlib import colors
 from pandas.plotting import table
 import nibabel as nib
 import inspect
+import matplotlib.patches as mpatches
+
 
 
 
