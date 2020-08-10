@@ -145,14 +145,14 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
                 path_to_confounds = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_desc-confounds_regressors.tsv'
                 confounds_dict = calc_run_stats(path_to_confounds)
 
-                mean_gs.append(confounds_dict['mean_gs'])
-                mean_std_dvars.append(confounds_dict['mean_std_dvars'])
-                num_high_std_dvars_tps.append(confounds_dict['num_high_std_dvars_tps'])
-                max_std_dvars.append(confounds_dict['max_std_dvars'])
-                mean_dvars.append(confounds_dict['mean_dvars'])
-                mean_fd.append(confounds_dict['mean_fd'])
-                num_high_motion_tps.append(confounds_dict['num_high_motion_tps'])
-                max_fd.append(confounds_dict['max_fd'])
+                mean_gs.append(confounds_dict['mean_gs'].copy())
+                mean_std_dvars.append(confounds_dict['mean_std_dvars'].copy())
+                num_high_std_dvars_tps.append(confounds_dict['num_high_std_dvars_tps'].copy())
+                max_std_dvars.append(confounds_dict['max_std_dvars'].copy())
+                mean_dvars.append(confounds_dict['mean_dvars'].copy())
+                mean_fd.append(confounds_dict['mean_fd'].copy())
+                num_high_motion_tps.append(confounds_dict['num_high_motion_tps'].copy())
+                max_fd.append(confounds_dict['max_fd'].copy())
 
 
     temp_dict = {'mean_gs' : mean_gs,
