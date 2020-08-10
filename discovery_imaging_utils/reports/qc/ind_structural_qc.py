@@ -34,7 +34,7 @@ def construct_report(subject_path, report_path):
     path_to_gm_mask = './anat/' + subject_name + '_label-GM_probseg.nii.gz'
 
     path_to_t1_mni = './anat/' + subject_name + '_space-MNI152NLin6Asym_desc-preproc_T1w.nii.gz'
-    path_to_harv_oxf_mni = '/'.join(os.path.abspath(inspect.getfile(construct_ind_structural_qc)).split('/')[:-1]) + '/HarvOxf-sub-maxprob-thr50-1mm.nii.gz'
+    path_to_harv_oxf_mni = '/'.join(os.path.abspath(inspect.getfile(construct_report)).split('/')[:-1]) + '/HarvOxf-sub-maxprob-thr50-1mm.nii.gz'
 
 
     if os.path.exists(report_path) == False:
