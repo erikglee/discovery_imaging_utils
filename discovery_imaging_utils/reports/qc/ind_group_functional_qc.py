@@ -1,6 +1,7 @@
 from discovery_imaging_utils.reports.qc.visualizations import plt_ind_on_dist
 import os
 import glob
+import pandas as pd
 
 
 
