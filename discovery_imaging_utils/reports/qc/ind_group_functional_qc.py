@@ -161,5 +161,5 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
                      'num_high_motion_tps' : num_high_motion_tps,
                      'max_fd' : max_fd}
 
-        output_df = pd.dataframe(temp_df)
+        output_df = pd.DataFrame(temp_dict)
         output_df.to_csv(output_reference_csv_path)
