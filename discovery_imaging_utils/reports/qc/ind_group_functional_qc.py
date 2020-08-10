@@ -120,6 +120,8 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
 
     for temp_subj in subjects:
 
+        print(temp_subj)
+
         subject_path = os.path.join(path_to_fmriprep_dir, temp_subj)
         if os.path.isdir(subject_path):
             os.chdir(subject_path)
