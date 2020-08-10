@@ -31,14 +31,6 @@ def construct_report(subject_path, report_path, reference_csv_path):
         confounds_dict = calc_run_stats(path_to_confounds)
 
 
-        confounds_dict['mean_std_dvars'] =
-        confounds_dict['num_high_std_dvars_tps'] =
-        confounds_dict['mean_fd'] =
-        confounds_dict['num_high_motion_tps'] =
-        confounds_dict['mean_dvars'] =
-        confounds_dict['mean_gs'] =
-
-
         run_report_path = os.path.join(report_path, temp_func_id)
         if os.path.exists(run_report_path) == False:
             os.makedirs(run_report_path)
