@@ -52,11 +52,7 @@ def construct_report(subject_fmriprep_path, subject_fs_path, report_path, struct
 
 
 
-    ind_functional_qc.construct_report(subject_fmriprep_path, individual_structural_path)
-    ind_group_functional_qc.construct_report(subject_fmriprep_path, individual_functional_path)
-    ind_structural_qc.construct_report(subject_fmriprep_path, )
-    if type(structural_reference_csv_path) == type(None):
-        #NEED TO IMPLEMENT
-    ind_group_structural_qc.construct_report(subject_fs_path, group_structural_path, reference_csv_path, num_pcs=1, overwrite=False)
-    #construct_group_structural_qc(subject_path, report_path)
-    #construct_group_functional_qc(subject_path, report_path)
+    ind_functional_qc.construct_report(subject_fmriprep_path, individual_functional_path)
+    ind_group_functional_qc.construct_report(subject_fmriprep_path, individual_functional_path, functional_reference_csv_path)
+    ind_structural_qc.construct_report(subject_fmriprep_path, individual_structural_path)
+    ind_group_structural_qc.construct_report(subject_fs_path, individual_structural_path, structural_reference_csv_path)
