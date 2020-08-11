@@ -331,23 +331,23 @@ def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, cro
 
 
     color_lut_dictionary = {}
-    color_lut_dictionary[2] = ['Left Lateral Ventricle', [float(120)/256,float(18)/256,float(34)/256,1]]
-    color_lut_dictionary[3] = ['Left Thalamus', [float(0)/256,float(118)/256,float(14)/256,1]]
-    color_lut_dictionary[4] = ['Left Caudate', [float(122)/256,float(186)/256,float(220)/256,1]]
-    color_lut_dictionary[5] = ['Left Putamen', [float(236)/256,float(13)/256,float(176)/256,1]]
-    color_lut_dictionary[6] = ['Left Pallidum', [float(12)/256,float(48)/256,float(255)/256,1]]
-    color_lut_dictionary[7] = ['Brain-Stem', [float(119)/256,float(159)/256,float(176)/256,1]]
-    color_lut_dictionary[8] = ['Left Hippocampus', [float(220)/256,float(216)/256,float(20)/256,1]]
-    color_lut_dictionary[9] = ['Left Amygdala', [float(103)/256,float(255)/256,float(255)/256,1]]
-    color_lut_dictionary[10] = ['Left Accumbens', [float(255)/256,float(165)/256,float(0)/256,1]]
-    color_lut_dictionary[13] = ['Right Lateral Ventricle', [float(120)/256,float(18)/256,float(34)/256,1]]
-    color_lut_dictionary[14] = ['Right Thalamus', [float(0)/256,float(118)/256,float(14)/256,1]]
-    color_lut_dictionary[15] = ['Right Caudate', [float(122)/256,float(186)/256,float(220)/256,1]]
-    color_lut_dictionary[16] = ['Right Putamen', [float(236)/256,float(13)/256,float(176)/256,1]]
-    color_lut_dictionary[17] = ['Right Pallidum', [float(12)/256,float(48)/256,float(255)/256,1]]
-    color_lut_dictionary[18] = ['Right Hippocampus', [float(220)/256,float(216)/256,float(20)/256,1]]
-    color_lut_dictionary[19] = ['Right Amygdala', [float(103)/256,float(255)/256,float(255)/256,1]]
-    color_lut_dictionary[20] = ['Right Accumbens', [float(255)/256,float(165)/256,float(0)/256,1]]
+    color_lut_dictionary[2+1] = ['Left Lateral Ventricle', [float(120)/256,float(18)/256,float(34)/256,1]]
+    color_lut_dictionary[3+1] = ['Left Thalamus', [float(0)/256,float(118)/256,float(14)/256,1]]
+    color_lut_dictionary[4+1] = ['Left Caudate', [float(122)/256,float(186)/256,float(220)/256,1]]
+    color_lut_dictionary[5+1] = ['Left Putamen', [float(236)/256,float(13)/256,float(176)/256,1]]
+    color_lut_dictionary[6+1] = ['Left Pallidum', [float(12)/256,float(48)/256,float(255)/256,1]]
+    color_lut_dictionary[7+1] = ['Brain-Stem', [float(119)/256,float(159)/256,float(176)/256,1]]
+    color_lut_dictionary[8+1] = ['Left Hippocampus', [float(220)/256,float(216)/256,float(20)/256,1]]
+    color_lut_dictionary[9+1] = ['Left Amygdala', [float(103)/256,float(255)/256,float(255)/256,1]]
+    color_lut_dictionary[10+1] = ['Left Accumbens', [float(255)/256,float(165)/256,float(0)/256,1]]
+    color_lut_dictionary[13+1] = ['Right Lateral Ventricle', [float(120)/256,float(18)/256,float(34)/256,1]]
+    color_lut_dictionary[14+1] = ['Right Thalamus', [float(0)/256,float(118)/256,float(14)/256,1]]
+    color_lut_dictionary[15+1] = ['Right Caudate', [float(122)/256,float(186)/256,float(220)/256,1]]
+    color_lut_dictionary[16+1] = ['Right Putamen', [float(236)/256,float(13)/256,float(176)/256,1]]
+    color_lut_dictionary[17+1] = ['Right Pallidum', [float(12)/256,float(48)/256,float(255)/256,1]]
+    color_lut_dictionary[18+1] = ['Right Hippocampus', [float(220)/256,float(216)/256,float(20)/256,1]]
+    color_lut_dictionary[19+1] = ['Right Amygdala', [float(103)/256,float(255)/256,float(255)/256,1]]
+    color_lut_dictionary[20+1] = ['Right Accumbens', [float(255)/256,float(165)/256,float(0)/256,1]]
 
     lut_dict = color_lut_dictionary
 
@@ -360,10 +360,10 @@ def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, cro
     #Load overlay image, and remove gm/wm/csf
     overlay_obj = nib.load(harv_oxf_path)
     overlay_data = overlay_obj.get_fdata()
-    overlay_data[overlay_data == 0] = 0
     overlay_data[overlay_data == 1] = 0
-    overlay_data[overlay_data == 11] = 0
+    overlay_data[overlay_data == 2] = 0
     overlay_data[overlay_data == 12] = 0
+    overlay_data[overlay_data == 13] = 0
 
 
 
