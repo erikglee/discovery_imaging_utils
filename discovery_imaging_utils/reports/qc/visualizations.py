@@ -423,7 +423,8 @@ def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, cro
             if overlay_panel[i,j] < 0.5:
                 continue
             else:
-                overlay_panel_4d[i,j,:] = lut_dict[overlay_panel[i,j]][1]
+                if overlay_panel[i,j] in lut_dict.keys():
+                    overlay_panel_4d[i,j,:] = lut_dict[overlay_panel[i,j]][1]
 
 
 
