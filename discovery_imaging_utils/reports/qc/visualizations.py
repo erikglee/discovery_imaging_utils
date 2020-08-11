@@ -168,7 +168,7 @@ def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buf
     plt.yticks([])
 
     if type(output_path) != type(None):
-        plt.savefig(output_path + '.jpeg', dpi=dpi, bbox_inches='tight')
+        plt.savefig(output_path + '.jpeg', dpi=dpi, bbox_inches='tight', quality=97)
 
 
     return
