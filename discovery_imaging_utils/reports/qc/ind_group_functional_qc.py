@@ -12,6 +12,8 @@ def construct_report(subject_path, report_path, reference_csv_path):
 
     os.chdir(subject_path)
     subject_name = subject_path.split('/')[-1]
+    if len(subject_name) == 0:
+        subject_name = subject_path.split('/')[-2]
     reference_df = pd.read_csv(reference_csv_path)
 
     functional_images = glob.glob('./ses-*/func/sub*_boldref.nii.gz')
