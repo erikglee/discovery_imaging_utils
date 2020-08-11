@@ -292,7 +292,7 @@ def make_gmwmcsf_underlay_plot(path_to_underlay, path_to_gm_mask, path_to_wm_mas
     return
 
 
-def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, crop_buffer=40, num_total_images=16, alpha=0.4, output_path=None):
+def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, crop_buffer=30, num_total_images=16, alpha=0.4, output_path=None):
 
     #NEW USERS: BEFORE USING THIS FUNCTION, UPDATE THE PATH "path_to_fs_color_lut" TO POINT
     #TO THE COLOR LUT FILE FOUND IN YOUR FREESURFER INSTALLATION DIRECTORY (see load_color_lut
