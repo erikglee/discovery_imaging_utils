@@ -435,11 +435,11 @@ def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, cro
     im = plt.imshow(overlay_panel_4d,alpha=alpha)
     #im = plt.contour(overlay_panel_4d)
 
-    values = unique_values
+    values = lut_dict.keys()
     colors = [ im.cmap(im.norm(value)) for value in values]
-    colors = np.zeros((unique_values.shape[0],4))
+    colors = np.zeros((values.shape[0],4))
     labels = []
-    for i in range(unique_values.shape[0]):
+    for i in range(values.shape[0]):
         colors[i,:] = lut_dict[values[i]][1]
         labels.append(lut_dict[values[i]][0])
 
