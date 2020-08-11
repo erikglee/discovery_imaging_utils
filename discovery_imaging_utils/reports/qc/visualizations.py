@@ -330,29 +330,26 @@ def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, cro
     #named qc_images.
 
 
+    color_lut_dictionary = {}
+    color_lut_dictionary[2] = ['Left Lateral Ventricle', [float(120)/256,float(18)/256,float(34)/256,1]]
+    color_lut_dictionary[3] = ['Left Thalamus', [float(0)/256,float(118)/256,float(14)/256,1]]
+    color_lut_dictionary[4] = ['Left Caudate', [float(122)/256,float(186)/256,float(220)/256,1]]
+    color_lut_dictionary[5] = ['Left Putamen', [float(236)/256,float(13)/256,float(176)/256,1]]
+    color_lut_dictionary[6] = ['Left Pallidum', [float(12)/256,float(48)/256,float(255)/256,1]]
+    color_lut_dictionary[7] = ['Brain-Stem', [float(119)/256,float(159)/256,float(176)/256,1]]
+    color_lut_dictionary[8] = ['Left Hippocampus', [float(220)/256,float(216)/256,float(20)/256,1]]
+    color_lut_dictionary[9] = ['Left Amygdala', [float(103)/256,float(255)/256,float(255)/256,1]]
+    color_lut_dictionary[10] = ['Left Accumbens', [float(255)/256,float(165)/256,float(0)/256,1]]
+    color_lut_dictionary[13] = ['Right Lateral Ventricle', [float(120)/256,float(18)/256,float(34)/256,1]]
+    color_lut_dictionary[14] = ['Right Thalamus', [float(0)/256,float(118)/256,float(14)/256,1]]
+    color_lut_dictionary[15] = ['Right Caudate', [float(122)/256,float(186)/256,float(220)/256,1]]
+    color_lut_dictionary[16] = ['Right Putamen', [float(236)/256,float(13)/256,float(176)/256,1]]
+    color_lut_dictionary[17] = ['Right Pallidum', [float(12)/256,float(48)/256,float(255)/256,1]]
+    color_lut_dictionary[18] = ['Right Hippocampus', [float(220)/256,float(216)/256,float(20)/256,1]]
+    color_lut_dictionary[19] = ['Right Amygdala', [float(103)/256,float(255)/256,float(255)/256,1]]
+    color_lut_dictionary[20] = ['Right Accumbens', [float(255)/256,float(165)/256,float(0)/256,1]]
 
-    #Script to load the freesurfer color lut file as a dictionary.
-    #This file can be found in your $FREESURFER_HOME directory.
-    def load_color_lut_dictionary():
-
-        path_to_fs_color_lut = '/'.join(os.path.abspath(inspect.getfile(make_harv_oxf_qc_image)).split('/')[:-1]) + '/ColorLUT.txt'
-
-        color_lut_file = open(path_to_fs_color_lut,'r')
-        color_lut_dictionary = {}
-        for line in color_lut_file:
-            if line[0].isnumeric():
-
-                split_line = line.split(' ')
-                reduced_line = list(filter(lambda a: a != '', split_line))
-                reduced_line[-1] = reduced_line[-1].strip('\n')
-                key = int(reduced_line[0])
-                color = [float(reduced_line[2])/256,float(reduced_line[3])/256,float(reduced_line[4])/256,1]
-                anat = reduced_line[1]
-                color_lut_dictionary[key] = [anat, color]
-
-        return color_lut_dictionary
-
-    lut_dict = load_color_lut_dictionary()
+    lut_dict = color_lut_dictionary
 
     t1_obj = nib.load(underlay_path)
     t1_data = t1_obj.get_fdata()
@@ -363,12 +360,11 @@ def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, cro
     #Load overlay image, and remove gm/wm/csf
     overlay_obj = nib.load(harv_oxf_path)
     overlay_data = overlay_obj.get_fdata()
-    overlay_data[overlay_data == 2] = 0
-    overlay_data[overlay_data == 3] = 0
-    overlay_data[overlay_data == 4] = 0
-    overlay_data[overlay_data == 41] = 0
-    overlay_data[overlay_data == 42] = 0
-    overlay_data[overlay_data == 43] = 0
+    overlay_data[overlay_data == 0] = 0
+    overlay_data[overlay_data == 1] = 0
+    overlay_data[overlay_data == 11] = 0
+    overlay_data[overlay_data == 12] = 0
+
 
 
     overlay_ap_max = np.max(overlay_data,axis=(0,1))
