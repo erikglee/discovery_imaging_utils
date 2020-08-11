@@ -513,4 +513,4 @@ def plt_ind_on_dist(distribution, ind_val, xlabel='', dpi = 150, out_path = None
     plt.ylabel('Density',fontsize='x-large')
 
     if type(out_path) != type(None):
-        plt.savefig(out_path, dpi=dpi)
+        plt.savefig(out_path, dpi=dpi, bbox_inches='tight')
