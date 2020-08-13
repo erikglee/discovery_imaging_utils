@@ -112,11 +112,11 @@ def _construct_structural_html(report_path):
 
         temp_html.write('<h1>Structural Quality Control Report</h1>\n')
         temp_html.write('<h2>FreeSurfer Cortical Segmentation</h2>\n')
-        temp_html.write('<a href="../structural_qc/fs_segmentation.jpeg">FreeSurfer Cortical Segmentation</a>\n')
+        temp_html.write('<a src="../structural_qc/fs_segmentation.jpeg">FreeSurfer Cortical Segmentation</a>\n')
         temp_html.write('<h2>Segmentation of GM/WM/CSF for Nuisance Regression</h2>\n')
-        temp_html.write('<a href="../structural_qc/t1_regressors.jpg">Segmentation of ROIs for Nuisance Regression</a>\n')
+        temp_html.write('<a src="../structural_qc/t1_regressors.jpg">Segmentation of ROIs for Nuisance Regression</a>\n')
         temp_html.write('<h2>MNI Alignment to Harvard Oxford Subcortical ROIs</h2>\n')
-        temp_html.write('<a href="../structural_qc/mni_harv_oxf.jpg">Harvard Oxford Alignment</a>\n')
+        temp_html.write('<a src="../structural_qc/mni_harv_oxf.jpg">Harvard Oxford Alignment</a>\n')
         temp_html.write('<h2>Normalized FreeSurfer QC Statistics</h2>\n')
 
         with open('./structural_qc/table.html', 'r') as table_file:
@@ -151,9 +151,17 @@ def _construct_functional_html(report_path, temp_run):
 
         temp_html.write('<h1>Functional Quality Control Report (' + run_name + ')<h1>\n')
         temp_html.write('<h2>Structural Functional Alignment in Native Space</h2>\n')
-        temp_html.write('<a href="' + os.path.join('../functional_qc', run_name, 't1_reg.jpeg') + '">Strucutral Functional Native Alignment</a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 't1_reg.jpeg') + '">Strucutral Functional Native Alignment</a>\n')
         temp_html.write('<h2>Structural Functional Alignment in MNI Space</h2>\n')
-        temp_html.write('<a href="' + os.path.join('../functional_qc', run_name, 'mni_reg.jpeg') + '">Structural Functional MNI Alignment</a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mni_reg.jpeg') + '">Structural Functional MNI Alignment</a>\n')
+
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_gs.jpeg') + '"></a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_dvars.jpeg') + '"></a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'num_high_std_dvars.jpeg') + '"></a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'num_high_motion_tps.jpeg') + '"></a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_std_dvars.jpeg') + '"></a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_fd.jpeg') + '"></a>\n')
+
 
     html_output_txt = '<a href="' + os.path.join('html',run_name + '.html') + '">Run ' + run_name + ' QC</a>\n'
 
