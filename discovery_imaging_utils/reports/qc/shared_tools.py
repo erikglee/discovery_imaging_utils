@@ -123,8 +123,8 @@ def _construct_structural_html(report_path):
 
         temp_html.write(table_contents)
 
-    stats = pd.read_csv('./structural_qc/subject_qc_stats.csv')
-    max_err = np.nanmax(np.abs(stats.values))
+#    stats = pd.read_csv('./structural_qc/subject_qc_stats.csv')
+#    max_err = np.nanmax(np.abs(stats.values))
 #    if max_err < 3:
 #        color = 'green'
 #    elif max_err < 4:
