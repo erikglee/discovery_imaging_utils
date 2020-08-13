@@ -56,6 +56,8 @@ def construct_report(subject_fmriprep_path, subject_fs_path, report_path, struct
     ind_structural_qc.construct_report(subject_fmriprep_path, structural_qc_path)
     ind_group_structural_qc.construct_report(subject_fs_path, structural_qc_path, structural_reference_csv_path)
 
+    _construct_html(report_path)
+
 
 def _construct_html(report_path):
     """Internal function to make html out of QC
