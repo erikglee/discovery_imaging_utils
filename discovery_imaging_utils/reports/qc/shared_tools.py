@@ -112,12 +112,16 @@ def _construct_structural_html(report_path):
 
         temp_html.write('<h1>Structural Quality Control Report</h1>\n')
         temp_html.write('<h2>FreeSurfer Cortical Segmentation</h2>\n')
+        temp_html.write('<p> </p>')
         temp_html.write('<img src="../structural_qc/fs_segmentation.jpeg">FreeSurfer Cortical Segmentation</a>\n')
         temp_html.write('<h2>Segmentation of GM/WM/CSF for Nuisance Regression</h2>\n')
+        temp_html.write('<p> </p>')
         temp_html.write('<img src="../structural_qc/t1_regressors.jpg">Segmentation of ROIs for Nuisance Regression</a>\n')
         temp_html.write('<h2>MNI Alignment to Harvard Oxford Subcortical ROIs</h2>\n')
+        temp_html.write('<p> </p>')
         temp_html.write('<img src="../structural_qc/mni_harv_oxf.jpg">Harvard Oxford Alignment</a>\n')
         temp_html.write('<h2>Normalized FreeSurfer QC Statistics</h2>\n')
+        temp_html.write('<p> </p>')
 
         with open('./structural_qc/table.html', 'r') as table_file:
             table_contents = table_file.read()
@@ -151,15 +155,22 @@ def _construct_functional_html(report_path, temp_run):
 
         temp_html.write('<h1>Functional Quality Control Report (' + run_name + ')<h1>\n')
         temp_html.write('<h2>Structural Functional Alignment in Native Space</h2>\n')
+        temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 't1_reg.jpeg') + '">Strucutral Functional Native Alignment</a>\n')
         temp_html.write('<h2>Structural Functional Alignment in MNI Space</h2>\n')
+        temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mni_reg.jpeg') + '">Structural Functional MNI Alignment</a>\n')
 
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_gs.jpg') + '"> </a>\n')
+        temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_dvars.jpg') + '"> </a>\n')
+        temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'num_high_std_dvars.jpg') + '"> </a>\n')
+        temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'num_high_motion_tps.jpg') + '"> </a>\n')
+        temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_std_dvars.jpg') + '"> </a>\n')
+        temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_fd.jpg') + '"> </a>\n')
 
 
