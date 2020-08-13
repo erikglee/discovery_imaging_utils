@@ -5,6 +5,7 @@ from discovery_imaging_utils.reports.qc import ind_structural_qc
 from discovery_imaging_utils.reports.qc import ind_group_structural_qc
 import glob
 import inspect
+import pandas as pd
 
 
 def construct_report(subject_fmriprep_path, subject_fs_path, report_path, structural_reference_csv_path = None, functional_reference_csv_path = None, overwrite = False):
