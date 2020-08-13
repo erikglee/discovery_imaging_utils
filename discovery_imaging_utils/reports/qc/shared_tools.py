@@ -96,7 +96,7 @@ def _construct_html(report_path):
             contents_to_add = _construct_structural_html(report_path)
             html_file.write(contents_to_add)
 
-        functional_runs = glob.glob(os.path.join(functional_folder_name, '*run*'))
+        functional_runs = glob.glob(os.path.join(functional_folder_name, '*task*'))
         for temp_run in functional_runs:
             contents_to_add = _construct_functional_html(report_path, temp_run)
             html_file.write(contents_to_add)
