@@ -3,6 +3,7 @@ from discovery_imaging_utils.reports.qc import ind_functional_qc
 from discovery_imaging_utils.reports.qc import ind_group_functional_qc
 from discovery_imaging_utils.reports.qc import ind_structural_qc
 from discovery_imaging_utils.reports.qc import ind_group_structural_qc
+import glob
 import inspect
 
 
@@ -29,19 +30,17 @@ def construct_report(subject_fmriprep_path, subject_fs_path, report_path, struct
 
     """
 
-    individual_structural_path = os.path.join(report_path, 'ind_structural_qc')
-    group_structural_path = os.path.join(report_path, 'group_structural_qc')
-    individual_functional_path = os.path.join(report_path, 'ind_functional_qc')
-    group_functional_path = os.path.join(report_path, 'group_functional_qc')
+    structural_qc_path = os.path.join(report_path, 'structural_qc')
+    functional_qc_path = os.path.join(report_path, 'functional_qc')
 
     if os.path.exists(report_path) and (overwrite == False):
         raise NameError('Error: report path already exists')
     elif os.path.exists(report_path) == False:
         os.makedirs(report_path)
-    if os.path.exists(individual_structural_path) == False:
-        os.makedirs(individual_structural_path)
-    if os.path.exists(individual_functional_path) == False:
-        os.makedirs(individual_functional_path)
+    if os.path.exists(structural_qc_path) == False:
+        os.makedirs(structural_qc_path)
+    if os.path.exists(functional_qc_path) == False:
+        os.makedirs(functional_qc_path)
 
     #If path path to reference files not given, then
     #use template references stored in reference_data folder
@@ -52,7 +51,103 @@ def construct_report(subject_fmriprep_path, subject_fs_path, report_path, struct
 
 
 
-    ind_functional_qc.construct_report(subject_fmriprep_path, individual_functional_path)
-    ind_group_functional_qc.construct_report(subject_fmriprep_path, individual_functional_path, functional_reference_csv_path)
-    ind_structural_qc.construct_report(subject_fmriprep_path, individual_structural_path)
-    ind_group_structural_qc.construct_report(subject_fs_path, individual_structural_path, structural_reference_csv_path)
+    ind_functional_qc.construct_report(subject_fmriprep_path, functional_qc_path)
+    ind_group_functional_qc.construct_report(subject_fmriprep_path, individual_functional_path, functional_qc_path)
+    ind_structural_qc.construct_report(subject_fmriprep_path, structural_qc_path)
+    ind_group_structural_qc.construct_report(subject_fs_path, structural_qc_path, structural_reference_csv_path)
+
+
+def _construct_html(report_path):
+    """Internal function to make html out of QC
+
+    Function builds an html structure to visualize report contents
+    found under report_path
+
+    Parameters
+    ----------
+
+    report_path : str
+        path to the report folder that already contains report contents
+        for the subject
+
+    """
+
+    functional_folder_name = os.path.join(report_path, 'functional_qc')
+    structural_folder_name = os.path.join(report_path, 'structural_qc')
+
+    html_folder = os.path.join(report_path, 'html')
+    if os.path.exists(html_folder) == False:
+        os.mkdir(html_folder)
+
+    main_page_path = os.path.join(report_path, 'qc_report.html')
+    with open(main_page_path, 'w') as html_file:
+
+        startup_html_path = '/'.join(os.path.abspath(inspect.getfile(construct_report)).split('/')[:-1]) + '/reference_data/structural_reference_data.csv'
+        with open(startup_html_path, 'r') as startup_file:
+            startup_contents = startup_file.read()
+
+        html_file.write(startup_contents)
+
+        if len(glob.glob(os.path.join(structural_folder_name, '*'))) > 0:
+            contents_to_add = _construct_structural_html(report_path)
+            html_file.write(contents_to_add)
+
+        functional_runs = glob.glob(functional_folder_name, 'sub*')
+        for temp_run in functional_runs:
+            contents_to_add = _construct_functional_html(report_path, temp_run)
+            html_file.write(contents_to_add)
+
+
+
+def _construct_structural_html(report_path):
+
+    structural_html_path = os.path.join(report_path, 'html', 'structural_qc.html')
+    with open(structural_html_path, 'w') as temp_html:
+
+        temp_html.write('<h1>Structural Quality Control Report</h1>\n')
+        temp_html.write('<h2>FreeSurfer Cortical Segmentation</h2>\n')
+        temp_html.write('<a href="../structural_qc/fs_segmentation.jpeg">FreeSurfer Cortical Segmentation</a>\n')
+        temp_html.write('<h2>Segmentation of GM/WM/CSF for Nuisance Regression</h2>\n')
+        temp_html.write('<a href="../structural_qc/t1_regressors.jpg">Segmentation of ROIs for Nuisance Regression</a>\n')
+        temp_html.write('<h2>MNI Alignment to Harvard Oxford Subcortical ROIs</h2>\n')
+        temp_html.write('<a href="../structural_qc/mni_harv_oxf.jpg">Harvard Oxford Alignment</a>\n')
+        temp_html.write('<h2>Normalized FreeSurfer QC Statistics</h2>\n')
+
+        with open('../structural_qc/table.html', 'r') as table_file:
+            table_contents = table_file.read()
+
+        temp_html.write(table_contents)
+
+    stats = pd.read_csv('./structural_qc/subject_qc_stats.csv')
+    max_err = np.nanmax(np.abs(stats.values))
+#    if max_err < 3:
+#        color = 'green'
+#    elif max_err < 4:
+#        color = 'yellow'
+    #else:
+    #    color = 'red'
+
+    html_output_txt = '<a href="./html/structural_qc.html">Structural QC</a>\n'
+
+
+    return html_output_txt
+
+
+def _construct_structural_html(report_path, temp_run):
+
+    run_name = temp_run.split('/')[-1]
+    if len(run_name) == 0:
+        run_name = temp_run.split('/')[-2]
+    functional_html_path = os.path.join(report_path, 'html', run_name + '.html')
+
+    with open(functional_html_path, 'w') as temp_html:
+
+        temp_html.write('<h1>Functional Quality Control Report (' + run_name + ')<h1>\n')
+        temp_html.write('<h2>Structural Functional Alignment in Native Space</h2>\n')
+        temp_html.write('<a href="' + os.path.join('../functional_qc', run_name, 't1_reg.jpeg')'"\n')
+        temp_html.write('<h2>Structural Functional Alignment in MNI Space</h2>\n')
+        temp_html.write('<a href="' + os.path.join('../functional_qc', run_name, 'mni_reg.jpeg')'"\n')
+
+    html_output_txt '<a href="' + os.path.join('html',run_name + '.html') + '">Run ' + run_name + ' QC</a>\n'
+
+    return html_output_txt

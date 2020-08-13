@@ -1,0 +1,9 @@
+<h1>Subject Quality Control Report</h1>
+<p>This report contains quality control information for a specific subject. There will be one anatomical section per subject, and one functional section per BOLD run. Click on the links to see QC for each image. To assist in quick assesment of different runs, each link has a color coating of green/yellow/red that specifies the likelihood that a given element has good/questionable/poor qualtiy, respectively (notably, these are rather simple hints that should not serve as a replacement for manual inspection).</p>
+<h3>Color Codes</h3>
+	<p style="color:green">Potentially Good Quality</p>
+	<p style="color:yellow">Potentially Questionable Quality</p>
+	<p style="color:red">Potentially Poor Quality</p>
+
+<h2>Links to QC Elements</h2>
+<p> </p>
