@@ -135,7 +135,7 @@ def _construct_structural_html(report_path):
     return html_output_txt
 
 
-def _construct_structural_html(report_path, temp_run):
+def _construct_functional_html(report_path, temp_run):
 
     run_name = temp_run.split('/')[-1]
     if len(run_name) == 0:
