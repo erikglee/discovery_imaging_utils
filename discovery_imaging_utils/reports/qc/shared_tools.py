@@ -52,7 +52,7 @@ def construct_report(subject_fmriprep_path, subject_fs_path, report_path, struct
 
 
     ind_functional_qc.construct_report(subject_fmriprep_path, functional_qc_path)
-    ind_group_functional_qc.construct_report(subject_fmriprep_path, individual_functional_path, functional_qc_path)
+    ind_group_functional_qc.construct_report(subject_fmriprep_path, functional_qc_path, functional_qc_path)
     ind_structural_qc.construct_report(subject_fmriprep_path, structural_qc_path)
     ind_group_structural_qc.construct_report(subject_fs_path, structural_qc_path, structural_reference_csv_path)
 
