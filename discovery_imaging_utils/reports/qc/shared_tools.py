@@ -155,12 +155,12 @@ def _construct_functional_html(report_path, temp_run):
         temp_html.write('<h2>Structural Functional Alignment in MNI Space</h2>\n')
         temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mni_reg.jpeg') + '">Structural Functional MNI Alignment</a>\n')
 
-        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_gs.jpeg') + '"></a>\n')
-        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_dvars.jpeg') + '"></a>\n')
-        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'num_high_std_dvars.jpeg') + '"></a>\n')
-        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'num_high_motion_tps.jpeg') + '"></a>\n')
-        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_std_dvars.jpeg') + '"></a>\n')
-        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_fd.jpeg') + '"></a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_gs.jpg') + '">img</a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_dvars.jpg') + '">img</a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'num_high_std_dvars.jpg') + '">img</a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'num_high_motion_tps.jpg') + '">img</a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_std_dvars.jpg') + '">img</a>\n')
+        temp_html.write('<a src="' + os.path.join('../functional_qc', run_name, 'mean_fd.jpg') + '">img</a>\n')
 
 
     html_output_txt = '<a href="' + os.path.join('html',run_name + '.html') + '">Run ' + run_name + ' QC</a>\n'
