@@ -86,7 +86,7 @@ def _construct_html(report_path):
     main_page_path = os.path.join(report_path, 'qc_report.html')
     with open(main_page_path, 'w') as html_file:
 
-        startup_html_path = '/'.join(os.path.abspath(inspect.getfile(construct_report)).split('/')[:-1]) + '/reference_data/structural_reference_data.csv'
+        startup_html_path = '/'.join(os.path.abspath(inspect.getfile(construct_report)).split('/')[:-1]) + '/reference_data/initial_html_content.txt'
         with open(startup_html_path, 'r') as startup_file:
             startup_contents = startup_file.read()
 
