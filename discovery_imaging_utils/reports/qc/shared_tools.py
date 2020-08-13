@@ -103,6 +103,7 @@ def _construct_html(report_path):
 
 def _construct_structural_html(report_path):
 
+    os.chdir(report_path)
     structural_html_path = os.path.join(report_path, 'html', 'structural_qc.html')
     with open(structural_html_path, 'w') as temp_html:
 
@@ -137,6 +138,7 @@ def _construct_structural_html(report_path):
 
 def _construct_functional_html(report_path, temp_run):
 
+    os.chdir(report_path)
     run_name = temp_run.split('/')[-1]
     if len(run_name) == 0:
         run_name = temp_run.split('/')[-2]
