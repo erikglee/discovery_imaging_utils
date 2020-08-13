@@ -151,9 +151,9 @@ def _construct_functional_html(report_path, temp_run):
 
         temp_html.write('<h1>Functional Quality Control Report (' + run_name + ')<h1>\n')
         temp_html.write('<h2>Structural Functional Alignment in Native Space</h2>\n')
-        temp_html.write('<a href="' + os.path.join('../functional_qc', run_name, 't1_reg.jpeg') + '"\n')
+        temp_html.write('<a href="' + os.path.join('../functional_qc', run_name, 't1_reg.jpeg') + '">Strucutral Functional Native Alignment</a>\n')
         temp_html.write('<h2>Structural Functional Alignment in MNI Space</h2>\n')
-        temp_html.write('<a href="' + os.path.join('../functional_qc', run_name, 'mni_reg.jpeg') + '"\n')
+        temp_html.write('<a href="' + os.path.join('../functional_qc', run_name, 'mni_reg.jpeg') + '">Structural Functional MNI Alignment</a>\n')
 
     html_output_txt = '<a href="' + os.path.join('html',run_name + '.html') + '">Run ' + run_name + ' QC</a>\n'
 
