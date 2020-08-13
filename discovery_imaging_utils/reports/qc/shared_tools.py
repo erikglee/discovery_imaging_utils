@@ -116,7 +116,7 @@ def _construct_structural_html(report_path):
         temp_html.write('<a href="../structural_qc/mni_harv_oxf.jpg">Harvard Oxford Alignment</a>\n')
         temp_html.write('<h2>Normalized FreeSurfer QC Statistics</h2>\n')
 
-        with open('../structural_qc/table.html', 'r') as table_file:
+        with open('./structural_qc/table.html', 'r') as table_file:
             table_contents = table_file.read()
 
         temp_html.write(table_contents)
