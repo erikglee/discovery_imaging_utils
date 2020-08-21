@@ -37,5 +37,8 @@ def construct_report(subject_path, report_path):
         if os.path.exists(run_report_path) == False:
             os.makedirs(run_report_path)
 
-        make_outline_overlay_underlay_plot(path_to_T1_boldref, path_to_dseg_T1, aparcaseg=True, underlay_cmap='gray',wm=True, output_path=os.path.join(run_report_path, 't1_reg'))
-        make_outline_overlay_underlay_plot(path_to_MNI_boldref, path_to_dseg_MNI, aparcaseg=True, underlay_cmap='gray', wm=True, output_path=os.path.join(run_report_path, 'mni_reg'))
+        make_outline_overlay_underlay_plot(path_to_T1_boldref, path_to_dseg_T1, aparcaseg=True, underlay_cmap='gray',wm=False, output_path=os.path.join(run_report_path, 't1_reg'))
+
+        #MNI reg should be reduntant if we already know MNI reg works in
+        #structurals
+        #make_outline_overlay_underlay_plot(path_to_MNI_boldref, path_to_dseg_MNI, aparcaseg=True, underlay_cmap='gray', wm=True, output_path=os.path.join(run_report_path, 'mni_reg'))
