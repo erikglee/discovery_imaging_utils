@@ -70,7 +70,7 @@ def arr2gifti(array, output_path, hemi = ''):
 
 
 
-def parcellate_gifti(func_data, parcellation_path, demean_before_averaging = True):
+def parcellate_gifti(func_data, parcellation_path, intensity_normalize_before_averaging = True):
 	"""Internal function to parcelate gifti data.
 
 	Function assumes first region in parcellation is the medial wall and Should
@@ -87,10 +87,10 @@ def parcellate_gifti(func_data, parcellation_path, demean_before_averaging = Tru
 	   shape <n_vertices>. NaN and values less than 0.000001 will be ignored
 	parcellation_path : str
 	   path to FreeSurfer .annot file containing regions
-	demean_before_averaging : bool, optional
-	   whether or not to demean vertices before parcellation so that
-	   each vertex is weighted evenly. If used, the mean will be
-	   put back into the data at the parcel level
+	intensity_normalize_before_averaging : bool, optional
+	   whether or not to intensity normalize vertices before
+       parcellation so that each vertex is weighted evenly. If used,
+       the mean will be put back into the data at the parcel level
 
 
 	Returns
@@ -151,7 +151,7 @@ def parcellate_gifti(func_data, parcellation_path, demean_before_averaging = Tru
 
 		parcel_mean = np.nanmean(vertex_means)
 
-		if demean_before_averaging:
+		if intensity_normalize_before_averaging:
 
 			if depth > 1:
 				temp_timeseries = temp_timeseries/vertex_means[:,None]

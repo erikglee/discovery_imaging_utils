@@ -157,21 +157,18 @@ def _construct_functional_html(report_path, temp_run):
         temp_html.write('<h2>Structural Functional Alignment in Native Space</h2>\n')
         temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 't1_reg.jpeg') + '" alt="Native Registration">\n')
-        temp_html.write('<h2>Structural Functional Alignment in MNI Space</h2>\n')
-        temp_html.write('<p> </p>')
-        temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mni_reg.jpeg') + '" alt="MNI Registration">\n')
-
+        
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_gs.jpg') + '" alt="Mean GS">\n')
         temp_html.write('<p> </p>')
-        temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_dvars.jpg') + '"> </a>\n')
+        temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_dvars.jpg') + '" alt="Image 1">\n')
         temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'num_high_std_dvars.jpg') + '"> </a>\n')
         temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'num_high_motion_tps.jpg') + '"> </a>\n')
         temp_html.write('<p> </p>')
-        temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_std_dvars.jpg') + '"> </a>\n')
+        temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_std_dvars.jpg') + '" alt="Image 1">\n')
         temp_html.write('<p> </p>')
-        temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_fd.jpg') + '"> </a>\n')
+        temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_fd.jpg') + '" alt="Image 1">\n')
 
 
     html_output_txt = '<a href="' + os.path.join('html',run_name + '.html') + '">Run ' + run_name + ' QC</a>\n'
