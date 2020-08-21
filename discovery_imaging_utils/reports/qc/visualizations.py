@@ -112,8 +112,10 @@ def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buf
     if min_lim < 0:
         min_lim = 0
     max_lim = np.max(non_zero_locations) + ap_buffer_size
-    if max_lim > 254:
-        max_lim = 254
+    #if max_lim > 254:
+    #    max_lim = 254
+    if max_lim > overlay_data.shape[2]:
+        max_lim = overlay_data.shape[2] - 1
     inds_to_capture = np.linspace(min_lim,max_lim,num_total_images,dtype=int)
 
     overlay_max_0 = np.max(overlay_data,axis=(1,2))
@@ -124,14 +126,18 @@ def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buf
     if min0 < 0:
         min0 = 0
     max0 = np.max(overlay_locations_0) + crop_buffer
-    if max0 > 254:
-        max0 = 254
+    if max0 > overlay_data.shape[0]:
+        max0 = overlay_data.shape[0] - 1
+    #if max0 > 254:
+    #    max0 = 254
     min1 = np.min(overlay_locations_1) - crop_buffer
     if min1 < 0:
         min1 = 0
     max1 = np.max(overlay_locations_1) + crop_buffer
-    if max1 > 254:
-        max1 = 254
+    if max1 > overlay_data.shape[1]:
+        max1 = overlay_data.shape[1] - 1
+    #if max1 > 254:
+    #    max1 = 254
 
 
     num_imgs_per_dim = int(np.sqrt(num_total_images))
