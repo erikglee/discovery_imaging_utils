@@ -18,7 +18,7 @@ import seaborn as sns
 
 
 
-def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buffer_size = 3, crop_buffer=20, num_total_images=16, dpi=400, aparcaseg=False, dseg=False, wm=False, underlay_cmap='Greys', linewidths=.1, output_path=None):
+def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buffer_size = 3, crop_buffer=20, num_total_images=16, dpi=400, aparcaseg=False, dseg=False, wm=False, underlay_cmap='Greys', linewidths=.1, output_path=None, close_plot=True):
 
     """Function that makes contour plot with nifti mask and underlay.
 
@@ -170,11 +170,14 @@ def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buf
     if type(output_path) != type(None):
         plt.savefig(output_path + '.jpeg', dpi=dpi, bbox_inches='tight', quality=97)
 
+    if close_plot == True:
+        plt.close()
+
 
     return
 
 
-def make_gmwmcsf_underlay_plot(path_to_underlay, path_to_gm_mask, path_to_wm_mask, path_to_csf_mask, ap_buffer_size = 3, crop_buffer=20, num_total_images=16, underlay_cmap='gray', alpha=0.15, output_path=None):
+def make_gmwmcsf_underlay_plot(path_to_underlay, path_to_gm_mask, path_to_wm_mask, path_to_csf_mask, ap_buffer_size = 3, crop_buffer=20, num_total_images=16, underlay_cmap='gray', alpha=0.15, output_path=None, close_plot=True):
 
     #NEW USERS: BEFORE USING THIS FUNCTION, UPDATE THE PATH "path_to_fs_color_lut" TO POINT
     #TO THE COLOR LUT FILE FOUND IN YOUR FREESURFER INSTALLATION DIRECTORY (see load_color_lut
@@ -289,10 +292,13 @@ def make_gmwmcsf_underlay_plot(path_to_underlay, path_to_gm_mask, path_to_wm_mas
 
         plt.savefig(output_path + '.jpg', bbox_inches='tight')
 
+    if close_plot == True:
+        plt.close()
+
     return
 
 
-def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, crop_buffer=30, num_total_images=16, alpha=0.4, output_path=None):
+def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, crop_buffer=30, num_total_images=16, alpha=0.4, output_path=None, close_plot=True):
 
     #NEW USERS: BEFORE USING THIS FUNCTION, UPDATE THE PATH "path_to_fs_color_lut" TO POINT
     #TO THE COLOR LUT FILE FOUND IN YOUR FREESURFER INSTALLATION DIRECTORY (see load_color_lut
@@ -461,10 +467,13 @@ def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, cro
 
         plt.savefig(output_path + '.jpg', bbox_inches='tight')
 
+    if close_plot == True:
+        plt.close()
+
     return
 
 
-def plt_ind_on_dist(distribution, ind_val, xlabel='', dpi = 150, out_path = None):
+def plt_ind_on_dist(distribution, ind_val, xlabel='', dpi = 150, out_path = None, close_plot=True):
     """Function plots an arrow on a distribution
 
     Makes a smooth illustration of a distribution
@@ -511,3 +520,6 @@ def plt_ind_on_dist(distribution, ind_val, xlabel='', dpi = 150, out_path = None
 
     if type(out_path) != type(None):
         plt.savefig(out_path, dpi=dpi, bbox_inches='tight')
+
+    if close_plot == True:
+        plt.close()
