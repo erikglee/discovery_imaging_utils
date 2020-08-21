@@ -126,7 +126,7 @@ def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buf
     if min0 < 0:
         min0 = 0
     max0 = np.max(overlay_locations_0) + crop_buffer
-    if max0 > overlay_data.shape[0]:
+    if max0 >= overlay_data.shape[0]:
         max0 = overlay_data.shape[0] - 1
     #if max0 > 254:
     #    max0 = 254
@@ -134,7 +134,7 @@ def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buf
     if min1 < 0:
         min1 = 0
     max1 = np.max(overlay_locations_1) + crop_buffer
-    if max1 > overlay_data.shape[1]:
+    if max1 >= overlay_data.shape[1]:
         max1 = overlay_data.shape[1] - 1
     #if max1 > 254:
     #    max1 = 254
