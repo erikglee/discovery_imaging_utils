@@ -31,7 +31,15 @@ def construct_report(subject_path, report_path, reference_csv_path):
         temp_run = temp_func_id
         temp_ses = ses_ids[i]
 
+
         path_to_confounds = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_desc-confounds_regressors.tsv'
+
+        if os.path.exists(path_to_confounds) == False:
+
+            print('Missing confounds for run:' + temp_run)
+            continue
+
+
         confounds_dict = calc_run_stats(path_to_confounds)
 
 

@@ -28,10 +28,16 @@ def construct_report(subject_path, report_path):
         temp_ses = ses_ids[i]
 
         path_to_dseg_T1 = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-T1w_desc-aparcaseg_dseg.nii.gz'
-        path_to_dseg_MNI = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-MNI152NLin6Asym_res-2_desc-aparcaseg_dseg.nii.gz'
-
         path_to_T1_boldref = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-T1w_boldref.nii.gz'
-        path_to_MNI_boldref = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-MNI152NLin6Asym_res-2_boldref.nii.gz'
+
+        if (os.path.exists(path_to_dseg_T1) == False) or (os.path.exists(path_to_dseg_T1) == False):
+
+            print('Missing image for run:' + temp_run)
+            continue
+
+
+        #path_to_MNI_boldref = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-MNI152NLin6Asym_res-2_boldref.nii.gz'
+        #path_to_dseg_MNI = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-MNI152NLin6Asym_res-2_desc-aparcaseg_dseg.nii.gz'
 
         run_report_path = os.path.join(report_path, temp_func_id)
         if os.path.exists(run_report_path) == False:
