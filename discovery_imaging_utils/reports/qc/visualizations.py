@@ -219,8 +219,6 @@ def make_gmwmcsf_underlay_plot(path_to_underlay, path_to_gm_mask, path_to_wm_mas
     t1_obj = nib.load(t1_path)
     t1_data = t1_obj.get_fdata()
 
-    print(t1_data.shape)
-
     gm_data = nib.load(path_to_gm_mask).get_fdata()
     wm_data = nib.load(path_to_wm_mask).get_fdata()
     csf_data = nib.load(path_to_csf_mask).get_fdata()
@@ -359,8 +357,6 @@ def make_harv_oxf_qc_image(underlay_path, harv_oxf_path, ap_buffer_size = 3, cro
 
     t1_obj = nib.load(underlay_path)
     t1_data = t1_obj.get_fdata()
-
-    print(t1_data.shape)
 
 
     #Load overlay image, and remove gm/wm/csf
