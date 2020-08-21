@@ -30,7 +30,7 @@ def construct_report(subject_path, report_path):
         path_to_dseg_T1 = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-T1w_desc-aparcaseg_dseg.nii.gz'
         path_to_T1_boldref = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-T1w_boldref.nii.gz'
 
-        if (os.path.exists(path_to_dseg_T1) == False) or (os.path.exists(path_to_dseg_T1) == False):
+        if (os.path.exists(path_to_dseg_T1) == False) or (os.path.exists(path_to_T1_boldref) == False):
 
             print('Missing image for run:' + temp_run)
             continue
