@@ -265,9 +265,9 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     num_lh_holes_percentile = np.sum(reference_df['extra_elements_lhSurfaceHoles'].values < num_lh_holes)/(num_entries*100)
     num_rh_holes_percentile = np.sum(reference_df['extra_elements_rhSurfaceHoles'].values < num_rh_holes)/(num_entries*100)
     holes_stats = [num_lh_holes, num_lh_holes_percentile, num_rh_holes, num_rh_holes_percentile]
-    holes_cols = ['LH Holes', 'LH Holes Percentile', 'RH Holes', 'RH Hoels Percentile']
+    holes_inds = ['LH Holes', 'LH Holes Percentile', 'RH Holes', 'RH Hoels Percentile']
 
-    holes_df = pd.DataFrame(data=holes_stats, index=['Values'], columns=holes_cols)
+    holes_df = pd.DataFrame(data=holes_stats, index=hole_inds, columns=['Stats'])
     holes_df.to_csv(os.path.join(report_path, 'subject_holes_stats.csv'))
 
 
