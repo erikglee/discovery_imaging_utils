@@ -128,6 +128,16 @@ def _construct_structural_html(report_path):
 
         temp_html.write(table_contents)
 
+
+        #Add fs surface holes table
+        temp_html.write('<h2>FS Surface Holes</h2>\n')
+        temp_html.write('<p> </p>')
+
+        with open('./structural_qc/holes_table.html', 'r') as table_file:
+            table_contents = table_file.read()
+
+        temp_html.write(table_contents)
+
 #    stats = pd.read_csv('./structural_qc/subject_qc_stats.csv')
 #    max_err = np.nanmax(np.abs(stats.values))
 #    if max_err < 3:
@@ -157,7 +167,7 @@ def _construct_functional_html(report_path, temp_run):
         temp_html.write('<h2>Structural Functional Alignment in Native Space</h2>\n')
         temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 't1_reg.jpeg') + '" alt="Native Registration">\n')
-        
+
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_gs.jpg') + '" alt="Mean GS">\n')
         temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_dvars.jpg') + '" alt="Image 1">\n')

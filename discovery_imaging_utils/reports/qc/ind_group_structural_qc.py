@@ -228,14 +228,12 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
 
 
-    def absolute_viridis(s):
+    def absolute_viridis(s, vmax=4):
 
         #Function to do color
         #coating of viridis
         #where pos/neg values
         #have mirrrored colors
-
-        vmax = 4
 
         norm = matplotlib.colors.Normalize(vmin=0, vmax=vmax, clip=False)
         cm = matplotlib.cm.ScalarMappable(norm=norm, cmap='viridis')
@@ -269,6 +267,10 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
     holes_df = pd.DataFrame(data=holes_stats, index=holes_inds, columns=['Stats'])
     holes_df.to_csv(os.path.join(report_path, 'subject_holes_stats.csv'))
+
+    with open(os.path.join(report_path, 'holes_table.html'),'w') as temp_file:
+        html_content = holes_df.to_html()
+        temp_file.write(html_content)
 
 
 
