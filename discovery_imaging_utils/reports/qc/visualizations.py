@@ -18,7 +18,7 @@ import seaborn as sns
 
 
 
-def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buffer_size = 3, crop_buffer=20, num_total_images=16, dpi=400, aparcaseg=False, dseg=False, wm=False, underlay_cmap='Greys', linewidths=.1, output_path=None, close_plot=True):
+def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buffer_size = 3, crop_buffer=20, num_total_images=16, dpi=400, aparcaseg=False, dseg=False, wm=False, wmgm=False, underlay_cmap='Greys', linewidths=.1, output_path=None, close_plot=True):
 
     """Function that makes contour plot with nifti mask and underlay.
 
@@ -55,6 +55,11 @@ def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buf
         If true, will change aparcaseg and dseg
         functionality so that they make outline
         of wm surface instead
+    wmgm : boolean
+        If true, this will override the wm field
+        and instead make a contour out of the aparcaseg
+        segmentation for both GM and WM (for at least
+        aparcaseg at this point)
     underlay_cmap : str
         the matplotlib colormap to use for the
         underlay
@@ -85,13 +90,21 @@ def make_outline_overlay_underlay_plot(path_to_underlay, path_to_overlay, ap_buf
         else:
             overlay_data[orig_overlay == 2] = 1
             overlay_data[orig_overlay == 41] = 1
+        if wmgm == True:
+            overlay_data[np.abs(orig_overlay - 1500) < 600] = 1
+            overlay_data[orig_overlay == 2] = 1
+            overlay_data[orig_overlay == 41] = 1
     elif dseg == True:
         orig_overlay = overlay_data
         if wm == False:
             overlay_data = np.zeros(overlay_data.shape)
             overlay_data[orig_overlay == 1] = 1
+        elif wmgm == False:
+            overlay_data = np.zeros(overlay_data.shape)
+            overlay_data[orig_overlay == 2] = 1
         else:
             overlay_data = np.zeros(overlay_data.shape)
+            overlay_data[orig_overlay == 1] = 1
             overlay_data[orig_overlay == 2] = 1
     else:
         overlay_data[np.abs(overlay_data) > 0.0001] = 1
