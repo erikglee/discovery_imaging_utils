@@ -256,8 +256,9 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
 
     #Make a different plot for the number of surface holes
-    num_lh_holes = subj_fs_dict['extra_elements_lhSurfaceHoles']
-    num_rh_holes = subj_fs_dict['extra_elements_rhSurfaceHoles']
+    num_lh_holes = float(subj_fs_dict['extra_elements_lhSurfaceHoles'])
+    num_rh_holes = float(subj_fs_dict['extra_elements_rhSurfaceHoles'])
+
 
     num_entries = reference_df.shape[0]
 
