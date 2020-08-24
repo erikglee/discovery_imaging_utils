@@ -267,7 +267,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     holes_stats = [num_lh_holes, num_lh_holes_percentile, num_rh_holes, num_rh_holes_percentile]
     holes_inds = ['LH Holes', 'LH Holes Percentile', 'RH Holes', 'RH Hoels Percentile']
 
-    holes_df = pd.DataFrame(data=holes_stats, index=hole_inds, columns=['Stats'])
+    holes_df = pd.DataFrame(data=holes_stats, index=holes_inds, columns=['Stats'])
     holes_df.to_csv(os.path.join(report_path, 'subject_holes_stats.csv'))
 
 
