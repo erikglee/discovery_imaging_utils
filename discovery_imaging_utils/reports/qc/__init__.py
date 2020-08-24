@@ -4,3 +4,4 @@ from discovery_imaging_utils.reports.qc import ind_group_structural_qc
 from discovery_imaging_utils.reports.qc import ind_structural_qc
 from discovery_imaging_utils.reports.qc import shared_tools
 from discovery_imaging_utils.reports.qc import visualizations
+from discovery_imaging_utils.reports.qc import alignment_metrics

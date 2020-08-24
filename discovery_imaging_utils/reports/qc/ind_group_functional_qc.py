@@ -1,4 +1,5 @@
 from discovery_imaging_utils.reports.qc.visualizations import plt_ind_on_dist
+from discovery_imaging_utils.reports.qc.alignment_metrics import batch_calc_alignment_metrics
 import os
 import glob
 import pandas as pd
@@ -32,6 +33,10 @@ def construct_report(subject_path, report_path, reference_csv_path):
         temp_ses = ses_ids[i]
 
 
+        #path_to_dseg_T1 = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-T1w_desc-aparcaseg_dseg.nii.gz'
+        #path_to_T1_boldref = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-T1w_boldref.nii.gz'
+        #path_to_brainmask = './'
+
         path_to_confounds = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_desc-confounds_regressors.tsv'
 
         if os.path.exists(path_to_confounds) == False:
@@ -53,6 +58,7 @@ def construct_report(subject_path, report_path, reference_csv_path):
         plt_ind_on_dist(reference_df['num_high_motion_tps'].values, confounds_dict['num_high_motion_tps'], xlabel='num_high_motion_tps', out_path = os.path.join(run_report_path, 'num_high_motion_tps.jpg'))
         plt_ind_on_dist(reference_df['mean_dvars'].values, confounds_dict['mean_dvars'], xlabel='mean_dvars', out_path = os.path.join(run_report_path, 'mean_dvars.jpg'))
         plt_ind_on_dist(reference_df['mean_gs'].values, confounds_dict['mean_gs'], xlabel='mean_gs', out_path = os.path.join(run_report_path, 'mean_gs.jpg'))
+
 
 
 
