@@ -197,9 +197,9 @@ def batch_calc_alignment_metrics(reference_data, aparcaseg_data, brainmask_data)
         neighborhood_brain = brain_vol[defined_coords_tuple]
         neighborhood_ref = reference_data[defined_coords_tuple]
 
-        neighb_brain_dev = mean_pow_deviation(neighborhood_ref[neighborhood_brain == 1], deviation_power)
-        neighb_other_dev = mean_pow_deviation(neighborhood_ref[neighborhood_brain == 0], deviation_power)
-        neighb_full_dev  = mean_pow_deviation(neighborhood_ref, deviation_power)
+        neighb_brain_dev = mean_pow_deviation(neighborhood_ref[neighborhood_brain == 1], 4)
+        neighb_other_dev = mean_pow_deviation(neighborhood_ref[neighborhood_brain == 0], 4)
+        neighb_full_dev  = mean_pow_deviation(neighborhood_ref, 4)
 
 
         dev_ratio[i] = (neighb_brain_dev + neighb_other_dev)/(2*neighb_full_dev)

@@ -33,9 +33,6 @@ def construct_report(subject_path, report_path, reference_csv_path):
         temp_ses = ses_ids[i]
 
 
-        #path_to_dseg_T1 = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-T1w_desc-aparcaseg_dseg.nii.gz'
-        #path_to_T1_boldref = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_space-T1w_boldref.nii.gz'
-        #path_to_brainmask = './'
 
         path_to_confounds = './' + temp_ses + '/func/' + subject_name + '_' + temp_run + '_desc-confounds_regressors.tsv'
 
