@@ -86,6 +86,12 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
 
     reference_df = pd.read_csv(reference_csv_path)
+
+    if os.path.exists(os.path.join(subject_path, 'stats','aseg.stats')) == False:
+
+        print('Missing aseg.stats:' + subject_path)
+        return
+
     subj_fs_dict = fs_anat_to_dict(subject_path, flatten=True)
 
     #remove any nans from reference_df
