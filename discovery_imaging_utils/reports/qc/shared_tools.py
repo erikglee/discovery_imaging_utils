@@ -180,6 +180,13 @@ def _construct_functional_html(report_path, temp_run):
         temp_html.write('<p> </p>')
         temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'mean_fd.jpg') + '" alt="Image 1">\n')
 
+        temp_html.write('<p> </p>')
+        temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'local_dev_ratio.jpg') + '"> </a>\n')
+        temp_html.write('<p> </p>')
+        temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'gm_skin_1dil_var_component_ratio.jpg') + '" alt="Image 1">\n')
+        temp_html.write('<p> </p>')
+        temp_html.write('<img src="' + os.path.join('../functional_qc', run_name, 'brainmask_var_component_ratio.jpg') + '" alt="Image 1">\n')
+
 
     html_output_txt = '<a href="' + os.path.join('html',run_name + '.html') + '">Run ' + run_name + ' QC</a>\n'
 
