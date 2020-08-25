@@ -4,6 +4,7 @@ import os
 import glob
 import pandas as pd
 import numpy as np
+from nibabel import load as nib_load
 
 
 
@@ -56,7 +57,12 @@ def construct_report(subject_path, report_path, reference_csv_path):
         plt_ind_on_dist(reference_df['mean_dvars'].values, confounds_dict['mean_dvars'], xlabel='mean_dvars', out_path = os.path.join(run_report_path, 'mean_dvars.jpg'))
         plt_ind_on_dist(reference_df['mean_gs'].values, confounds_dict['mean_gs'], xlabel='mean_gs', out_path = os.path.join(run_report_path, 'mean_gs.jpg'))
 
+        plt_ind_on_dist(reference_df['local_dev_ratio'].values, confounds_dict['local_dev_ratio'], xlabel='local_dev_ratio', out_path = os.path.join(run_report_path, 'local_dev_ratio.jpg'))
+        plt_ind_on_dist(reference_df['brainmask_var_component_ratio'].values, confounds_dict['brainmask_var_component_ratio'], xlabel='brainmask_var_component_ratio', out_path = os.path.join(run_report_path, 'brainmask_var_component_ratio.jpg'))
+        plt_ind_on_dist(reference_df['gm_skin_1dil_var_component_ratio'].values, confounds_dict['gm_skin_1dil_var_component_ratio'], xlabel='gm_skin_1dil_var_component_ratio', out_path = os.path.join(run_report_path, 'gm_skin_1dil_var_component_ratio.jpg'))
 
+        output_df = pd.DataFrame(confounds_dict)
+        output_df.to_csv(os.path.join(run_report_path, 'functional_qc_summary_stats.csv'))
 
 
 
@@ -100,6 +106,25 @@ def calc_run_stats(path_to_confounds, high_std_dvars_thresh = 1.5, high_motion_t
     output_dict['num_high_motion_tps'] = np.where(confounds_df['framewise_displacement'] > high_motion_thresh)[0].shape[0]
     output_dict['max_fd'] = np.nanmax(confounds_df['framewise_displacement'].values)
 
+
+    #Now calculate some metrics that need the image loaded....
+    confounds_beginning = path_to_confounds[:-len('desc-confounds_regressors.tsv')]
+    reference_img_path = confounds_beginning + 'space-T1w_boldref.nii.gz'
+    aparcaseg_img_path = confounds_beginning + 'space-T1w_desc-aparcaseg_dseg.nii.gz'
+    brainmask_img_path = confounds_beginning + 'space-T1w_desc-brain_mask.nii.gz'
+
+    reference_img_data = nib_load(reference_img_path).get_fdata()
+    aparcaseg_img_path = nib_load(aparcaseg_img_path).get_fdata()
+    brainmask_img_path = nib_load(brainmask_img_path).get_fdata()
+
+
+    local_dev_ratio, brainmask_var_component_ratio, gm_skin_1dil_var_component_ratio = batch_calc_alignment_metrics(reference_img_data, aparcaseg_img_path, brainmask_img_path)
+
+    output_dict['local_dev_ratio'] = local_dev_ratio
+    output_dict['brainmask_var_component_ratio'] = brainmask_var_component_ratio
+    output_dict['gm_skin_1dil_var_component_ratio'] = gm_skin_1dil_var_component_ratio
+
+
     return output_dict
 
 def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
@@ -129,6 +154,10 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
     mean_fd = []
     num_high_motion_tps = []
     max_fd = []
+    local_dev_ratio = []
+    brainmask_var_component_ratio = []
+    gm_skin_1dil_var_component_ratio = []
+
 
     os.chdir(path_to_fmriprep_dir)
     subjects = glob.glob('sub*')
@@ -168,6 +197,10 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
                 mean_fd.append(confounds_dict['mean_fd'])
                 num_high_motion_tps.append(confounds_dict['num_high_motion_tps'])
                 max_fd.append(confounds_dict['max_fd'])
+                local_dev_ratio.append(confounds_dict['local_dev_ratio'])
+                brainmask_var_component_ratio.append(confounds_dict['brainmask_var_component_ratio'])
+                gm_skin_1dil_var_component_ratio.append(confounds_dict['gm_skin_1dil_var_component_ratio'])
+
 
 
     temp_dict = {'mean_gs' : mean_gs,
@@ -177,7 +210,10 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
                  'mean_dvars' : mean_dvars,
                  'mean_fd' : mean_fd,
                  'num_high_motion_tps' : num_high_motion_tps,
-                 'max_fd' : max_fd}
+                 'max_fd' : max_fd,
+                 'local_dev_ratio' : local_dev_ratio,
+                 'brainmask_var_component_ratio' : brainmask_var_component_ratio,
+                 'gm_skin_1dil_var_component_ratio' : gm_skin_1dil_var_component_ratio}
 
     output_df = pd.DataFrame(temp_dict)
     output_df.to_csv(output_reference_csv_path)
