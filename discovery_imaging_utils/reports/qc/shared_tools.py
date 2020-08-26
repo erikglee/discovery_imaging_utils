@@ -120,23 +120,27 @@ def _construct_structural_html(report_path):
         temp_html.write('<h2>MNI Alignment to Harvard Oxford Subcortical ROIs</h2>\n')
         temp_html.write('<p> </p>')
         temp_html.write('<img src="../structural_qc/mni_harv_oxf.jpg" alt="harv oxf alignment">\n')
-        temp_html.write('<h2>Normalized FreeSurfer QC Statistics</h2>\n')
-        temp_html.write('<p> </p>')
 
-        with open('./structural_qc/table.html', 'r') as table_file:
-            table_contents = table_file.read()
+        if os.path.exists('./structural_qc/table.html'):
 
-        temp_html.write(table_contents)
+            temp_html.write('<h2>Normalized FreeSurfer QC Statistics</h2>\n')
+            temp_html.write('<p> </p>')
 
+            with open('./structural_qc/table.html', 'r') as table_file:
+                table_contents = table_file.read()
 
-        #Add fs surface holes table
-        temp_html.write('<h2>FS Surface Holes</h2>\n')
-        temp_html.write('<p> </p>')
+            temp_html.write(table_contents)
 
-        with open('./structural_qc/holes_table.html', 'r') as table_file:
-            table_contents = table_file.read()
+        if os.path.exists('./structural_qc/holes_table.html'):
 
-        temp_html.write(table_contents)
+            #Add fs surface holes table
+            temp_html.write('<h2>FS Surface Holes</h2>\n')
+            temp_html.write('<p> </p>')
+
+            with open('./structural_qc/holes_table.html', 'r') as table_file:
+                table_contents = table_file.read()
+
+            temp_html.write(table_contents)
 
 #    stats = pd.read_csv('./structural_qc/subject_qc_stats.csv')
 #    max_err = np.nanmax(np.abs(stats.values))
