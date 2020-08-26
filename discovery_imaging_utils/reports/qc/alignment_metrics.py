@@ -7,6 +7,24 @@ import glob
 
 
 def mean_pow_deviation(arr, power):
+    """Calculates the ave abs dif raised to given power
+
+    Parameters
+    ----------
+
+    arr : numpy.ndarray
+        1d array
+    power : float
+        the power to use to alter the weightings of deviations
+        from the mean
+
+    Returns
+    -------
+
+    mean_pow_deviation : float
+        the output statistic
+
+    """
 
     ave = np.nanmean(arr)
     abs_dif = np.abs(arr - ave)
