@@ -631,11 +631,11 @@ def populate_hdf5(hdf5_file_path,
 
 		num_dimensions = []
 		if type(lh_data) != type(None):
-			num_dimensions.append(lh_data.shape[1])
+			num_dimensions.append(f['lh_data'].shape[1])
 		if type(rh_data) != type(None):
-			num_dimensions.append(rh_data.shape[1])
+			num_dimensions.append(f['rh_data'].shape[1])
 		if type(nifti_data) != type(None):
-			num_dimensions.append(nifti_data.shape[1])
+			num_dimensions.append(f['nifti_data'].shape[1])
 
 		if np.unique(num_dimensions).shape[0] != 1:
 			raise NameError('Error: LH, RH, and Nifti data must all have the same length.')
