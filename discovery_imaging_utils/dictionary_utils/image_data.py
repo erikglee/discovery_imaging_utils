@@ -487,8 +487,12 @@ def populate_hdf5(hdf5_file_path,
 			if 'lh_inclusion_mask_path' in file_path_dictionary.keys():
 
 				#Make function to set appropriate values to NaN.....
-				f['lh_data'], lh_inclusion_inds = gifti_utils.incorporate_gifti_inclusion_mask(f['lh_data'], f['/metadata/file_paths/lh_inclusion_mask_path'])
+				f['lh_data_masked'], lh_inclusion_inds = gifti_utils.incorporate_gifti_inclusion_mask(f['lh_data'], f['/metadata/file_paths/lh_inclusion_mask_path'])
 				lh_gifti_ids = lh_inclusion_inds
+
+				del f['lh_data']
+				f['lh_data'] = f['lh_data_masked']
+				del f['lh_data_masked']
 
 
 
@@ -496,10 +500,14 @@ def populate_hdf5(hdf5_file_path,
 
 				has_lh_gifti_parcellation = True
 				#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
-				f['lh_data'], lh_labels, lh_parcels_dict = gifti_utils.parcellate_gifti(f['lh_data'], f['/metadata/file_paths/lh_parcellation_path'])
+				f['lh_data_masked'], lh_labels, lh_parcels_dict = gifti_utils.parcellate_gifti(f['lh_data'], f['/metadata/file_paths/lh_parcellation_path'])
 				lh_gifti_ids = lh_labels
 				_dict_to_hdf5_attrs(f, lh_parcels_dict, base_path = '/metadata/parcel_dicts/lh/')
 				#image_data_dict['lh_parcels_dict'] = lh_parcels_dict
+
+				del f['lh_data']
+				f['lh_data'] = f['lh_data_masked']
+				del f['lh_data_masked']
 
 			f['lh_ids'] = lh_gifti_ids
 
@@ -518,8 +526,12 @@ def populate_hdf5(hdf5_file_path,
 			if 'rh_inclusion_mask_path' in file_path_dictionary.keys():
 
 				#Make function to set appropriate values to NaN.....
-				rh_data, rh_inclusion_inds = gifti_utils.incorporate_gifti_inclusion_mask(f['rh_data'], f['/metadata/file_paths/rh_inclusion_mask_path'])
+				f['rh_data_masked'], rh_inclusion_inds = gifti_utils.incorporate_gifti_inclusion_mask(f['rh_data'], f['/metadata/file_paths/rh_inclusion_mask_path'])
 				rh_gifti_ids = rh_inclusion_inds
+
+				del f['rh_data']
+				f['rh_data'] = f['rh_data_masked']
+				del f['rh_data_masked']
 
 
 
@@ -527,10 +539,14 @@ def populate_hdf5(hdf5_file_path,
 
 				has_rh_gifti_parcellation = True
 				#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
-				rh_data, rh_labels, rh_parcels_dict = gifti_utils.parcellate_gifti(f['rh_data'], f['/metadata/file_paths/rh_parcellation_path'])
+				f['rh_data_masked'], rh_labels, rh_parcels_dict = gifti_utils.parcellate_gifti(f['rh_data'], f['/metadata/file_paths/rh_parcellation_path'])
 				rh_gifti_ids = rh_labels
 				_dict_to_hdf5_attrs(f, rh_parcels_dict, base_path = '/metadata/parcel_dicts/rh/')
 				#image_data_dict['rh_parcels_dict'] = rh_parcels_dict
+
+				del f['rh_data']
+				f['rh_data'] = f['rh_data_masked']
+				del f['rh_data_masked']
 
 			f['rh_ids'] = rh_gifti_ids
 
