@@ -171,8 +171,8 @@ def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_
 
 
 	#Create array to store parcellated output
-    if input_ts_matrix.ndim == 4:
-        depth = input_ts_matrix.shape[3]
+if input_ts_matrix.ndim == 4:
+		depth = input_ts_matrix.shape[3]
 	else:
 		depth = 1
 
@@ -180,8 +180,8 @@ def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_
 	parc_mean_signal_intensities = np.zeros(unique_mask_vals.shape[0])
 	parcel_dictionary = {}
 
-    if input_mask_matrix.shape[0:3] != input_ts_matrix.shape[0:3]:
-        raise NameError('Error: the first three dimensions of the input mask and input timeseries must be the same.')
+	if input_mask_matrix.shape[0:3] != input_ts_matrix.shape[0:3]:
+		raise NameError('Error: the first three dimensions of the input mask and input timeseries must be the same.')
 
 
 	for i in range(len(unique_mask_vals)):
