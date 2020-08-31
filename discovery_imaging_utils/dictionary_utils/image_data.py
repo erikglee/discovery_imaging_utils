@@ -630,53 +630,59 @@ def populate_hdf5(hdf5_file_path,
 			raise NameError('Error: Must define path for at least one of the following - lh_gifti_data, rh_gifti_data, nifti_data')
 
 		num_dimensions = []
+		num_locations = 0
 		if has_lh_gifti:
 			num_dimensions.append(f['lh_data'].shape[1])
+			num_locations += f['lh_data'].shape[0]
 		if has_rh_gifti:
 			num_dimensions.append(f['rh_data'].shape[1])
+			num_locations += f['rh_data'].shape[0]
 		if has_nifti:
 			num_dimensions.append(f['nifti_data'].shape[1])
+			num_locations += f['nifti_data'].shape[0]
 
 		if np.unique(num_dimensions).shape[0] != 1:
 			print(f['lh_data'].shape)
 			raise NameError('Error: LH, RH, and Nifti data must all have the same length.')
 
-		data = None
+		data = f.create_dataset('data', (num_locations, num_dimensions), dtype=np.float32)
 
 		#Add lh gifti data
+		inds_counted = 0
 		if has_lh_gifti:
 			f['lh_data_inds'] = np.arange(0, len(lh_gifti_ids), 1, dtype=int)
-			data = lh_data
+			data[inds_counted:(inds_counted + f['lh_data'].shape[0]),:] = lh_data
+			inds_counted = int(inds_counted + f['lh_data'].shape[0])
 
 			image_data_dict['lh_ids'] = lh_gifti_ids
 
 
 		#Add rh gifti data
 		if has_rh_gifti:
-			if type(data) != type(None):
-				f['rh_data_inds'] = np.arange(data.shape[0], data.shape[0] + len(rh_gifti_ids), 1, dtype=int)
-				data = np.vstack((data, rh_data))
+			if inds_counted > 0:
+				image_data_dict['rh_data_inds'] = np.arange(inds_counted, inds_counted + len(rh_gifti_ids), 1, dtype=int)
+				data[inds_counted:(inds_counted + f['rh_data'].shape[0]),:] = rh_data
 			else:
-				rh_data_inds = np.arange(0, rh_data.shape[0], 1, dtype=int)
-				data = rh_data
+				image_data_dict['rh_data_inds'] = np.arange(0, rh_data.shape[0], 1, dtype=int)
+				data[0:f['rh_data'].shape[0],:] = rh_data
 
-			image_data_dict['rh_data_inds'] = rh_data_inds
 			image_data_dict['rh_ids'] = rh_gifti_ids
+			inds_counted = int(inds_counted + f['rh_data'].shape[0])
 
 
 
 
 		#Add nifti data
 		if has_nifti:
-			if type(data) != type(None):
-				nifti_data_inds = np.arange(data.shape[0], data.shape[0] + nifti_data.shape[0], 1, dtype=int)
-				data = np.vstack((data, nifti_data))
+			if inds_counted > 0:
+				nifti_data_inds = np.arange(inds_counted, inds_counted + nifti_data.shape[0], 1, dtype=int)
+				data[inds_counted:(inds_counted + f['nifti_data'].shape[0]),:] = nifti_data
 			else:
 				nifti_data_inds = np.arange(0, nifti_data.shape[0], 1, dtype=int)
 				data = nifti_data
 
+			inds_counted = int(inds_counted + f['nifti_data'].shape[0])
 			f['nifti_data_inds'] = nifti_data_inds
-			#image_data_dict['nifti_ids'] = ['nii_' + str(temp_label) for temp_label in nifti_data_inds]
 			image_data_dict['nifti_ids'] = nifti_ids
 
 
@@ -689,10 +695,8 @@ def populate_hdf5(hdf5_file_path,
 
 
 
-		f['data'] = data
 
-
-	return image_data_dict
+	return
 
 
 def _dict_to_hdf5_attrs(hdf5_file_object, dictionary, base_path = ''):
