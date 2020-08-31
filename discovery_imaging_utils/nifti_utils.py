@@ -171,7 +171,7 @@ def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_
 
 
 	#Create array to store parcellated output
-if input_ts_matrix.ndim == 4:
+	if input_ts_matrix.ndim == 4:
 		depth = input_ts_matrix.shape[3]
 	else:
 		depth = 1
