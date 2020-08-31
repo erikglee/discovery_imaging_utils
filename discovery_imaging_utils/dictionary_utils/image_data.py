@@ -418,7 +418,7 @@ def populate_hdf5(hdf5_file_path,
 	normalize : bool
 		whether data should be normalized (defaults to true). Automatically
 		done prior to parcellation, but this determines if the output data
-		will be mean of 10k. Only works for 4d nifti or 2d surface data.
+		will be mean of 1k. Only works for 4d nifti or 2d surface data.
 
 
 	Returns
@@ -691,7 +691,8 @@ def populate_hdf5(hdf5_file_path,
 			if data.shape[1] > 1:
 
 				f['data_means'] = np.mean(data,axis=1)
-				data = data/f['data_means'][:,np.newaxis]*10000
+				data = data/f['data_means']*1000 #Got rid of [:,None] because HDF5
+												#dataset didnt seem to support
 
 
 
