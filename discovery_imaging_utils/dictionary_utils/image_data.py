@@ -437,12 +437,6 @@ def populate_hdf5(hdf5_file_path,
 
 		file_path_dictionary = {}
 
-
-			if type(nifti_inclusion_mask_path) != type(None):
-				file_path_dictionary['nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
-			if type(nifti_parcellation_path) != type(None):
-				file_path_dictionary['nifti_parcellation_path'] = nifti_parcellation_path
-
 		if type(lh_gii_data_path) != type(None):
 			f['/metadata/file_paths/lh_gii_data_path'] = lh_gii_data_path
 			file_path_dictionary['lh_gii_data_path'] = lh_gii_data_path
