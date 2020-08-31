@@ -430,7 +430,7 @@ def populate_hdf5(hdf5_file_path,
 
 	"""
 
-	with open(h5py.File(hdf5_file_path)) as f:
+	with h5py.File(hdf5_file_path) as f:
 
 		#Do stuff....
 
