@@ -432,7 +432,7 @@ def populate_hdf5(hdf5_file_path,
 	"""
 
 	if overwrite == True:
-		if os.path.exists(hdft_file_path):
+		if os.path.exists(hdf5_file_path):
 			os.remove(hdf5_file_path)
 
 	with h5py.File(hdf5_file_path) as f:
