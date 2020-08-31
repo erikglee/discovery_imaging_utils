@@ -651,7 +651,7 @@ def populate_hdf5(hdf5_file_path,
 		inds_counted = 0
 		if has_lh_gifti:
 			f['lh_data_inds'] = np.arange(0, len(lh_gifti_ids), 1, dtype=int)
-			data[inds_counted:(inds_counted + f['lh_data'].shape[0]),:] = lh_data
+			data[inds_counted:(inds_counted + f['lh_data'].shape[0]),:] = f['lh_data']
 			inds_counted = int(inds_counted + f['lh_data'].shape[0])
 
 			image_data_dict['lh_ids'] = lh_gifti_ids
