@@ -165,6 +165,7 @@ def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_
 	unique_mask_vals = unique_mask_vals[1:]
 
 
+
 	#extract data from nifti to be parcellated
 	input_ts_matrix = nifti_data_to_parcellate
 
@@ -178,6 +179,9 @@ def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_
 	parcellated_nifti_data = np.zeros((unique_mask_vals.shape[0], depth))
 	parc_mean_signal_intensities = np.zeros(unique_mask_vals.shape[0])
 	parcel_dictionary = {}
+
+    if input_mask_matrix.shape[0:3] != input_ts_matrix.shape[0:3]
+        raise NameError('Error: the first three dimensions of the input mask and input timeseries must be the same.')
 
 
 	for i in range(len(unique_mask_vals)):
@@ -219,6 +223,10 @@ def parcellate_nifti(nifti_data_to_parcellate, parcellation_path, demean_before_
 def incorporate_nifti_inclusion_mask(func_data, inclusion_mask_path, cutoff = 0.5):
 
 	inclusion_mask_data = nib.load(inclusion_mask_path).get_fdata()
+
+    if inclusion_mask_data.shape[0:3] != func_data.shape[0:3]:
+        raise NameError('Error: the first three dimensions of the input mask and input timeseries must be the same.')
+
 	inds_to_include = np.where(inclusion_mask_data > cutoff)
 	inds_to_exclude = np.where(inclusion_mask_data <= cutoff)
 
