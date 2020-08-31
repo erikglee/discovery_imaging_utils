@@ -661,10 +661,10 @@ def populate_hdf5(hdf5_file_path,
 		if has_rh_gifti:
 			if inds_counted > 0:
 				image_data_dict['rh_data_inds'] = np.arange(inds_counted, inds_counted + len(rh_gifti_ids), 1, dtype=int)
-				data[inds_counted:(inds_counted + f['rh_data'].shape[0]),:] = rh_data
+				data[inds_counted:(inds_counted + f['rh_data'].shape[0]),:] = f['rh_data']
 			else:
 				image_data_dict['rh_data_inds'] = np.arange(0, rh_data.shape[0], 1, dtype=int)
-				data[0:f['rh_data'].shape[0],:] = rh_data
+				data[0:f['rh_data'].shape[0],:] = f['rh_data']
 
 			image_data_dict['rh_ids'] = rh_gifti_ids
 			inds_counted = int(inds_counted + f['rh_data'].shape[0])
@@ -676,10 +676,10 @@ def populate_hdf5(hdf5_file_path,
 		if has_nifti:
 			if inds_counted > 0:
 				nifti_data_inds = np.arange(inds_counted, inds_counted + nifti_data.shape[0], 1, dtype=int)
-				data[inds_counted:(inds_counted + f['nifti_data'].shape[0]),:] = nifti_data
+				data[inds_counted:(inds_counted + f['nifti_data'].shape[0]),:] = f['nifti_data']
 			else:
 				nifti_data_inds = np.arange(0, nifti_data.shape[0], 1, dtype=int)
-				data = nifti_data
+				data = f['nifti_data']
 
 			inds_counted = int(inds_counted + f['nifti_data'].shape[0])
 			f['nifti_data_inds'] = nifti_data_inds
