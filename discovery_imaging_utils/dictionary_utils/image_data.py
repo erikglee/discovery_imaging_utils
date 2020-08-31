@@ -645,7 +645,7 @@ def populate_hdf5(hdf5_file_path,
 			print(f['lh_data'].shape)
 			raise NameError('Error: LH, RH, and Nifti data must all have the same length.')
 
-		data = f.create_dataset('data', (int(num_locations), int(num_dimensions[0])), dtype=np.float32)
+		data = f.create_dataset('data', (int(num_locations), int(num_dimensions[0])))
 
 		#Add lh gifti data
 		inds_counted = 0
