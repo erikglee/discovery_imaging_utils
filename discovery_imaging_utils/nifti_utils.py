@@ -224,8 +224,8 @@ def incorporate_nifti_inclusion_mask(func_data, inclusion_mask_path, cutoff = 0.
 
 	inclusion_mask_data = nib.load(inclusion_mask_path).get_fdata()
 
-    if inclusion_mask_data.shape[0:3] != func_data.shape[0:3]:
-        raise NameError('Error: the first three dimensions of the input mask and input timeseries must be the same.')
+	if inclusion_mask_data.shape[0:3] != func_data.shape[0:3]:
+		raise NameError('Error: the first three dimensions of the input mask and input timeseries must be the same.')
 
 	inds_to_include = np.where(inclusion_mask_data > cutoff)
 	inds_to_exclude = np.where(inclusion_mask_data <= cutoff)
