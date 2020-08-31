@@ -644,7 +644,7 @@ def populate_hdf5(hdf5_file_path,
 		data = None
 
 		#Add lh gifti data
-		if type(lh_data) != type(None):
+		if has_lh_gifti:
 			f['lh_data_inds'] = np.arange(0, len(lh_gifti_ids), 1, dtype=int)
 			data = lh_data
 
@@ -652,7 +652,7 @@ def populate_hdf5(hdf5_file_path,
 
 
 		#Add rh gifti data
-		if type(rh_data) != type(None):
+		if has_rh_gifti:
 			if type(data) != type(None):
 				f['rh_data_inds'] = np.arange(data.shape[0], data.shape[0] + len(rh_gifti_ids), 1, dtype=int)
 				data = np.vstack((data, rh_data))
@@ -667,7 +667,7 @@ def populate_hdf5(hdf5_file_path,
 
 
 		#Add nifti data
-		if type(nifti_data) != type(None):
+		if has_nifti:
 			if type(data) != type(None):
 				nifti_data_inds = np.arange(data.shape[0], data.shape[0] + nifti_data.shape[0], 1, dtype=int)
 				data = np.vstack((data, nifti_data))
