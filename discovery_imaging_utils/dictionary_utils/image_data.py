@@ -630,11 +630,11 @@ def populate_hdf5(hdf5_file_path,
 			raise NameError('Error: Must define path for at least one of the following - lh_gifti_data, rh_gifti_data, nifti_data')
 
 		num_dimensions = []
-		if type(lh_data) != type(None):
+		if type(f['lh_data']) != type(None):
 			num_dimensions.append(f['lh_data'].shape[1])
-		if type(rh_data) != type(None):
+		if type(f['rh_data']) != type(None):
 			num_dimensions.append(f['rh_data'].shape[1])
-		if type(nifti_data) != type(None):
+		if type(f['nifti_data']) != type(None):
 			num_dimensions.append(f['nifti_data'].shape[1])
 
 		if np.unique(num_dimensions).shape[0] != 1:
