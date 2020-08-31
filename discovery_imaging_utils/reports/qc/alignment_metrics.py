@@ -290,10 +290,6 @@ def local_pearson_correlation(reference_data, aparcaseg_data, brainmask_data, nu
 
 
 
-
-
-
-
     """
 
     dev_ratio = np.zeros(num_neighborhoods)

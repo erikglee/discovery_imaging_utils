@@ -61,7 +61,7 @@ def construct_report(subject_path, report_path, reference_csv_path):
         plt_ind_on_dist(reference_df['brainmask_var_component_ratio'].values, confounds_dict['brainmask_var_component_ratio'], xlabel='brainmask_var_component_ratio', out_path = os.path.join(run_report_path, 'brainmask_var_component_ratio.jpg'))
         plt_ind_on_dist(reference_df['gm_skin_1dil_var_component_ratio'].values, confounds_dict['gm_skin_1dil_var_component_ratio'], xlabel='gm_skin_1dil_var_component_ratio', out_path = os.path.join(run_report_path, 'gm_skin_1dil_var_component_ratio.jpg'))
 
-        output_df = pd.DataFrame(confounds_dict, index=['Run Stats'])
+        output_df = pd.DataFrame(confounds_dict, index=['Registration Stats'])
         output_df.to_csv(os.path.join(run_report_path, 'functional_qc_summary_stats.csv'))
 
 

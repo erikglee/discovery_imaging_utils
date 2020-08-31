@@ -97,6 +97,10 @@ def nifti_rois_to_time_signals(input_timeseries_nii_path, input_mask_nii_path, d
 
     input_mask_matrix = input_mask_nii.get_fdata()
     input_ts_matrix = input_ts_nii.get_fdata()
+
+    if input_mask_matrix.shape[0:3] != input_ts_matrix.shape[0:3]:
+        raise NameError('Error: the first three dimensions of the input mask and input timeseries must be the same.')
+
     unique_mask_vals = np.unique(input_mask_matrix)
     unique_mask_vals.sort()
     unique_mask_vals = unique_mask_vals[1:]
