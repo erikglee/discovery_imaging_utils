@@ -690,9 +690,9 @@ def populate_hdf5(hdf5_file_path,
 		if normalize == True:
 			if data.shape[1] > 1:
 
-				f['data_means'] = np.mean(data,axis=1)
-				data = data/f['data_means']*1000 #Got rid of [:,None] because HDF5
-												#dataset didnt seem to support
+				data_means = np.mean(data,axis=1)
+				data = data/data_means[:,np.newaxis]*1000
+				f['data_means'] = data_means
 
 
 
