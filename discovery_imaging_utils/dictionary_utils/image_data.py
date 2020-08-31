@@ -491,7 +491,7 @@ def populate_hdf5(hdf5_file_path,
 		if 'lh_gii_data_path' in file_path_dictionary.keys():
 
 			has_lh_gifti = True
-			f['lh_data'] = gifti_utils.load_gifti_func(f['/metadata/file_paths/lh_gii_data_path'])
+			f['lh_data'] = gifti_utils.load_gifti_func(lh_gii_data_path)
 			f['/metadata/input_attributes/lh_gifti_shape'] = f['lh_data'].shape #or could put this as an attribute?
 			lh_gifti_ids = np.arange(0, f['lh_data'].shape[0], 1, dtype=int)
 
@@ -530,7 +530,7 @@ def populate_hdf5(hdf5_file_path,
 		if 'rh_gii_data_path' in file_path_dictionary.keys():
 
 			has_rh_gifti = True
-			f['rh_data'] = gifti_utils.load_gifti_func(f['/metadata/file_paths/rh_gii_data_path'])
+			f['rh_data'] = gifti_utils.load_gifti_func(rh_gii_data_path)
 			image_data_dict['rh_gifti_shape'] = f['rh_data'].shape
 			rh_gifti_ids = np.arange(0, f['rh_data'].shape[0], 1, dtype=int)
 
