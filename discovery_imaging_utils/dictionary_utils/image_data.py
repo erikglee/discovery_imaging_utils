@@ -660,6 +660,9 @@ def populate_hdf5(hdf5_file_path,
 
 		data = f.create_dataset('data', (int(num_locations), int(num_dimensions[0])))
 
+
+
+
 		#Add lh gifti data
 		inds_counted = 0
 		if has_lh_gifti:
@@ -674,6 +677,7 @@ def populate_hdf5(hdf5_file_path,
 		#Add rh gifti data
 		if has_rh_gifti:
 			if inds_counted > 0:
+				f['rh_data'].shape[0]
 				image_data_dict['rh_data_inds'] = np.arange(inds_counted, inds_counted + len(rh_gifti_ids), 1, dtype=int)
 				data[inds_counted:(inds_counted + f['rh_data'].shape[0]),:] = f['rh_data']
 			else:
