@@ -689,10 +689,10 @@ def populate_hdf5(hdf5_file_path,
 		#Add nifti data
 		if has_nifti:
 			if inds_counted > 0:
-				nifti_data_inds = np.arange(inds_counted, inds_counted + nifti_data.shape[0], 1, dtype=int)
+				nifti_data_inds = np.arange(inds_counted, inds_counted + f['nifti_data'].shape[0], 1, dtype=int)
 				data[inds_counted:(inds_counted + f['nifti_data'].shape[0]),:] = f['nifti_data']
 			else:
-				nifti_data_inds = np.arange(0, nifti_data.shape[0], 1, dtype=int)
+				nifti_data_inds = np.arange(0, f['nifti_data'].shape[0], 1, dtype=int)
 				data = f['nifti_data']
 
 			inds_counted = int(inds_counted + f['nifti_data'].shape[0])
