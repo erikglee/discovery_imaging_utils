@@ -571,7 +571,7 @@ def populate_hdf5(hdf5_file_path,
 			nifti_img = nib.load(nifti_data_path)
 			f['nifti_data'] = nifti_img.get_fdata() #This probably returns a dataset that acts as np array?
 			f['/metadata/input_attributes/nifti_affine'] = nifti_img.affine
-			f['/metadata/input_attributes/nifti_shape'] = nifti_shape
+			f['/metadata/input_attributes/nifti_shape'] = f['nifti_data'].shape
 
 			#Find indices to map back to nifti image
 			nifti_3d = np.zeros(f['/metadata/input_attributes/nifti_shape'][0:3])
