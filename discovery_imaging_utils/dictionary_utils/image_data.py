@@ -569,7 +569,8 @@ def populate_hdf5(hdf5_file_path,
 
 			has_nifti = True
 			nifti_img = nib.load(nifti_data_path)
-			f['nifti_data'] = nifti_img.get_fdata() #This probably returns a dataset that acts as np array?
+			nifti_data = f.create_dataset("nifti_data", nifti_img.dataobj.shape)
+			nifti_data[...] = nifti_img.dataobj[...] #Could also do this through dataobj but would be slower
 			f['/metadata/input_attributes/nifti_affine'] = nifti_img.affine
 			f['/metadata/input_attributes/nifti_shape'] = f['nifti_data'].shape
 
@@ -581,6 +582,7 @@ def populate_hdf5(hdf5_file_path,
 
 			#remove from memory after done using...
 			del nifti_img
+			del nifti_3d
 
 
 			if 'nifti_inclusion_mask_path' in file_path_dictionary.keys():
