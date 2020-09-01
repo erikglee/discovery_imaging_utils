@@ -655,6 +655,7 @@ def populate_hdf5(hdf5_file_path,
 			inds_counted = int(inds_counted + f['lh_data'].shape[0])
 
 			image_data_dict['lh_ids'] = lh_gifti_ids
+			del f['lh_data']
 
 
 		#Add rh gifti data
@@ -668,7 +669,7 @@ def populate_hdf5(hdf5_file_path,
 
 			image_data_dict['rh_ids'] = rh_gifti_ids
 			inds_counted = int(inds_counted + f['rh_data'].shape[0])
-
+			del f['rh_data']
 
 
 
@@ -684,6 +685,7 @@ def populate_hdf5(hdf5_file_path,
 			inds_counted = int(inds_counted + f['nifti_data'].shape[0])
 			f['nifti_data_inds'] = nifti_data_inds
 			image_data_dict['nifti_ids'] = nifti_ids
+			del f['nifti_data']
 
 
 		#Normaize data if necessary
