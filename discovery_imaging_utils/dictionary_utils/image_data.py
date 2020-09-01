@@ -697,6 +697,8 @@ def populate_hdf5(hdf5_file_path,
 
 
 
+		f.flush()
+
 	return
 
 
