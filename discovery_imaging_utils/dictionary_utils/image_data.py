@@ -501,7 +501,7 @@ def populate_hdf5(hdf5_file_path,
 			if 'lh_inclusion_mask_path' in file_path_dictionary.keys():
 
 				#Make function to set appropriate values to NaN.....
-				f['lh_data_masked'], lh_inclusion_inds = gifti_utils.incorporate_gifti_inclusion_mask(f['lh_data'], f['/metadata/file_paths/lh_inclusion_mask_path'])
+				f['lh_data_masked'], lh_inclusion_inds = gifti_utils.incorporate_gifti_inclusion_mask(f['lh_data'], lh_inclusion_mask_path)
 				lh_gifti_ids = lh_inclusion_inds
 
 				del f['lh_data']
@@ -514,7 +514,7 @@ def populate_hdf5(hdf5_file_path,
 
 				has_lh_gifti_parcellation = True
 				#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
-				f['lh_data_masked'], lh_labels, lh_parcels_dict = gifti_utils.parcellate_gifti(f['lh_data'], f['/metadata/file_paths/lh_parcellation_path'])
+				f['lh_data_masked'], lh_labels, lh_parcels_dict = gifti_utils.parcellate_gifti(f['lh_data'], lh_parcellation_path)
 				lh_gifti_ids = lh_labels
 				_dict_to_hdf5_attrs(f, lh_parcels_dict, base_path = '/metadata/parcel_dicts/lh/')
 				#image_data_dict['lh_parcels_dict'] = lh_parcels_dict
@@ -540,7 +540,7 @@ def populate_hdf5(hdf5_file_path,
 			if 'rh_inclusion_mask_path' in file_path_dictionary.keys():
 
 				#Make function to set appropriate values to NaN.....
-				f['rh_data_masked'], rh_inclusion_inds = gifti_utils.incorporate_gifti_inclusion_mask(f['rh_data'], f['/metadata/file_paths/rh_inclusion_mask_path'])
+				f['rh_data_masked'], rh_inclusion_inds = gifti_utils.incorporate_gifti_inclusion_mask(f['rh_data'], rh_inclusion_mask_path)
 				rh_gifti_ids = rh_inclusion_inds
 
 				del f['rh_data']
@@ -553,7 +553,7 @@ def populate_hdf5(hdf5_file_path,
 
 				has_rh_gifti_parcellation = True
 				#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
-				f['rh_data_masked'], rh_labels, rh_parcels_dict = gifti_utils.parcellate_gifti(f['rh_data'], f['/metadata/file_paths/rh_parcellation_path'])
+				f['rh_data_masked'], rh_labels, rh_parcels_dict = gifti_utils.parcellate_gifti(f['rh_data'], rh_parcellation_path)
 				rh_gifti_ids = rh_labels
 				_dict_to_hdf5_attrs(f, rh_parcels_dict, base_path = '/metadata/parcel_dicts/rh/')
 				#image_data_dict['rh_parcels_dict'] = rh_parcels_dict
@@ -568,7 +568,7 @@ def populate_hdf5(hdf5_file_path,
 		if 'nifti_data_path' in file_path_dictionary.keys():
 
 			has_nifti = True
-			nifti_img = nib.load(f['/metadata/file_paths/nifti_data_path'])
+			nifti_img = nib.load(nifti_data_path)
 			nifti_data = nifti_img.get_fdata() #This probably returns a dataset that acts as np array?
 			if nifti_data.ndim > 3:
 				nifti_3d = np.squeeze(nifti_data[:,:,:,0])
@@ -586,13 +586,13 @@ def populate_hdf5(hdf5_file_path,
 
 			if 'nifti_inclusion_mask_path' in file_path_dictionary.keys():
 
-				nifti_data, nifti_inclusion_inds = nifti_utils.incorporate_nifti_inclusion_mask(nifti_data, f['/metadata/file_paths/nifti_inclusion_mask_path'])
+				nifti_data, nifti_inclusion_inds = nifti_utils.incorporate_nifti_inclusion_mask(nifti_data, nifti_inclusion_mask_path)
 				nifti_ids = nifti_inclusion_inds
 
 			if 'nifti_parcellation_path' in file_path_dictionary.keys():
 
 				has_nifti_parcellation = True
-				nifti_data, nifti_labels, nifti_parcels_dict = nifti_utils.parcellate_nifti(nifti_data, f['/metadata/file_paths/nifti_parcellation_path'])
+				nifti_data, nifti_labels, nifti_parcels_dict = nifti_utils.parcellate_nifti(nifti_data, nifti_parcellation_path)
 				nifti_ids = nifti_labels
 
 				_dict_to_hdf5_attrs(f, nifti_parcels_dict, base_path = '/metadata/parcel_dicts/nifti/')
