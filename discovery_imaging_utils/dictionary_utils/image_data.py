@@ -569,12 +569,12 @@ def populate_hdf5(hdf5_file_path,
 
 			has_nifti = True
 			nifti_img = nib.load(nifti_data_path)
-			nifti_data = nifti_img.get_fdata() #This probably returns a dataset that acts as np array?
-			if nifti_data.ndim > 3:
-				nifti_3d = np.squeeze(nifti_data[:,:,:,0])
-				nifti_ids = np.where(nifti_3d != None)
-			else:
-				nifti_ids = np.where(nifti_data != None)
+			f['nifti_data'] = nifti_img.get_fdata() #This probably returns a dataset that acts as np array?
+			nifti_shape = f['nifti_data'].shape
+
+			#Find indices to map back to nifti image
+			nifti_3d = np.zeros(nifti_shape[0:3])
+			nifti_ids = np.where(nifti_3d != None)
 
 			nifti_inclusion_inds = None
 			f['/metadata/input_attributes/nifti_affine'] = nifti_img.affine
