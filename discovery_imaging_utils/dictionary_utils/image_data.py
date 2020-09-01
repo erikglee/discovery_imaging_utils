@@ -658,10 +658,8 @@ def populate_hdf5(hdf5_file_path,
 			print(f['lh_data'].shape)
 			raise NameError('Error: LH, RH, and Nifti data must all have the same length.')
 
-		data = f.create_dataset('data', (int(num_locations), int(num_dimensions[0])))
 
-
-
+		hdf5_layout = h5py.VirtualLayout(shape=(int(num_locations), int(num_dimensions[0])))
 
 		#Add lh gifti data
 		inds_counted = 0
@@ -670,23 +668,27 @@ def populate_hdf5(hdf5_file_path,
 			data[inds_counted:(inds_counted + f['lh_data'].shape[0]),:] = f['lh_data']
 			inds_counted = int(inds_counted + f['lh_data'].shape[0])
 
+			#Update virtual source/layout
+			lh_vsource = h5py.VirtualSource(hdf5_file_path, 'lh_data', shape=f['lh_data'].shape)
+			hdf5_layout[0:inds_counted,:] = lh_vsource
+
 			image_data_dict['lh_ids'] = lh_gifti_ids
-			del f['lh_data']
 
 
 		#Add rh gifti data
 		if has_rh_gifti:
 			if inds_counted > 0:
-				f['rh_data'].shape[0]
 				image_data_dict['rh_data_inds'] = np.arange(inds_counted, inds_counted + len(rh_gifti_ids), 1, dtype=int)
-				data[inds_counted:(inds_counted + f['rh_data'].shape[0]),:] = f['rh_data']
 			else:
 				image_data_dict['rh_data_inds'] = np.arange(0, f['rh_data'].shape[0], 1, dtype=int)
-				data[0:f['rh_data'].shape[0],:] = f['rh_data']
+
+			inds_counted = int(inds_counted + f['rh_data'].shape[0])
+
+			#Update virtual source/layout
+			rh_vsource = h5py.VirtualSource(hdf5_file_path, 'rh_data', shape=f['rh_data'].shape)
+			hdf5_layout[image_data_dict['rh_data_inds'],:] = rh_vsource
 
 			image_data_dict['rh_ids'] = rh_gifti_ids
-			inds_counted = int(inds_counted + f['rh_data'].shape[0])
-			del f['rh_data']
 
 
 
@@ -699,13 +701,17 @@ def populate_hdf5(hdf5_file_path,
 			#	nifti_data_inds = np.arange(0, f['nifti_data'].shape[0], 1, dtype=int)
 			#	data = f['nifti_data']
 
-			nifti_data_inds = np.arange(inds_counted, inds_counted + f['nifti_data'].shape[0], 1, dtype=int)
+			f['nifti_data_inds'] = np.arange(inds_counted, inds_counted + f['nifti_data'].shape[0], 1, dtype=int)
 			data[nifti_data_inds,:] = f['nifti_data']
 
-			#inds_counted = int(inds_counted + f['nifti_data'].shape[0])
-			f['nifti_data_inds'] = nifti_data_inds
+			nifti_vsource = h5py.VirtualSource(hdf5_file_path, 'nifti_data', shape=f['nifti_data'].shape)
+			hdf5_layout[f['nifti_data_inds'],:] = nifti_vsource
+
 			image_data_dict['nifti_ids'] = nifti_ids
-			del f['nifti_data']
+
+		#Add all the different datasets to a new
+		#virtual dataset
+		f.create_virtual_dataset('data', hdf5_layout)
 
 
 		#Normaize data if necessary
