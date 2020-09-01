@@ -569,7 +569,7 @@ def populate_hdf5(hdf5_file_path,
 
 			has_nifti = True
 			nifti_img = nib.load(nifti_data_path)
-			nifti_data = nifti_img.get_fdata() #This probably returns a dataset that acts as np array?
+			f['nifti_data'] = nifti_img.get_fdata() #This probably returns a dataset that acts as np array?
 			if nifti_data.ndim > 3:
 				nifti_3d = np.squeeze(nifti_data[:,:,:,0])
 				nifti_ids = np.where(nifti_3d != None)
@@ -586,14 +586,23 @@ def populate_hdf5(hdf5_file_path,
 
 			if 'nifti_inclusion_mask_path' in file_path_dictionary.keys():
 
-				nifti_data, nifti_inclusion_inds = nifti_utils.incorporate_nifti_inclusion_mask(nifti_data, nifti_inclusion_mask_path)
+				f['nifti_data_masked'], nifti_inclusion_inds = nifti_utils.incorporate_nifti_inclusion_mask(f['nifti_data'], nifti_inclusion_mask_path)
 				nifti_ids = nifti_inclusion_inds
+
+				del f['nifti_data']
+				f['nifti_data'] = f['nifti_data_masked']
+				del f['nifti_data_masked']
+
 
 			if 'nifti_parcellation_path' in file_path_dictionary.keys():
 
 				has_nifti_parcellation = True
-				nifti_data, nifti_labels, nifti_parcels_dict = nifti_utils.parcellate_nifti(nifti_data, nifti_parcellation_path)
+				f['nifti_data_masked'], nifti_labels, nifti_parcels_dict = nifti_utils.parcellate_nifti(f['nifti_data'], nifti_parcellation_path)
 				nifti_ids = nifti_labels
+
+				del f['nifti_data']
+				f['nifti_data'] = f['nifti_data_masked']
+				del f['nifti_data_masked']
 
 				_dict_to_hdf5_attrs(f, nifti_parcels_dict, base_path = '/metadata/parcel_dicts/nifti/')
 
@@ -602,22 +611,26 @@ def populate_hdf5(hdf5_file_path,
 
 
 			#If the data hasn't already been brought down to 2d, then do that now
-			if nifti_data.ndim > 2:
+			if f['nifti_data'].ndim > 2:
 
 				#Check what the final dimension should be
-				if nifti_data.ndim == 3:
+				if f['nifti_data'].ndim == 3:
 					depth = 1
 				else:
-					depth = nifti_data.shape[3]
+					depth = f['nifti_data'].shape[3]
 
 
+					#FIX BELOW FOR HDF5!!!!!!!!
 				if type(nifti_inclusion_inds) == type(None):
 
-					nifti_data = np.reshape(nifti_data, (nifti_data.shape[0]*nifti_data.shape[1]*nifti_data.shape[2], depth))
+					reshaped_nifti_data = np.reshape(f['nifti_data'], (f['nifti_data'].shape[0]*f['nifti_data'].shape[1]*f['nifti_data'].shape[2], depth))
 
 				else:
 
-					nifti_data = np.reshape(nifti_data[nifti_inclusion_inds], (nifti_inclusion_inds[0].shape[0], depth))
+					reshaped_nifti_data = np.reshape(f['nifti_data'][nifti_inclusion_inds], (nifti_inclusion_inds[0].shape[0], depth))
+
+				del f['nifti_data']
+				f['nifti_data'] = reshaped_nifti_data
 
 
 
