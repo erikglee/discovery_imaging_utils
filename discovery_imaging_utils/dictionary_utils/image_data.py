@@ -712,6 +712,7 @@ def populate_hdf5(hdf5_file_path,
 		#Add all the different datasets to a new
 		#virtual dataset
 		f.create_virtual_dataset('data', hdf5_layout)
+		data = f['data']
 
 
 		#Normaize data if necessary
