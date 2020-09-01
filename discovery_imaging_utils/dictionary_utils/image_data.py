@@ -665,7 +665,7 @@ def populate_hdf5(hdf5_file_path,
 		inds_counted = 0
 		if has_lh_gifti:
 			f['lh_data_inds'] = np.arange(0, len(lh_gifti_ids), 1, dtype=int)
-			data[inds_counted:(inds_counted + f['lh_data'].shape[0]),:] = f['lh_data']
+			#data[inds_counted:(inds_counted + f['lh_data'].shape[0]),:] = f['lh_data']
 			inds_counted = int(inds_counted + f['lh_data'].shape[0])
 
 			#Update virtual source/layout
@@ -702,7 +702,7 @@ def populate_hdf5(hdf5_file_path,
 			#	data = f['nifti_data']
 
 			f['nifti_data_inds'] = np.arange(inds_counted, inds_counted + f['nifti_data'].shape[0], 1, dtype=int)
-			data[nifti_data_inds,:] = f['nifti_data']
+			#data[nifti_data_inds,:] = f['nifti_data']
 
 			nifti_vsource = h5py.VirtualSource(hdf5_file_path, 'nifti_data', shape=f['nifti_data'].shape)
 			hdf5_layout[f['nifti_data_inds'],:] = nifti_vsource
