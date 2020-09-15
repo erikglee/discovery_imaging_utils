@@ -457,7 +457,7 @@ def populate_hdf5(hdf5_file_path,
 			file_paths_dataset.attrs['rh_gii_data_path'] = rh_gii_data_path
 			file_path_dictionary['rh_gii_data_path'] = rh_gii_data_path
 			if type(rh_inclusion_mask_path) != type(None):
-				file_paths_dataset.attrs.['rh_inclusion_mask_path'] = rh_inclusion_mask_path
+				file_paths_dataset.attrs['rh_inclusion_mask_path'] = rh_inclusion_mask_path
 				file_path_dictionary['rh_inclusion_mask_path'] = rh_inclusion_mask_path
 			if type(rh_parcellation_path) != type(None):
 				file_paths_dataset.attrs['rh_parcellation_path'] = rh_parcellation_path
