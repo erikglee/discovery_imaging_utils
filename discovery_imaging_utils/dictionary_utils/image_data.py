@@ -507,7 +507,7 @@ def populate_hdf5(hdf5_file_path,
 				lh_gifti_ids = lh_inclusion_inds
 
 				del f['lh_data']
-				f['lh_data'] = f['lh_data_masked']
+				f.create_dataset('lh_data', data = f['lh_data_masked'], compression = 'gzip')
 				del f['lh_data_masked']
 
 
@@ -522,7 +522,7 @@ def populate_hdf5(hdf5_file_path,
 				#image_data_dict['lh_parcels_dict'] = lh_parcels_dict
 
 				del f['lh_data']
-				f['lh_data'] = f['lh_data_masked']
+				f.create_dataset('lh_data', data = f['lh_data_masked'], compression = 'gzip')
 				del f['lh_data_masked']
 
 			f['lh_ids'] = lh_gifti_ids
@@ -546,7 +546,7 @@ def populate_hdf5(hdf5_file_path,
 				rh_gifti_ids = rh_inclusion_inds
 
 				del f['rh_data']
-				f['rh_data'] = f['rh_data_masked']
+				f.create_dataset('rh_data', data = f['rh_data_masked'], compression = 'gzip')
 				del f['rh_data_masked']
 
 
@@ -561,13 +561,16 @@ def populate_hdf5(hdf5_file_path,
 				#image_data_dict['rh_parcels_dict'] = rh_parcels_dict
 
 				del f['rh_data']
-				f['rh_data'] = f['rh_data_masked']
+				f.create_dataset('rh_data', data = f['rh_data_masked'], compression = 'gzip')
 				del f['rh_data_masked']
 
 			f['rh_ids'] = rh_gifti_ids
 
 		#If there is nifti data
 		if 'nifti_data_path' in file_path_dictionary.keys():
+
+			#STILL NEED TO ADD COMPRESSION FOR IF PARCELLATION
+			#ISNT USED (OR BRAIN MASK) (ALSO FOR HEMIS)
 
 			has_nifti = True
 			nifti_img = nib.load(nifti_data_path)
@@ -593,7 +596,7 @@ def populate_hdf5(hdf5_file_path,
 				nifti_ids = nifti_inclusion_inds
 
 				del f['nifti_data']
-				f['nifti_data'] = f['nifti_data_masked']
+				f.create_dataset('nifti_data', data = f['nifti_data_masked'], compression = 'gzip')
 				del f['nifti_data_masked']
 
 
@@ -604,7 +607,7 @@ def populate_hdf5(hdf5_file_path,
 				nifti_ids = nifti_labels
 
 				del f['nifti_data']
-				f['nifti_data'] = f['nifti_data_masked']
+				f.create_dataset('nifti_data', data = f['nifti_data_masked'], compression = 'gzip')
 				del f['nifti_data_masked']
 
 				_dict_to_hdf5_attrs(f, nifti_parcels_dict, base_path = '/metadata/parcel_dicts/nifti/')
