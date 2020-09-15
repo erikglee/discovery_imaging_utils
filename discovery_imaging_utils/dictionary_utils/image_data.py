@@ -445,31 +445,31 @@ def populate_hdf5(hdf5_file_path,
 		file_paths_dataset = f.create_dataset('file_paths', (1,))
 
 		if type(lh_gii_data_path) != type(None):
-			file_paths_dataset.attrs['lh_gii_data_path'] = lh_gii_data_path
+			file_paths_dataset.attrs['lh_gii_data_path'] = np.string_(lh_gii_data_path)
 			file_path_dictionary['lh_gii_data_path'] = lh_gii_data_path
 			if type(lh_inclusion_mask_path) != type(None):
-				file_paths_dataset.attrs['lh_inclusion_mask_path'] = lh_inclusion_mask_path
+				file_paths_dataset.attrs['lh_inclusion_mask_path'] = np.string_(lh_inclusion_mask_path)
 				file_path_dictionary['lh_inclusion_mask_path'] = lh_inclusion_mask_path
 			if type(lh_parcellation_path) != type(None):
-				file_paths_dataset.attrs['lh_parcellation_path'] = lh_parcellation_path
+				file_paths_dataset.attrs['lh_parcellation_path'] = np.string_(lh_parcellation_path)
 				file_path_dictionary['lh_parcellation_path'] = lh_parcellation_path
 		if type(rh_gii_data_path) != type(None):
-			file_paths_dataset.attrs['rh_gii_data_path'] = rh_gii_data_path
+			file_paths_dataset.attrs['rh_gii_data_path'] = np.string_(rh_gii_data_path)
 			file_path_dictionary['rh_gii_data_path'] = rh_gii_data_path
 			if type(rh_inclusion_mask_path) != type(None):
-				file_paths_dataset.attrs['rh_inclusion_mask_path'] = rh_inclusion_mask_path
+				file_paths_dataset.attrs['rh_inclusion_mask_path'] = np.string_(rh_inclusion_mask_path)
 				file_path_dictionary['rh_inclusion_mask_path'] = rh_inclusion_mask_path
 			if type(rh_parcellation_path) != type(None):
-				file_paths_dataset.attrs['rh_parcellation_path'] = rh_parcellation_path
+				file_paths_dataset.attrs['rh_parcellation_path'] = np.string_(rh_parcellation_path)
 				file_path_dictionary['rh_parcellation_path'] = rh_parcellation_path
 		if type(nifti_data_path) != type(None):
-			file_paths_dataset.attrs['nifti_data_path'] = nifti_data_path
+			file_paths_dataset.attrs['nifti_data_path'] = np.string_(nifti_data_path)
 			file_path_dictionary['nifti_data_path'] = nifti_data_path
 			if type(nifti_inclusion_mask_path) != type(None):
-				file_paths_dataset.attrs['nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
+				file_paths_dataset.attrs['nifti_inclusion_mask_path'] = np.string_(nifti_inclusion_mask_path)
 				file_path_dictionary['nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
 			if type(nifti_parcellation_path) != type(None):
-				file_paths_dataset.attrs['nifti_parcellation_path'] = nifti_parcellation_path
+				file_paths_dataset.attrs['nifti_parcellation_path'] = np.string_(nifti_parcellation_path)
 				file_path_dictionary['nifti_parcellation_path'] = nifti_parcellation_path
 
 
