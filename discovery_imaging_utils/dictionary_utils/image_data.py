@@ -441,35 +441,36 @@ def populate_hdf5(hdf5_file_path,
 
 
 		file_path_dictionary = {}
-		f.create_dataset('metadata', (1,))
+		metadata_dataset = f.create_dataset('metadata', (1,))
+		file_paths_dataset = f.create_dataset('file_paths', (1,)))
 
 		if type(lh_gii_data_path) != type(None):
-			f['/metadata/file_paths/lh_gii_data_path'] = lh_gii_data_path
+			file_paths_dataset.lh_gii_data_path = lh_gii_data_path
 			file_path_dictionary['lh_gii_data_path'] = lh_gii_data_path
-		if type(lh_inclusion_mask_path) != type(None):
-			f['/metadata/file_paths/lh_inclusion_mask_path'] = lh_inclusion_mask_path
-			file_path_dictionary['lh_inclusion_mask_path'] = lh_inclusion_mask_path
-		if type(lh_parcellation_path) != type(None):
-			f['/metadata/file_paths/lh_parcellation_path'] = lh_parcellation_path
-			file_path_dictionary['lh_parcellation_path'] = lh_parcellation_path
+			if type(lh_inclusion_mask_path) != type(None):
+				file_paths_dataset.lh_inclusion_mask_path = lh_inclusion_mask_path
+				file_path_dictionary['lh_inclusion_mask_path'] = lh_inclusion_mask_path
+			if type(lh_parcellation_path) != type(None):
+				file_paths_dataset.lh_parcellation_path = lh_parcellation_path
+				file_path_dictionary['lh_parcellation_path'] = lh_parcellation_path
 		if type(rh_gii_data_path) != type(None):
-			f['/metadata/file_paths/rh_gii_data_path'] = rh_gii_data_path
+			file_paths_dataset.rh_gii_data_path = rh_gii_data_path
 			file_path_dictionary['rh_gii_data_path'] = rh_gii_data_path
-		if type(rh_inclusion_mask_path) != type(None):
-			f['/metadata/file_paths/rh_inclusion_mask_path'] = rh_inclusion_mask_path
-			file_path_dictionary['rh_inclusion_mask_path'] = rh_inclusion_mask_path
-		if type(rh_parcellation_path) != type(None):
-			f['/metadata/file_paths/rh_parcellation_path'] = rh_parcellation_path
-			file_path_dictionary['rh_parcellation_path'] = rh_parcellation_path
+			if type(rh_inclusion_mask_path) != type(None):
+				file_paths_dataset.rh_inclusion_mask_path = rh_inclusion_mask_path
+				file_path_dictionary['rh_inclusion_mask_path'] = rh_inclusion_mask_path
+			if type(rh_parcellation_path) != type(None):
+				file_paths_dataset.rh_parcellation_path = rh_parcellation_path
+				file_path_dictionary['rh_parcellation_path'] = rh_parcellation_path
 		if type(nifti_data_path) != type(None):
-			f['/metadata/file_paths/nifti_data_path'] = nifti_data_path
+			file_paths_dataset.nifti_data_path = nifti_data_path
 			file_path_dictionary['nifti_data_path'] = nifti_data_path
-		if type(nifti_inclusion_mask_path) != type(None):
-			f['/metadata/file_paths/nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
-			file_path_dictionary['nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
-		if type(nifti_parcellation_path) != type(None):
-			f['/metadata/file_paths/nifti_parcellation_path'] = nifti_parcellation_path
-			file_path_dictionary['nifti_parcellation_path'] = nifti_parcellation_path
+			if type(nifti_inclusion_mask_path) != type(None):
+				file_paths_dataset.nifti_inclusion_mask_path = nifti_inclusion_mask_path
+				file_path_dictionary['nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
+			if type(nifti_parcellation_path) != type(None):
+				file_paths_dataset.nifti_parcellation_path = nifti_parcellation_path
+				file_path_dictionary['nifti_parcellation_path'] = nifti_parcellation_path
 
 
 
@@ -493,7 +494,7 @@ def populate_hdf5(hdf5_file_path,
 
 			has_lh_gifti = True
 			f['lh_data'] = gifti_utils.load_gifti_func(lh_gii_data_path)
-			f['/metadata/input_attributes/lh_gifti_shape'] = f['lh_data'].shape #or could put this as an attribute?
+			metadata_dataset.lh_gifti_shape = f['lh_data'].shape #or could put this as an attribute?
 			lh_gifti_ids = np.arange(0, f['lh_data'].shape[0], 1, dtype=int)
 
 
@@ -572,11 +573,11 @@ def populate_hdf5(hdf5_file_path,
 			nifti_img = nib.load(nifti_data_path)
 			nifti_data = f.create_dataset("nifti_data", nifti_img.dataobj.shape)
 			nifti_data[...] = nifti_img.dataobj[...] #Could also do this through dataobj but would be slower
-			f['/metadata/input_attributes/nifti_affine'] = nifti_img.affine
-			f['/metadata/input_attributes/nifti_shape'] = f['nifti_data'].shape
+			metadata_dataset.nifti_affine = nifti_img.affine
+			metadata_dataset.nifti_shape = f['nifti_data'].shape
 
 			#Find indices to map back to nifti image
-			nifti_3d = np.zeros(f['/metadata/input_attributes/nifti_shape'][0:3])
+			nifti_3d = np.zeros(metadata_dataset.nifti_shape[0:3])
 			nifti_ids = np.where(nifti_3d != None)
 
 			nifti_inclusion_inds = None
