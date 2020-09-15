@@ -442,7 +442,7 @@ def populate_hdf5(hdf5_file_path,
 
 		file_path_dictionary = {}
 		metadata_dataset = f.create_dataset('metadata', (1,))
-		file_paths_dataset = f.create_dataset('file_paths', (1,)))
+		file_paths_dataset = f.create_dataset('file_paths', (1,))
 
 		if type(lh_gii_data_path) != type(None):
 			file_paths_dataset.lh_gii_data_path = lh_gii_data_path
