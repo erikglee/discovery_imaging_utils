@@ -454,7 +454,7 @@ def populate_hdf5(hdf5_file_path,
 				file_paths_dataset.lh_parcellation_path = unicode(lh_parcellation_path, 'utf-8')
 				file_path_dictionary['lh_parcellation_path'] = lh_parcellation_path
 		if type(rh_gii_data_path) != type(None):
-			file_paths_dataset.rh_gii_data_path = unicode(rh_gii_data_path
+			file_paths_dataset.rh_gii_data_path = unicode(rh_gii_data_path, 'utf-8')
 			file_path_dictionary['rh_gii_data_path'] = rh_gii_data_path
 			if type(rh_inclusion_mask_path) != type(None):
 				file_paths_dataset.rh_inclusion_mask_path = unicode(rh_inclusion_mask_path, 'utf-8')
@@ -463,7 +463,7 @@ def populate_hdf5(hdf5_file_path,
 				file_paths_dataset.rh_parcellation_path = unicode(rh_parcellation_path, 'utf-8')
 				file_path_dictionary['rh_parcellation_path'] = rh_parcellation_path
 		if type(nifti_data_path) != type(None):
-			file_paths_dataset.nifti_data_path = nifti_data_path
+			file_paths_dataset.nifti_data_path = unicode(nifti_data_path, 'utf-8')
 			file_path_dictionary['nifti_data_path'] = nifti_data_path
 			if type(nifti_inclusion_mask_path) != type(None):
 				file_paths_dataset.nifti_inclusion_mask_path = unicode(nifti_inclusion_mask_path, 'utf-8')
