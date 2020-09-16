@@ -477,7 +477,6 @@ def populate_hdf5(hdf5_file_path,
 		file_path_dictionary = {}
 		metadata_dict = {}
 		image_data_dict = {}
-		ids_dict = {}
 
 		if type(lh_gii_data_path) != type(None):
 			print('Found LH Gifti Input')
@@ -719,8 +718,6 @@ def populate_hdf5(hdf5_file_path,
 			lh_vsource = h5py.VirtualSource(hdf5_file_path, 'lh_data', shape=f['lh_data'].shape)
 			hdf5_layout[0:inds_counted,:] = lh_vsource
 
-			ids_dict['lh_ids'] = lh_gifti_ids
-
 			print('Added LH data to HDF5')
 
 
@@ -736,8 +733,6 @@ def populate_hdf5(hdf5_file_path,
 			#Update virtual source/layout
 			rh_vsource = h5py.VirtualSource(hdf5_file_path, 'rh_data', shape=f['rh_data'].shape)
 			hdf5_layout[image_data_dict['rh_data_inds'],:] = rh_vsource
-
-			ids_dict['rh_ids'] = rh_gifti_ids
 
 			print('Added RH data to HDF5')
 
@@ -757,8 +752,6 @@ def populate_hdf5(hdf5_file_path,
 
 			nifti_vsource = h5py.VirtualSource(hdf5_file_path, 'nifti_data', shape=f['nifti_data'].shape)
 			hdf5_layout[f['nifti_data_inds'],:] = nifti_vsource
-
-			ids_dict['nifti_ids'] = nifti_ids
 
 			print('Added Nifti data to HDF5')
 
@@ -780,7 +773,6 @@ def populate_hdf5(hdf5_file_path,
 
 
 
-		_dict_to_hdf5_attrs(f['data'], ids_dict)
 		_dict_to_hdf5_attrs(f['data'], metadata_dict)
 		_dict_to_hdf5_attrs(f['data'], file_path_dictionary)
 		f.flush()
