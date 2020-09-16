@@ -400,7 +400,7 @@ def populate_hdf5(hdf5_file_path,
 			normalize_within_parcels = False,
 			normalize_within_dataset = True,
 			overwrite = False):
-	"""Function that creates an HDF5 file to store various neuroimaging datas
+	"""Function that creates an HDF5 file to store neuroimaging data
 
 	The purpose of this function is to create an hdf5 file referred to as an
 	'image_data_dictionary' that can be used to facilitate easy use of neuroimaging
@@ -412,7 +412,7 @@ def populate_hdf5(hdf5_file_path,
 	of the created HDF5 file is its dataset 'data' that contains combined data
 	from all input sources. An important feature of this data structure, is that
 	all information required to convert the data back into original form is
-	contained within the HDF5, such that after future data manipulations, the
+	contained within the HDF5, such that after future data manipulations the
 	resulting data structure can easily be converted back to nifti/gifti files
 	so that the results can be viewed with standard neuroimaging visualization
 	packages.
@@ -421,7 +421,7 @@ def populate_hdf5(hdf5_file_path,
 	gifti data. In simplest form, if paths to all three possible source types
 	are given, then this function will create a hdf5 file with a 'data' dataset
 	that contains the combined data from all sources, with shape
-	<n_regions, n_timepoints> (scalar, and vector data sources are supported)
+	<n_regions, n_timepoints> (in vector case)
 
 	'data' will be a virtual dataset that allows you to access datasets for
 	'lh_data', 'rh_data', and 'nifti_data' together, alternatively you can
