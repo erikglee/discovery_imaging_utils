@@ -114,8 +114,6 @@ def parcellate_gifti(func_data, parcellation_path, intensity_normalize_before_av
 	#Output will be tuple of format [labels, ctab, names]
 	parcellation = nib.freesurfer.io.read_annot(parcellation_path)
 
-	func_data = func_data.astype(float)
-
 
 	#Then concatenate parcel labels and parcel timeseries between the left and right hemisphere
 	#and drop the medial wall from label list
