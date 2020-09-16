@@ -514,7 +514,6 @@ def populate_hdf5(hdf5_file_path,
 				#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
 				f['lh_data_masked'], lh_labels, lh_parcels_dict = gifti_utils.parcellate_gifti(f['lh_data'], lh_parcellation_path)
 				lh_gifti_ids = lh_labels
-				_dict_to_hdf5_attrs(f, lh_parcels_dict, base_path = '/metadata/parcel_dicts/lh/')
 				#image_data_dict['lh_parcels_dict'] = lh_parcels_dict
 
 				del f['lh_data']
@@ -523,7 +522,7 @@ def populate_hdf5(hdf5_file_path,
 
 			f['lh_ids'] = lh_gifti_ids
 			if has_lh_gifti_parcellation:
-				_dict_to_hdf5_attrs(f['lh_ids'], lh_parcellation_path)
+				_dict_to_hdf5_attrs(f['lh_ids'], lh_parcels_dict)
 
 
 		#If there is rh surface data
@@ -555,7 +554,6 @@ def populate_hdf5(hdf5_file_path,
 				#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
 				f['rh_data_masked'], rh_labels, rh_parcels_dict = gifti_utils.parcellate_gifti(f['rh_data'], rh_parcellation_path)
 				rh_gifti_ids = rh_labels
-				_dict_to_hdf5_attrs(f, rh_parcels_dict, base_path = '/metadata/parcel_dicts/rh/')
 				#image_data_dict['rh_parcels_dict'] = rh_parcels_dict
 
 				del f['rh_data']
@@ -564,7 +562,7 @@ def populate_hdf5(hdf5_file_path,
 
 			f['rh_ids'] = rh_gifti_ids
 			if has_rh_gifti_parcellation:
-				_dict_to_hdf5_attrs(f['rh_ids'], rh_parcellation_path)
+				_dict_to_hdf5_attrs(f['rh_ids'], rh_parcels_dict)
 
 		#If there is nifti data
 		if 'nifti_data_path' in file_path_dictionary.keys():
