@@ -397,8 +397,8 @@ def populate_hdf5(hdf5_file_path,
 			nifti_data_path=None,
 			nifti_inclusion_mask_path=None,
 			nifti_parcellation_path=None,
-			normalize_within_parcels = True,
-			normalize_within_dataset = False,
+			normalize_within_parcels = False,
+			normalize_within_dataset = True,
 			overwrite = False):
 	"""Function that creates an HDF5 file to store various neuroimaging datas
 
@@ -746,6 +746,7 @@ def populate_hdf5(hdf5_file_path,
 
 			f['nifti_data_inds'] = np.arange(inds_counted, inds_counted + f['nifti_data'].shape[0], 1, dtype=int)
 			#data[nifti_data_inds,:] = f['nifti_data']
+			print('Made Nifti inds')
 
 			nifti_vsource = h5py.VirtualSource(hdf5_file_path, 'nifti_data', shape=f['nifti_data'].shape)
 			hdf5_layout[f['nifti_data_inds'],:] = nifti_vsource
