@@ -553,8 +553,8 @@ def populate_hdf5(hdf5_file_path,
 				f.create_dataset('lh_data', data = f['lh_data_masked'], compression = 'gzip')
 				del f['lh_data_masked']
 
-			if has_lh_gifti_parcellation:
-				_dict_to_hdf5_subdatasets(f, lh_parcels_dict, '/parcels/lh')
+			#if has_lh_gifti_parcellation:
+			#	_dict_to_hdf5_subdatasets(f, lh_parcels_dict, '/ids/lh')
 
 			print('Finished Loading LH Data')
 
@@ -595,8 +595,8 @@ def populate_hdf5(hdf5_file_path,
 				del f['rh_data_masked']
 
 
-			if has_rh_gifti_parcellation:
-				_dict_to_hdf5_subdatasets(f, rh_parcels_dict, '/parcels/rh')
+			#if has_rh_gifti_parcellation:
+			#	_dict_to_hdf5_subdatasets(f, rh_parcels_dict, '/ids/rh')
 			print('Finished Loading RH Data')
 
 		#If there is nifti data
@@ -643,8 +643,8 @@ def populate_hdf5(hdf5_file_path,
 				f.create_dataset('nifti_data', data = f['nifti_data_masked'], compression = 'gzip')
 				del f['nifti_data_masked']
 
-			if has_nifti_parcellation:
-				_dict_to_hdf5_subdatasets(f, nifti_parcels_dict, '/parcels/lh')
+			#if has_nifti_parcellation:
+			#	_dict_to_hdf5_subdatasets(f, nifti_parcels_dict, '/ids/lh_ids')
 			print('Finished Loading Nifti Data')
 
 
@@ -708,7 +708,6 @@ def populate_hdf5(hdf5_file_path,
 		inds_counted = 0
 		if has_lh_gifti:
 			f['lh_data_inds'] = np.arange(0, len(lh_gifti_ids), 1, dtype=int)
-			#data[inds_counted:(inds_counted + f['lh_data'].shape[0]),:] = f['lh_data']
 			inds_counted = int(inds_counted + f['lh_data'].shape[0])
 
 			#Update virtual source/layout
@@ -721,9 +720,9 @@ def populate_hdf5(hdf5_file_path,
 		#Add rh gifti data
 		if has_rh_gifti:
 			if inds_counted > 0:
-				image_data_dict['rh_data_inds'] = np.arange(inds_counted, inds_counted + len(rh_gifti_ids), 1, dtype=int)
+				f['rh_data_inds'] = np.arange(inds_counted, inds_counted + len(rh_gifti_ids), 1, dtype=int)
 			else:
-				image_data_dict['rh_data_inds'] = np.arange(0, f['rh_data'].shape[0], 1, dtype=int)
+				f['rh_data_inds'] = np.arange(0, f['rh_data'].shape[0], 1, dtype=int)
 
 			inds_counted = int(inds_counted + f['rh_data'].shape[0])
 
@@ -737,16 +736,7 @@ def populate_hdf5(hdf5_file_path,
 
 		#Add nifti data
 		if has_nifti:
-			#if inds_counted > 0:
-			#	nifti_data_inds = np.arange(inds_counted, inds_counted + f['nifti_data'].shape[0], 1, dtype=int)
-			#	data[inds_counted:(inds_counted + f['nifti_data'].shape[0]),:] = f['nifti_data']
-			#else:
-			#	nifti_data_inds = np.arange(0, f['nifti_data'].shape[0], 1, dtype=int)
-			#	data = f['nifti_data']
-
 			f['nifti_data_inds'] = np.arange(inds_counted, inds_counted + f['nifti_data'].shape[0], 1, dtype=int)
-			#data[nifti_data_inds,:] = f['nifti_data']
-			print('Made Nifti inds')
 
 			nifti_vsource = h5py.VirtualSource(hdf5_file_path, 'nifti_data', shape=f['nifti_data'].shape)
 			hdf5_layout[f['nifti_data_inds'],:] = nifti_vsource
@@ -759,17 +749,23 @@ def populate_hdf5(hdf5_file_path,
 		ids_group = f.create_group('ids')
 		if has_lh_gifti:
 			if has_lh_gifti_parcellation:
+				f.create_group('/ids/lh_ids')
 				ids_group.attrs['lh_ids'] = lh_gifti_ids
+				_dict_to_hdf5_subdatasets(f, lh_parcels_dict, '/ids/lh_ids')
 			else:
 				f['/ids/lh_ids'] = lh_gifti_ids
 		if has_rh_gifti:
 			if has_rh_gifti_parcellation:
+				f.create_group('/ids/rh_ids')
 				ids_group.attrs['rh_ids'] = rh_gifti_ids
+				_dict_to_hdf5_subdatasets(f, rh_parcels_dict, '/ids/rh_ids')
 			else:
 				f['/ids/rh_ids'] = rh_gifti_ids
 		if has_nifti:
 			if has_nifti_parcellation:
+				f.create_group('/ids/nifti_ids')
 				ids_group.attrs['nifti_ids'] = nifti_ids
+				_dict_to_hdf5_subdatasets(f, nifti_parcels_dict, '/ids/nifti_ids')
 			else:
 				f['/ids/nifti_ids'] = np.asarray(nifti_ids)
 
