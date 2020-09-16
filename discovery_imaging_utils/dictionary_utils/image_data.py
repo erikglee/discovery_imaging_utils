@@ -437,14 +437,13 @@ def populate_hdf5(hdf5_file_path,
 
 	with h5py.File(hdf5_file_path, 'w') as f:
 
-		#Do stuff....
-
 
 		file_path_dictionary = {}
 		metadata_dataset = f.create_dataset('metadata', (1,))
 		file_paths_dataset = f.create_dataset('file_paths', (1,))
 
 		if type(lh_gii_data_path) != type(None):
+			print('Found LH Gifti Input')
 			file_paths_dataset.attrs['lh_gii_data_path'] = np.string_(lh_gii_data_path)
 			file_path_dictionary['lh_gii_data_path'] = lh_gii_data_path
 			if type(lh_inclusion_mask_path) != type(None):
@@ -454,6 +453,7 @@ def populate_hdf5(hdf5_file_path,
 				file_paths_dataset.attrs['lh_parcellation_path'] = np.string_(lh_parcellation_path)
 				file_path_dictionary['lh_parcellation_path'] = lh_parcellation_path
 		if type(rh_gii_data_path) != type(None):
+			print('Found RH Gifti Input')
 			file_paths_dataset.attrs['rh_gii_data_path'] = np.string_(rh_gii_data_path)
 			file_path_dictionary['rh_gii_data_path'] = rh_gii_data_path
 			if type(rh_inclusion_mask_path) != type(None):
@@ -463,6 +463,7 @@ def populate_hdf5(hdf5_file_path,
 				file_paths_dataset.attrs['rh_parcellation_path'] = np.string_(rh_parcellation_path)
 				file_path_dictionary['rh_parcellation_path'] = rh_parcellation_path
 		if type(nifti_data_path) != type(None):
+			print('Found Nifti Input')
 			file_paths_dataset.attrs['nifti_data_path'] = np.string_(nifti_data_path)
 			file_path_dictionary['nifti_data_path'] = nifti_data_path
 			if type(nifti_inclusion_mask_path) != type(None):
@@ -491,6 +492,9 @@ def populate_hdf5(hdf5_file_path,
 
 		#If there is lh surface data
 		if 'lh_gii_data_path' in file_path_dictionary.keys():
+
+			#UPDATE THESE ITEMS WITH READ_DIRECT FUNCTION TO
+			#LOWER MEMORY USAGE!!!!!
 
 			has_lh_gifti = True
 			f['lh_data'] = gifti_utils.load_gifti_func(lh_gii_data_path)
