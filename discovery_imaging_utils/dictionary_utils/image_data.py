@@ -545,7 +545,7 @@ def populate_hdf5(hdf5_file_path,
 
 				has_lh_gifti_parcellation = True
 				#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
-				f['lh_data_masked'], lh_labels, lh_parcels_dict = gifti_utils.parcellate_gifti(f['lh_data'], lh_parcellation_path, intensity_normalize_before_averaging = True)
+				f['lh_data_masked'], lh_labels, lh_parcels_dict = gifti_utils.parcellate_gifti(f['lh_data'], lh_parcellation_path, intensity_normalize_before_averaging = normalize_within_parcels)
 				lh_gifti_ids = lh_labels
 				#image_data_dict['lh_parcels_dict'] = lh_parcels_dict
 
@@ -587,7 +587,7 @@ def populate_hdf5(hdf5_file_path,
 
 				has_rh_gifti_parcellation = True
 				#Need to (1) parcellate data, (2) return parcel labels, (3) save info to recreate parcels
-				f['rh_data_masked'], rh_labels, rh_parcels_dict = gifti_utils.parcellate_gifti(f['rh_data'], rh_parcellation_path, intensity_normalize_before_averaging = False)
+				f['rh_data_masked'], rh_labels, rh_parcels_dict = gifti_utils.parcellate_gifti(f['rh_data'], rh_parcellation_path, intensity_normalize_before_averaging = normalize_within_parcels)
 				rh_gifti_ids = rh_labels
 				#image_data_dict['rh_parcels_dict'] = rh_parcels_dict
 
@@ -637,7 +637,7 @@ def populate_hdf5(hdf5_file_path,
 			if 'nifti_parcellation_path' in file_path_dictionary.keys():
 
 				has_nifti_parcellation = True
-				f['nifti_data_masked'], nifti_labels, nifti_parcels_dict = nifti_utils.parcellate_nifti(f['nifti_data'], nifti_parcellation_path)
+				f['nifti_data_masked'], nifti_labels, nifti_parcels_dict = nifti_utils.parcellate_nifti(f['nifti_data'], nifti_parcellation_path, demedian_before_averaging = normalize_within_parcels)
 				nifti_ids = nifti_labels
 
 				del f['nifti_data']
@@ -767,7 +767,7 @@ def populate_hdf5(hdf5_file_path,
 
 
 		#Normalize data if necessary
-		if normalize == True:
+		if normalize_within_dataset == True:
 			if data.shape[1] > 1:
 
 				data_means = np.mean(data,axis=1)
