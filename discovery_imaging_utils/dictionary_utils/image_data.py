@@ -442,7 +442,8 @@ def populate_hdf5(hdf5_file_path,
 
 
 		file_path_dictionary = {}
-		metadata_dataset = f.create_dataset('metadata', (1,))
+		metadata_dict = {}
+		image_data_dict = {}
 
 		if type(lh_gii_data_path) != type(None):
 			print('Found LH Gifti Input')
@@ -468,8 +469,6 @@ def populate_hdf5(hdf5_file_path,
 
 
 
-		image_data_dict = {}
-		metadata_dict = {}
 		#metadata_dict['filepaths_dict'] = file_path_dictionary
 
 		lh_data = None
@@ -491,7 +490,7 @@ def populate_hdf5(hdf5_file_path,
 
 			has_lh_gifti = True
 			f['lh_data'] = gifti_utils.load_gifti_func(lh_gii_data_path)
-			metadata_dataset.attrs['lh_gifti_shape'] = f['lh_data'].shape #or could put this as an attribute?
+			metadata_dict['lh_gifti_shape'] = f['lh_data'].shape #or could put this as an attribute?
 			lh_gifti_ids = np.arange(0, f['lh_data'].shape[0], 1, dtype=int)
 
 
@@ -532,7 +531,7 @@ def populate_hdf5(hdf5_file_path,
 
 			has_rh_gifti = True
 			f['rh_data'] = gifti_utils.load_gifti_func(rh_gii_data_path)
-			image_data_dict['rh_gifti_shape'] = f['rh_data'].shape
+			metadata_dict['rh_gifti_shape'] = f['rh_data'].shape
 			rh_gifti_ids = np.arange(0, f['rh_data'].shape[0], 1, dtype=int)
 
 
@@ -577,8 +576,8 @@ def populate_hdf5(hdf5_file_path,
 			nifti_img = nib.load(nifti_data_path)
 			nifti_data = f.create_dataset("nifti_data", nifti_img.dataobj.shape)
 			nifti_data[...] = nifti_img.dataobj[...] #Could also do this through dataobj but would be slower
-			metadata_dataset.nifti_affine = nifti_img.affine
-			metadata_dataset.nifti_shape = f['nifti_data'].shape
+			metadata_dict['nifti_affine'] = nifti_img.affine
+			metadata_dict['nifti_shape'] = f['nifti_data'].shape
 
 			#Find indices to map back to nifti image
 			nifti_3d = np.zeros(metadata_dataset.nifti_shape[0:3])
@@ -732,7 +731,7 @@ def populate_hdf5(hdf5_file_path,
 
 
 
-
+		_dict_to_hdf5_attrs(f['data'], metadata_dict)
 		_dict_to_hdf5_attrs(f['data'], file_path_dictionary)
 		f.flush()
 
