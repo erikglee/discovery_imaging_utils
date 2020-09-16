@@ -618,6 +618,8 @@ def populate_hdf5(hdf5_file_path,
 
 
 
+			#MOST TIME DEMAND HAPPENS HERE ONWARD!!!!
+
 			#If the data hasn't already been brought down to 2d, then do that now
 			if f['nifti_data'].ndim > 2:
 
@@ -639,6 +641,8 @@ def populate_hdf5(hdf5_file_path,
 
 				del f['nifti_data']
 				f['nifti_data'] = reshaped_nifti_data
+
+			print('Finished Reshaping Nifti Data')
 
 
 
@@ -682,6 +686,8 @@ def populate_hdf5(hdf5_file_path,
 
 			image_data_dict['lh_ids'] = lh_gifti_ids
 
+			print('Added LH data to HDF5')
+
 
 		#Add rh gifti data
 		if has_rh_gifti:
@@ -697,6 +703,8 @@ def populate_hdf5(hdf5_file_path,
 			hdf5_layout[image_data_dict['rh_data_inds'],:] = rh_vsource
 
 			image_data_dict['rh_ids'] = rh_gifti_ids
+
+			print('Added RH data to HDF5')
 
 
 
@@ -717,6 +725,8 @@ def populate_hdf5(hdf5_file_path,
 
 			image_data_dict['nifti_ids'] = nifti_ids
 
+			print('Added Nifti data to HDF5')
+
 		#Add all the different datasets to a new
 		#virtual dataset
 		f.create_virtual_dataset('data', hdf5_layout)
@@ -731,11 +741,14 @@ def populate_hdf5(hdf5_file_path,
 				data = data/data_means[:,np.newaxis]*1000
 				f['data_means'] = data_means
 
+				print('Finished Normalizing Data Data')
+
 
 
 		_dict_to_hdf5_attrs(f['data'], metadata_dict)
 		_dict_to_hdf5_attrs(f['data'], file_path_dictionary)
 		f.flush()
+		print('Finished Flushing')
 
 
 	return
