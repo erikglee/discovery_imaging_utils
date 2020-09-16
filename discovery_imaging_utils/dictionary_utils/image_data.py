@@ -756,19 +756,20 @@ def populate_hdf5(hdf5_file_path,
 		#Add all the different datasets to a new
 		#virtual dataset
 		f.create_virtual_dataset('data', hdf5_layout)
+		ids_group = f.create_group('ids')
 		if has_lh_gifti:
 			if has_lh_gifti_parcellation:
-				f['ids'].attrs['lh_ids'] = lh_gifti_ids
+				ids_group.attrs['lh_ids'] = lh_gifti_ids
 			else:
 				f['/ids/lh_ids'] = lh_gifti_ids
 		if has_rh_gifti:
 			if has_rh_gifti_parcellation:
-				f['ids'].attrs['rh_ids'] = rh_gifti_ids
+				ids_group.attrs['rh_ids'] = rh_gifti_ids
 			else:
 				f['/ids/rh_ids'] = rh_gifti_ids
 		if has_nifti:
 			if has_nifti_parcellation:
-				f['ids'].attrs['nifti_ids'] = nifti_ids
+				ids_group.attrs['nifti_ids'] = nifti_ids
 			else:
 				f['/ids/nifti_ids'] = np.asarray(nifti_ids)
 
