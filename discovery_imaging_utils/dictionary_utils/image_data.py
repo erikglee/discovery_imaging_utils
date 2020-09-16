@@ -733,9 +733,9 @@ def populate_hdf5(hdf5_file_path,
 
 
 
+		_dict_to_hdf5_attrs(data, file_path_dictionary)
 		f.flush()
 
-		_dict_to_hdf5_attrs(data, file_path_dictionary)
 
 	return
 
