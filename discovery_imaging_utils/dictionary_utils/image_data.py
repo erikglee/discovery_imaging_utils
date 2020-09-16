@@ -749,22 +749,22 @@ def populate_hdf5(hdf5_file_path,
 		ids_group = f.create_group('ids')
 		if has_lh_gifti:
 			if has_lh_gifti_parcellation:
-				f.create_group('/ids/lh_ids')
-				ids_group.attrs['lh_ids'] = lh_gifti_ids
+				lh_id_group = f.create_group('/ids/lh_ids')
+				lh_id_group.attrs['lh_ids'] = lh_gifti_ids
 				_dict_to_hdf5_subdatasets(f, lh_parcels_dict, '/ids/lh_ids')
 			else:
 				f['/ids/lh_ids'] = lh_gifti_ids
 		if has_rh_gifti:
 			if has_rh_gifti_parcellation:
-				f.create_group('/ids/rh_ids')
-				ids_group.attrs['rh_ids'] = rh_gifti_ids
+				rh_id_group = f.create_group('/ids/rh_ids')
+				rh_id_group.attrs['rh_ids'] = rh_gifti_ids
 				_dict_to_hdf5_subdatasets(f, rh_parcels_dict, '/ids/rh_ids')
 			else:
 				f['/ids/rh_ids'] = rh_gifti_ids
 		if has_nifti:
 			if has_nifti_parcellation:
-				f.create_group('/ids/nifti_ids')
-				ids_group.attrs['nifti_ids'] = nifti_ids
+				nifti_id_group = f.create_group('/ids/nifti_ids')
+				nifti_id_group.attrs['nifti_ids'] = nifti_ids
 				_dict_to_hdf5_subdatasets(f, nifti_parcels_dict, '/ids/nifti_ids')
 			else:
 				f['/ids/nifti_ids'] = np.asarray(nifti_ids)
