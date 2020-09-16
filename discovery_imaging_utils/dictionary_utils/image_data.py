@@ -728,7 +728,7 @@ def populate_hdf5(hdf5_file_path,
 
 			#Update virtual source/layout
 			rh_vsource = h5py.VirtualSource(hdf5_file_path, 'rh_data', shape=f['rh_data'].shape)
-			hdf5_layout[image_data_dict['rh_data_inds'],:] = rh_vsource
+			hdf5_layout[f['rh_data_inds'],:] = rh_vsource
 
 			print('Added RH data to HDF5')
 
