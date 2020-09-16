@@ -431,6 +431,9 @@ def populate_hdf5(hdf5_file_path,
 
 	"""
 
+	#HOW TO SET ATTRIBUTES REMINDER:
+	#dataset.attrs['name_of_desired_attribute'] = attribute
+
 	if overwrite == True:
 		if os.path.exists(hdf5_file_path):
 			os.remove(hdf5_file_path)
@@ -440,37 +443,27 @@ def populate_hdf5(hdf5_file_path,
 
 		file_path_dictionary = {}
 		metadata_dataset = f.create_dataset('metadata', (1,))
-		file_paths_dataset = f.create_dataset('file_paths', (1,))
 
 		if type(lh_gii_data_path) != type(None):
 			print('Found LH Gifti Input')
-			file_paths_dataset.attrs['lh_gii_data_path'] = np.string_(lh_gii_data_path)
 			file_path_dictionary['lh_gii_data_path'] = lh_gii_data_path
 			if type(lh_inclusion_mask_path) != type(None):
-				file_paths_dataset.attrs['lh_inclusion_mask_path'] = np.string_(lh_inclusion_mask_path)
 				file_path_dictionary['lh_inclusion_mask_path'] = lh_inclusion_mask_path
 			if type(lh_parcellation_path) != type(None):
-				file_paths_dataset.attrs['lh_parcellation_path'] = np.string_(lh_parcellation_path)
 				file_path_dictionary['lh_parcellation_path'] = lh_parcellation_path
 		if type(rh_gii_data_path) != type(None):
 			print('Found RH Gifti Input')
-			file_paths_dataset.attrs['rh_gii_data_path'] = np.string_(rh_gii_data_path)
 			file_path_dictionary['rh_gii_data_path'] = rh_gii_data_path
 			if type(rh_inclusion_mask_path) != type(None):
-				file_paths_dataset.attrs['rh_inclusion_mask_path'] = np.string_(rh_inclusion_mask_path)
 				file_path_dictionary['rh_inclusion_mask_path'] = rh_inclusion_mask_path
 			if type(rh_parcellation_path) != type(None):
-				file_paths_dataset.attrs['rh_parcellation_path'] = np.string_(rh_parcellation_path)
 				file_path_dictionary['rh_parcellation_path'] = rh_parcellation_path
 		if type(nifti_data_path) != type(None):
 			print('Found Nifti Input')
-			file_paths_dataset.attrs['nifti_data_path'] = np.string_(nifti_data_path)
 			file_path_dictionary['nifti_data_path'] = nifti_data_path
 			if type(nifti_inclusion_mask_path) != type(None):
-				file_paths_dataset.attrs['nifti_inclusion_mask_path'] = np.string_(nifti_inclusion_mask_path)
 				file_path_dictionary['nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
 			if type(nifti_parcellation_path) != type(None):
-				file_paths_dataset.attrs['nifti_parcellation_path'] = np.string_(nifti_parcellation_path)
 				file_path_dictionary['nifti_parcellation_path'] = nifti_parcellation_path
 
 
@@ -498,7 +491,7 @@ def populate_hdf5(hdf5_file_path,
 
 			has_lh_gifti = True
 			f['lh_data'] = gifti_utils.load_gifti_func(lh_gii_data_path)
-			metadata_dataset.lh_gifti_shape = f['lh_data'].shape #or could put this as an attribute?
+			metadata_dataset.attrs['lh_gifti_shape'] = f['lh_data'].shape #or could put this as an attribute?
 			lh_gifti_ids = np.arange(0, f['lh_data'].shape[0], 1, dtype=int)
 
 
@@ -530,6 +523,8 @@ def populate_hdf5(hdf5_file_path,
 				del f['lh_data_masked']
 
 			f['lh_ids'] = lh_gifti_ids
+			if has_lh_gifti_parcellation:
+				_dict_to_hdf5_attrs(f['lh_ids'], lh_parcellation_path)
 
 
 		#If there is rh surface data
@@ -569,6 +564,8 @@ def populate_hdf5(hdf5_file_path,
 				del f['rh_data_masked']
 
 			f['rh_ids'] = rh_gifti_ids
+			if has_rh_gifti_parcellation:
+				_dict_to_hdf5_attrs(f['rh_ids'], rh_parcellation_path)
 
 		#If there is nifti data
 		if 'nifti_data_path' in file_path_dictionary.keys():
@@ -614,9 +611,9 @@ def populate_hdf5(hdf5_file_path,
 				f.create_dataset('nifti_data', data = f['nifti_data_masked'], compression = 'gzip')
 				del f['nifti_data_masked']
 
-				_dict_to_hdf5_attrs(f, nifti_parcels_dict, base_path = '/metadata/parcel_dicts/nifti/')
-
 			f['nifti_ids'] = nifti_ids
+			if has_nifti_parcellation:
+				_dict_to_hdf5_attrs(f['nifti_ids'], nifti_parcels_dict)
 
 
 
@@ -738,13 +735,15 @@ def populate_hdf5(hdf5_file_path,
 
 		f.flush()
 
+		_dict_to_hdf5_attrs(data, file_path_dictionary)
+
 	return
 
 
-def _dict_to_hdf5_attrs(hdf5_file_object, dictionary, base_path = ''):
+def _dict_to_hdf5_attrs(hdf5_dataset_object, dictionary, base_path = ''):
 	"""Function adds dictionary to hdf5 file
 
-	Function takes a loaded HDF5 file, and adds dictionary
+	Function takes a HDF5 dataset, and adds dictionary
 	key/value pairs as new datasets under the desired base
 	path (so you can have dictionary be put into sub groups
 	instead of main group, otherwise leave base_path empty).
@@ -764,6 +763,6 @@ def _dict_to_hdf5_attrs(hdf5_file_object, dictionary, base_path = ''):
 
 	for key, value in dictionary.items():
 
-		hdf5_file_object[os.path.join(base_path,key)] = value
+		hdf5_dataset_object.attrs[os.path.join(base_path,key)] = value
 
 	return
