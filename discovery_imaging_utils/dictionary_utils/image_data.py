@@ -761,5 +761,6 @@ def _dict_to_hdf5_attrs(hdf5_dataset_object, dictionary, base_path = ''):
 	for key, value in dictionary.items():
 
 		hdf5_dataset_object.attrs[os.path.join(base_path,key)] = value
+		print(key)
 
 	return
