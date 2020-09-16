@@ -758,6 +758,13 @@ def populate_hdf5(hdf5_file_path,
 		#Add all the different datasets to a new
 		#virtual dataset
 		f.create_virtual_dataset('data', hdf5_layout)
+		if has_lh_gifti:
+			f['data'].attrs['lh_ids'] = lh_gifti_ids
+		if has_rh_gifti:
+			f['data'].attrs['rh_ids'] = lh_gifti_ids
+		if has_nifti:
+			f['data'].attrs['nifti_ids'] = nifti_ids
+			
 		data = f['data']
 
 
