@@ -524,6 +524,8 @@ def populate_hdf5(hdf5_file_path,
 			if has_lh_gifti_parcellation:
 				_dict_to_hdf5_attrs(f['lh_ids'], lh_parcels_dict)
 
+			print('Finished Loading LH Data')
+
 
 		#If there is rh surface data
 		if 'rh_gii_data_path' in file_path_dictionary.keys():
@@ -563,6 +565,7 @@ def populate_hdf5(hdf5_file_path,
 			f['rh_ids'] = rh_gifti_ids
 			if has_rh_gifti_parcellation:
 				_dict_to_hdf5_attrs(f['rh_ids'], rh_parcels_dict)
+			print('Finished Loading RH Data')
 
 		#If there is nifti data
 		if 'nifti_data_path' in file_path_dictionary.keys():
@@ -578,7 +581,7 @@ def populate_hdf5(hdf5_file_path,
 			metadata_dict['nifti_shape'] = f['nifti_data'].shape
 
 			#Find indices to map back to nifti image
-			nifti_3d = np.zeros(metadata_dataset.nifti_shape[0:3])
+			nifti_3d = np.zeros(metadata_dict['nifti_shape'][0:3])
 			nifti_ids = np.where(nifti_3d != None)
 
 			nifti_inclusion_inds = None
@@ -611,6 +614,7 @@ def populate_hdf5(hdf5_file_path,
 			f['nifti_ids'] = nifti_ids
 			if has_nifti_parcellation:
 				_dict_to_hdf5_attrs(f['nifti_ids'], nifti_parcels_dict)
+			print('Finished Loading Nifti Data')
 
 
 
