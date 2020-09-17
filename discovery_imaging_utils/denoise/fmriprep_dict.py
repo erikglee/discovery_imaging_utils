@@ -141,6 +141,150 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
     return denoise_out_dict
 
 
+def denoise_hdf5(hdf5_file_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass):
+
+    """Wrapper function for imaging_utils.denoise.general.run_denoising
+
+    Function that makes the execution of imaging_utils.denoise.general.run_denoising
+    more convenient if there is an fmriprep_out_dict, containing a confounds
+    dictionary, image_data_dictionary with data to be cleaned, general_info.json
+    dictionary with fields including n_skip_vols and TR. The remainder of the
+    arguments passed to this function will allow you to configure your denoising
+    based on the fmriprep_out_dict.
+
+    Parameters
+    ----------
+
+    fmriprep_out_dict : ...
+
+    hpf_before_regression : ...
+
+    scrub_criteria_dictionary : ...
+
+    interpolation_method : ...
+
+    noise_comps_dict : ...
+
+    clean_comps_dict : ...
+
+    high_pass : ...
+
+    low_pass : ...
+
+
+
+
+
+
+    Returns
+    -------
+    denoise_out_dict : dict
+        Dictionary containing the output of denoising. This dictionary will have
+        confounds, general_info, file_paths (if present), and the non-data elements
+        copied from the input fmriprep_out_dict. The data field in this dictionary
+        will be overwritten with the cleaned timeseries data. Beyond these fields,
+        there will be fields for the settings used in denoising, mean signal
+        intensities for different masks of interest, and statistics calculated
+        during the denoising process.
+
+        The main element of interest will be -
+         denoise_out_dict['image_data_dictionary']['data']
+
+
+    """
+
+    with h5py.File(hdf5_file_path, 'r') as f:
+
+        time_series = f['data']
+        fmriprep_metadata_group = f['fmriprep_metadata']
+        n_skip_vols = fmriprep_metadata_group.attrs['n_skip_vols']
+
+
+
+        if scrub_criteria_dictionary != False:
+            inds_to_include = _hdf5_find_timepoints_to_scrub(fmriprep_out_dict, scrubbing_dictionary)
+        else:
+            inds_to_include = np.ones(time_series.shape[1], dtype=int)
+            inds_to_include[0:n_skip_vols] = 0
+
+        if noise_comps_dict != False:
+            noise_comps = _hdf5_load_comps_dict(fmriprep_out_dict, noise_comps_dict)
+        else:
+            noise_comps = False
+
+        if clean_comps_dict != False:
+            clean_comps = _hdf5_load_comps_dict(fmriprep_out_dict, clean_comps_dict)
+        else:
+            clean_comps = False
+
+        print(noise_comps)
+        print(clean_comps)
+
+
+        temp_out_dict = run_denoising(time_series,
+                                        hpf_before_regression,
+                                        inds_to_include,
+                                        interpolation_method,
+                                        noise_comps,
+                                        clean_comps,
+                                        high_pass,
+                                        low_pass,
+                                        fmriprep_out_dict['general_info.json']['n_skip_vols'],
+                                        fmriprep_out_dict['general_info.json']['TR'])
+
+
+
+
+
+
+
+
+
+
+        mean_roi_signal_intensities = {'global_signal' : np.nanmean(fmriprep_out_dict['confounds']['global_signal']),
+                                       'white_matter' : np.nanmean(fmriprep_out_dict['confounds']['white_matter']),
+                                       'csf' : np.nanmean(fmriprep_out_dict['confounds']['csf'])}
+
+
+
+
+        denoising_settings = {'hpf_before_regression' : hpf_before_regression,
+                              'scrub_criteria_dictionary' : scrub_criteria_dictionary,
+                              'interpolation_method' : interpolation_method,
+                              'noise_comps_dict' : noise_comps_dict,
+                              'clean_comps_dict' : clean_comps_dict,
+                              'high_pass' : high_pass,
+                              'low_pass' : low_pass}
+
+
+
+        #Create the dictionary that has all the outputs
+        denoise_out_dict = {}
+        denoise_out_dict['confounds'] = fmriprep_out_dict['confounds']
+        denoise_out_dict['image_data_dictionary'] = fmriprep_out_dict['image_data_dictionary']
+        denoise_out_dict['image_data_dictionary']['data'] = temp_out_dict['cleaned_timeseries']
+        denoise_out_dict['denoising_stats'] = temp_out_dict['denoising_stats'] #NEED TO IMPLEMENT STILL
+        denoise_out_dict['general_info.json'] = fmriprep_out_dict['general_info.json']
+        denoise_out_dict['denoising_settings.json'] = denoising_settings
+        denoise_out_dict['mean_roi_signal_intensities.json'] = mean_roi_signal_intensities
+        denoise_out_dict['inclusion_inds'] = inds_to_include
+
+
+        if 'file_paths.json' in fmriprep_out_dict.keys():
+            denoise_out_dict['file_paths.json'] = fmriprep_out_dict['file_paths.json']
+
+
+
+
+
+
+
+
+
+
+    return denoise_out_dict
+
+
 
 def _load_comps_dict(fmriprep_out_dict, comps_dict):
     """
@@ -191,6 +335,69 @@ def _load_comps_dict(fmriprep_out_dict, comps_dict):
         if value != False:
 
             temp_arr = reduce_ics(temp_arr, value, fmriprep_out_dict['general_info.json']['n_skip_vols'])
+
+        #Either start a new array or stack to existing
+        if comps_matrix == []:
+
+            comps_matrix = temp_arr
+
+        else:
+
+            comps_matrix = np.vstack((comps_matrix, temp_arr))
+
+    return comps_matrix
+
+def _hdf5_load_comps_dict(fmriprep_metadata_group, comps_dict):
+    """
+    #Internal function, which is given a "fmriprep_out_dict",
+    #with different useful resting-state properties
+    #(made by module parc_ts_dictionary), and accesses
+    #different components specified by comp_dict, and
+    #outputs them as a 2d array.
+
+    #All variables specified must be a key in the dictionary
+    #accessed by fmriprep_out_dict['confounds']
+
+    #For pre-computed groupings of variables, this function
+    #supports PCA reduction of the variable grouping.
+
+    #An example comps_dict is shown below:
+    #
+    # example_comps_dict = {'framewise_displacement' : False,
+    #                       'twelve_motion_regs' : 3,
+    #                       'aroma_noise_ics' : 3}
+    #
+    #This dictionary would form an output array <7,n_timepoints> including
+    #framewise displacement, 3 PCs from twelve motion regressors, and
+    #3 PCs from the aroma noise ICs. False specifies that no PC reduction
+    #should be done on the variable, and otherwise the value in the dictionary
+    #specifies the number of PCs to be reduced to.
+    #
+    #PCA is taken while ignoring the n_skip_vols
+    #
+    """
+
+    if comps_dict == False:
+        return False
+    comps_matrix = []
+
+    n_skip_vols = fmriprep_metadata_group.attrs['n_skip_vols']
+
+    #Iterate through all key value pairs
+    for key, value in comps_dict.items():
+
+        #Load the current attribute of interest
+        temp_arr = fmriprep_metadata_group[key]
+
+        #If temp_arr is only 1d, at a second dimension for comparison
+        if len(temp_arr.shape) == 1:
+
+            temp_arr = np.reshape(temp_arr, (temp_arr.shape[0],1))
+
+        #If necessary, use PCA on the temp_arr
+        if value != False:
+
+            temp_arr = reduce_ics(temp_arr, value, n_skip_vols)
 
         #Either start a new array or stack to existing
         if comps_matrix == []:
@@ -365,5 +572,131 @@ def _find_timepoints_to_scrub(fmriprep_out_dict, scrubbing_dictionary):
         good_arr = np.zeros(temp_val.shape)
         good_arr[good_inds.astype(int)] = 1
         good_arr[0:fmriprep_out_dict['general_info.json']['n_skip_vols']] = 0
+
+        return good_arr
+
+
+def _hdf5_find_timepoints_to_scrub(fmriprep_metadata_group, scrubbing_dictionary):
+    """" Internal function used to find timepoints to scrub.
+
+    Function that takes a parcellated dictionary object and
+    another dictionary to specify the scrubbing settings, and
+    uses this to find which timepoints to scrub.
+
+    If scrubbing dictionary is set to False, then the initial timepoints
+    to remove at the beginning of the scan (specified under fmriprep_out_dict)
+    will be the only ones specified for removal. If scrubbing dictioanary
+    is defined, either hard thresholds or Uniform scrubbing based on
+    criteria specified under the scrubbing dictionary will be used for
+    determining bad timepoints. All timepoints identified as bad (outside
+    of the initial timepoints) will be padded, and because of this the output
+    to the uniform scrubbing may differ by a couple of timepoints depending on
+    how the overlap among bad timepoints happens to fall.
+
+    Parameters
+    ----------
+    fmriprep_out_dict : dict
+        parcellated object dictionary containing confounds class and n_skip_vols
+
+    scrubbing_dictionary : bool or dict
+        dictionary to specify scrubbing criteria (see documentation for main denoising
+        script)
+
+    Returns
+    -------
+    ndarray
+        array with the same length as the input data, having 1s at defined timepoints and
+        0s at undefined timepoints
+
+    """
+
+    n_skip_vols = fmriprep_metdata_group.attrs['n_skip_vols']
+
+    if type(scrubbing_dictionary) == type(False):
+
+        if scrubbing_dictionary == False:
+
+            temp_val = fmriprep_metadata_group['framewise_displacement']
+            good_arr = np.ones(temp_val.shape)
+            good_arr[0:n_skip_vols] = 0
+            return good_arr
+
+        else:
+
+            raise NameError ('Error, if scrubbing dictionary is a boolean it must be False')
+
+
+    if 'Uniform' in scrubbing_dictionary:
+
+        amount_to_keep = scrubbing_dictionary.get('Uniform')[0]
+        evaluation_metrics = scrubbing_dictionary.get('Uniform')[1]
+
+
+        evaluation_array = []
+
+        for temp_metric in evaluation_metrics:
+
+            if evaluation_array == []:
+
+                evaluation_array = demean_normalize(fmriprep_metadata_group[temp_metric])
+
+            else:
+
+                temp_val = np.absolute(demean_normalize(fmriprep_metadata_group[temp_metric]))
+                evaluation_array = np.add(evaluation_array, temp_val)
+
+        num_timepoints_to_keep = int(evaluation_array.shape[0]*amount_to_keep)
+        sorted_inds = np.argsort(evaluation_array)
+        good_inds = np.linspace(0, evaluation_array.shape[0] - 1, evaluation_array.shape[0])
+
+        #Add padding
+        for temp_ind in sorted_inds:
+
+            if good_inds.shape[0] > num_timepoints_to_keep:
+
+                temp_ind_pre = temp_ind - 1
+                temp_ind_post = temp_ind + 1
+
+                good_inds = good_inds[good_inds != temp_ind_pre]
+                good_inds = good_inds[good_inds != temp_ind]
+                good_inds = good_inds[good_inds != temp_ind_post]
+
+
+        good_inds = sorted_inds[0:num_timepoints_to_keep]
+        good_arr = np.zeros(evaluation_array.shape)
+        good_arr[good_inds.astype(int)] = 1
+        good_arr[0:n_skip_vols] = 0
+
+        return good_arr
+
+
+
+    #If neither of the first two options were used, we will assume
+    #they dictionary has appropriate key/value pairs describing scrubbing
+    #criteria
+    else:
+        temp_val = fmriprep_metadata_group['framewise_displacement']
+        good_inds = np.linspace(0, temp_val.shape[0] - 1, temp_val.shape[0])
+
+        #Iterate through all key/value pairs and set the good_arr
+        #value for indices which the nuisance threshold is exceeded
+        #equal to 0
+        for temp_metric, temp_thresh in scrubbing_dictionary.items():
+
+            temp_values = fmriprep_metadata_group[temp_metric]
+            bad_inds = np.where(temp_values > temp_thresh)[0]
+
+            for temp_ind in bad_inds:
+
+                temp_ind_pre = temp_ind - 1
+                temp_ind_post = temp_ind + 1
+
+                good_inds = good_inds[good_inds != temp_ind_pre]
+                good_inds = good_inds[good_inds != temp_ind]
+                good_inds = good_inds[good_inds != temp_ind_post]
+
+        good_arr = np.zeros(temp_val.shape)
+        good_arr[good_inds.astype(int)] = 1
+        good_arr[0:n_skip_vols] = 0
 
         return good_arr
