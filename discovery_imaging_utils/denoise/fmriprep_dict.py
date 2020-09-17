@@ -689,10 +689,11 @@ def _hdf5_find_timepoints_to_scrub(fmriprep_metadata_group, scrubbing_dictionary
         #Iterate through all key/value pairs and set the good_arr
         #value for indices which the nuisance threshold is exceeded
         #equal to 0
+        temp_values = np.zeros(temp_val.shape)
         for temp_metric, temp_thresh in scrubbing_dictionary.items():
 
-            temp_val[:] = fmriprep_metadata_group[temp_metric]
-            bad_inds = np.where(temp_val > temp_thresh)[0]
+            temp_values[:] = fmriprep_metadata_group[temp_metric]
+            bad_inds = np.where(temp_values > temp_thresh)[0]
 
             for temp_ind in bad_inds:
 
