@@ -265,10 +265,6 @@ def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_par
 		aroma_used = True
 
 
-	dict_for_denoising = {}
-	dict_for_denoising['file_path_dictionary.json'] = file_path_dictionary
-
-
 	dict_for_denoising['image_data_dictionary'] = image_data.populate_hdf5(hdf5_file_path,
 										lh_gii_data_path=lh_gii_data_path,
 										lh_inclusion_mask_path=lh_inclusion_mask_path,
@@ -283,14 +279,12 @@ def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_par
 										normalize_within_dataset = normalize_within_dataset)
 
 	confounds_dict = _populate_confounds_dict(file_path_dictionary, aroma_used = aroma_used)
-	general_info_dict = _populate_general_info_dict(dict_for_denoising['confounds'], dict_for_denoising['file_path_dictionary.json'], TR)
+	general_info_dict = _populate_general_info_dict(confounds_dict, file_path_dictionary, TR)
 	with h5py.File(hdf5_file_path, 'w') as f:
 
 		metadata_obj = f.create_group('fmriprep_metadata')
-		_dict_to_hdf5_attrs(f, general_info_dict, '/fmriprep_metadata')
+		_dict_to_hdf5_attrs(metadata_obj, general_info_dict)
 		_dict_to_hdf5_subdatasets(f, confounds_dict, '/fmriprep_metadata')
-
-
 
 	return
 
