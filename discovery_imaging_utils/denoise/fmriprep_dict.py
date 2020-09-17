@@ -227,7 +227,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         print('Gathered Elements Needed for Denoising')
 
 
-        temp_out_dict = run_denoising(time_series,
+        temp_out_dict = run_denoising(time_series.value,
                                         hpf_before_regression,
                                         inds_to_include,
                                         interpolation_method,
