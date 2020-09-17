@@ -264,6 +264,46 @@ def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_par
 		aroma_used = True
 
 
+	if 'lh_gii_data_path' in file_path_dictionary.keys():
+		lh_gii_data_path = file_path_dictionary['lh_gii_data_path']
+	else:
+		lh_gii_data_path = None
+	if 'lh_inclusion_mask_path' in file_path_dictionary.keys():
+		lh_inclusion_mask_path = file_path_dictionary['lh_inclusion_mask_path']
+	else:
+		lh_inclusion_mask_path = None
+	if 'lh_parcellation_path' in file_path_dictionary.keys():
+		lh_parcellation_path = file_path_dictionary['lh_parcellation_path']
+	else:
+		lh_parcellation_path = None
+
+	if 'rh_gii_data_path' in file_path_dictionary.keys():
+		rh_gii_data_path = file_path_dictionary['rh_gii_data_path']
+	else:
+		rh_gii_data_path = None
+	if 'rh_inclusion_mask_path' in file_path_dictionary.keys():
+		rh_inclusion_mask_path = file_path_dictionary['rh_inclusion_mask_path']
+	else:
+		rh_inclusion_mask_path = None
+	if 'rh_parcellation_path' in file_path_dictionary.keys():
+		rh_parcellation_path = file_path_dictionary['rh_parcellation_path']
+	else:
+		rh_parcellation_path = None
+
+	if 'nifti_data_path' in file_path_dictionary.keys():
+		nifti_data_path = file_path_dictionary['nifti_data_path']
+	else:
+		nifti_data_path = None
+	if 'nifti_inclusion_mask_path' in file_path_dictionary.keys():
+		nifti_inclusion_mask_path = file_path_dictionary['nifti_inclusion_mask_path']
+	else:
+		nifti_inclusion_mask_path = None
+	if 'nifti_parcellation_path' in file_path_dictionary.keys():
+		nifti_parcellation_path = file_path_dictionary['nifti_parcellation_path']
+	else:
+		nifti_parcellation_path = None
+
+
 	dict_for_denoising['image_data_dictionary'] = image_data.populate_hdf5(hdf5_file_path,
 										lh_gii_data_path=lh_gii_data_path,
 										lh_inclusion_mask_path=lh_inclusion_mask_path,
