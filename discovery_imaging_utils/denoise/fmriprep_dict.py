@@ -1,5 +1,6 @@
 import numpy as np
 from discovery_imaging_utils.denoise.general import run_denoising
+import shutil
 
 
 def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass):
