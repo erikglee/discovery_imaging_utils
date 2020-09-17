@@ -618,7 +618,7 @@ def _hdf5_find_timepoints_to_scrub(fmriprep_metadata_group, scrubbing_dictionary
 
     """
 
-    n_skip_vols = fmriprep_metdata_group.attrs['n_skip_vols']
+    n_skip_vols = fmriprep_metadata_group.attrs['n_skip_vols']
 
     if type(scrubbing_dictionary) == type(False):
 
