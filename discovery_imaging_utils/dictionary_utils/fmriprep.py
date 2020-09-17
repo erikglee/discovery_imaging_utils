@@ -304,18 +304,18 @@ def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_par
 		nifti_parcellation_path = None
 
 
-	dict_for_denoising['image_data_dictionary'] = image_data.populate_hdf5(hdf5_file_path,
-										lh_gii_data_path=lh_gii_data_path,
-										lh_inclusion_mask_path=lh_inclusion_mask_path,
-										lh_parcellation_path=lh_parcellation_path,
-										rh_gii_data_path=rh_gii_data_path,
-										rh_inclusion_mask_path=rh_inclusion_mask_path,
-										rh_parcellation_path=rh_parcellation_path,
-										nifti_data_path=nifti_data_path,
-										nifti_inclusion_mask_path=nifti_inclusion_mask_path,
-										nifti_parcellation_path=nifti_parcellation_path,
-										normalize_within_parcels = normalize_within_parcels,
-										normalize_within_dataset = normalize_within_dataset)
+	image_data.populate_hdf5(hdf5_file_path,
+							lh_gii_data_path=lh_gii_data_path,
+							lh_inclusion_mask_path=lh_inclusion_mask_path,
+							lh_parcellation_path=lh_parcellation_path,
+							rh_gii_data_path=rh_gii_data_path,
+							rh_inclusion_mask_path=rh_inclusion_mask_path,
+							rh_parcellation_path=rh_parcellation_path,
+							nifti_data_path=nifti_data_path,
+							nifti_inclusion_mask_path=nifti_inclusion_mask_path,
+							nifti_parcellation_path=nifti_parcellation_path,
+							normalize_within_parcels = normalize_within_parcels,
+							normalize_within_dataset = normalize_within_dataset)
 
 	confounds_dict = _populate_confounds_dict(file_path_dictionary, aroma_used = aroma_used)
 	general_info_dict = _populate_general_info_dict(confounds_dict, file_path_dictionary, TR)
