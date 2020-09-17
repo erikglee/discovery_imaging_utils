@@ -3,7 +3,10 @@ import numpy as np
 import os
 import glob
 import json
+import h5py
 from discovery_imaging_utils.dictionary_utils import image_data
+from discovery_imaging_utils.dictionary_utils.general import _dict_to_hdf5_attrs
+from discovery_imaging_utils.dictionary_utils.general import _dict_to_hdf5_subdatasets
 
 #Run in this order:
 #(1) file_paths_dict = generate_file_paths(....)
@@ -242,7 +245,7 @@ def populate(file_path_dictionary, TR, normalize = False):
 
 	return dict_for_denoising
 
-def populate_hdf5(file_path_dictionary, hdf5_output_path, TR, normalize = False):
+def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_parcels = False, normalize_within_dataset = True):
 	"""Function to populate a dictionary with data to use in denoising
 
 	Parameters
@@ -265,47 +268,9 @@ def populate_hdf5(file_path_dictionary, hdf5_output_path, TR, normalize = False)
 	dict_for_denoising = {}
 	dict_for_denoising['file_path_dictionary.json'] = file_path_dictionary
 
-	if 'lh_gii_data_path' in file_path_dictionary.keys():
-		lh_gii_data_path = file_path_dictionary['lh_gii_data_path']
-	else:
-		lh_gii_data_path = None
-	if 'lh_inclusion_mask_path' in file_path_dictionary.keys():
-		lh_inclusion_mask_path = file_path_dictionary['lh_inclusion_mask_path']
-	else:
-		lh_inclusion_mask_path = None
-	if 'lh_parcellation_path' in file_path_dictionary.keys():
-		lh_parcellation_path = file_path_dictionary['lh_parcellation_path']
-	else:
-		lh_parcellation_path = None
 
-	if 'rh_gii_data_path' in file_path_dictionary.keys():
-		rh_gii_data_path = file_path_dictionary['rh_gii_data_path']
-	else:
-		rh_gii_data_path = None
-	if 'rh_inclusion_mask_path' in file_path_dictionary.keys():
-		rh_inclusion_mask_path = file_path_dictionary['rh_inclusion_mask_path']
-	else:
-		rh_inclusion_mask_path = None
-	if 'rh_parcellation_path' in file_path_dictionary.keys():
-		rh_parcellation_path = file_path_dictionary['rh_parcellation_path']
-	else:
-		rh_parcellation_path = None
-
-	if 'nifti_data_path' in file_path_dictionary.keys():
-		nifti_data_path = file_path_dictionary['nifti_data_path']
-	else:
-		nifti_data_path = None
-	if 'nifti_inclusion_mask_path' in file_path_dictionary.keys():
-		nifti_inclusion_mask_path = file_path_dictionary['nifti_inclusion_mask_path']
-	else:
-		nifti_inclusion_mask_path = None
-	if 'nifti_parcellation_path' in file_path_dictionary.keys():
-		nifti_parcellation_path = file_path_dictionary['nifti_parcellation_path']
-	else:
-		nifti_parcellation_path = None
-
-
-	dict_for_denoising['image_data_dictionary'] = image_data.populate(lh_gii_data_path=lh_gii_data_path,
+	dict_for_denoising['image_data_dictionary'] = image_data.populate_hdf5(hdf5_file_path,
+										lh_gii_data_path=lh_gii_data_path,
 										lh_inclusion_mask_path=lh_inclusion_mask_path,
 										lh_parcellation_path=lh_parcellation_path,
 										rh_gii_data_path=rh_gii_data_path,
@@ -314,10 +279,16 @@ def populate_hdf5(file_path_dictionary, hdf5_output_path, TR, normalize = False)
 										nifti_data_path=nifti_data_path,
 										nifti_inclusion_mask_path=nifti_inclusion_mask_path,
 										nifti_parcellation_path=nifti_parcellation_path,
-										normalize = normalize)
+										normalize_within_parcels = normalize_within_parcels,
+										normalize_within_dataset = normalize_within_dataset)
 
-	dict_for_denoising['confounds'] = _populate_confounds_dict(file_path_dictionary, aroma_used = aroma_used)
-	dict_for_denoising['general_info.json'] = _populate_general_info_dict(dict_for_denoising['confounds'], dict_for_denoising['file_path_dictionary.json'], TR)
+	confounds_dict = _populate_confounds_dict(file_path_dictionary, aroma_used = aroma_used)
+	general_info_dict = _populate_general_info_dict(dict_for_denoising['confounds'], dict_for_denoising['file_path_dictionary.json'], TR)
+	with h5py.File(hdf5_file_path, 'w') as f:
+
+		metadata_obj = f.create_group('fmriprep_metadata')
+		_dict_to_hdf5_attrs(f, general_info_dict, '/fmriprep_metadata')
+		_dict_to_hdf5_subdatasets(f, confounds_dict, '/fmriprep_metadata')
 
 
 
