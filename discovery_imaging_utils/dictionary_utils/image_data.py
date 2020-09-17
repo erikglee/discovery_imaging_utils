@@ -3,8 +3,7 @@ import os
 import nibabel as nib
 from discovery_imaging_utils import nifti_utils
 from discovery_imaging_utils import gifti_utils
-from discovery_imaging_utils.dictionary_utils.general import _dict_to_hdf5_attrs
-from discovery_imaging_utils.dictionary_utils.general import _dict_to_hdf5_subdatasets
+from discovery_imaging_utils.dictionary_utils import general
 import json
 import h5py
 
@@ -756,21 +755,21 @@ def populate_hdf5(hdf5_file_path,
 			if has_lh_gifti_parcellation:
 				lh_id_group = f.create_group('/ids/lh_ids')
 				lh_id_group.attrs['parcel_names'] = lh_gifti_ids
-				_dict_to_hdf5_subdatasets(f, lh_parcels_dict, '/ids/lh_ids')
+				general._dict_to_hdf5_subdatasets(f, lh_parcels_dict, '/ids/lh_ids')
 			else:
 				f['/ids/lh_ids'] = lh_gifti_ids
 		if has_rh_gifti:
 			if has_rh_gifti_parcellation:
 				rh_id_group = f.create_group('/ids/rh_ids')
 				rh_id_group.attrs['parcel_names'] = rh_gifti_ids
-				_dict_to_hdf5_subdatasets(f, rh_parcels_dict, '/ids/rh_ids')
+				general._dict_to_hdf5_subdatasets(f, rh_parcels_dict, '/ids/rh_ids')
 			else:
 				f['/ids/rh_ids'] = rh_gifti_ids
 		if has_nifti:
 			if has_nifti_parcellation:
 				nifti_id_group = f.create_group('/ids/nifti_ids')
 				nifti_id_group.attrs['parcel_names'] = nifti_ids
-				_dict_to_hdf5_subdatasets(f, nifti_parcels_dict, '/ids/nifti_ids')
+				general._dict_to_hdf5_subdatasets(f, nifti_parcels_dict, '/ids/nifti_ids')
 			else:
 				f['/ids/nifti_ids'] = np.asarray(nifti_ids)
 
@@ -789,8 +788,8 @@ def populate_hdf5(hdf5_file_path,
 
 
 
-		_dict_to_hdf5_attrs(f['data'], metadata_dict)
-		_dict_to_hdf5_attrs(f['data'], file_path_dictionary)
+		general._dict_to_hdf5_attrs(f['data'], metadata_dict)
+		general._dict_to_hdf5_attrs(f['data'], file_path_dictionary)
 		f.flush()
 		print('Finished Flushing')
 
