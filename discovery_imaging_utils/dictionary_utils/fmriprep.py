@@ -5,8 +5,7 @@ import glob
 import json
 import h5py
 from discovery_imaging_utils.dictionary_utils import image_data
-from discovery_imaging_utils.dictionary_utils.general import _dict_to_hdf5_attrs
-from discovery_imaging_utils.dictionary_utils.general import _dict_to_hdf5_subdatasets
+from discovery_imaging_utils.dictionary_utils import general
 
 #Run in this order:
 #(1) file_paths_dict = generate_file_paths(....)
@@ -283,8 +282,8 @@ def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_par
 	with h5py.File(hdf5_file_path, 'w') as f:
 
 		metadata_obj = f.create_group('fmriprep_metadata')
-		_dict_to_hdf5_attrs(metadata_obj, general_info_dict)
-		_dict_to_hdf5_subdatasets(f, confounds_dict, '/fmriprep_metadata')
+		general._dict_to_hdf5_attrs(metadata_obj, general_info_dict)
+		general._dict_to_hdf5_subdatasets(f, confounds_dict, '/fmriprep_metadata')
 
 	return
 
