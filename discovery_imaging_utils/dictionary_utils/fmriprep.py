@@ -340,16 +340,16 @@ def _populate_general_info_dict(confounds_dict, file_path_dict, TR):
 	if general_info_dict['n_skip_vols'] == 0:
 		general_info_dict['n_skip_vols'] = 1
 
-		general_info_dict['mean_fd'] = np.mean(confounds_dict['framewise_displacement'][general_info_dict['n_skip_vols']:])
-		general_info_dict['mean_dvars'] = np.mean(confounds_dict['dvars'][general_info_dict['n_skip_vols']:])
-		general_info_dict['num_std_dvars_above_1p5'] = len(np.where(confounds_dict['std_dvars'][general_info_dict['n_skip_vols']:] > 1.5)[0])
-		general_info_dict['num_std_dvars_above_1p3'] = len(np.where(confounds_dict['std_dvars'][general_info_dict['n_skip_vols']:] > 1.3)[0])
-		general_info_dict['num_std_dvars_above_1p2'] = len(np.where(confounds_dict['std_dvars'][general_info_dict['n_skip_vols']:] > 1.2)[0])
+	general_info_dict['mean_fd'] = np.mean(confounds_dict['framewise_displacement'][general_info_dict['n_skip_vols']:])
+	general_info_dict['mean_dvars'] = np.mean(confounds_dict['dvars'][general_info_dict['n_skip_vols']:])
+	general_info_dict['num_std_dvars_above_1p5'] = len(np.where(confounds_dict['std_dvars'][general_info_dict['n_skip_vols']:] > 1.5)[0])
+	general_info_dict['num_std_dvars_above_1p3'] = len(np.where(confounds_dict['std_dvars'][general_info_dict['n_skip_vols']:] > 1.3)[0])
+	general_info_dict['num_std_dvars_above_1p2'] = len(np.where(confounds_dict['std_dvars'][general_info_dict['n_skip_vols']:] > 1.2)[0])
 
-		general_info_dict['num_fd_above_0p5_mm'] = len(np.where(confounds_dict['framewise_displacement'][general_info_dict['n_skip_vols']:] > 0.5)[0])
-		general_info_dict['num_fd_above_0p4_mm'] = len(np.where(confounds_dict['framewise_displacement'][general_info_dict['n_skip_vols']:] > 0.4)[0])
-		general_info_dict['num_fd_above_0p3_mm'] = len(np.where(confounds_dict['framewise_displacement'][general_info_dict['n_skip_vols']:] > 0.3)[0])
-		general_info_dict['num_fd_above_0p2_mm'] = len(np.where(confounds_dict['framewise_displacement'][general_info_dict['n_skip_vols']:] > 0.2)[0])
+	general_info_dict['num_fd_above_0p5_mm'] = len(np.where(confounds_dict['framewise_displacement'][general_info_dict['n_skip_vols']:] > 0.5)[0])
+	general_info_dict['num_fd_above_0p4_mm'] = len(np.where(confounds_dict['framewise_displacement'][general_info_dict['n_skip_vols']:] > 0.4)[0])
+	general_info_dict['num_fd_above_0p3_mm'] = len(np.where(confounds_dict['framewise_displacement'][general_info_dict['n_skip_vols']:] > 0.3)[0])
+	general_info_dict['num_fd_above_0p2_mm'] = len(np.where(confounds_dict['framewise_displacement'][general_info_dict['n_skip_vols']:] > 0.2)[0])
 
 
 	#Set TR
@@ -372,6 +372,8 @@ def _populate_general_info_dict(confounds_dict, file_path_dict, TR):
 		general_info_dict['session'] = split_end_path[1]
 	else:
 		general_info_dict['session'] = []
+
+	general_info_dict['run_id'] = temp_path[0:temp_path.find('_space')]
 
 	return general_info_dict
 
