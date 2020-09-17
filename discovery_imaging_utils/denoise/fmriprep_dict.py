@@ -691,7 +691,7 @@ def _hdf5_find_timepoints_to_scrub(fmriprep_metadata_group, scrubbing_dictionary
         #equal to 0
         for temp_metric, temp_thresh in scrubbing_dictionary.items():
 
-            temp_val[:] = fmriprep_metadata_group[temp_metric].copy()
+            temp_val[:] = fmriprep_metadata_group[temp_metric]
             bad_inds = np.where(temp_val > temp_thresh)[0]
 
             for temp_ind in bad_inds:
