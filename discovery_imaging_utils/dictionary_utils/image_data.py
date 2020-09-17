@@ -3,6 +3,8 @@ import os
 import nibabel as nib
 from discovery_imaging_utils import nifti_utils
 from discovery_imaging_utils import gifti_utils
+from discovery_imaging_utils.dictionary_utils.general import _dict_to_hdf5_attrs
+from discovery_imaging_utils.dictionary_utils.general import _dict_to_hdf5_subdatasets
 import json
 import h5py
 

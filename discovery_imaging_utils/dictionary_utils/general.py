@@ -265,3 +265,58 @@ def all_file_paths_exist(file_path_dictionary):
 			files_present = False
 
 	return files_present
+
+
+def _dict_to_hdf5_attrs(hdf5_dataset_object, dictionary, base_path = ''):
+	"""Function adds dictionary to hdf5 file
+
+	Function takes a HDF5 dataset, and adds dictionary
+	key/value pairs as new datasets under the desired base
+	path (so you can have dictionary be put into sub groups
+	instead of main group, otherwise leave base_path empty).
+
+	Parameters
+	----------
+
+	hdf5_file_object : hdf5
+		hdf5 file loaded from h5py
+	dictionary : dict
+		dictionary to be added to hdf5 file as attributes
+	base_path : str, optional
+		optional if you want to have dictionary nested within
+		an hdf5 group
+
+	"""
+
+	for key, value in dictionary.items():
+
+		hdf5_dataset_object.attrs[os.path.join(base_path,key)] = value
+
+	return
+
+def _dict_to_hdf5_subdatasets(hdf5_object, dictionary, base_path = ''):
+	"""Function adds dictionary to hdf5 file
+
+	Function takes a HDF5 dataset, and adds dictionary
+	key/value pairs as new datasets under the desired base
+	path (so you can have dictionary be put into sub groups
+	instead of main group, otherwise leave base_path empty).
+
+	Parameters
+	----------
+
+	hdf5_file_object : hdf5
+		hdf5 file loaded from h5py
+	dictionary : dict
+		dictionary to be added to hdf5 file as attributes
+	base_path : str, optional
+		optional if you want to have dictionary nested within
+		an hdf5 group
+
+	"""
+
+	for key, value in dictionary.items():
+
+		hdf5_object.create_dataset(os.path.join(base_path, key), data = value)
+
+	return

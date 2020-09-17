@@ -242,6 +242,87 @@ def populate(file_path_dictionary, TR, normalize = False):
 
 	return dict_for_denoising
 
+def populate_hdf5(file_path_dictionary, hdf5_output_path, TR, normalize = False):
+	"""Function to populate a dictionary with data to use in denoising
+
+	Parameters
+	----------
+
+	file_path_dictionary : dict of str
+	dictionary with file paths (created by generate_file_paths)
+	TR : float
+	repetition time of acquisition in seconds
+	normalize : bool
+	whether or not all output data elements should be set to have a temporal
+	mean of 10000
+
+	"""
+
+	if 'aroma_noise_ics_path' in file_path_dictionary.keys():
+		aroma_used = True
+
+
+	dict_for_denoising = {}
+	dict_for_denoising['file_path_dictionary.json'] = file_path_dictionary
+
+	if 'lh_gii_data_path' in file_path_dictionary.keys():
+		lh_gii_data_path = file_path_dictionary['lh_gii_data_path']
+	else:
+		lh_gii_data_path = None
+	if 'lh_inclusion_mask_path' in file_path_dictionary.keys():
+		lh_inclusion_mask_path = file_path_dictionary['lh_inclusion_mask_path']
+	else:
+		lh_inclusion_mask_path = None
+	if 'lh_parcellation_path' in file_path_dictionary.keys():
+		lh_parcellation_path = file_path_dictionary['lh_parcellation_path']
+	else:
+		lh_parcellation_path = None
+
+	if 'rh_gii_data_path' in file_path_dictionary.keys():
+		rh_gii_data_path = file_path_dictionary['rh_gii_data_path']
+	else:
+		rh_gii_data_path = None
+	if 'rh_inclusion_mask_path' in file_path_dictionary.keys():
+		rh_inclusion_mask_path = file_path_dictionary['rh_inclusion_mask_path']
+	else:
+		rh_inclusion_mask_path = None
+	if 'rh_parcellation_path' in file_path_dictionary.keys():
+		rh_parcellation_path = file_path_dictionary['rh_parcellation_path']
+	else:
+		rh_parcellation_path = None
+
+	if 'nifti_data_path' in file_path_dictionary.keys():
+		nifti_data_path = file_path_dictionary['nifti_data_path']
+	else:
+		nifti_data_path = None
+	if 'nifti_inclusion_mask_path' in file_path_dictionary.keys():
+		nifti_inclusion_mask_path = file_path_dictionary['nifti_inclusion_mask_path']
+	else:
+		nifti_inclusion_mask_path = None
+	if 'nifti_parcellation_path' in file_path_dictionary.keys():
+		nifti_parcellation_path = file_path_dictionary['nifti_parcellation_path']
+	else:
+		nifti_parcellation_path = None
+
+
+	dict_for_denoising['image_data_dictionary'] = image_data.populate(lh_gii_data_path=lh_gii_data_path,
+										lh_inclusion_mask_path=lh_inclusion_mask_path,
+										lh_parcellation_path=lh_parcellation_path,
+										rh_gii_data_path=rh_gii_data_path,
+										rh_inclusion_mask_path=rh_inclusion_mask_path,
+										rh_parcellation_path=rh_parcellation_path,
+										nifti_data_path=nifti_data_path,
+										nifti_inclusion_mask_path=nifti_inclusion_mask_path,
+										nifti_parcellation_path=nifti_parcellation_path,
+										normalize = normalize)
+
+	dict_for_denoising['confounds'] = _populate_confounds_dict(file_path_dictionary, aroma_used = aroma_used)
+	dict_for_denoising['general_info.json'] = _populate_general_info_dict(dict_for_denoising['confounds'], dict_for_denoising['file_path_dictionary.json'], TR)
+
+
+
+	return
+
 
 def _populate_general_info_dict(confounds_dict, file_path_dict, TR):
 
