@@ -186,7 +186,7 @@ def load_dictionary(dictionary_dir_path):
     return dictionary
 
 
-def flatten_dictionary(dictionary):
+def flatten_dictionary(dictionary, flatten_char = '_'):
 
 
 
@@ -216,7 +216,7 @@ def flatten_dictionary(dictionary):
         for temp_key in sub_dict.keys():
 
             if name_beginning != '':
-                new_name_beginning = name_beginning + '_' + temp_key
+                new_name_beginning = name_beginning + flatten_char + temp_key
             else:
                 new_name_beginning = temp_key
 
