@@ -204,7 +204,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         time_series = f['data']
         fmriprep_metadata_group = f['fmriprep_metadata']
         n_skip_vols = fmriprep_metadata_group.attrs['n_skip_vols']
-        TR = fmriprep_metadata.group.attrs['TR']
+        TR = fmriprep_metadata_group.attrs['TR']
 
 
 
