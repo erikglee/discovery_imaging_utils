@@ -209,7 +209,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
 
 
         if scrub_criteria_dictionary != False:
-            inds_to_include = _hdf5_find_timepoints_to_scrub(fmriprep_metadata_group, scrubbing_dictionary)
+            inds_to_include = _hdf5_find_timepoints_to_scrub(fmriprep_metadata_group, scrub_criteria_dictionary)
         else:
             inds_to_include = np.ones(time_series.shape[1], dtype=int)
             inds_to_include[0:n_skip_vols] = 0
