@@ -141,7 +141,7 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
     return denoise_out_dict
 
 
-def denoise_hdf5(hdf5_file_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass):
+def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass):
 
     """Wrapper function for imaging_utils.denoise.general.run_denoising
 
@@ -193,11 +193,16 @@ def denoise_hdf5(hdf5_file_path, hpf_before_regression, scrub_criteria_dictionar
 
     """
 
-    with h5py.File(hdf5_file_path, 'r') as f:
+    shutil.copyfile(hdf5_input_path, hdf5_output_path)
+    print('Copy of original HDF5 file made for output')
+
+
+    with h5py.File(hdf5_input_path, 'r') as f:
 
         time_series = f['data']
         fmriprep_metadata_group = f['fmriprep_metadata']
         n_skip_vols = fmriprep_metadata_group.attrs['n_skip_vols']
+        TR = fmriprep_metadata.group.attrs['TR']
 
 
 
@@ -217,8 +222,7 @@ def denoise_hdf5(hdf5_file_path, hpf_before_regression, scrub_criteria_dictionar
         else:
             clean_comps = False
 
-        print(noise_comps)
-        print(clean_comps)
+        print('Gathered Elements Needed for Denoising')
 
 
         temp_out_dict = run_denoising(time_series,
@@ -229,8 +233,10 @@ def denoise_hdf5(hdf5_file_path, hpf_before_regression, scrub_criteria_dictionar
                                         clean_comps,
                                         high_pass,
                                         low_pass,
-                                        fmriprep_out_dict['general_info.json']['n_skip_vols'],
-                                        fmriprep_out_dict['general_info.json']['TR'])
+                                        n_skip_vols,
+                                        TR)
+
+        print('Ran Denoising')
 
 
 
