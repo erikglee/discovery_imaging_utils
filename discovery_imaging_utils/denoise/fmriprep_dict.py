@@ -209,18 +209,18 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
 
 
         if scrub_criteria_dictionary != False:
-            inds_to_include = _hdf5_find_timepoints_to_scrub(fmriprep_out_dict, scrubbing_dictionary)
+            inds_to_include = _hdf5_find_timepoints_to_scrub(fmriprep_metadata_group, scrubbing_dictionary)
         else:
             inds_to_include = np.ones(time_series.shape[1], dtype=int)
             inds_to_include[0:n_skip_vols] = 0
 
         if noise_comps_dict != False:
-            noise_comps = _hdf5_load_comps_dict(fmriprep_out_dict, noise_comps_dict)
+            noise_comps = _hdf5_load_comps_dict(fmriprep_metadata_group, noise_comps_dict)
         else:
             noise_comps = False
 
         if clean_comps_dict != False:
-            clean_comps = _hdf5_load_comps_dict(fmriprep_out_dict, clean_comps_dict)
+            clean_comps = _hdf5_load_comps_dict(fmriprep_metadata_group, clean_comps_dict)
         else:
             clean_comps = False
 
