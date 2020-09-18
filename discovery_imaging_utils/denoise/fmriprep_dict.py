@@ -253,7 +253,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                               '/denoise_settings/high_pass' : high_pass,
                               '/denoise_settings/low_pass' : low_pass}
 
-        denoising_settings = gen_dict_utils.flatten_dictionary(denoising_settings '/')
+        denoising_settings = gen_dict_utils.flatten_dictionary(denoising_settings, flatten_char = '/')
 
         f['data'] = temp_out_dict['cleaned_timeseries']
 
