@@ -476,30 +476,41 @@ def populate_hdf5(hdf5_file_path,
 
 
 		file_path_dictionary = {}
-		metadata_dict = {}
+		lh_metadata_dict = {}
+		rh_metadata_dict = {}
+		nifti_metadata_dict = {}
 		image_data_dict = {}
 
 		if type(lh_gii_data_path) != type(None):
 			print('Found LH Gifti Input')
 			file_path_dictionary['lh_gii_data_path'] = lh_gii_data_path
+			lh_metadata_dict['lh_gii_data_path'] = lh_gii_data_path
 			if type(lh_inclusion_mask_path) != type(None):
 				file_path_dictionary['lh_inclusion_mask_path'] = lh_inclusion_mask_path
+				lh_metadata_dict['lh_inclusion_mask_path'] = lh_inclusion_mask_path
 			if type(lh_parcellation_path) != type(None):
 				file_path_dictionary['lh_parcellation_path'] = lh_parcellation_path
+				lh_metadata_dict['lh_parcellation_path'] = lh_parcellation_path
 		if type(rh_gii_data_path) != type(None):
 			print('Found RH Gifti Input')
 			file_path_dictionary['rh_gii_data_path'] = rh_gii_data_path
+			rh_metadata_dict['rh_gii_data_path'] = rh_gii_data_path
 			if type(rh_inclusion_mask_path) != type(None):
 				file_path_dictionary['rh_inclusion_mask_path'] = rh_inclusion_mask_path
+				rh_metadata_dict['rh_inclusion_mask_path'] = rh_inclusion_mask_path
 			if type(rh_parcellation_path) != type(None):
 				file_path_dictionary['rh_parcellation_path'] = rh_parcellation_path
+				rh_metadata_dict['rh_parcellation_path'] = rh_parcellation_path
 		if type(nifti_data_path) != type(None):
 			print('Found Nifti Input')
 			file_path_dictionary['nifti_data_path'] = nifti_data_path
+			nifti_metadata_dict['nifti_data_path'] = nifti_data_path
 			if type(nifti_inclusion_mask_path) != type(None):
 				file_path_dictionary['nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
+				nifti_metadata_dict['nifti_inclusion_mask_path'] = nifti_inclusion_mask_path
 			if type(nifti_parcellation_path) != type(None):
 				file_path_dictionary['nifti_parcellation_path'] = nifti_parcellation_path
+				nifti_metadata_dict['nifti_parcellation_path'] = nifti_parcellation_path
 
 
 
@@ -524,7 +535,7 @@ def populate_hdf5(hdf5_file_path,
 
 			has_lh_gifti = True
 			f['lh_data'] = gifti_utils.load_gifti_func(lh_gii_data_path)
-			metadata_dict['lh_gifti_shape'] = f['lh_data'].shape #or could put this as an attribute?
+			lh_metadata_dict['lh_gifti_shape'] = f['lh_data'].shape
 			lh_gifti_ids = np.arange(0, f['lh_data'].shape[0], 1, dtype=int)
 
 
@@ -565,7 +576,7 @@ def populate_hdf5(hdf5_file_path,
 
 			has_rh_gifti = True
 			f['rh_data'] = gifti_utils.load_gifti_func(rh_gii_data_path)
-			metadata_dict['rh_gifti_shape'] = f['rh_data'].shape
+			rh_metadata_dict['rh_gifti_shape'] = f['rh_data'].shape
 			rh_gifti_ids = np.arange(0, f['rh_data'].shape[0], 1, dtype=int)
 
 
@@ -610,11 +621,11 @@ def populate_hdf5(hdf5_file_path,
 			nifti_img = nib.load(nifti_data_path)
 			nifti_data = f.create_dataset("nifti_data", nifti_img.dataobj.shape)
 			nifti_data[...] = nifti_img.dataobj[...] #Could also do this through dataobj but would be slower
-			metadata_dict['nifti_affine'] = nifti_img.affine
-			metadata_dict['nifti_shape'] = f['nifti_data'].shape
+			nifti_metadata_dict['nifti_affine'] = nifti_img.affine
+			nifti_metadata_dict['nifti_shape'] = f['nifti_data'].shape
 
 			#Find indices to map back to nifti image
-			nifti_3d = np.zeros(metadata_dict['nifti_shape'][0:3])
+			nifti_3d = np.zeros(nifti_metadata_dict['nifti_shape'][0:3])
 			nifti_ids = np.where(nifti_3d != None)
 
 			nifti_inclusion_inds = None
@@ -758,6 +769,10 @@ def populate_hdf5(hdf5_file_path,
 				general._dict_to_hdf5_subdatasets(f, lh_parcels_dict, '/ids/lh_ids')
 			else:
 				f['/ids/lh_ids'] = lh_gifti_ids
+
+			#Add metadata
+			general._dict_to_hdf5_attrs(f, nifti_metadata_dict, '/ids/nifti_ids')
+
 		if has_rh_gifti:
 			if has_rh_gifti_parcellation:
 				rh_id_group = f.create_group('/ids/rh_ids')
@@ -765,6 +780,10 @@ def populate_hdf5(hdf5_file_path,
 				general._dict_to_hdf5_subdatasets(f, rh_parcels_dict, '/ids/rh_ids')
 			else:
 				f['/ids/rh_ids'] = rh_gifti_ids
+
+			#Add metadata
+			general._dict_to_hdf5_attrs(f, nifti_metadata_dict, '/ids/nifti_ids')
+
 		if has_nifti:
 			if has_nifti_parcellation:
 				nifti_id_group = f.create_group('/ids/nifti_ids')
@@ -772,6 +791,9 @@ def populate_hdf5(hdf5_file_path,
 				general._dict_to_hdf5_subdatasets(f, nifti_parcels_dict, '/ids/nifti_ids')
 			else:
 				f['/ids/nifti_ids'] = np.asarray(nifti_ids)
+
+			#Add metadata
+			general._dict_to_hdf5_attrs(f, nifti_metadata_dict, '/ids/nifti_ids')
 
 		data = f['data']
 
@@ -788,7 +810,6 @@ def populate_hdf5(hdf5_file_path,
 
 
 
-		general._dict_to_hdf5_attrs(f['data'], metadata_dict)
 		general._dict_to_hdf5_attrs(f['data'], file_path_dictionary)
 		f.flush()
 		print('Finished Flushing')
