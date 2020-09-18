@@ -771,7 +771,7 @@ def populate_hdf5(hdf5_file_path,
 				f['/ids/lh_ids'] = lh_gifti_ids
 
 			#Add metadata
-			general._dict_to_hdf5_attrs(f, nifti_metadata_dict, '/ids/nifti_ids')
+			general._dict_to_hdf5_attrs(f, nifti_metadata_dict, '/ids/lh_ids')
 
 		if has_rh_gifti:
 			if has_rh_gifti_parcellation:
@@ -782,7 +782,7 @@ def populate_hdf5(hdf5_file_path,
 				f['/ids/rh_ids'] = rh_gifti_ids
 
 			#Add metadata
-			general._dict_to_hdf5_attrs(f, nifti_metadata_dict, '/ids/nifti_ids')
+			general._dict_to_hdf5_attrs(f, nifti_metadata_dict, '/ids/rh_ids')
 
 		if has_nifti:
 			if has_nifti_parcellation:
