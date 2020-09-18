@@ -259,9 +259,9 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         f['data'][...] = temp_out_dict['cleaned_timeseries']
 
         #NEED TO CALC THIS FROM OTHER PLACE....
-        mean_roi_signal_intensities = {'/mean_sig_intens/global_signal' : np.nanmean(fmriprep_out_dict['confounds']['global_signal']),
-                                       '/mean_sig_intens/white_matter' : np.nanmean(fmriprep_out_dict['confounds']['white_matter']),
-                                       '/mean_sig_intens/csf' : np.nanmean(fmriprep_out_dict['confounds']['csf'])}
+        mean_roi_signal_intensities = {'/mean_sig_intens/global_signal' : np.nanmean(f['fmriprep_metadata/global_signal']),
+                                       '/mean_sig_intens/white_matter' : np.nanmean(f['fmriprep_metadata/white_matter']),
+                                       '/mean_sig_intens/csf' : np.nanmean(f['fmriprep_metadata/csf'])}
 
 
 
