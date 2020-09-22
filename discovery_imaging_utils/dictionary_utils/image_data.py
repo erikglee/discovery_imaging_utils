@@ -388,6 +388,117 @@ def convert_to_images(image_data_dict, output_folder, overwrite = False):
 	return
 
 
+def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
+
+	"""Function that converts image data dictionaries back to nifti/gifti
+
+	Takes an image data dictionary, possibly parcellated and or transformed
+	data from a gifti and or nifti file and uses information about the base
+	files (affine, size, parcel_ids) from the image_data_dict and saves
+	the corresponding gifti/nifti files in a new folder
+	data, and
+
+	Parameters
+	----------
+
+	image_data_dict : dict
+	dictionary whose data will be used to reconstruct nifti and
+	gifti files when relevant
+
+	output_folder : str
+	path to folder that will be created to store the nifti/gifti files
+
+	overwrite : bool
+	whether to continue if the output_folder already exists
+
+	"""
+
+	if os.path.exists(output_folder):
+
+		if overwrite == False:
+
+			raise NameError('Error: folder already exists')
+
+	else:
+
+		os.makedirs(output_folder)
+
+
+	with h5py.File(hdf5_file_path, 'r') as f:
+
+		#Make LH gifti if necessary
+		if 'lh_data_inds' in f.keys():
+
+			lh_data = f['data'][f['lh_data_inds']]
+			lh_gifti_data = np.zeros(f['ids/lh_ids'].attrs['lh_gifti_shape'])
+
+
+			if 'parcel_names' in f['ids/lh_ids'].attrs.keys():
+
+				i = 0
+				for parcel, inds in f['ids/lh_ids'].items():
+
+					lh_gifti_data[inds] = lh_data[i]
+					i += 1
+
+			else:
+
+				lh_gifti_data[f['ids/lh_ids']] = lh_data
+
+			lh_gifti_path = os.path.join(output_folder, 'lh.data.func.gii')
+			gifti_utils.arr2gifti(lh_gifti_data, lh_gifti_path)
+
+
+		#Make RH gifti if necessary
+		if 'rh_data_inds' in f.keys():
+
+			rh_data = f['data'][f['rh_data_inds']]
+			rh_gifti_data = np.zeros(f['ids/rh_ids'].attrs['rh_gifti_shape'])
+
+			if 'rh_parcels_dict' in f['ids/rh_ids'].attrs.keys():
+
+				i = 0
+				for parcel, inds in f['ids/rh_ids'].items():
+					rh_gifti_data[inds] = rh_data[i]
+					i += 1
+
+			else:
+
+				rh_gifti_data[image_data_dict['rh_ids']] = rh_data
+
+			rh_gifti_path = os.path.join(output_folder, 'rh.data.func.gii')
+			gifti_utils.arr2gifti(rh_gifti_data, rh_gifti_path)
+
+
+		if 'nifti_data_inds' in f.keys():
+
+			nifti_partial_data = f['data'][f['nifti_data_inds']]
+			nifti_data = np.zeros(image_data_dict['nifti_shape'])
+
+			#Unparcellate the data
+			if 'nifti_parcels_dict' in f['ids/nifti_ids'].attrs.keys():
+
+				i = 0
+				for parcel, inds in f['ids/nifti_ids'].items():
+					nifti_data[inds] = nifti_partial_data[i]
+					i += 1
+
+			else:
+
+				if nifti_partial_data.shape[1] == 1:
+					nifti_data[f['ids/nifti_ids']] = np.squeeze(nifti_partial_data)
+				else:
+					x = f['ids/nifti_ids'][0]
+					y = f['ids/nifti_ids'][1]
+					z = f['ids/nifti_ids'][2]
+					nifti_data[x,y,z,:] = nifti_partial_data
+
+			nifti_path = os.path.join(output_folder, 'data.nii.gz')
+			nifti_utils.arr2nifti(nifti_data, f['ids/nifti_ids'].attrs['nifti_affine'], nifti_path)
+
+	return
+
+
 def populate_hdf5(hdf5_file_path,
 			lh_gii_data_path=None,
 			lh_inclusion_mask_path=None,
