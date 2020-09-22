@@ -310,7 +310,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
             denoising_info['ratio_vols_remaining'] = len(denoising_info['inclusion_inds'])/len(inds_to_include)
 
 
-
+        nf.flush()
         print('Ran Denoising')
 
 
