@@ -464,7 +464,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 
 			else:
 
-				rh_gifti_data[image_data_dict['rh_ids']] = rh_data
+				rh_gifti_data[f['ids/rh_ids']] = rh_data
 
 			rh_gifti_path = os.path.join(output_folder, 'rh.data.func.gii')
 			gifti_utils.arr2gifti(rh_gifti_data, rh_gifti_path)
@@ -473,7 +473,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 		if 'nifti_data_inds' in f.keys():
 
 			nifti_partial_data = f['data'][f['nifti_data_inds']]
-			nifti_data = np.zeros(image_data_dict['nifti_shape'])
+			nifti_data = np.zeros(f['ids/nifti_ids'].attrs['nifti_shape'])
 
 			#Unparcellate the data
 			if 'nifti_parcels_dict' in f['ids/nifti_ids'].attrs.keys():
