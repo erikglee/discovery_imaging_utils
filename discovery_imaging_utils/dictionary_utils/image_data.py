@@ -430,7 +430,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 		if 'lh_data_inds' in f.keys():
 
 			lh_data = f['data'][f['lh_data_inds']]
-			lh_gifti_data = np.zeros(f['ids/lh_ids'].attrs['lh_gifti_shape'])
+			lh_gifti_data = np.zeros((f['ids/lh_ids'].attrs['lh_gifti_shape'], lh_data.shape[1]))
 
 
 			if 'parcel_names' in f['ids/lh_ids'].attrs.keys():
@@ -453,7 +453,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 		if 'rh_data_inds' in f.keys():
 
 			rh_data = f['data'][f['rh_data_inds']]
-			rh_gifti_data = np.zeros(f['ids/rh_ids'].attrs['rh_gifti_shape'])
+			rh_gifti_data = np.zeros((f['ids/rh_ids'].attrs['rh_gifti_shape'],rh_data.shape[1]))
 
 			if 'rh_parcels_dict' in f['ids/rh_ids'].attrs.keys():
 
@@ -473,14 +473,17 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 		if 'nifti_data_inds' in f.keys():
 
 			nifti_partial_data = f['data'][f['nifti_data_inds']]
-			nifti_data = np.zeros(f['ids/nifti_ids'].attrs['nifti_shape'])
+			nifti_data = np.zeros((f['ids/nifti_ids'].attrs['nifti_shape']))
 
 			#Unparcellate the data
 			if 'nifti_parcels_dict' in f['ids/nifti_ids'].attrs.keys():
 
 				i = 0
 				for parcel, inds in f['ids/nifti_ids'].items():
-					nifti_data[inds] = nifti_partial_data[i]
+					x = inds[0]
+					y = inds[1]
+					z = inds[2]
+					nifti_data[x,y,z,...] = nifti_partial_data[i]
 					i += 1
 
 			else:
@@ -491,7 +494,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 					x = f['ids/nifti_ids'][0]
 					y = f['ids/nifti_ids'][1]
 					z = f['ids/nifti_ids'][2]
-					nifti_data[x,y,z,:] = nifti_partial_data
+					nifti_data[x,y,z,...] = nifti_partial_data
 
 			nifti_path = os.path.join(output_folder, 'data.nii.gz')
 			nifti_utils.arr2nifti(nifti_data, f['ids/nifti_ids'].attrs['nifti_affine'], nifti_path)
