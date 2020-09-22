@@ -472,6 +472,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 
 		if 'nifti_data_inds' in f.keys():
 
+			print('Warning Nifti part of this function needs adjustment...')
 			nifti_partial_data = f['data'][f['nifti_data_inds']]
 			nifti_data = np.zeros((f['ids/nifti_ids'].attrs['nifti_shape']))
 
@@ -480,10 +481,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 
 				i = 0
 				for parcel, inds in f['ids/nifti_ids'].items():
-					x = inds[0]
-					y = inds[1]
-					z = inds[2]
-					nifti_data[x,y,z,...] = nifti_partial_data[i]
+					nifti_data[inds] = nifti_partial_data[i]
 					i += 1
 
 			else:
@@ -494,7 +492,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 					x = f['ids/nifti_ids'][0]
 					y = f['ids/nifti_ids'][1]
 					z = f['ids/nifti_ids'][2]
-					nifti_data[x,y,z,...] = nifti_partial_data
+					nifti_data[x,y,z,:] = nifti_partial_data
 
 			nifti_path = os.path.join(output_folder, 'data.nii.gz')
 			nifti_utils.arr2nifti(nifti_data, f['ids/nifti_ids'].attrs['nifti_affine'], nifti_path)
