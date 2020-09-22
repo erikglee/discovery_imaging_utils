@@ -247,7 +247,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         print('Ran Denoising')
 
 
-    with h5py.File(hdf5_output_path, 'a') as f:
+    with h5py.File(hdf5_output_path, 'a') as nf:
 
         #WILL NEED TO HANDLE DICTS IN THIS DICT
         denoising_settings = {'/denoise_settings/hpf_before_regression' : hpf_before_regression,
@@ -261,22 +261,22 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         denoising_settings = gen_dict_utils.flatten_dictionary(denoising_settings, flatten_char = '/')
 
 
-        denoising_info = f.create_group('denoising_info')
+        denoising_info = nf.create_group('denoising_info')
         gen_dict_utils._dict_to_hdf5_attrs(denoising_info, denoising_settings, base_path = '')
 
-        f['data'][...] = temp_out_dict['cleaned_timeseries']
+        nf['data'][...] = temp_out_dict['cleaned_timeseries']
 
         #NEED TO CALC THIS FROM OTHER PLACE....
-        mean_roi_signal_intensities = {'/mean_sig_intens/global_signal' : np.nanmean(f['fmriprep_metadata/global_signal']),
-                                       '/mean_sig_intens/white_matter' : np.nanmean(f['fmriprep_metadata/white_matter']),
-                                       '/mean_sig_intens/csf' : np.nanmean(f['fmriprep_metadata/csf'])}
+        mean_roi_signal_intensities = {'/mean_sig_intens/global_signal' : np.nanmean(nf['fmriprep_metadata/global_signal']),
+                                       '/mean_sig_intens/white_matter' : np.nanmean(nf['fmriprep_metadata/white_matter']),
+                                       '/mean_sig_intens/csf' : np.nanmean(nf['fmriprep_metadata/csf'])}
 
         gen_dict_utils._dict_to_hdf5_attrs(denoising_info, mean_roi_signal_intensities, base_path = '')
         denoising_info['inclusion_inds'] = inds_to_include
-        denoising_info['percent_vols_remaining'] = len(inds_to_include)/f['data'].shape[1]
+        denoising_info['percent_vols_remaining'] = len(inds_to_include)/nf['data'].shape[1]
 
 
-        f.flush()
+        nf.flush()
         #Create the dictionary that has all the outputs
         #denoise_out_dict['denoising_stats'] = temp_out_dict['denoising_stats'] #NEED TO IMPLEMENT STILL
         #denoise_out_dict['mean_roi_signal_intensities.json'] = mean_roi_signal_intensities
