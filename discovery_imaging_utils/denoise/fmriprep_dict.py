@@ -144,7 +144,7 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
     return denoise_out_dict
 
 
-def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass, batch_size = None):
+def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass, max_batch_size = 1000):
 
     """Wrapper function for imaging_utils.denoise.general.run_denoising
 
@@ -232,52 +232,113 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
 
         print('Gathered Elements Needed for Denoising')
 
+        with h5py.File(hdf5_output_path, 'a') as nf:
 
-        temp_out_dict = run_denoising(time_series[()],
-                                        hpf_before_regression,
-                                        inds_to_include,
-                                        interpolation_method,
-                                        noise_comps,
-                                        clean_comps,
-                                        high_pass,
-                                        low_pass,
-                                        n_skip_vols,
-                                        TR)
+            del nf['data']
+            new_data = nf.create_dataset('data', time_series.shape, dtype=type(time_series[0,0])
+
+
+            #Run the denoising in batches
+            next_ind_to_clean = 0
+            while next_ind_to_clean < time_series.shape[0]:
+
+                if (next_ind_to_clean + max_batch_size) < time_series.shape[0]:
+
+                    temp_time_series = time_series[next_ind_to_clean:(last_ind_cleaned + max_batch_size),:]
+                    next_ind_to_clean += max_batch_size
+
+                    temp_out_dict = run_denoising(temp_time_series,
+                                                    hpf_before_regression,
+                                                    inds_to_include,
+                                                    interpolation_method,
+                                                    noise_comps,
+                                                    clean_comps,
+                                                    high_pass,
+                                                    low_pass,
+                                                    n_skip_vols,
+                                                    TR)
+
+                    new_data[next_ind_to_clean:(last_ind_cleaned + max_batch_size),:] = temp_out_dict['cleaned_timeseries']
+
+                else:
+
+                    temp_time_series = time_series[next_ind_to_clean:,:]
+                    next_ind_to_clean = time_series.shape[0]
+
+                    temp_out_dict = run_denoising(temp_time_series,
+                                                    hpf_before_regression,
+                                                    inds_to_include,
+                                                    interpolation_method,
+                                                    noise_comps,
+                                                    clean_comps,
+                                                    high_pass,
+                                                    low_pass,
+                                                    n_skip_vols,
+                                                    TR)
+
+
+                    new_data[next_ind_to_clean:,:] = temp_out_dict['cleaned_timeseries']
+
+
+            #Now update all the metadata
+            denoising_settings = {'/denoise_settings/hpf_before_regression' : hpf_before_regression,
+                                  '/denoise_settings/scrub_criteria_dictionary' : scrub_criteria_dictionary,
+                                  '/denoise_settings/interpolation_method' : interpolation_method,
+                                  '/denoise_settings/noise_comps_dict' : noise_comps_dict,
+                                  '/denoise_settings/clean_comps_dict' : clean_comps_dict,
+                                  '/denoise_settings/high_pass' : high_pass,
+                                  '/denoise_settings/low_pass' : low_pass}
+
+            denoising_settings = gen_dict_utils.flatten_dictionary(denoising_settings, flatten_char = '/')
+
+
+            denoising_info = nf.create_group('denoising_info')
+            gen_dict_utils._dict_to_hdf5_attrs(denoising_info, denoising_settings, base_path = '')
+
+            mean_roi_signal_intensities = {'/mean_sig_intens/global_signal' : np.nanmean(nf['fmriprep_metadata/global_signal']),
+                                           '/mean_sig_intens/white_matter' : np.nanmean(nf['fmriprep_metadata/white_matter']),
+                                           '/mean_sig_intens/csf' : np.nanmean(nf['fmriprep_metadata/csf'])}
+
+            gen_dict_utils._dict_to_hdf5_attrs(denoising_info, mean_roi_signal_intensities, base_path = '')
+            denoising_info['inclusion_inds'] = np.where(inds_to_include > 0.5)[0]
+            denoising_info['ratio_vols_remaining'] = len(denoising_info['inclusion_inds'])/len(inds_to_include)
+
+
 
         print('Ran Denoising')
 
 
-    with h5py.File(hdf5_output_path, 'a') as nf:
+    #with h5py.File(hdf5_output_path, 'a') as nf:
 
         #WILL NEED TO HANDLE DICTS IN THIS DICT
-        denoising_settings = {'/denoise_settings/hpf_before_regression' : hpf_before_regression,
-                              '/denoise_settings/scrub_criteria_dictionary' : scrub_criteria_dictionary,
-                              '/denoise_settings/interpolation_method' : interpolation_method,
-                              '/denoise_settings/noise_comps_dict' : noise_comps_dict,
-                              '/denoise_settings/clean_comps_dict' : clean_comps_dict,
-                              '/denoise_settings/high_pass' : high_pass,
-                              '/denoise_settings/low_pass' : low_pass}
+        #denoising_settings = {'/denoise_settings/hpf_before_regression' : hpf_before_regression,
+        #                      '/denoise_settings/scrub_criteria_dictionary' : scrub_criteria_dictionary,
+        #                      '/denoise_settings/interpolation_method' : interpolation_method,
+        #                      '/denoise_settings/noise_comps_dict' : noise_comps_dict,
+        #                      '/denoise_settings/clean_comps_dict' : clean_comps_dict,
+        #                      '/denoise_settings/high_pass' : high_pass,
+        #                      '/denoise_settings/low_pass' : low_pass}
 
-        denoising_settings = gen_dict_utils.flatten_dictionary(denoising_settings, flatten_char = '/')
-
-
-        denoising_info = nf.create_group('denoising_info')
-        gen_dict_utils._dict_to_hdf5_attrs(denoising_info, denoising_settings, base_path = '')
-
-        nf['data'][...] = temp_out_dict['cleaned_timeseries']
-        del nf['data']
-        nf['data'] = temp_out_dict['cleaned_timeseries']
-
-        mean_roi_signal_intensities = {'/mean_sig_intens/global_signal' : np.nanmean(nf['fmriprep_metadata/global_signal']),
-                                       '/mean_sig_intens/white_matter' : np.nanmean(nf['fmriprep_metadata/white_matter']),
-                                       '/mean_sig_intens/csf' : np.nanmean(nf['fmriprep_metadata/csf'])}
-
-        gen_dict_utils._dict_to_hdf5_attrs(denoising_info, mean_roi_signal_intensities, base_path = '')
-        denoising_info['inclusion_inds'] = np.where(inds_to_include > 0.5)[0]
-        denoising_info['ratio_vols_remaining'] = len(denoising_info['inclusion_inds'])/len(inds_to_include)
+        #denoising_settings = gen_dict_utils.flatten_dictionary(denoising_settings, flatten_char = '/')
 
 
-        nf.flush()
+        #denoising_info = nf.create_group('denoising_info')
+        #gen_dict_utils._dict_to_hdf5_attrs(denoising_info, denoising_settings, base_path = '')
+
+        #nf['data'][...] = temp_out_dict['cleaned_timeseries']
+        #del nf['data']
+        #nf['data'] = temp_out_dict['cleaned_timeseries']
+
+        #mean_roi_signal_intensities = {'/mean_sig_intens/global_signal' : np.nanmean(nf['fmriprep_metadata/global_signal']),
+        #                               '/mean_sig_intens/white_matter' : np.nanmean(nf['fmriprep_metadata/white_matter']),
+        #                               '/mean_sig_intens/csf' : np.nanmean(nf['fmriprep_metadata/csf'])}
+
+        #gen_dict_utils._dict_to_hdf5_attrs(denoising_info, mean_roi_signal_intensities, base_path = '')
+        #denoising_info['inclusion_inds'] = np.where(inds_to_include > 0.5)[0]
+        #denoising_info['ratio_vols_remaining'] = len(denoising_info['inclusion_inds'])/len(inds_to_include)
+
+
+        #nf.flush()
         #Create the dictionary that has all the outputs
         #denoise_out_dict['denoising_stats'] = temp_out_dict['denoising_stats'] #NEED TO IMPLEMENT STILL
         #denoise_out_dict['mean_roi_signal_intensities.json'] = mean_roi_signal_intensities
