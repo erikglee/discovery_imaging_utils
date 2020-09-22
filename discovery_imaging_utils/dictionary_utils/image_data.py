@@ -438,7 +438,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 				i = 0
 				for parcel, inds in f['ids/lh_ids'].items():
 
-					lh_gifti_data[inds] = lh_data[i]
+					lh_gifti_data[tuple(inds)] = lh_data[i]
 					i += 1
 
 			else:
@@ -459,7 +459,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 
 				i = 0
 				for parcel, inds in f['ids/rh_ids'].items():
-					rh_gifti_data[inds] = rh_data[i]
+					rh_gifti_data[tuple(inds)] = rh_data[i]
 					i += 1
 
 			else:
