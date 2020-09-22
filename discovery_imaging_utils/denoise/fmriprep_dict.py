@@ -261,6 +261,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
 
                     new_data[next_ind_to_clean:(next_ind_to_clean + max_batch_size),:] = temp_out_dict['cleaned_timeseries'][:,:]
                     next_ind_to_clean += max_batch_size
+                    i += 1
 
                 else:
 
