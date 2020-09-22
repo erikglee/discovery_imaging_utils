@@ -285,7 +285,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                     print(temp_out_dict['cleaned_timeseries'][0,:])
                     new_data[next_ind_to_clean:,:] = temp_out_dict['cleaned_timeseries'][:,:]
                     print('First row of updated new_data:')
-                    print(new_data[next_ind_to_clean,:])
+                    print(new_data[next_ind_to_clean - 1,:])
 
 
             #Now update all the metadata
