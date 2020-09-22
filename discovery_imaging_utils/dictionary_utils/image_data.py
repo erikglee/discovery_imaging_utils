@@ -443,7 +443,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 
 			else:
 
-				lh_gifti_data[f['ids/lh_ids']] = lh_data
+				lh_gifti_data[f['ids/lh_ids'],...] = lh_data
 
 			lh_gifti_path = os.path.join(output_folder, 'lh.data.func.gii')
 			gifti_utils.arr2gifti(lh_gifti_data, lh_gifti_path)
@@ -464,7 +464,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 
 			else:
 
-				rh_gifti_data[f['ids/rh_ids']] = rh_data
+				rh_gifti_data[f['ids/rh_ids'],...] = rh_data
 
 			rh_gifti_path = os.path.join(output_folder, 'rh.data.func.gii')
 			gifti_utils.arr2gifti(rh_gifti_data, rh_gifti_path)
