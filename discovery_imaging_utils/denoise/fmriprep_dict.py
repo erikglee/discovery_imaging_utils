@@ -259,7 +259,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                                     n_skip_vols,
                                                     TR)
 
-                    new_data[next_ind_to_clean:(last_ind_cleaned + max_batch_size),:] = temp_out_dict['cleaned_timeseries']
+                    new_data[next_ind_to_clean:(last_ind_cleaned + max_batch_size),:] = temp_out_dict['cleaned_timeseries'][:,:]
 
                 else:
 
@@ -283,7 +283,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                     print(temp_time_series[0,:])
                     print('First row of output:')
                     print(temp_out_dict['cleaned_timeseries'][0,:])
-                    new_data[next_ind_to_clean:,:] = temp_out_dict['cleaned_timeseries']
+                    new_data[next_ind_to_clean:,:] = temp_out_dict['cleaned_timeseries'][:,:]
 
 
             #Now update all the metadata
