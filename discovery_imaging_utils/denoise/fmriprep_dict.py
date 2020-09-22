@@ -237,14 +237,16 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
             del nf['data']
             new_data = nf.create_dataset('data', time_series.shape, dtype=type(time_series[0,0]))
 
+            num_batches = int(time_series.shape[0]/max_batch_size) + 1
 
             #Run the denoising in batches
             next_ind_to_clean = 0
+            i = 0
             while next_ind_to_clean < time_series.shape[0]:
 
                 if (next_ind_to_clean + max_batch_size) < time_series.shape[0]:
 
-                    print('Running New Batch Iteration')
+                    print('Running New Batch Iteration (#' + str(i) + '/' + str(num_batches) + ')')
                     temp_time_series = time_series[next_ind_to_clean:(next_ind_to_clean + max_batch_size),:]
                     temp_out_dict = run_denoising(temp_time_series,
                                                     hpf_before_regression,
