@@ -203,14 +203,6 @@ def run_denoising(time_series, hpf_before_regression, inds_to_include, interpola
         output_dict['std_before_regression'] = original_std
         output_dict['std_after_regression'] = post_regression_std
 
-        std_regression_statistics = {}
-        std_regression_statistics['mean_remaining_std_ratio'] = np.mean(post_regression_std/original_std)
-        std_regression_statistics['least_remaining_std_ratio'] = np.min(post_regression_std/original_std)
-        std_regression_statistics['mean_remaining_std_ratio_def'] = 'std(signal_before_regression)/std(signal_after_regression)) averaged across all regions'
-        std_regression_statistics['least_remaining_std_ratio_def'] = 'The most signal removed from any region (same as the mean stat only now with min)'
-
-        denoising_stats['std_regression_statistics.json'] = std_regression_statistics
-
     output_dict['denoising_stats'] = denoising_stats
 
 

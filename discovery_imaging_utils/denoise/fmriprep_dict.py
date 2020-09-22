@@ -144,7 +144,7 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
     return denoise_out_dict
 
 
-def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass):
+def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass, batch_size = None):
 
     """Wrapper function for imaging_utils.denoise.general.run_denoising
 
@@ -173,6 +173,8 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
     high_pass : ...
 
     low_pass : ...
+
+    batch_size : int, or None
 
 
 
@@ -256,6 +258,9 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         denoising_settings = gen_dict_utils.flatten_dictionary(denoising_settings, flatten_char = '/')
 
 
+        denoising_info = f.create_group('denoising_info')
+        gen_dict_utils._dict_to_hdf5_attrs(denoising_info, denoising_settings, base_path = '')
+
         f['data'][...] = temp_out_dict['cleaned_timeseries']
 
         #NEED TO CALC THIS FROM OTHER PLACE....
@@ -263,13 +268,16 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                        '/mean_sig_intens/white_matter' : np.nanmean(f['fmriprep_metadata/white_matter']),
                                        '/mean_sig_intens/csf' : np.nanmean(f['fmriprep_metadata/csf'])}
 
+        gen_dict_utils._dict_to_hdf5_attrs(denoising_info, mean_roi_signal_intensities, base_path = '')
+        denoising_info['inclusion_inds'] = inds_to_include
+        denoising_info['percent_vols_remaining'] = len(inds_to_include)/f['data'].shape[1]
 
 
 
         #Create the dictionary that has all the outputs
-        denoise_out_dict['denoising_stats'] = temp_out_dict['denoising_stats'] #NEED TO IMPLEMENT STILL
-        denoise_out_dict['mean_roi_signal_intensities.json'] = mean_roi_signal_intensities
-        denoise_out_dict['inclusion_inds'] = inds_to_include
+        #denoise_out_dict['denoising_stats'] = temp_out_dict['denoising_stats'] #NEED TO IMPLEMENT STILL
+        #denoise_out_dict['mean_roi_signal_intensities.json'] = mean_roi_signal_intensities
+        #denoise_out_dict['inclusion_inds'] = inds_to_include
 
 
 
