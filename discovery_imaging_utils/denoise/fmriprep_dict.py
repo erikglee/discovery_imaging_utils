@@ -235,7 +235,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         with h5py.File(hdf5_output_path, 'a') as nf:
 
             del nf['data']
-            new_data = nf.create_dataset('data', time_series.shape, dtype=type(time_series[0,0])
+            new_data = nf.create_dataset('data', time_series.shape, dtype=type(time_series[0,0]))
 
 
             #Run the denoising in batches
