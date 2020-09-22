@@ -241,7 +241,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
 
             #Run the denoising in batches
             next_ind_to_clean = 0
-            i = 0
+            i = 1
             while next_ind_to_clean < time_series.shape[0]:
 
                 if (next_ind_to_clean + max_batch_size) < time_series.shape[0]:
