@@ -245,7 +245,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                 if (next_ind_to_clean + max_batch_size) < time_series.shape[0]:
 
                     print('Running New Batch Iteration')
-                    temp_time_series = time_series[next_ind_to_clean:(last_ind_cleaned + max_batch_size),:]
+                    temp_time_series = time_series[next_ind_to_clean:(next_ind_to_clean + max_batch_size),:]
                     temp_out_dict = run_denoising(temp_time_series,
                                                     hpf_before_regression,
                                                     inds_to_include,
@@ -257,7 +257,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                                     n_skip_vols,
                                                     TR)
 
-                    new_data[next_ind_to_clean:(last_ind_cleaned + max_batch_size),:] = temp_out_dict['cleaned_timeseries'][:,:]
+                    new_data[next_ind_to_clean:(next_ind_to_clean + max_batch_size),:] = temp_out_dict['cleaned_timeseries'][:,:]
                     next_ind_to_clean += max_batch_size
 
                 else:
