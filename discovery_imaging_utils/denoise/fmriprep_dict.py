@@ -209,6 +209,9 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         n_skip_vols = fmriprep_metadata_group.attrs['n_skip_vols']
         TR = fmriprep_metadata_group.attrs['TR']
 
+        print('Number of skip vols:' + str(n_skip_vols))
+        print('TR: ' + str(TR))
+
 
 
         if scrub_criteria_dictionary != False:
@@ -273,7 +276,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         denoising_info['percent_vols_remaining'] = len(inds_to_include)/f['data'].shape[1]
 
 
-
+        f.flush()
         #Create the dictionary that has all the outputs
         #denoise_out_dict['denoising_stats'] = temp_out_dict['denoising_stats'] #NEED TO IMPLEMENT STILL
         #denoise_out_dict['mean_roi_signal_intensities.json'] = mean_roi_signal_intensities
