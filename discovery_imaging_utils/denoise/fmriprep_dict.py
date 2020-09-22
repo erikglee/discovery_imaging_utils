@@ -278,7 +278,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                                     n_skip_vols,
                                                     TR)
 
-
+                    print(temp_out_dict['cleaned_timeseries'][0,:])
                     new_data[next_ind_to_clean:,:] = temp_out_dict['cleaned_timeseries'].copy()
 
 
