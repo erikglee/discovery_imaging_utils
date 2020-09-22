@@ -273,8 +273,8 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                        '/mean_sig_intens/csf' : np.nanmean(nf['fmriprep_metadata/csf'])}
 
         gen_dict_utils._dict_to_hdf5_attrs(denoising_info, mean_roi_signal_intensities, base_path = '')
-        denoising_info['inclusion_inds'] = inds_to_include
-        denoising_info['percent_vols_remaining'] = len(inds_to_include)/nf['data'].shape[1]
+        denoising_info['inclusion_inds'] = np.where(inds_to_include > 0.5)[0]
+        denoising_info['ratio_vols_remaining'] = len(denoising_info['inclusion_inds'])/len(inds_to_include)
 
 
         nf.flush()
