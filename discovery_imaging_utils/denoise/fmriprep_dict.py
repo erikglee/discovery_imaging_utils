@@ -265,6 +265,8 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         gen_dict_utils._dict_to_hdf5_attrs(denoising_info, denoising_settings, base_path = '')
 
         nf['data'][...] = temp_out_dict['cleaned_timeseries']
+        del nf['data']
+        nf['data'] = temp_out_dict['cleaned_timeseries']
 
         #NEED TO CALC THIS FROM OTHER PLACE....
         mean_roi_signal_intensities = {'/mean_sig_intens/global_signal' : np.nanmean(nf['fmriprep_metadata/global_signal']),
