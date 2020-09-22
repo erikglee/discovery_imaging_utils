@@ -430,7 +430,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 		if 'lh_data_inds' in f.keys():
 
 			lh_data = f['data'][f['lh_data_inds']]
-			lh_gifti_data = np.zeros((f['ids/lh_ids'].attrs['lh_gifti_shape'], lh_data.shape[1]))
+			lh_gifti_data = np.zeros((f['ids/lh_ids'].attrs['lh_gifti_shape'][0], lh_data.shape[1]))
 
 
 			if 'parcel_names' in f['ids/lh_ids'].attrs.keys():
@@ -453,7 +453,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 		if 'rh_data_inds' in f.keys():
 
 			rh_data = f['data'][f['rh_data_inds']]
-			rh_gifti_data = np.zeros((f['ids/rh_ids'].attrs['rh_gifti_shape'],rh_data.shape[1]))
+			rh_gifti_data = np.zeros((f['ids/rh_ids'].attrs['rh_gifti_shape'][0],rh_data.shape[1]))
 
 			if 'rh_parcels_dict' in f['ids/rh_ids'].attrs.keys():
 
