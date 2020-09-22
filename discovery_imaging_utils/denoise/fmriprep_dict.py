@@ -278,6 +278,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                                     n_skip_vols,
                                                     TR)
 
+                    print(type(temp_time_series))
                     print('First row of input:')
                     print(temp_time_series[0,:])
                     print('First row of output:')
