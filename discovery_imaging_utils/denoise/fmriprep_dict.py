@@ -246,8 +246,6 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
 
                     print('Running New Batch Iteration')
                     temp_time_series = time_series[next_ind_to_clean:(last_ind_cleaned + max_batch_size),:]
-                    next_ind_to_clean += max_batch_size
-
                     temp_out_dict = run_denoising(temp_time_series,
                                                     hpf_before_regression,
                                                     inds_to_include,
@@ -260,13 +258,12 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                                     TR)
 
                     new_data[next_ind_to_clean:(last_ind_cleaned + max_batch_size),:] = temp_out_dict['cleaned_timeseries'][:,:]
+                    next_ind_to_clean += max_batch_size
 
                 else:
 
                     print('Last Batch Iteration')
                     temp_time_series = time_series[next_ind_to_clean:,:]
-                    next_ind_to_clean = time_series.shape[0]
-
                     temp_out_dict = run_denoising(temp_time_series,
                                                     hpf_before_regression,
                                                     inds_to_include,
@@ -278,14 +275,16 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                                     n_skip_vols,
                                                     TR)
 
-                    print(type(temp_time_series))
-                    print('First row of input:')
-                    print(temp_time_series[0,:])
-                    print('First row of output:')
-                    print(temp_out_dict['cleaned_timeseries'][0,:])
+                    #print(type(temp_time_series))
+                    #print('First row of input:')
+                    #print(temp_time_series[0,:])
+                    #print('First row of output:')
+                    #print(temp_out_dict['cleaned_timeseries'][0,:])
                     new_data[next_ind_to_clean:,:] = temp_out_dict['cleaned_timeseries'][:,:]
-                    print('First row of updated new_data:')
-                    print(new_data[next_ind_to_clean - 1,:])
+                    #print('Last row of updated new_data:')
+                    #print(new_data[next_ind_to_clean - 1,:])
+
+                    next_ind_to_clean = time_series.shape[0]
 
 
             #Now update all the metadata
