@@ -76,8 +76,6 @@ def denoise(fmriprep_out_dict, hpf_before_regression, scrub_criteria_dictionary,
     else:
         clean_comps = False
 
-    print(noise_comps)
-    print(clean_comps)
 
 
     temp_out_dict = run_denoising(time_series,
@@ -199,7 +197,6 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
     """
 
     shutil.copyfile(hdf5_input_path, hdf5_output_path)
-    print('Copy of original HDF5 file made for output')
 
 
     with h5py.File(hdf5_input_path, 'r') as f:
@@ -208,10 +205,6 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         fmriprep_metadata_group = f['fmriprep_metadata']
         n_skip_vols = fmriprep_metadata_group.attrs['n_skip_vols']
         TR = fmriprep_metadata_group.attrs['TR']
-
-        print('Number of skip vols:' + str(n_skip_vols))
-        print('TR: ' + str(TR))
-
 
 
         if scrub_criteria_dictionary != False:
@@ -230,7 +223,6 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
         else:
             clean_comps = False
 
-        print('Gathered Elements Needed for Denoising')
 
         with h5py.File(hdf5_output_path, 'a') as nf:
 
@@ -278,15 +270,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                                     n_skip_vols,
                                                     TR)
 
-                    #print(type(temp_time_series))
-                    #print('First row of input:')
-                    #print(temp_time_series[0,:])
-                    #print('First row of output:')
-                    #print(temp_out_dict['cleaned_timeseries'][0,:])
                     new_data[next_ind_to_clean:,:] = temp_out_dict['cleaned_timeseries'][:,:]
-                    #print('Last row of updated new_data:')
-                    #print(new_data[next_ind_to_clean - 1,:])
-
                     next_ind_to_clean = time_series.shape[0]
 
 
