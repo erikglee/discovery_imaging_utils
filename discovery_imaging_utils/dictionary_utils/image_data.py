@@ -646,7 +646,7 @@ def populate_hdf5(hdf5_file_path,
 			#LOWER MEMORY USAGE!!!!!
 
 			has_lh_gifti = True
-			gifti_utils.load_gifti_func_to_hdf5(lh_gii_data_path, f, 'lh_data', num_verts_in_chunk = 1000, compression = None)
+			gifti_utils.load_gifti_func_to_hdf5(lh_gii_data_path, f, 'lh_data', num_verts_in_chunk = 1000, compression = 'gzip')
 			#f['lh_data'] = gifti_utils.load_gifti_func(lh_gii_data_path)
 			lh_metadata_dict['lh_gifti_shape'] = f['lh_data'].shape
 			lh_gifti_ids = np.arange(0, f['lh_data'].shape[0], 1, dtype=int)
@@ -690,7 +690,7 @@ def populate_hdf5(hdf5_file_path,
 		if 'rh_gii_data_path' in file_path_dictionary.keys():
 
 			has_rh_gifti = True
-			gifti_utils.load_gifti_func_to_hdf5(rh_gii_data_path, f, 'rh_data', num_verts_in_chunk = 1000, compression = 'None')
+			gifti_utils.load_gifti_func_to_hdf5(rh_gii_data_path, f, 'rh_data', num_verts_in_chunk = 1000, compression = 'gzip')
 			#f['rh_data'] = gifti_utils.load_gifti_func(rh_gii_data_path)
 			rh_metadata_dict['rh_gifti_shape'] = f['rh_data'].shape
 			rh_gifti_ids = np.arange(0, f['rh_data'].shape[0], 1, dtype=int)
