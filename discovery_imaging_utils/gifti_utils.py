@@ -1,6 +1,7 @@
 import numpy as np
 import nibabel as nib
 from nibabel import load as nib_load
+import h5py
 
 def load_gifti_func(path_to_file):
     """Function to load gifti data
@@ -26,6 +27,35 @@ def load_gifti_func(path_to_file):
     gifti_data = np.vstack(gifti_list).transpose()
 
     return gifti_data
+
+def load_gifti_func_to_hdf5(path_to_func_file, loaded_hdf5_file, new_dataset_name, num_verts_in_chunk = 1000, compression = None):
+    """Function to load gifti data
+
+    Wrapper to nibabel's load function that load's the gifti file and
+    return's its data elements
+
+    Parameters
+    ----------
+
+    path_to_file : str
+        path to gifti file
+
+    Returns
+    -------
+
+    gifti_data : np.ndarray
+        array with gifti data having shape <n_vertices, n_dimensions>
+    """
+
+
+    gifti_img = nib_load(path_to_func_file)
+
+    gifti_shape = (gifti_img.darrays[0].dims[0], len(gifti_img.darrays))
+    new_dataset = loaded_hdf5_file.create_dataset(new_dataset_name, gifti_shape, compression = compression, chunks = (num_verts_in_chunk, gifti_shape[1]))
+    gifti_list = [x.data for x in gifti_img.darrays]
+    new_dataset[...] = np.vstack(gifti_list).transpose()
+
+    return
 
 def arr2gifti(array, output_path, hemi = ''):
 
