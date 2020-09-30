@@ -317,6 +317,6 @@ def _dict_to_hdf5_subdatasets(hdf5_object, dictionary, base_path = ''):
 
 	for key, value in dictionary.items():
 
-		hdf5_object.create_dataset(os.path.join(base_path, key), data = value, compression = 'gzip')
+		hdf5_object.create_dataset(os.path.join(base_path, key), data = value, compression = 'gzip', chunks = True)
 
 	return
