@@ -51,7 +51,16 @@ def load_gifti_func_to_hdf5(path_to_func_file, loaded_hdf5_file, new_dataset_nam
     gifti_img = nib_load(path_to_func_file)
 
     gifti_shape = (gifti_img.darrays[0].dims[0], len(gifti_img.darrays))
-    new_dataset = loaded_hdf5_file.create_dataset(new_dataset_name, gifti_shape, compression = compression, chunks = (num_verts_in_chunk, gifti_shape[1]))
+
+    #If it is a small gifti file, update default chunk size
+    if num_verts_in_chunk < gifti_shape[0]:
+        num_verts_in_chunk = gifti_shape[0]
+
+    #Create dataset with/without compression
+    if type(compression) == type(None):
+        new_dataset = loaded_hdf5_file.create_dataset(new_dataset_name, gifti_shape, chunks = (num_verts_in_chunk, gifti_shape[1]))
+    else:
+        new_dataset = loaded_hdf5_file.create_dataset(new_dataset_name, gifti_shape, compression = compression, chunks = (num_verts_in_chunk, gifti_shape[1]))
     gifti_list = [x.data for x in gifti_img.darrays]
     new_dataset[...] = np.vstack(gifti_list).transpose()
 
