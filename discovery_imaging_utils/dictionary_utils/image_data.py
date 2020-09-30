@@ -661,6 +661,7 @@ def populate_hdf5(hdf5_file_path,
 				lh_gifti_ids = lh_inclusion_inds
 
 				del f['lh_data']
+				f.flush()
 				f.create_dataset('lh_data', data = f['lh_data_masked'], compression = 'gzip')
 				del f['lh_data_masked']
 
@@ -675,6 +676,7 @@ def populate_hdf5(hdf5_file_path,
 				#image_data_dict['lh_parcels_dict'] = lh_parcels_dict
 
 				del f['lh_data']
+				f.flush()
 				f.create_dataset('lh_data', data = f['lh_data_masked'], compression = 'gzip')
 				del f['lh_data_masked']
 
@@ -688,7 +690,7 @@ def populate_hdf5(hdf5_file_path,
 		if 'rh_gii_data_path' in file_path_dictionary.keys():
 
 			has_rh_gifti = True
-			gifti_utils.load_gifti_func_to_hdf5(rh_gii_data_path, f, 'rh_data', num_verts_in_chunk = 1000, compression = None)
+			gifti_utils.load_gifti_func_to_hdf5(rh_gii_data_path, f, 'rh_data', num_verts_in_chunk = 1000, compression = 'None')
 			#f['rh_data'] = gifti_utils.load_gifti_func(rh_gii_data_path)
 			rh_metadata_dict['rh_gifti_shape'] = f['rh_data'].shape
 			rh_gifti_ids = np.arange(0, f['rh_data'].shape[0], 1, dtype=int)
@@ -703,6 +705,7 @@ def populate_hdf5(hdf5_file_path,
 				rh_gifti_ids = rh_inclusion_inds
 
 				del f['rh_data']
+				f.flush()
 				f.create_dataset('rh_data', data = f['rh_data_masked'], compression = 'gzip')
 				del f['rh_data_masked']
 
@@ -717,6 +720,7 @@ def populate_hdf5(hdf5_file_path,
 				#image_data_dict['rh_parcels_dict'] = rh_parcels_dict
 
 				del f['rh_data']
+				f.flush()
 				f.create_dataset('rh_data', data = f['rh_data_masked'], compression = 'gzip')
 				del f['rh_data_masked']
 
@@ -766,6 +770,7 @@ def populate_hdf5(hdf5_file_path,
 				nifti_ids = nifti_labels
 
 				del f['nifti_data']
+				f.flush()
 				f.create_dataset('nifti_data', data = f['nifti_data_masked'], compression = 'gzip')
 				del f['nifti_data_masked']
 
