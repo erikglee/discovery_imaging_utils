@@ -284,11 +284,10 @@ def populate_hdf5(hdf5_file_path,
 	that contains the combined data from all sources, with shape
 	<n_regions, n_timepoints> (in vector case)
 
-	'data' will be a virtual dataset that allows you to access datasets for
-	'lh_data', 'rh_data', and 'nifti_data' together, alternatively you can
-	access data from an individual source by either looking at their unique
-	datasets (i.e. lh_data) or by using 'lh_ids', 'rh_ids', or 'nifti_ids',
-	which tell you which elements in 'data' belong to the different data sources.
+	'data' will be a dataset that containing data from each data source. The
+	elements from each data source can be identified by using 'lh_ids', 'rh_ids',
+	and 'nifti_ids'. Such that idd['data'][idd['lh_ids'],:] would return all
+	the data elements corresponding to the left hemisphere.
 
 	Each source will also have its own data_inds dataset such as 'lh_data_inds'.
 	The data_inds datasets show what each element of 'data' is in the original
@@ -298,8 +297,11 @@ def populate_hdf5(hdf5_file_path,
 	vertices. If a parcellation is included, this will represent the names of
 	the different parcels/ROIs.
 
-	Metadata regarding input file information (dimensions, names, etc.) can be
-	found as attributes under the 'data' dataset.
+	Metadata that is associated with a specific source (i.e. lh parcellation path)
+	can be found as attributes under the sources *_ids dataset. Source agnostic
+	metadata, such as whether or not normalization was used, can be found as
+	attrbutes under the dummy dataset 'general_idd_metadata'.
+
 
 
 	Parameters
@@ -699,8 +701,14 @@ def populate_hdf5(hdf5_file_path,
 	#that may be large are still in the HDF5 file....
 	if repack == True:
 
-		run(['h5repack', hdf5_file_path, hdf5_file_path + '_repack'])
-		shutil.move(hdf5_file_path + '_repack', hdf5_file_path)
+		completed_proc = run(['h5repack', hdf5_file_path, hdf5_file_path + '_repack'])
+
+		if completed_proc.returncode != 0:
+
+			os.remove(hdf5_file_path + '_repack')
+			raise NameError('Error: repacking the HDF5 file to save on space was not successful. Rerun with keyword argument repack set to False or add h5repack to your subprocess path. HDF5s repack tool can also be ran outside of the context of this script later to save on space.')
+		else:
+			shutil.move(hdf5_file_path + '_repack', hdf5_file_path)
 
 
 	return
