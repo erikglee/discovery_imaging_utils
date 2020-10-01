@@ -165,7 +165,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 
 			lh_data = f['data'][f['lh_data_inds']]
 
-			if lh_data.ndims == 1:
+			if lh_data.ndim == 1:
 				dim = 1
 			else:
 				dim = lh_data.shape[1]
@@ -192,7 +192,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 		#Make RH gifti if necessary
 		if 'rh_data_inds' in f.keys():
 
-			if rh_data.ndims == 1:
+			if rh_data.ndim == 1:
 				dim = 1
 			else:
 				dim = rh_data.shape[1]
