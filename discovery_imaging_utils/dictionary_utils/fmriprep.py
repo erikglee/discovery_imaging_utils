@@ -223,7 +223,7 @@ def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_par
 		nifti_parcellation_path = None
 
 
-	image_data.populate_hdf5(hdf5_file_path,
+	image_data.populate_hdf5_no_virtual_dataset(hdf5_file_path,
 							lh_gii_data_path=lh_gii_data_path,
 							lh_inclusion_mask_path=lh_inclusion_mask_path,
 							lh_parcellation_path=lh_parcellation_path,
