@@ -7,6 +7,7 @@ from discovery_imaging_utils.dictionary_utils import general
 import json
 import h5py
 from subprocess import run
+import shutil
 
 
 
