@@ -166,16 +166,26 @@ def generate_paths(lh_gii_data_path=None,
 def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_parcels = False, normalize_within_dataset = True):
 	"""Function to populate a dictionary with data to use in denoising
 
+	Creates an hdf5 image data dictionary by aggregating elements of fMRIPREP
+	output. In addition to the standard image data dictionary elements, this
+	will include a new group titled 'fmriprep_metadata', containing a dataset
+	for each confound, and attributes for things like TR, mean_fd, subject and
+	session IDs, etc.
+
 	Parameters
 	----------
 
 	file_path_dictionary : dict of str
-	dictionary with file paths (created by generate_file_paths)
+		dictionary with file paths (created by generate_file_paths)
 	TR : float
-	repetition time of acquisition in seconds
-	normalize : bool
-	whether or not all output data elements should be set to have a temporal
-	mean of 10000
+		repetition time of acquisition in seconds
+	normalize_within_dataset : bool
+		whether or not all output data elements should normalized to have a temporal
+		mean of 10000
+	normalize_within_parcels : bool
+		whether or not all elements in a given parcel/ROI should be intensity
+		normalized prior to averaging. If set to true, the mean will be inserted
+		again after averaging.
 
 	"""
 
