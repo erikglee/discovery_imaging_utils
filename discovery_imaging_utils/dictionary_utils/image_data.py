@@ -682,15 +682,16 @@ def populate_hdf5(hdf5_file_path,
 
 
 		general._dict_to_hdf5_attrs(f['data'], file_path_dictionary)
-		f.flush()
-		print('Finished Flushing')
 
-		gim = f.create_dataset('general_idd_metadata', (1))
+		gim = f.create_dataset('general_idd_metadata', data = 1)
 		gim.attrs['normalize_within_parcels'] = normalize_within_parcels
 		gim.attrs['normalize_within_dataset' = normalize_within_dataset
 		gim.attrs['overwrite'] = overwrite
 		gim.attrs['repack'] = repack,
 		gim.attrs['max_verts_per_chunk'] = max_verts_per_chunk
+
+		f.flush()
+		print('Finished Flushing')
 
 
 	#Optional - repack the data to make big savings on storage
