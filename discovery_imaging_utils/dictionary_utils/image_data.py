@@ -1388,8 +1388,7 @@ def populate_hdf5_no_virtual_dataset(hdf5_file_path,
 	if repack == True:
 
 		run(['h5repack', hdf5_file_path, hdf5_file_path + '_repack'])
-		os.remove(hdf5_file_path)
-		shutil.copy(hdf5_file_path + '_repack', hdf5_file_path)
+		shutil.move(hdf5_file_path + '_repack', hdf5_file_path)
 
 
 	return
