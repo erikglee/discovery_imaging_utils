@@ -1280,7 +1280,7 @@ def populate_hdf5_no_virtual_dataset(hdf5_file_path,
 			max_verts_per_chunk = num_locations
 
 		hdf5_layout = h5py.VirtualLayout(shape=(int(num_locations), int(num_dimensions[0])))
-		data_dataset = f.create_dataset('data', (num_locations, num_dimensions), compression = 'gzip', chunks = (max_verts_per_chunk, num_dimensions))
+		data_dataset = f.create_dataset('data', (num_locations, num_dimensions[0]), compression = 'gzip', chunks = (max_verts_per_chunk, num_dimensions))
 
 		#Add lh gifti data
 		inds_counted = 0
