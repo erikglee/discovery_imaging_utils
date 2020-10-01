@@ -685,7 +685,7 @@ def populate_hdf5(hdf5_file_path,
 
 		gim = f.create_dataset('general_idd_metadata', data = 1)
 		gim.attrs['normalize_within_parcels'] = normalize_within_parcels
-		gim.attrs['normalize_within_dataset' = normalize_within_dataset
+		gim.attrs['normalize_within_dataset'] = normalize_within_dataset
 		gim.attrs['overwrite'] = overwrite
 		gim.attrs['repack'] = repack,
 		gim.attrs['max_verts_per_chunk'] = max_verts_per_chunk
