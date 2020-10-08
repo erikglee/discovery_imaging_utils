@@ -31,6 +31,7 @@ def remove_infleunces_from_connectivity_matrix(features_to_clean, covariates_to_
 
     """
 
+    raise NameError('Error: confirm this function works before using')
     #First construct the regression matrix
     for temp_item in covariates_to_regress:
 
