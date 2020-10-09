@@ -119,7 +119,7 @@ def imagesc_schaeffer_17(connectivity_matrix, parcel_labels, minmax, border_widt
                 network_edges[i] = j
 
     network_centers = np.zeros(len(network_names))
-    network_centers[0] = network_edges[0]/2.0
+    network_centers[0] = network_edges[0]/2.0 - 0.5
     for i in range(1,len(network_edges)):
         network_centers[i] = (network_edges[i] + network_edges[i-1])/2.0
 
