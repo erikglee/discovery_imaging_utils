@@ -181,10 +181,6 @@ def imagesc_schaeffer_17(connectivity_matrix, parcel_labels, minmax, border_widt
         cax = divider.append_axes("right", size="5%", pad=0.15)
         plt.colorbar(mappable = mappable, cax = cax)
 
-    print('Edges')
-    print(network_edges)
-    print('Centers')
-    print(network_centers)
 
 
 
