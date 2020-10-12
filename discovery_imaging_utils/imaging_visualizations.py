@@ -5,7 +5,7 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 def imagesc_schaeffer_17(connectivity_matrix, parcel_labels, minmax, border_width=5, add_colorbar=True, dpi=200,
                          x_tick_labels=True, y_tick_labels=True, matplotlib_color_scheme='jet',
-                         x_tick_font_size='xx-small',y_tick_font_size='xx-small', title='', linewidth = 1):
+                         x_tick_font_size='xx-small',y_tick_font_size='xx-small', title='', linewidth = 1, linecolor='black'):
 
     """This function can make a connectomic plot for the 17 network schaeffer parcellation
     at any resolution. Needs to take a nxn numpy matrix, a length n list of parcel names (taken
@@ -155,12 +155,12 @@ def imagesc_schaeffer_17(connectivity_matrix, parcel_labels, minmax, border_widt
     lw = linewidth
     #Add lines to identify network borders
     for i in network_edges:
-        plt.axvline(x=i + 0.5 + border_width,color='black', lw=lw)
-    plt.axvline(x=border_width - 0.5, color='black', lw=lw)
+        plt.axvline(x=i + 0.5 + border_width,color=linecolor, lw=lw)
+    plt.axvline(x=border_width - 0.5, color=linecolor, lw=lw)
     print(border_width)
 
     for i in network_edges:
-        plt.axhline(y=i + 0.5,color='black', lw=lw)
+        plt.axhline(y=i + 0.5,color=linecolor, lw=lw)
 
     ######################################################################################
     ######################################################################################
