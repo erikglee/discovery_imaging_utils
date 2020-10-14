@@ -57,9 +57,9 @@ def construct_report(subject_path, report_path, reference_csv_path):
         plt_ind_on_dist(reference_df['mean_dvars'].values, confounds_dict['mean_dvars'], xlabel='mean_dvars', out_path = os.path.join(run_report_path, 'mean_dvars.jpg'))
         plt_ind_on_dist(reference_df['mean_gs'].values, confounds_dict['mean_gs'], xlabel='mean_gs', out_path = os.path.join(run_report_path, 'mean_gs.jpg'))
 
-        plt_ind_on_dist(reference_df['local_dev_ratio'].values, confounds_dict['local_dev_ratio'], xlabel='local_dev_ratio', out_path = os.path.join(run_report_path, 'local_dev_ratio.jpg'))
-        plt_ind_on_dist(reference_df['brainmask_var_component_ratio'].values, confounds_dict['brainmask_var_component_ratio'], xlabel='brainmask_var_component_ratio', out_path = os.path.join(run_report_path, 'brainmask_var_component_ratio.jpg'))
-        plt_ind_on_dist(reference_df['gm_skin_1dil_var_component_ratio'].values, confounds_dict['gm_skin_1dil_var_component_ratio'], xlabel='gm_skin_1dil_var_component_ratio', out_path = os.path.join(run_report_path, 'gm_skin_1dil_var_component_ratio.jpg'))
+        #plt_ind_on_dist(reference_df['local_dev_ratio'].values, confounds_dict['local_dev_ratio'], xlabel='local_dev_ratio', out_path = os.path.join(run_report_path, 'local_dev_ratio.jpg'))
+        #plt_ind_on_dist(reference_df['brainmask_var_component_ratio'].values, confounds_dict['brainmask_var_component_ratio'], xlabel='brainmask_var_component_ratio', out_path = os.path.join(run_report_path, 'brainmask_var_component_ratio.jpg'))
+        #plt_ind_on_dist(reference_df['gm_skin_1dil_var_component_ratio'].values, confounds_dict['gm_skin_1dil_var_component_ratio'], xlabel='gm_skin_1dil_var_component_ratio', out_path = os.path.join(run_report_path, 'gm_skin_1dil_var_component_ratio.jpg'))
 
         output_df = pd.DataFrame(confounds_dict, index=['Registration Stats'])
         output_df.to_csv(os.path.join(run_report_path, 'functional_qc_summary_stats.csv'))
@@ -118,11 +118,11 @@ def calc_run_stats(path_to_confounds, high_std_dvars_thresh = 1.5, high_motion_t
     brainmask_img_path = nib_load(brainmask_img_path).get_fdata()
 
 
-    local_dev_ratio, brainmask_var_component_ratio, gm_skin_1dil_var_component_ratio = batch_calc_alignment_metrics(reference_img_data, aparcaseg_img_path, brainmask_img_path)
+    #local_dev_ratio, brainmask_var_component_ratio, gm_skin_1dil_var_component_ratio = batch_calc_alignment_metrics(reference_img_data, aparcaseg_img_path, brainmask_img_path)
 
-    output_dict['local_dev_ratio'] = local_dev_ratio
-    output_dict['brainmask_var_component_ratio'] = brainmask_var_component_ratio
-    output_dict['gm_skin_1dil_var_component_ratio'] = gm_skin_1dil_var_component_ratio
+    #output_dict['local_dev_ratio'] = local_dev_ratio
+    #output_dict['brainmask_var_component_ratio'] = brainmask_var_component_ratio
+    #output_dict['gm_skin_1dil_var_component_ratio'] = gm_skin_1dil_var_component_ratio
 
 
     return output_dict
