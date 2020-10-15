@@ -1,5 +1,6 @@
 import numpy as np
 from discovery_imaging_utils import imaging_utils
+import statsmodels
 
 
 def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
