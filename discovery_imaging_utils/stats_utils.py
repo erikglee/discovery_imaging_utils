@@ -2,96 +2,141 @@ import numpy as np
 from discovery_imaging_utils import imaging_utils
 
 
-def remove_infleunces_from_connectivity_matrix(features_to_clean, covariates_to_regress):
-    """"A function to remove the influence of different variables from a connectivity matrix
+def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
+                    reinsert_mean = True, tstat_map = None, net_vecs = False):
 
-    Function that takes functional connectivity matrices, and a list of regressors,
-    and removes regresses out the (linear) influence of the regressors from the connectivity
-    matrix
+    """Function to remove unwanted effects from connectivity matrices
+
+    This function will move the effects of specified regressors from
+    the functional connectivity matrix, and either return the
+    matrices after these effects have been removed, or the test-statistic
+    for a particular regressor/s. The input net_mats can also supper
+    net_vectors (i.e. subj by region) if net_vecs is set to true.
+
 
     Parameters
     ----------
 
-    features_to_clean : numpy.ndarray
-        The input features to be cleaned with shape <n_observations, n_regions, n_regions>,
+    net_mats : numpy.ndarray
+        Array with shape <n_subjs, n_regions, n_regions> of the
+        data to be cleaned.
+    regressors : numpy.ndarray
+        Array with shape <n_subjs, n_regressors> whose content
+        will be removed from the net_mats
+    include_diagonals : bool, default False
+        If False, diagonals will be skipped/set to 0
+    reinsert_mean : bool, default True
+        Whether the mean should be reinserted after
+        regression
+    tstat_map: list of ints, or None, default None
+        If something outside of False is provided here,
+        then instead of returning the cleaned net_mats
+        the function will return t-stat maps associated
+        with the parameter estimates for the contrast
+        or contrasts of interest. [0] would return the first
+        contrast's tstat map, and [0,1] would return the
+        first two contrast's tstat maps
+    net_vecs: bool, default False
+        Whether the function should expect net_vectors
+        instead of matrices (i.e. shape <n_subjs, n_regions>)
 
-    covariates_to_regress : list
-        A list containing the covariates whose influence should be removed from features_to_clean.
-        The entries to the list can either be a numpy.ndarray containing continious values, or
-        can be a list of strings that will be used to define different groups whose influence
-        will be removed.
 
     Returns
     -------
 
-    numpy.ndarray
-        The features_to_clean, after covariates_to_regress have been regressed through a linear
-        model.
+    If tstat_map is None, then returns a matrix with the same
+    shape as net_mats with influence of regressors removed through
+    linear regression. If tstat_map is a list of integers,
+    then returns the tstat maps associated with the specified
+    parameter estimates as list of numpy.ndarrays
 
 
     """
 
-    raise NameError('Error: confirm this function works before using')
-    #First construct the regression matrix
-    for temp_item in covariates_to_regress:
+    #Check if cleaned data or tstat maps should be returned
+    if type(tstat_map) == type(None):
 
-        num_features = features_to_clean.shape[0]
+        cleaned_net_mats = np.zeros(net_mats.shape)
 
-        if type(temp_item[0]) == str:
+    else:
 
-            unique_entries = []
-            for temp_entry in temp_item:
+        tstat_maps = []
+        for i in range(len(tstat_map)):
 
-                if temp_entry not in unique_entries:
-                    unique_entries.append(temp_entry)
+            tstat_maps.append(np.zeros(net_mats.shape[1:]))
 
-            if len(unique_entries) < 2:
 
-                #Ignore if there aren't at least two categories
-                pass
+    #Process in case of net_mats
+    if net_vecs == False:
 
-            elif len(unique_entries) == 2:
+        if net_mats.ndim != 3:
 
-                temp_nominal = np.zeros(num_features)
-
-                for i, temp_entry in enumerate(temp_item):
-
-                    if temp_entry == temp_nominal[0]:
-
-                        temp_nominal[i] = 1
-
-                formatted_covariates.append(temp_nominal.copy())
-
-            else:
-
-                temp_nominal = np.zeros((num_features, len(unique_entries)))
-
-                for i, temp_entry in enumerate(temp_item):
-                    for j, temp_unique in enumerate(temp_item):
-
-                        if temp_unique == temp_entry:
-
-                            temp_nominal[i,j] = 1
-
-                formatted_covariates.append(temp_nominal.copy())
+            raise NameError('Error: if net_vecs set to False, then net_mats must be shape <subjects, regions, regions>')
 
         else:
 
-            formatted_covariates.append(temp_item)
-
-    regressors = np.vstack(formatted_covariates).transpose()
-
-    #Second remove the influence of covariates
-    XT_X_Neg1_XT = imaging_utils.calculate_XT_X_Neg1_XT(regressors)
-    print(XT_X_Neg1_XT.shape)
-
-    for i in range(features_to_clean.shape[1]):
-        for j in range(features_to_clean.shape[2]):
-
-            cleaned_features[:,i,j] = np.squeeze(imaging_utils.partial_clean_fast(features_to_clean[:,i,j][:,None], XT_X_Neg1_XT, regressors))
+            for i in range(net_mats.shape[1]):
+                for j in range(net_mats.shape[1]):
 
 
-    return cleaned_features
+                    if include_diagonals == False:
+                        if i == j:
+                            continue
+
+                    model = statsmodels.regression.linear_model.OLS(net_mats[:,i,j], exog=regressors)
+                    results = model.fit()
+
+                    if type(tstat_map) == type(None):
+
+                        cleaned_net_mats[:,i,j] = net_mats[:,i,j] - model.predict(params=results.params, exog = regressors)
+
+                        if reinsert_mean:
+
+                            cleaned_net_mats[:,i,j] = cleaned_net_mats[:,i,j] + np.mean(net_mats[:,i,j])
+
+                    else:
+
+                        for iteration, contrast in enumerate(tstat_map):
+
+                            tstat_maps[iteration][i,j] = results.tvalues[contrast]
+
+
+    #Process in case of net_vecs
+    else:
+
+        if net_mats.ndim != 2:
+
+            raise NameError('Error: if net_vecs set to True, then net_mats must be shape <subjects, regions>')
+
+        else:
+
+            for i in range(net_mats.shape[1]):
+
+                    model = statsmodels.regression.linear_model.OLS(net_mats[:,i], exog=regressors)
+                    results = model.fit()
+
+                    if type(tstat_map) == type(None):
+
+                        cleaned_net_mats[:,i] = net_mats[:,i] - model.predict(params=results.params, exog = regressors)
+
+                        if reinsert_mean:
+
+                            cleaned_net_mats[:,i] = cleaned_net_mats[:,i] + np.mean(net_mats[:,i])
+
+                    else:
+
+                        for iteration, contrast in enumerate(tstat_map):
+
+                            tstat_maps[iteration][i] = results.tvalues[contrast]
+
+
+    if type(tstat_map) != type(None):
+
+        return tstat_maps
+
+    else:
+
+        return cleaned_net_mats
 
 
 def construct_contrast_matrix(dict_of_features, add_constant = True):
