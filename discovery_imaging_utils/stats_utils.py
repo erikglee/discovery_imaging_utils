@@ -4,7 +4,7 @@ import statsmodels
 
 
 def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
-                    reinsert_mean = True, tstat_map = None, net_vecs = False):
+                    reinsert_mean = True, tstat_map = None, pval_maps = False, net_vecs = False):
 
     """Function to remove unwanted effects from connectivity matrices
 
@@ -37,6 +37,9 @@ def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
         or contrasts of interest. [0] would return the first
         contrast's tstat map, and [0,1] would return the
         first two contrast's tstat maps
+    pval_maps : bool, default False
+        Only used if tstat_map not None. If True, function also outputs pvals
+        as second output.
     net_vecs: bool, default False
         Whether the function should expect net_vectors
         instead of matrices (i.e. shape <n_subjs, n_regions>)
@@ -49,7 +52,9 @@ def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
     shape as net_mats with influence of regressors removed through
     linear regression. If tstat_map is a list of integers,
     then returns the tstat maps associated with the specified
-    parameter estimates as list of numpy.ndarrays
+    parameter estimates as list of numpy.ndarrays. If tstat_map
+    is used, and pval_maps is set to True, a second output will be
+    included with p-values for the contrasts of interest.
 
 
     """
