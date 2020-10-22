@@ -4,7 +4,7 @@ import statsmodels
 
 
 def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
-                    reinsert_mean = True, tstat_map = None, pval_maps = False, net_vecs = False):
+                    reinsert_mean = True, tstat_map = None, pval_map = False, net_vecs = False):
 
     """Function to remove unwanted effects from connectivity matrices
 
@@ -37,7 +37,7 @@ def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
         or contrasts of interest. [0] would return the first
         contrast's tstat map, and [0,1] would return the
         first two contrast's tstat maps
-    pval_maps : bool, default False
+    pval_map : bool, default False
         Only used if tstat_map not None. If True, function also outputs pvals
         as second output.
     net_vecs: bool, default False
@@ -53,7 +53,7 @@ def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
     linear regression. If tstat_map is a list of integers,
     then returns the tstat maps associated with the specified
     parameter estimates as list of numpy.ndarrays. If tstat_map
-    is used, and pval_maps is set to True, a second output will be
+    is used, and pval_map is set to True, a second output will be
     included with p-values for the contrasts of interest.
 
 
@@ -70,6 +70,13 @@ def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
         for i in range(len(tstat_map)):
 
             tstat_maps.append(np.zeros(net_mats.shape[1:]))
+
+        #see if p-val maps should be returned
+        if pval_map == True:
+            pval_maps = []
+            for i in range(len(tstat_map)):
+
+                pval_maps.append(np.zeros(net_mats.shape[1:]))
 
 
     #Process in case of net_mats
@@ -106,6 +113,10 @@ def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
 
                             tstat_maps[iteration][i,j] = results.tvalues[contrast]
 
+                            if pval_map == True:
+
+                                pval_maps[iteration][i,j] = results.pvalues[contrast]
+
 
     #Process in case of net_vecs
     else:
@@ -135,10 +146,20 @@ def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
 
                             tstat_maps[iteration][i] = results.tvalues[contrast]
 
+                            if pval_map == True:
+
+                                pval_maps[iteration][i] = results.pvalues[contrast]
+
 
     if type(tstat_map) != type(None):
 
-        return tstat_maps
+        if pval_map == False:
+
+            return tstat_maps
+
+        else:
+
+            return tstat_maps, pval_maps
 
     else:
 
