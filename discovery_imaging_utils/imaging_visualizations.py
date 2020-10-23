@@ -157,7 +157,6 @@ def imagesc_schaeffer_17(connectivity_matrix, parcel_labels, minmax, border_widt
     for i in network_edges:
         plt.axvline(x=i + 0.5 + border_width,color=linecolor, lw=lw)
     plt.axvline(x=border_width - 0.5, color=linecolor, lw=lw)
-    print(border_width)
 
     for i in network_edges:
         plt.axhline(y=i + 0.5,color=linecolor, lw=lw)
