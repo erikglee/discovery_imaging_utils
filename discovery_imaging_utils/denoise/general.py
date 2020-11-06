@@ -116,7 +116,7 @@ def run_denoising(time_series, hpf_before_regression, inds_to_include, interpola
             noise_comps_post_filter_T_to_be_used = noise_comps_post_filter[:,good_timepoint_inds].transpose()
 
             #THIS IS UNDER TESTING TO SEE WHICH PERFORMS BETTER
-            if inv_method = 'calculate_XT_X_Neg1_XT':
+            if inv_method == 'calculate_XT_X_Neg1_XT':
                 XT_X_Neg1_XT = imaging_utils.calculate_XT_X_Neg1_XT(noise_comps_post_filter_T_to_be_used)
             else:
                 XT_X_Neg1_XT = imaging_utils.calculate_pinv(noise_comps_post_filter_T_to_be_used)
@@ -135,7 +135,7 @@ def run_denoising(time_series, hpf_before_regression, inds_to_include, interpola
             noise_comps_post_filter_T_to_be_used = noise_comps_post_filter[:,good_timepoint_inds].transpose()
 
             #THIS IS UNDER TESTING TO SEE WHICH PERFORMS BETTER
-            if inv_method = 'calculate_XT_X_Neg1_XT':
+            if inv_method == 'calculate_XT_X_Neg1_XT':
                 XT_X_Neg1_XT = imaging_utils.calculate_XT_X_Neg1_XT(full_matrix_to_be_used)
             else:
                 XT_X_Neg1_XT = imaging_utils.calculate_pinv(full_matrix_to_be_used)
