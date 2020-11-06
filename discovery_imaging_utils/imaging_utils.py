@@ -518,23 +518,6 @@ def fs_anat_to_array(path_to_fs_subject, folder_for_output_files):
     return
 
 
-
-
-def calculate_XT_X_Neg1_XT(X):
-
-    """
-    #Calculate term that can be multiplied with
-    #Y to calculate the beta weights for least
-    #squares regression. X should be of shape
-    #(n x d) where n is the number of observations
-    #and d is the number of dimensions/predictors
-    #uses inverse transform
-    """
-
-    XT = X.transpose()
-    XT_X_Neg1 = np.linalg.pinv(np.matmul(XT,X))
-    return np.matmul(XT_X_Neg1, XT)
-
 def calculate_pinv(X):
 
     """
