@@ -541,7 +541,7 @@ def calculate_pinv(X):
     Here for QC....
     """
 
-    return np.linalg.pinv(X.transpose())
+    return np.linalg.pinv(X)
 
 
 
