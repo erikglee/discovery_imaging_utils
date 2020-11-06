@@ -535,6 +535,16 @@ def calculate_XT_X_Neg1_XT(X):
     XT_X_Neg1 = np.linalg.pinv(np.matmul(XT,X))
     return np.matmul(XT_X_Neg1, XT)
 
+def calculate_pinv(X):
+
+    """
+    Here for QC....
+    """
+
+    return np.linalg.pinv(X.transpose())
+
+
+
 def partial_clean_fast(Y, XT_X_Neg1_XT, bad_regressors):
 
     """
