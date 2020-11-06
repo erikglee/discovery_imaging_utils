@@ -6,7 +6,7 @@ from sklearn.decomposition import PCA
 
 
 def run_denoising(time_series, hpf_before_regression, inds_to_include, interpolation_method,
-                    noise_comps, clean_comps, high_pass, low_pass, n_skip_vols, TR, inv_method = 'calculate_XT_X_Neg1_XT'):
+                    noise_comps, clean_comps, high_pass, low_pass, n_skip_vols, TR):
 
     """Function to denoise fMRI data.
 
