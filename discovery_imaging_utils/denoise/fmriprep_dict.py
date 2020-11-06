@@ -5,7 +5,7 @@ import shutil
 import h5py
 
 
-def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass, max_batch_size = 1000, inv_method = 'calculate_XT_X_Neg1_XT'):
+def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass, max_batch_size = 1000):
 
     """Wrapper function for imaging_utils.denoise.general.run_denoising
 
@@ -112,8 +112,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                                     high_pass,
                                                     low_pass,
                                                     n_skip_vols,
-                                                    TR,
-                                                    inv_method = inv_method)
+                                                    TR)
 
                     new_data[next_ind_to_clean:(next_ind_to_clean + max_batch_size),:] = temp_out_dict['cleaned_timeseries'][:,:]
                     next_ind_to_clean += max_batch_size
@@ -132,8 +131,7 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                                     high_pass,
                                                     low_pass,
                                                     n_skip_vols,
-                                                    TR,
-                                                    inv_method = inv_method)
+                                                    TR)
 
                     new_data[next_ind_to_clean:,:] = temp_out_dict['cleaned_timeseries'][:,:]
                     next_ind_to_clean = time_series.shape[0]

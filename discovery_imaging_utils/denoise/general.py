@@ -114,13 +114,7 @@ def run_denoising(time_series, hpf_before_regression, inds_to_include, interpola
         if type(clean_comps_post_filter) == type(False):
 
             noise_comps_post_filter_T_to_be_used = noise_comps_post_filter[:,good_timepoint_inds].transpose()
-
-            #THIS IS UNDER TESTING TO SEE WHICH PERFORMS BETTER
-            if inv_method == 'calculate_XT_X_Neg1_XT':
-                XT_X_Neg1_XT = imaging_utils.calculate_XT_X_Neg1_XT(noise_comps_post_filter_T_to_be_used)
-            else:
-                XT_X_Neg1_XT = imaging_utils.calculate_pinv(noise_comps_post_filter_T_to_be_used)
-
+            XT_X_Neg1_XT = np.linalg.pinv(noise_comps_post_filter_T_to_be_used)
 
             for temp_time_signal_dim in range(filtered_time_series.shape[0]):
                 regressed_time_signal[good_timepoint_inds,temp_time_signal_dim] = imaging_utils.partial_clean_fast(filtered_time_series_T[good_timepoint_inds,temp_time_signal_dim], XT_X_Neg1_XT, noise_comps_post_filter_T_to_be_used)
@@ -133,12 +127,7 @@ def run_denoising(time_series, hpf_before_regression, inds_to_include, interpola
 
             full_matrix_to_be_used = np.vstack((noise_comps_post_filter, clean_comps_post_filter))[:,good_timepoint_inds].transpose()
             noise_comps_post_filter_T_to_be_used = noise_comps_post_filter[:,good_timepoint_inds].transpose()
-
-            #THIS IS UNDER TESTING TO SEE WHICH PERFORMS BETTER
-            if inv_method == 'calculate_XT_X_Neg1_XT':
-                XT_X_Neg1_XT = imaging_utils.calculate_XT_X_Neg1_XT(full_matrix_to_be_used)
-            else:
-                XT_X_Neg1_XT = imaging_utils.calculate_pinv(full_matrix_to_be_used)
+            XT_X_Neg1_XT = np.linalg.pinv(full_matrix_to_be_used)
 
             for temp_time_signal_dim in range(filtered_time_series.shape[0]):
                 regressed_time_signal[good_timepoint_inds,temp_time_signal_dim] = imaging_utils.partial_clean_fast(filtered_time_series_T[good_timepoint_inds,temp_time_signal_dim], XT_X_Neg1_XT, noise_comps_post_filter_T_to_be_used)
