@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Image Data Dictionary &mdash; discovery_imaging_utils v0.0.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="discovery_imaging_utils.denoise package" href="discovery_imaging_utils.denoise.html" />
+    <link rel="prev" title="discovery_imaging_utils package" href="discovery_imaging_utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> discovery_imaging_utils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.html">discovery_imaging_utils package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Image Data Dictionary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-schematic-with-without-parcellation">Basic Schematic (with/without Parcellation)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-options">Additional Options</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.denoise.html">discovery_imaging_utils.denoise package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.dictionary_utils.html">discovery_imaging_utils.dictionary_utils package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.reports.html">discovery_imaging_utils.reports package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">discovery_imaging_utils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Image Data Dictionary</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/image_data_dictionary.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="image-data-dictionary">
+<h1>Image Data Dictionary<a class="headerlink" href="#image-data-dictionary" title="Permalink to this headline">¶</a></h1>
+<p>The image data dictionary (IDD) is a way of formatting neuroimaging data from mixed sources (volumetric, surface, parcellated, etc.) conveniently for neuroimaging analysis through hdf5 files. The IDD also allows for sparse representation of data sources, and conversion from hdf5 files back to standard neuroimaging file formats (i.e. nifti, gifti).</p>
+<div class="section" id="basic-schematic-with-without-parcellation">
+<h2>Basic Schematic (with/without Parcellation)<a class="headerlink" href="#basic-schematic-with-without-parcellation" title="Permalink to this headline">¶</a></h2>
+<p>The schematic of an IDD with and without a parcellation scheme can be seen in the following figure:</p>
+<a class="reference internal image-reference" href="_images/base_idd.png"><img alt="_images/base_idd.png" src="_images/base_idd.png" style="width: 800px;" /></a>
+<p>On the left, the example without the parcellation has a dataset named data, which can be a scalar (such as structural data) or vector (such as functional data). In this example the “data” dataset contains values from left hemisphere surfaces, right hemisphere surfaces, and volumetric sources, but can be similarly formatted from one or two of these three surfaces. The the datasets nifti_data_inds, lh_data_inds, and rh_data_inds can be used to index source specific elements of the “data” dataset, and the datasets nifti_ids, lh_ids, and rh_ids found under “ids” contain the native image indices that can be used to reconstruct nifti and gifti files from the hdf5 file without requiring external input.</p>
+<p>The <a href="#id1"><span class="problematic" id="id2">*</span></a>_ids datasets also contain source specific metadata, and in the case that input parcellations are used when generating the IDD, the <a href="#id3"><span class="problematic" id="id4">*</span></a>_ids fields will be groups instead of datasets that contain the names of the different parcels for the source of interest and within each parcel’s dataset, the indices for the parcels constituent elements (voxel, or vertex) in native image space. In this case where a parcellation is used, each data source (<a href="#id5"><span class="problematic" id="id6">*</span></a>_ids) will have a metadata attribute with the list of all parcels represented in the data source.</p>
+</div>
+<div class="section" id="additional-options">
+<h2>Additional Options<a class="headerlink" href="#additional-options" title="Permalink to this headline">¶</a></h2>
+<p>For the purpose of denoising, it is useful to take the output of fMRIPREP and format it in an IDD. This can be any mix of sources (MNI, native space, LH, RH, etc.) and is built so that all the metadata needed for denoising is contained within the IDD.</p>
+<p>This can be seen in the example below:</p>
+<a class="reference internal image-reference" href="_images/fmriprep_idd.png"><img alt="_images/fmriprep_idd.png" src="_images/fmriprep_idd.png" style="width: 800px;" /></a>
+<p>Beyond the basic schematic explored earlier, the main element is a group called “fmriprep_metadata”. Within this group, there is a dataset for each of the confounds used for fMRIPREP, and other relevant metrics are stored as metadata through the group’s attributes (such as mean_fd, TR, session, subject, mean_dvars, etc.)</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="discovery_imaging_utils.denoise.html" class="btn btn-neutral float-right" title="discovery_imaging_utils.denoise package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="discovery_imaging_utils.html" class="btn btn-neutral float-left" title="discovery_imaging_utils package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Erik Lee
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

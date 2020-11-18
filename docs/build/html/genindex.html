@@ -87,6 +87,14 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.html">discovery_imaging_utils package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoising.html">Denoising fMRI Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image_data_dictionary.html">Image Data Dictionary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.denoise.html">discovery_imaging_utils.denoise package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.dictionary_utils.html">discovery_imaging_utils.dictionary_utils package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.reports.html">discovery_imaging_utils.reports package</a></li>
 </ul>
 
             
@@ -155,11 +163,11 @@
 
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
- | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
  | <a href="#L"><strong>L</strong></a>
@@ -174,11 +182,25 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.parc_ts_dictionary.all_file_paths_exist">all_file_paths_exist() (in module discovery_imaging_utils.parc_ts_dictionary)</a>
+      <li><a href="discovery_imaging_utils.dictionary_utils.html#discovery_imaging_utils.dictionary_utils.general.all_file_paths_exist">all_file_paths_exist() (in module discovery_imaging_utils.dictionary_utils.general)</a>
+
+      <ul>
+        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.parc_ts_dictionary.all_file_paths_exist">(in module discovery_imaging_utils.parc_ts_dictionary)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.apply_filter">apply_filter() (in module discovery_imaging_utils.imaging_utils)</a>
+</li>
+      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.nifti_utils.arr2nifti">arr2nifti() (in module discovery_imaging_utils.nifti_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.alignment_metrics.batch_calc_alignment_metrics">batch_calc_alignment_metrics() (in module discovery_imaging_utils.reports.qc.alignment_metrics)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -186,11 +208,7 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.calc_alff_falff">calc_alff_falff() (in module discovery_imaging_utils.imaging_utils)</a>
-</li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.calc_fishers_icc">calc_fishers_icc() (in module discovery_imaging_utils.imaging_utils)</a>
-</li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.calc_icc">calc_icc() (in module discovery_imaging_utils.imaging_utils)</a>
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.triple_network_model.calc_network_interaction_index">calc_network_interaction_index() (in module discovery_imaging_utils.triple_network_model)</a>
 </li>
@@ -198,21 +216,39 @@
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.triple_network_model.calc_pearson_product_moment_correlation">calc_pearson_product_moment_correlation() (in module discovery_imaging_utils.triple_network_model)</a>
 </li>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.ind_group_functional_qc.calc_run_stats">calc_run_stats() (in module discovery_imaging_utils.reports.qc.ind_group_functional_qc)</a>
+</li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.triple_network_model.calc_tapered_weights">calc_tapered_weights() (in module discovery_imaging_utils.triple_network_model)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.triple_network_model.calc_triple_network_model">calc_triple_network_model() (in module discovery_imaging_utils.triple_network_model)</a>
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.triple_network_model.calc_weighted_cov">calc_weighted_cov() (in module discovery_imaging_utils.triple_network_model)</a>
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.triple_network_model.calc_weighted_mean">calc_weighted_mean() (in module discovery_imaging_utils.triple_network_model)</a>
 </li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.calculate_XT_X_Neg1_XT">calculate_XT_X_Neg1_XT() (in module discovery_imaging_utils.imaging_utils)</a>
+      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.calculate_pinv">calculate_pinv() (in module discovery_imaging_utils.imaging_utils)</a>
 </li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.confounds_class">confounds_class (class in discovery_imaging_utils.imaging_utils)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.alignment_metrics.calculate_radius_inds">calculate_radius_inds() (in module discovery_imaging_utils.reports.qc.alignment_metrics)</a>
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.construct_filter">construct_filter() (in module discovery_imaging_utils.imaging_utils)</a>
+</li>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.ind_functional_qc.construct_report">construct_report() (in module discovery_imaging_utils.reports.qc.ind_functional_qc)</a>
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.ind_group_functional_qc.construct_report">(in module discovery_imaging_utils.reports.qc.ind_group_functional_qc)</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.ind_group_structural_qc.construct_report">(in module discovery_imaging_utils.reports.qc.ind_group_structural_qc)</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.ind_structural_qc.construct_report">(in module discovery_imaging_utils.reports.qc.ind_structural_qc)</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.shared_tools.construct_report">(in module discovery_imaging_utils.reports.qc.shared_tools)</a>
+</li>
+      </ul></li>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.alignment_metrics.construct_transformation_matrix">construct_transformation_matrix() (in module discovery_imaging_utils.reports.qc.alignment_metrics)</a>
+</li>
+      <li><a href="discovery_imaging_utils.dictionary_utils.html#discovery_imaging_utils.dictionary_utils.image_data.convert_hdf5_to_images">convert_hdf5_to_images() (in module discovery_imaging_utils.dictionary_utils.image_data)</a>
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.nifti_utils.convert_spherical_roi_coords_to_nifti">convert_spherical_roi_coords_to_nifti() (in module discovery_imaging_utils.nifti_utils)</a>
 </li>
@@ -224,23 +260,46 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.demean_normalize">demean_normalize() (in module discovery_imaging_utils.denoise_ts_dict)</a>
+      <li><a href="discovery_imaging_utils.denoise.html#discovery_imaging_utils.denoise.fmriprep_dict.demean_normalize">demean_normalize() (in module discovery_imaging_utils.denoise.fmriprep_dict)</a>
 
       <ul>
+        <li><a href="discovery_imaging_utils.denoise.html#discovery_imaging_utils.denoise.general.demean_normalize">(in module discovery_imaging_utils.denoise.general)</a>
+</li>
+        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.demean_normalize">(in module discovery_imaging_utils.denoise_ts_dict)</a>
+</li>
         <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.func_denoising.demean_normalize">(in module discovery_imaging_utils.func_denoising)</a>
 </li>
       </ul></li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.demedian_parcellate_func_combine_hemis">demedian_parcellate_func_combine_hemis() (in module discovery_imaging_utils.imaging_utils)</a>
-</li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.denoise">denoise() (in module discovery_imaging_utils.denoise_ts_dict)</a>
 </li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.denoise_func_data">denoise_func_data() (in module discovery_imaging_utils.imaging_utils)</a>
+      <li><a href="discovery_imaging_utils.denoise.html#discovery_imaging_utils.denoise.fmriprep_dict.denoise_hdf5">denoise_hdf5() (in module discovery_imaging_utils.denoise.fmriprep_dict)</a>
 </li>
       <li>
     discovery_imaging_utils
 
       <ul>
         <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.denoise
+
+      <ul>
+        <li><a href="discovery_imaging_utils.denoise.html#module-discovery_imaging_utils.denoise">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.denoise.fmriprep_dict
+
+      <ul>
+        <li><a href="discovery_imaging_utils.denoise.html#module-discovery_imaging_utils.denoise.fmriprep_dict">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.denoise.general
+
+      <ul>
+        <li><a href="discovery_imaging_utils.denoise.html#module-discovery_imaging_utils.denoise.general">module</a>
 </li>
       </ul></li>
       <li>
@@ -254,7 +313,28 @@
     discovery_imaging_utils.dictionary_utils
 
       <ul>
-        <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils.dictionary_utils">module</a>
+        <li><a href="discovery_imaging_utils.dictionary_utils.html#module-discovery_imaging_utils.dictionary_utils">module</a>, <a href="discovery_imaging_utils.html#module-discovery_imaging_utils.dictionary_utils">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.dictionary_utils.fmriprep
+
+      <ul>
+        <li><a href="discovery_imaging_utils.dictionary_utils.html#module-discovery_imaging_utils.dictionary_utils.fmriprep">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.dictionary_utils.general
+
+      <ul>
+        <li><a href="discovery_imaging_utils.dictionary_utils.html#module-discovery_imaging_utils.dictionary_utils.general">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.dictionary_utils.image_data
+
+      <ul>
+        <li><a href="discovery_imaging_utils.dictionary_utils.html#module-discovery_imaging_utils.dictionary_utils.image_data">module</a>
 </li>
       </ul></li>
       <li>
@@ -264,8 +344,6 @@
         <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils.func_denoising">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     discovery_imaging_utils.imaging_utils
 
@@ -273,6 +351,8 @@
         <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils.imaging_utils">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     discovery_imaging_utils.imaging_visualizations
 
@@ -295,14 +375,81 @@
 </li>
       </ul></li>
       <li>
+    discovery_imaging_utils.reports
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.html#module-discovery_imaging_utils.reports">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.reports.qc
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.reports.qc.alignment_metrics
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.alignment_metrics">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.reports.qc.ind_functional_qc
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.ind_functional_qc">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.reports.qc.ind_group_functional_qc
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.ind_group_functional_qc">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.reports.qc.ind_group_structural_qc
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.ind_group_structural_qc">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.reports.qc.ind_structural_qc
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.ind_structural_qc">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.reports.qc.shared_tools
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.shared_tools">module</a>
+</li>
+      </ul></li>
+      <li>
+    discovery_imaging_utils.reports.qc.visualizations
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.visualizations">module</a>
+</li>
+      </ul></li>
+      <li>
     discovery_imaging_utils.triple_network_model
 
       <ul>
         <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils.triple_network_model">module</a>
 </li>
       </ul></li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.dvars">dvars() (in module discovery_imaging_utils.denoise_ts_dict)</a>
+      <li><a href="discovery_imaging_utils.denoise.html#discovery_imaging_utils.denoise.general.dvars">dvars() (in module discovery_imaging_utils.denoise.general)</a>
+
+      <ul>
+        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.dvars">(in module discovery_imaging_utils.denoise_ts_dict)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -317,11 +464,9 @@
         <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.func_denoising.find_timepoints_to_scrub">(in module discovery_imaging_utils.func_denoising)</a>
 </li>
       </ul></li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.dictionary_utils.flatten_dictionary">flatten_dictionary() (in module discovery_imaging_utils.dictionary_utils)</a>, <a href="discovery_imaging_utils.html#id0">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.flexible_denoise_func">flexible_denoise_func() (in module discovery_imaging_utils.imaging_utils)</a>
+      <li><a href="discovery_imaging_utils.dictionary_utils.html#discovery_imaging_utils.dictionary_utils.general.flatten_dictionary">flatten_dictionary() (in module discovery_imaging_utils.dictionary_utils.general)</a>, <a href="discovery_imaging_utils.dictionary_utils.html#id0">[1]</a>
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.func_denoising.flexible_denoise_parc">flexible_denoise_parc() (in module discovery_imaging_utils.func_denoising)</a>
 </li>
@@ -335,21 +480,11 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.gather_cleaning_vars">gather_cleaning_vars() (in module discovery_imaging_utils.imaging_utils)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.gather_confounds">gather_confounds() (in module discovery_imaging_utils.imaging_utils)</a>
-</li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.parc_ts_dictionary.generate_file_paths">generate_file_paths() (in module discovery_imaging_utils.parc_ts_dictionary)</a>
 </li>
   </ul></td>
-</tr></table>
-
-<h2 id="H">H</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.hard_clean">hard_clean() (in module discovery_imaging_utils.imaging_utils)</a>
+      <li><a href="discovery_imaging_utils.dictionary_utils.html#discovery_imaging_utils.dictionary_utils.fmriprep.generate_paths">generate_paths() (in module discovery_imaging_utils.dictionary_utils.fmriprep)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -357,20 +492,22 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.imagesc_schaeffer">imagesc_schaeffer() (in module discovery_imaging_utils.imaging_utils)</a>
-</li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_visualizations.imagesc_schaeffer_17">imagesc_schaeffer_17() (in module discovery_imaging_utils.imaging_visualizations)</a>
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_visualizations.imagesc_schaeffer_7">imagesc_schaeffer_7() (in module discovery_imaging_utils.imaging_visualizations)</a>
 </li>
+      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.nifti_utils.incorporate_nifti_inclusion_mask">incorporate_nifti_inclusion_mask() (in module discovery_imaging_utils.nifti_utils)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.interpolate">interpolate() (in module discovery_imaging_utils.denoise_ts_dict)</a>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.alignment_metrics.inds_in_bounds">inds_in_bounds() (in module discovery_imaging_utils.reports.qc.alignment_metrics)</a>
+</li>
+      <li><a href="discovery_imaging_utils.denoise.html#discovery_imaging_utils.denoise.general.interpolate">interpolate() (in module discovery_imaging_utils.denoise.general)</a>
 
       <ul>
-        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.func_denoising.interpolate">(in module discovery_imaging_utils.func_denoising)</a>
+        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.interpolate">(in module discovery_imaging_utils.denoise_ts_dict)</a>
 </li>
-        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.interpolate">(in module discovery_imaging_utils.imaging_utils)</a>
+        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.func_denoising.interpolate">(in module discovery_imaging_utils.func_denoising)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -379,7 +516,7 @@
 <h2 id="J">J</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.dictionary_utils.json_path_to_dict">json_path_to_dict() (in module discovery_imaging_utils.dictionary_utils)</a>, <a href="discovery_imaging_utils.html#id7">[1]</a>
+      <li><a href="discovery_imaging_utils.dictionary_utils.html#discovery_imaging_utils.dictionary_utils.general.json_path_to_dict">json_path_to_dict() (in module discovery_imaging_utils.dictionary_utils.general)</a>, <a href="discovery_imaging_utils.dictionary_utils.html#id7">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -397,15 +534,9 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.dictionary_utils.load_dictionary">load_dictionary() (in module discovery_imaging_utils.dictionary_utils)</a>, <a href="discovery_imaging_utils.html#id8">[1]</a>
-
-      <ul>
-        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.parc_ts_dictionary.load_dictionary">(in module discovery_imaging_utils.parc_ts_dictionary)</a>
+      <li><a href="discovery_imaging_utils.dictionary_utils.html#discovery_imaging_utils.dictionary_utils.general.load_dictionary">load_dictionary() (in module discovery_imaging_utils.dictionary_utils.general)</a>, <a href="discovery_imaging_utils.dictionary_utils.html#id8">[1]</a>
 </li>
-      </ul></li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.load_gifti_func">load_gifti_func() (in module discovery_imaging_utils.imaging_utils)</a>
-</li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.parc_timeseries.load_object">load_object() (discovery_imaging_utils.imaging_utils.parc_timeseries method)</a>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.alignment_metrics.local_pearson_correlation">local_pearson_correlation() (in module discovery_imaging_utils.reports.qc.alignment_metrics)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -413,15 +544,41 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.visualizations.make_gmwmcsf_underlay_plot">make_gmwmcsf_underlay_plot() (in module discovery_imaging_utils.reports.qc.visualizations)</a>
+</li>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.visualizations.make_harv_oxf_qc_image">make_harv_oxf_qc_image() (in module discovery_imaging_utils.reports.qc.visualizations)</a>
+</li>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.visualizations.make_outline_overlay_underlay_plot">make_outline_overlay_underlay_plot() (in module discovery_imaging_utils.reports.qc.visualizations)</a>
+</li>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.ind_group_functional_qc.make_reference_csv">make_reference_csv() (in module discovery_imaging_utils.reports.qc.ind_group_functional_qc)</a>
+
+      <ul>
+        <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.ind_group_structural_qc.make_reference_csv">(in module discovery_imaging_utils.reports.qc.ind_group_structural_qc)</a>
+</li>
+      </ul></li>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.alignment_metrics.mean_pow_deviation">mean_pow_deviation() (in module discovery_imaging_utils.reports.qc.alignment_metrics)</a>
+</li>
       <li>
     module
 
       <ul>
         <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils">discovery_imaging_utils</a>
 </li>
+        <li><a href="discovery_imaging_utils.denoise.html#module-discovery_imaging_utils.denoise">discovery_imaging_utils.denoise</a>
+</li>
+        <li><a href="discovery_imaging_utils.denoise.html#module-discovery_imaging_utils.denoise.fmriprep_dict">discovery_imaging_utils.denoise.fmriprep_dict</a>
+</li>
+        <li><a href="discovery_imaging_utils.denoise.html#module-discovery_imaging_utils.denoise.general">discovery_imaging_utils.denoise.general</a>
+</li>
         <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils.denoise_ts_dict">discovery_imaging_utils.denoise_ts_dict</a>
 </li>
-        <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils.dictionary_utils">discovery_imaging_utils.dictionary_utils</a>
+        <li><a href="discovery_imaging_utils.dictionary_utils.html#module-discovery_imaging_utils.dictionary_utils">discovery_imaging_utils.dictionary_utils</a>, <a href="discovery_imaging_utils.html#module-discovery_imaging_utils.dictionary_utils">[1]</a>
+</li>
+        <li><a href="discovery_imaging_utils.dictionary_utils.html#module-discovery_imaging_utils.dictionary_utils.fmriprep">discovery_imaging_utils.dictionary_utils.fmriprep</a>
+</li>
+        <li><a href="discovery_imaging_utils.dictionary_utils.html#module-discovery_imaging_utils.dictionary_utils.general">discovery_imaging_utils.dictionary_utils.general</a>
+</li>
+        <li><a href="discovery_imaging_utils.dictionary_utils.html#module-discovery_imaging_utils.dictionary_utils.image_data">discovery_imaging_utils.dictionary_utils.image_data</a>
 </li>
         <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils.func_denoising">discovery_imaging_utils.func_denoising</a>
 </li>
@@ -432,6 +589,24 @@
         <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils.nifti_utils">discovery_imaging_utils.nifti_utils</a>
 </li>
         <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils.parc_ts_dictionary">discovery_imaging_utils.parc_ts_dictionary</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.html#module-discovery_imaging_utils.reports">discovery_imaging_utils.reports</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc">discovery_imaging_utils.reports.qc</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.alignment_metrics">discovery_imaging_utils.reports.qc.alignment_metrics</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.ind_functional_qc">discovery_imaging_utils.reports.qc.ind_functional_qc</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.ind_group_functional_qc">discovery_imaging_utils.reports.qc.ind_group_functional_qc</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.ind_group_structural_qc">discovery_imaging_utils.reports.qc.ind_group_structural_qc</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.ind_structural_qc">discovery_imaging_utils.reports.qc.ind_structural_qc</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.shared_tools">discovery_imaging_utils.reports.qc.shared_tools</a>
+</li>
+        <li><a href="discovery_imaging_utils.reports.qc.html#module-discovery_imaging_utils.reports.qc.visualizations">discovery_imaging_utils.reports.qc.visualizations</a>
 </li>
         <li><a href="discovery_imaging_utils.html#module-discovery_imaging_utils.triple_network_model">discovery_imaging_utils.triple_network_model</a>
 </li>
@@ -466,26 +641,28 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.parc_timeseries">parc_timeseries (class in discovery_imaging_utils.imaging_utils)</a>
-</li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.parcellate_func_combine_hemis">parcellate_func_combine_hemis() (in module discovery_imaging_utils.imaging_utils)</a>
 </li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.partial_clean">partial_clean() (in module discovery_imaging_utils.imaging_utils)</a>
+      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.nifti_utils.parcellate_nifti">parcellate_nifti() (in module discovery_imaging_utils.nifti_utils)</a>
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.partial_clean_fast">partial_clean_fast() (in module discovery_imaging_utils.imaging_utils)</a>
 </li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.plot_network_average_power_spectrum">plot_network_average_power_spectrum() (in module discovery_imaging_utils.imaging_utils)</a>
+      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.plot_network_timeseries">plot_network_timeseries() (in module discovery_imaging_utils.imaging_utils)</a>
+</li>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.visualizations.plt_ind_on_dist">plt_ind_on_dist() (in module discovery_imaging_utils.reports.qc.visualizations)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.plot_network_timeseries">plot_network_timeseries() (in module discovery_imaging_utils.imaging_utils)</a>
-</li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.parc_timeseries.populate_all_fields">populate_all_fields() (discovery_imaging_utils.imaging_utils.parc_timeseries method)</a>
-</li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.parc_ts_dictionary.populate_confounds_dict">populate_confounds_dict() (in module discovery_imaging_utils.parc_ts_dictionary)</a>
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.parc_ts_dictionary.populate_general_info_dict">populate_general_info_dict() (in module discovery_imaging_utils.parc_ts_dictionary)</a>
 </li>
+      <li><a href="discovery_imaging_utils.dictionary_utils.html#discovery_imaging_utils.dictionary_utils.fmriprep.populate_hdf5">populate_hdf5() (in module discovery_imaging_utils.dictionary_utils.fmriprep)</a>
+
+      <ul>
+        <li><a href="discovery_imaging_utils.dictionary_utils.html#discovery_imaging_utils.dictionary_utils.image_data.populate_hdf5">(in module discovery_imaging_utils.dictionary_utils.image_data)</a>
+</li>
+      </ul></li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.parc_ts_dictionary.populate_parc_dictionary">populate_parc_dictionary() (in module discovery_imaging_utils.parc_ts_dictionary)</a>
 </li>
       <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.pre_post_carpet_plot">pre_post_carpet_plot() (in module discovery_imaging_utils.imaging_utils)</a>
@@ -496,15 +673,21 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.reduce_ics">reduce_ics() (in module discovery_imaging_utils.denoise_ts_dict)</a>
+      <li><a href="discovery_imaging_utils.denoise.html#discovery_imaging_utils.denoise.fmriprep_dict.reduce_ics">reduce_ics() (in module discovery_imaging_utils.denoise.fmriprep_dict)</a>
 
       <ul>
+        <li><a href="discovery_imaging_utils.denoise.html#discovery_imaging_utils.denoise.general.reduce_ics">(in module discovery_imaging_utils.denoise.general)</a>
+</li>
+        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.reduce_ics">(in module discovery_imaging_utils.denoise_ts_dict)</a>
+</li>
         <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.func_denoising.reduce_ics">(in module discovery_imaging_utils.func_denoising)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.reduce_noise_ics">reduce_noise_ics() (in module discovery_imaging_utils.imaging_utils)</a>
+      <li><a href="discovery_imaging_utils.reports.qc.html#discovery_imaging_utils.reports.qc.alignment_metrics.resample_image">resample_image() (in module discovery_imaging_utils.reports.qc.alignment_metrics)</a>
+</li>
+      <li><a href="discovery_imaging_utils.denoise.html#discovery_imaging_utils.denoise.general.run_denoising">run_denoising() (in module discovery_imaging_utils.denoise.general)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -512,27 +695,23 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.dictionary_utils.save_dictionary">save_dictionary() (in module discovery_imaging_utils.dictionary_utils)</a>, <a href="discovery_imaging_utils.html#id15">[1]</a>
+      <li><a href="discovery_imaging_utils.dictionary_utils.html#discovery_imaging_utils.dictionary_utils.general.save_dictionary">save_dictionary() (in module discovery_imaging_utils.dictionary_utils.general)</a>, <a href="discovery_imaging_utils.dictionary_utils.html#id15">[1]</a>
+</li>
+      <li><a href="discovery_imaging_utils.denoise.html#discovery_imaging_utils.denoise.general.spectral_interpolation">spectral_interpolation() (in module discovery_imaging_utils.denoise.general)</a>
 
       <ul>
-        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.parc_ts_dictionary.save_dictionary">(in module discovery_imaging_utils.parc_ts_dictionary)</a>
+        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.spectral_interpolation">(in module discovery_imaging_utils.denoise_ts_dict)</a>
 </li>
-      </ul></li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.parc_timeseries.save_object">save_object() (discovery_imaging_utils.imaging_utils.parc_timeseries method)</a>
-</li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.imaging_utils.simple_imagesc_schaeffer">simple_imagesc_schaeffer() (in module discovery_imaging_utils.imaging_utils)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.spectral_interpolation">spectral_interpolation() (in module discovery_imaging_utils.denoise_ts_dict)</a>
-
-      <ul>
         <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.func_denoising.spectral_interpolation">(in module discovery_imaging_utils.func_denoising)</a>
 </li>
       </ul></li>
-      <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.spectral_interpolation_fast">spectral_interpolation_fast() (in module discovery_imaging_utils.denoise_ts_dict)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="discovery_imaging_utils.denoise.html#discovery_imaging_utils.denoise.general.spectral_interpolation_fast">spectral_interpolation_fast() (in module discovery_imaging_utils.denoise.general)</a>
 
       <ul>
+        <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.denoise_ts_dict.spectral_interpolation_fast">(in module discovery_imaging_utils.denoise_ts_dict)</a>
+</li>
         <li><a href="discovery_imaging_utils.html#discovery_imaging_utils.func_denoising.spectral_interpolation_fast">(in module discovery_imaging_utils.func_denoising)</a>
 </li>
       </ul></li>

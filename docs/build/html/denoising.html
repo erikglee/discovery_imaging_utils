@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Denoising fMRI Data &mdash; discovery_imaging_utils v0.0.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Image Data Dictionary" href="image_data_dictionary.html" />
+    <link rel="prev" title="discovery_imaging_utils package" href="discovery_imaging_utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> discovery_imaging_utils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.html">discovery_imaging_utils package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Denoising fMRI Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#formatting-scrubbing-dictionary">Formatting Scrubbing Dictionary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#formatting-denoising-dictionary">Formatting Denoising Dictionary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="image_data_dictionary.html">Image Data Dictionary</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.denoise.html">discovery_imaging_utils.denoise package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.dictionary_utils.html">discovery_imaging_utils.dictionary_utils package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.reports.html">discovery_imaging_utils.reports package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">discovery_imaging_utils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Denoising fMRI Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/denoising.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="denoising-fmri-data">
+<h1>Denoising fMRI Data<a class="headerlink" href="#denoising-fmri-data" title="Permalink to this headline">¶</a></h1>
+<p>The primary means for denoising fMRI data is to take fMRIPREP output formatted as an <a class="reference internal" href="image_data_dictionary.html"><span class="doc">image data dictionary</span></a>, which contains the functional data, plus metadata that will be used in denoising such as confounds and TR. Denoising can also be conducted based on numpy arrays that are loaded into memory using the run_denoising function under denoise.general. The denoising discussed here is a wrapper around this function that gives additional functionality for the case when you have an image data dictionary structured with fMRIPREP output.</p>
+<p>The denoising function follows a series of steps (some mandatory, others optional):</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>DVARS is calculated on the input data</p></li>
+<li><p>If hpf_before_regression is a float, then any nuisance regressors and the input timeseries will be put through a high-pass filter with the cutoff frequency as the specified value. This is skipped if set to False.</p></li>
+<li><p>Timepoints to be excluded from analysis are identified (see Formatting Scrubbing Dictionary)</p></li>
+<li><p>Nuisance matrix containing (optionally) both ‘clean’ signal content and ‘noise’ signal content, along with offset and linear trend.
+a. If no ‘noise’ components are provided, nuisance regression is skipped
+b. If scrubbing is conducted, none of the scrubbed timepoints will be included while fitting nuisance regressors.
+c. If only noise components are provided, the full nuisance matrix will be fit to the input timeseries and any variance explained by this fit will be subtracted from the input timeseries
+d. If both noise components and clean components are provided, then the full matrix will be fit to the input timeseries, but only variance explained by the nuisance components will be subtracted from the input timeseries.</p></li>
+<li><p>Any missing timepoints from scrubbing will be interpolated over using the output (residuals) from the previous step. Recommended interpolation is spectral, but linear and cubic are also supported.</p></li>
+<li><p>The signal at this point can either be high-passed, low-passed, or band-passed. Otherwise set relevant parameters to False.</p></li>
+<li><p>The scrubbed timepoints that were previously interpolated over are now removed again from the signal and replaced with NaNs</p></li>
+<li><p>A new hdf5 image data dictionary is created with the cleaned timeseries and metadata relevant to the denoising process.</p></li>
+</ol>
+</div></blockquote>
+<p>check out <a class="reference internal" href="image_data_dictionary.html"><span class="doc">idd</span></a></p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>TBD</p>
+</div>
+<div class="section" id="formatting-scrubbing-dictionary">
+<h2>Formatting Scrubbing Dictionary<a class="headerlink" href="#formatting-scrubbing-dictionary" title="Permalink to this headline">¶</a></h2>
+<p>If scrubbing dictionary is set to False, then the initial timepoints to remove at the beginning of the scan (specified under fmriprep_out_dict) will be the only ones specified for removal.</p>
+<p>Alternatively, scrubbing can be conducted by either (1) setting a combination of hard thresholds using any of the fMRIPREP confounds elements, or (2) a fixed proportion of timepoints can be removed from each scan based on a weighted combination of any fMRIPREP confounds elements (in this case each element will be z-scored and then the z-scored confound scores will be added). In either case, the timepoint before/after timepoints will be scrubbed. If several subjects are ran with the Uniform, this padding may lead to not small differences in the number of volumes included for each subject.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#no scrubbing</span>
+<span class="n">scrubbing_dict</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1">#scrub timepoints where fd &gt; 0.5mm or std_dvars &gt; 1.5</span>
+<span class="n">scrubbing_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;framewise_displacement&#39;</span> <span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;std_dvars&#39;</span> <span class="p">:</span> <span class="mf">1.5</span><span class="p">}</span>
+
+<span class="c1">#scrub 20% of timepoints (keep 80%) based on combination of</span>
+<span class="c1">#fd and std_dvars.</span>
+<span class="n">scrubbing_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Uniform&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;framewise_displacement&#39;</span><span class="p">,</span> <span class="s1">&#39;std_dvars&#39;</span><span class="p">]]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="formatting-denoising-dictionary">
+<h2>Formatting Denoising Dictionary<a class="headerlink" href="#formatting-denoising-dictionary" title="Permalink to this headline">¶</a></h2>
+<p>The noise_comps_dict and clean_comps_dict that are used for denoising are formatted in the same way. When set to False, they are ignored. Otherwise any of the elements found in the fmriprep_metadata group of the image data dictionary can be used. The confound, or confounds of interest are represented as keys in the dictionary, and the value specifies if PCA should be done to reduce the data (set to False if no PC is desired, otherwise set to the number of components - in cases where confound isn’t grouped, then value should be set to False).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#no denoising</span>
+<span class="n">clean_comps_dict</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">noise_comps_dict</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1">#regress wm, csf, gsr, and 24 motion_params</span>
+<span class="n">clean_comps_dict</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">noise_comps_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;wmcsfgsr&#39;</span> <span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;motion_params_24&#39;</span> <span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+<span class="c1">#regress wm, csf, and gsr, with 24 motion params but reduce</span>
+<span class="c1">#the 24 motion params to 6 components</span>
+<span class="n">clean_comps_dict</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">noise_comps_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;wmcsfgsr&#39;</span> <span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;motion_params_24&#39;</span> <span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+<span class="c1">#regress aroma nuisance ICs, but only variance that isn&#39;t explained by</span>
+<span class="c1">#aroma clean ICs</span>
+<span class="n">clean_comps_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;aroma_clean_ics&#39;</span> <span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+<span class="n">noise_comps_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;aroma_noise_ics&#39;</span> <span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="Example">hello</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="image_data_dictionary.html" class="btn btn-neutral float-right" title="Image Data Dictionary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="discovery_imaging_utils.html" class="btn btn-neutral float-left" title="discovery_imaging_utils package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Erik Lee
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

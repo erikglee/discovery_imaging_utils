@@ -1,0 +1,621 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>discovery_imaging_utils.reports.qc package &mdash; discovery_imaging_utils v0.0.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> discovery_imaging_utils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.html">discovery_imaging_utils package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">discovery_imaging_utils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>discovery_imaging_utils.reports.qc package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/discovery_imaging_utils.reports.qc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="discovery-imaging-utils-reports-qc-package">
+<h1>discovery_imaging_utils.reports.qc package<a class="headerlink" href="#discovery-imaging-utils-reports-qc-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-discovery_imaging_utils.reports.qc.alignment_metrics">
+<span id="discovery-imaging-utils-reports-qc-alignment-metrics-module"></span><h2>discovery_imaging_utils.reports.qc.alignment_metrics module<a class="headerlink" href="#module-discovery_imaging_utils.reports.qc.alignment_metrics" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.alignment_metrics.batch_calc_alignment_metrics">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.alignment_metrics.</code><code class="sig-name descname">batch_calc_alignment_metrics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reference_data</span></em>, <em class="sig-param"><span class="n">aparcaseg_data</span></em>, <em class="sig-param"><span class="n">brainmask_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.alignment_metrics.batch_calc_alignment_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate alignment QC metrics based on fMRIPREP output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reference_data</strong> (<em>numpy.ndarray</em>) – Loaded data from a 3d BOLD reference</p></li>
+<li><p><strong>aparcaseg_data</strong> (<em>numpy.ndarray</em>) – Loaded aparcaseg data (in same voxel space as reference data)</p></li>
+<li><p><strong>brainmask_data</strong> (<em>numpy.ndarray</em>) – Loaded brainmask data (in same voxel space as reference data)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>local_dev_ratio</strong> (<em>float</em>) – The mean deviation (from power = 4) in brain and non-brain samples
+divided by their joint deviation. This is calculated locally at 2000
+random points in the grey matter mask, only inlcuding points where a
+certain number of brain/non-brain voxels are present</p></li>
+<li><p><strong>brainmask_var_component_ratio</strong> (<em>float</em>) – The mean deviation (from power = 4) in brainmask (which includes CSF)
+and non-brain samples divided by their joint deviation.
+This is calculated globally.</p></li>
+<li><p><strong>gm_skin_1dil_var_component_ratio</strong> (<em>float</em>) – The mean deviation (from power = 2) in FreeSurfer GM Mask, and a mask
+generated by the new voxels found after dilating that GM Mask and
+removing any GM/WM voxels, divided by their joint deviation.
+This is calculated globablly.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.alignment_metrics.calculate_radius_inds">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.alignment_metrics.</code><code class="sig-name descname">calculate_radius_inds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">radius</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.alignment_metrics.calculate_radius_inds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes radius inds for sphere</p>
+<p>This function takes a radius (units voxels),
+for a 3d array (not provided), and returns
+“index_modifiers” for the voxels falling
+within the radius, such that any &lt;i,j,k&gt;
+can be added to these index modifiers,
+which will return elements within the
+given radius of &lt;i,j,k&gt; (note, at image
+boundaries, some indices will be out of
+bounds)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>radius</strong> (<em>int</em>) – radius (inclusive) to find sphere inds
+for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>index_modifiers</strong> – &lt;num_points, 3&gt;</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+<p>For radius 5 around point i,j,k</p>
+<p>index_modifiers = calculate_radius_inds(5)
+circle_inds = index_modifiers + np.array((i,j,k))</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.alignment_metrics.construct_transformation_matrix">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.alignment_metrics.</code><code class="sig-name descname">construct_transformation_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x_trans</span></em>, <em class="sig-param"><span class="n">y_trans</span></em>, <em class="sig-param"><span class="n">z_trans</span></em>, <em class="sig-param"><span class="n">x_rot</span></em>, <em class="sig-param"><span class="n">y_rot</span></em>, <em class="sig-param"><span class="n">z_rot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.alignment_metrics.construct_transformation_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs affine matrix to do rotation/translation</p>
+<p>First applies translations, then x rotation, y rotation
+and z rotation when making the new affine</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_trans</strong> (<em>float</em>) – number of voxels to translate in first dimension</p></li>
+<li><p><strong>y_trans</strong> (<em>float</em>) – number of voxels to translate in second dimension</p></li>
+<li><p><strong>z_trans</strong> (<em>float</em>) – number of voxels to translate in third dimension</p></li>
+<li><p><strong>x_rot</strong> (<em>float</em>) – number of degrees to rotate in first dimension</p></li>
+<li><p><strong>y_rot</strong> (<em>float</em>) – number of degrees to rotate in second dimension</p></li>
+<li><p><strong>z_rot</strong> (<em>float</em>) – number of degrees to rotate in third dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>affine</strong> – &lt;4,4&gt; array with affine</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.alignment_metrics.inds_in_bounds">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.alignment_metrics.</code><code class="sig-name descname">inds_in_bounds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inds</span></em>, <em class="sig-param"><span class="n">shape</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.alignment_metrics.inds_in_bounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Says whether inds are within shape</p>
+<p>Function to test whether or not a series
+of indices are within the bounds of a
+matrix with a given shape</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inds</strong> (<em>numpy.ndarray</em>) – shape &lt;num_points, num_dimensions&gt;</p></li>
+<li><p><strong>shape</strong> (<em>tuple</em>) – shape of array (given by <a href="#id1"><span class="problematic" id="id2">*</span></a>.shape)
+to use as bounding box</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>in_bounds</strong> – array shape &lt;num_points&gt; with
+boolean to say whether or not
+index is in bounding box</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.alignment_metrics.local_pearson_correlation">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.alignment_metrics.</code><code class="sig-name descname">local_pearson_correlation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reference_data</span></em>, <em class="sig-param"><span class="n">aparcaseg_data</span></em>, <em class="sig-param"><span class="n">brainmask_data</span></em>, <em class="sig-param"><span class="n">num_neighborhoods</span><span class="o">=</span><span class="default_value">2000</span></em>, <em class="sig-param"><span class="n">voxel_neighborhood_radius</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">deviation_power</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.alignment_metrics.local_pearson_correlation" title="Permalink to this definition">¶</a></dt>
+<dd><p>NOTE: This is also calculated seperately in batch_calc_alignment_metrics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reference_data</strong> (<em>numpy.ndarray</em>) – Loaded data from a 3d BOLD reference</p></li>
+<li><p><strong>aparcaseg_data</strong> (<em>numpy.ndarray</em>) – Loaded aparcaseg data (in same voxel space as reference data)</p></li>
+<li><p><strong>brainmask_data</strong> (<em>numpy.ndarray</em>) – Loaded brainmask data (in same voxel space as reference data)</p></li>
+<li><p><strong>num_neighborhoods</strong> (<em>int</em>) – The number of neighborhoods to sample during calculation</p></li>
+<li><p><strong>voxel_neighborhood_radius</strong> (<em>int</em>) – The radius of each neighborhood (unit = voxels)</p></li>
+<li><p><strong>deviation_power</strong> (<em>int</em>) – The deviation power to be used</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.alignment_metrics.mean_pow_deviation">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.alignment_metrics.</code><code class="sig-name descname">mean_pow_deviation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arr</span></em>, <em class="sig-param"><span class="n">power</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.alignment_metrics.mean_pow_deviation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the ave abs dif raised to given power</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<em>numpy.ndarray</em>) – 1d array</p></li>
+<li><p><strong>power</strong> (<em>float</em>) – the power to use to alter the weightings of deviations
+from the mean</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>mean_pow_deviation</strong> – the output statistic</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.alignment_metrics.resample_image">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.alignment_metrics.</code><code class="sig-name descname">resample_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">original_voxel_array</span></em>, <em class="sig-param"><span class="n">transformation_matrix</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.alignment_metrics.resample_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Code to to nearest neighbor resampling in voxel space</p>
+<p>Takes a 3d array, and resamples it using the affine
+transformation_matrix with nearest neighbor interpolation.
+Background values are set to 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>original_voxel_array</strong> (<em>numpy.ndarray</em>) – 3d numpy array to be resampled</p></li>
+<li><p><strong>transformation_matrix</strong> (<em>numpy.ndarray</em>) – &lt;4,4&gt; affine matrix (units voxel space)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>resampled_voxel_array</strong> – the resampled array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.reports.qc.ind_functional_qc">
+<span id="discovery-imaging-utils-reports-qc-ind-functional-qc-module"></span><h2>discovery_imaging_utils.reports.qc.ind_functional_qc module<a class="headerlink" href="#module-discovery_imaging_utils.reports.qc.ind_functional_qc" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.ind_functional_qc.construct_report">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.ind_functional_qc.</code><code class="sig-name descname">construct_report</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subject_path</span></em>, <em class="sig-param"><span class="n">report_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.ind_functional_qc.construct_report" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.reports.qc.ind_group_functional_qc">
+<span id="discovery-imaging-utils-reports-qc-ind-group-functional-qc-module"></span><h2>discovery_imaging_utils.reports.qc.ind_group_functional_qc module<a class="headerlink" href="#module-discovery_imaging_utils.reports.qc.ind_group_functional_qc" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.ind_group_functional_qc.calc_run_stats">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.ind_group_functional_qc.</code><code class="sig-name descname">calc_run_stats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_confounds</span></em>, <em class="sig-param"><span class="n">high_std_dvars_thresh</span><span class="o">=</span><span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">high_motion_thresh</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.ind_group_functional_qc.calc_run_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to extract values from confounds.tsv</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_to_confounds</strong> (<em>str</em>) – path to fmriprep confounds tsv file</p></li>
+<li><p><strong>high_std_dvars_thresh</strong> (<em>float</em><em>, </em><em>optional</em>) – the threshold to use for determining
+high std_dvars timepoints (defaults
+to 1.5)</p></li>
+<li><p><strong>high_motion_thresh</strong> (<em>float</em><em>, </em><em>optional</em>) – the threshold to use for determining
+high motion timepoints (defaults to 1.5)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>output_dict</strong> – dictionary with different statistics from the
+confounds file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.ind_group_functional_qc.construct_report">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.ind_group_functional_qc.</code><code class="sig-name descname">construct_report</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subject_path</span></em>, <em class="sig-param"><span class="n">report_path</span></em>, <em class="sig-param"><span class="n">reference_csv_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.ind_group_functional_qc.construct_report" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.ind_group_functional_qc.make_reference_csv">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.ind_group_functional_qc.</code><code class="sig-name descname">make_reference_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_fmriprep_dir</span></em>, <em class="sig-param"><span class="n">output_reference_csv_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.ind_group_functional_qc.make_reference_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate reference cohort func stats</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_to_fmriprep_dir</strong> (<em>str</em>) – path to directory of fmriprep output, all runs
+found under this directory will be used to construct
+norms</p></li>
+<li><p><strong>output_reference_csv_path</strong> (<em>str</em>) – path to location where reference csv file
+will be stored.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.reports.qc.ind_group_structural_qc">
+<span id="discovery-imaging-utils-reports-qc-ind-group-structural-qc-module"></span><h2>discovery_imaging_utils.reports.qc.ind_group_structural_qc module<a class="headerlink" href="#module-discovery_imaging_utils.reports.qc.ind_group_structural_qc" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.ind_group_structural_qc.construct_report">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.ind_group_structural_qc.</code><code class="sig-name descname">construct_report</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subject_path</span></em>, <em class="sig-param"><span class="n">report_path</span></em>, <em class="sig-param"><span class="n">reference_csv_path</span></em>, <em class="sig-param"><span class="n">num_pcs</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.ind_group_structural_qc.construct_report" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to make quality control tables from FreeSurfer output</p>
+<p>Function makes a quality control report for a single subject’s
+FreeSurfer statistics using their output and a reference table
+from a given reference cohort. Statistics are from default aparc
+and aseg files. Computed statistics include vol_zscore,
+eTIV_adjusted_vol_zscore, prediction_error_zscore (where first
+PC across regions in reference cohort is fit to predict volume
+of each anatomical region), thickness_mean_zscore,
+thickness_std_zscore, and snr_zscore. Thickness only calculated
+for cortical structures, SNR only calculated for subcortical
+structures. Outputs the statistics as a csv file and as html
+file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subject_path</strong> (<em>str</em>) – path to subject’s FreeSurfer folder</p></li>
+<li><p><strong>reference_csv_path</strong> (<em>str</em>) – path to file containing FreeSurfer data to use as
+reference, should be made from make_fs_reference_table
+function</p></li>
+<li><p><strong>report_path</strong> (<em>str</em>) – path to folder that will be made for this subject’s
+quality control output (tables, etc.)</p></li>
+<li><p><strong>num_pcs</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of principal components to be fit when
+predicting individual ROI statistics</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – set to true if you want the function to continue if
+output_folder already exists</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.ind_group_structural_qc.make_reference_csv">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.ind_group_structural_qc.</code><code class="sig-name descname">make_reference_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fs_subjects_dir</span></em>, <em class="sig-param"><span class="n">output_csv_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.ind_group_structural_qc.make_reference_csv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to make reference table FreeSurfer stats</p>
+<p>Function takes path to FreeSurfer subjects dir and
+makes a csv file out of subject segmantation statistics</p>
+<p>TODO : automatically exclude subjects that have any NaNs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fs_subjects_dir</strong> (<em>str</em>) – path to location of FreeSurfer subjects dir</p></li>
+<li><p><strong>output_csv_name</strong> (<em>str</em>) – path to csv file that will be created with output</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.reports.qc.ind_structural_qc">
+<span id="discovery-imaging-utils-reports-qc-ind-structural-qc-module"></span><h2>discovery_imaging_utils.reports.qc.ind_structural_qc module<a class="headerlink" href="#module-discovery_imaging_utils.reports.qc.ind_structural_qc" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.ind_structural_qc.construct_report">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.ind_structural_qc.</code><code class="sig-name descname">construct_report</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subject_path</span></em>, <em class="sig-param"><span class="n">report_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.ind_structural_qc.construct_report" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct structural QC report</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subject_path</strong> (<em>str</em>) – path to subject’s fMRIPREP output</p></li>
+<li><p><strong>report_path</strong> (<em>str</em>) – path to folder where QC results will be stored</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.reports.qc.shared_tools">
+<span id="discovery-imaging-utils-reports-qc-shared-tools-module"></span><h2>discovery_imaging_utils.reports.qc.shared_tools module<a class="headerlink" href="#module-discovery_imaging_utils.reports.qc.shared_tools" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.shared_tools.construct_report">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.shared_tools.</code><code class="sig-name descname">construct_report</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subject_fmriprep_path</span></em>, <em class="sig-param"><span class="n">subject_fs_path</span></em>, <em class="sig-param"><span class="n">report_path</span></em>, <em class="sig-param"><span class="n">structural_reference_csv_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">functional_reference_csv_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.shared_tools.construct_report" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to construct QC report from fMRIPREP output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subject_path</strong> (<em>str</em>) – path to a subject’s fmriprep folder</p></li>
+<li><p><strong>report_path</strong> (<em>str</em>) – path where the report should be saved</p></li>
+<li><p><strong>dataset_qc_location</strong> (<em>str</em><em> or </em><em>None</em>) – if there are precalculated distributions of QC
+metrics for this dataset, give the path to the
+metrics and then group statistics will be included</p></li>
+<li><p><strong>overwrite</strong> (<em>boolean</em>) – whether or not to overwrite the report</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.reports.qc.visualizations">
+<span id="discovery-imaging-utils-reports-qc-visualizations-module"></span><h2>discovery_imaging_utils.reports.qc.visualizations module<a class="headerlink" href="#module-discovery_imaging_utils.reports.qc.visualizations" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.visualizations.make_gmwmcsf_underlay_plot">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.visualizations.</code><code class="sig-name descname">make_gmwmcsf_underlay_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_underlay</span></em>, <em class="sig-param"><span class="n">path_to_gm_mask</span></em>, <em class="sig-param"><span class="n">path_to_wm_mask</span></em>, <em class="sig-param"><span class="n">path_to_csf_mask</span></em>, <em class="sig-param"><span class="n">ap_buffer_size</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">crop_buffer</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">num_total_images</span><span class="o">=</span><span class="default_value">16</span></em>, <em class="sig-param"><span class="n">underlay_cmap</span><span class="o">=</span><span class="default_value">'gray'</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">0.15</span></em>, <em class="sig-param"><span class="n">output_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">close_plot</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.visualizations.make_gmwmcsf_underlay_plot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.visualizations.make_harv_oxf_qc_image">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.visualizations.</code><code class="sig-name descname">make_harv_oxf_qc_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">underlay_path</span></em>, <em class="sig-param"><span class="n">harv_oxf_path</span></em>, <em class="sig-param"><span class="n">ap_buffer_size</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">crop_buffer</span><span class="o">=</span><span class="default_value">30</span></em>, <em class="sig-param"><span class="n">num_total_images</span><span class="o">=</span><span class="default_value">16</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">0.4</span></em>, <em class="sig-param"><span class="n">output_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">close_plot</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.visualizations.make_harv_oxf_qc_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.visualizations.make_outline_overlay_underlay_plot">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.visualizations.</code><code class="sig-name descname">make_outline_overlay_underlay_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_underlay</span></em>, <em class="sig-param"><span class="n">path_to_overlay</span></em>, <em class="sig-param"><span class="n">ap_buffer_size</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">crop_buffer</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">num_total_images</span><span class="o">=</span><span class="default_value">16</span></em>, <em class="sig-param"><span class="n">dpi</span><span class="o">=</span><span class="default_value">400</span></em>, <em class="sig-param"><span class="n">aparcaseg</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">dseg</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">wm</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">wmgm</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">underlay_cmap</span><span class="o">=</span><span class="default_value">'Greys'</span></em>, <em class="sig-param"><span class="n">linewidths</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">output_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">close_plot</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.visualizations.make_outline_overlay_underlay_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that makes contour plot with nifti mask and underlay.</p>
+<p>Takes paths to two nifti files, the overlay nifti file will
+be thresholded, and a contour created out of the resulting mask
+and then will be projected over the underlay. If the underlay
+and overlay don’t have the same dimensions, then nibabel’s
+resample_to_from function will be used to resample the
+underlay into the mask space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_to_underlay</strong> (<em>str</em>) – path to underlay file</p></li>
+<li><p><strong>path_to_overlay</strong> (<em>str</em>) – path to overlay that will be masked and used
+to create contour</p></li>
+<li><p><strong>ap_buffer_size</strong> (<em>int</em>) – ap buffer</p></li>
+<li><p><strong>crob_buffer</strong> (<em>int</em>) – make this bigger to reduce cropping</p></li>
+<li><p><strong>num_total_images</strong> (<em>int</em>) – number of images in the panel, must
+have a sqrt that is an integer so
+panel can be square</p></li>
+<li><p><strong>aparcaseg</strong> (<em>boolean</em>) – if true, contours of the pial surface
+will be used from an aparcaseg vol</p></li>
+<li><p><strong>dseg</strong> (<em>boolean</em>) – if true gray matter voxels used for
+contour from dseg file</p></li>
+<li><p><strong>wm</strong> (<em>boolean</em>) – If true, will change aparcaseg and dseg
+functionality so that they make outline
+of wm surface instead</p></li>
+<li><p><strong>wmgm</strong> (<em>boolean</em>) – If true, this will override the wm field
+and instead make a contour out of the aparcaseg
+segmentation for both GM and WM (for at least
+aparcaseg at this point)</p></li>
+<li><p><strong>underlay_cmap</strong> (<em>str</em>) – the matplotlib colormap to use for the
+underlay</p></li>
+<li><p><strong>linewidths</strong> (<em>float</em>) – the width of contour line</p></li>
+<li><p><strong>output_path</strong> (<em>str</em><em> or </em><em>None</em>) – optional path for file to be saved
+(do not include extension)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.reports.qc.visualizations.plt_ind_on_dist">
+<code class="sig-prename descclassname">discovery_imaging_utils.reports.qc.visualizations.</code><code class="sig-name descname">plt_ind_on_dist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">distribution</span></em>, <em class="sig-param"><span class="n">ind_val</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">dpi</span><span class="o">=</span><span class="default_value">150</span></em>, <em class="sig-param"><span class="n">out_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">close_plot</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.reports.qc.visualizations.plt_ind_on_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function plots an arrow on a distribution</p>
+<p>Makes a smooth illustration of a distribution
+and highlights a point on that distribution
+with an arrow (i.e. to show where an individual
+lies on that distribution). The distribution
+is estimated using a kernel density estimator
+through seaborn.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>distribution</strong> (<em>numpy.ndarray</em>) – 1d numpy array whose contents will be used to
+build a probability density function in the
+plot</p></li>
+<li><p><strong>ind_val</strong> (<em>float</em>) – location where the arrow should point to on the
+plot</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – string to put on the xlabel</p></li>
+<li><p><strong>dpi</strong> (<em>int</em><em>, </em><em>optional</em>) – dpi of the figure</p></li>
+<li><p><strong>out_path</strong> (<em>str</em><em> or </em><em>None</em><em>, </em><em>optional</em>) – defaults to None, otherwise the name of the file
+to be created</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.reports.qc">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-discovery_imaging_utils.reports.qc" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Erik Lee
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

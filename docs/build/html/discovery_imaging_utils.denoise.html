@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>discovery_imaging_utils.denoise package &mdash; discovery_imaging_utils v0.0.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> discovery_imaging_utils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.html">discovery_imaging_utils package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">discovery_imaging_utils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>discovery_imaging_utils.denoise package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/discovery_imaging_utils.denoise.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="discovery-imaging-utils-denoise-package">
+<h1>discovery_imaging_utils.denoise package<a class="headerlink" href="#discovery-imaging-utils-denoise-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-discovery_imaging_utils.denoise.fmriprep_dict">
+<span id="discovery-imaging-utils-denoise-fmriprep-dict-module"></span><h2>discovery_imaging_utils.denoise.fmriprep_dict module<a class="headerlink" href="#module-discovery_imaging_utils.denoise.fmriprep_dict" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.denoise.fmriprep_dict.demean_normalize">
+<code class="sig-prename descclassname">discovery_imaging_utils.denoise.fmriprep_dict.</code><code class="sig-name descname">demean_normalize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">one_d_array</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise.fmriprep_dict.demean_normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>#Takes a 1d array and subtracts mean, and
+#divides by standard deviation</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.denoise.fmriprep_dict.denoise_hdf5">
+<code class="sig-prename descclassname">discovery_imaging_utils.denoise.fmriprep_dict.</code><code class="sig-name descname">denoise_hdf5</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hdf5_input_path</span></em>, <em class="sig-param"><span class="n">hdf5_output_path</span></em>, <em class="sig-param"><span class="n">hpf_before_regression</span></em>, <em class="sig-param"><span class="n">scrub_criteria_dictionary</span></em>, <em class="sig-param"><span class="n">interpolation_method</span></em>, <em class="sig-param"><span class="n">noise_comps_dict</span></em>, <em class="sig-param"><span class="n">clean_comps_dict</span></em>, <em class="sig-param"><span class="n">high_pass</span></em>, <em class="sig-param"><span class="n">low_pass</span></em>, <em class="sig-param"><span class="n">max_batch_size</span><span class="o">=</span><span class="default_value">1000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise.fmriprep_dict.denoise_hdf5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper function for imaging_utils.denoise.general.run_denoising</p>
+<p>Function that makes the execution of imaging_utils.denoise.general.run_denoising
+more convenient if there is an fmriprep_out_dict, containing a confounds
+dictionary, image_data_dictionary with data to be cleaned, general_info.json
+dictionary with fields including n_skip_vols and TR. The remainder of the
+arguments passed to this function will allow you to configure your denoising
+based on the fmriprep_out_dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fmriprep_out_dict</strong> – </p></li>
+<li><p><strong>hpf_before_regression</strong> – </p></li>
+<li><p><strong>scrub_criteria_dictionary</strong> – </p></li>
+<li><p><strong>interpolation_method</strong> – </p></li>
+<li><p><strong>noise_comps_dict</strong> – </p></li>
+<li><p><strong>clean_comps_dict</strong> – </p></li>
+<li><p><strong>high_pass</strong> – </p></li>
+<li><p><strong>low_pass</strong> – </p></li>
+<li><p><strong>batch_size</strong> (<em>int</em><em>, or </em><em>None</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>denoise_out_dict</strong> – Dictionary containing the output of denoising. This dictionary will have
+confounds, general_info, file_paths (if present), and the non-data elements
+copied from the input fmriprep_out_dict. The data field in this dictionary
+will be overwritten with the cleaned timeseries data. Beyond these fields,
+there will be fields for the settings used in denoising, mean signal
+intensities for different masks of interest, and statistics calculated
+during the denoising process.</p>
+<dl class="simple">
+<dt>The main element of interest will be -</dt><dd><p>denoise_out_dict[‘image_data_dictionary’][‘data’]</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.denoise.fmriprep_dict.reduce_ics">
+<code class="sig-prename descclassname">discovery_imaging_utils.denoise.fmriprep_dict.</code><code class="sig-name descname">reduce_ics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_matrix</span></em>, <em class="sig-param"><span class="n">num_dimensions</span></em>, <em class="sig-param"><span class="n">n_skip_vols</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise.fmriprep_dict.reduce_ics" title="Permalink to this definition">¶</a></dt>
+<dd><p>#Takes input_matrix &lt;num_original_dimensions, num_timepoints&gt;. Returns
+#the num_dimensions top PCs from the input_matrix which are derived excluding
+#n_skip_vols, but zeros are padded to the beginning of the time series
+#in place of the n_skip_vols.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.denoise.general">
+<span id="discovery-imaging-utils-denoise-general-module"></span><h2>discovery_imaging_utils.denoise.general module<a class="headerlink" href="#module-discovery_imaging_utils.denoise.general" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.denoise.general.demean_normalize">
+<code class="sig-prename descclassname">discovery_imaging_utils.denoise.general.</code><code class="sig-name descname">demean_normalize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">one_d_array</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise.general.demean_normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>#Takes a 1d array and subtracts mean, and
+#divides by standard deviation</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.denoise.general.dvars">
+<code class="sig-prename descclassname">discovery_imaging_utils.denoise.general.</code><code class="sig-name descname">dvars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timeseries</span></em>, <em class="sig-param"><span class="n">bad_inds</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise.general.dvars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to calculate DVARS based on definition
+listed in Power’s 2012 neuroimage paper. timeseries
+should have shape &lt;regions, timepoints&gt; and bad_inds
+is an optional list of indices that have been scrubbed.
+If bad_inds is included, then both the specified indices
+plus the points prior to the bad inds have DVARS set to
+-0.001. The output is an array with the same length as the
+input timesignal and the first element will always be
+-0.001.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.denoise.general.interpolate">
+<code class="sig-prename descclassname">discovery_imaging_utils.denoise.general.</code><code class="sig-name descname">interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timepoint_defined</span></em>, <em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">interp_type</span></em>, <em class="sig-param"><span class="n">TR</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise.general.interpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>#defined_timepoints should be an array the length of the t with True at timepoints
+#that are defined and False at timepoints that are not defined. signal should also
+#be an array of length t. Timepoints at defined as False will be overwritten. This
+#script supports extrapolation at beginning/end of the time signal. As a quality control
+#for the spline interpolation, the most positive/negative values observed in the defined
+#portion of the signal are set as bounds for the interpolated signal</p>
+<p>#interpolation types supported:</p>
+<blockquote>
+<div><p>#(1) linear - takes closest point before/after undefined timepoint and interpolates.
+#    in end cases, uses the two points before/after
+#(2) cubic_spline - takes 5 closest time points before/after undefined timepoints
+#and applies cubic spline to undefined points. Uses defined signal to determine maximum/minimum
+#bounds for new interpolated points.
+#(3) spectral based off of code from the 2014 Power
+#    paper</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.denoise.general.reduce_ics">
+<code class="sig-prename descclassname">discovery_imaging_utils.denoise.general.</code><code class="sig-name descname">reduce_ics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_matrix</span></em>, <em class="sig-param"><span class="n">num_dimensions</span></em>, <em class="sig-param"><span class="n">n_skip_vols</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise.general.reduce_ics" title="Permalink to this definition">¶</a></dt>
+<dd><p>#Takes input_matrix &lt;num_original_dimensions, num_timepoints&gt;. Returns
+#the num_dimensions top PCs from the input_matrix which are derived excluding
+#n_skip_vols, but zeros are padded to the beginning of the time series
+#in place of the n_skip_vols.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.denoise.general.run_denoising">
+<code class="sig-prename descclassname">discovery_imaging_utils.denoise.general.</code><code class="sig-name descname">run_denoising</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_series</span></em>, <em class="sig-param"><span class="n">hpf_before_regression</span></em>, <em class="sig-param"><span class="n">inds_to_include</span></em>, <em class="sig-param"><span class="n">interpolation_method</span></em>, <em class="sig-param"><span class="n">noise_comps</span></em>, <em class="sig-param"><span class="n">clean_comps</span></em>, <em class="sig-param"><span class="n">high_pass</span></em>, <em class="sig-param"><span class="n">low_pass</span></em>, <em class="sig-param"><span class="n">n_skip_vols</span></em>, <em class="sig-param"><span class="n">TR</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise.general.run_denoising" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to denoise fMRI data.</p>
+<p>Function to denoise fMRI data.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.denoise.general.spectral_interpolation">
+<code class="sig-prename descclassname">discovery_imaging_utils.denoise.general.</code><code class="sig-name descname">spectral_interpolation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timepoint_defined</span></em>, <em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">TR</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise.general.spectral_interpolation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.denoise.general.spectral_interpolation_fast">
+<code class="sig-prename descclassname">discovery_imaging_utils.denoise.general.</code><code class="sig-name descname">spectral_interpolation_fast</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timepoint_defined</span></em>, <em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">TR</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise.general.spectral_interpolation_fast" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.denoise">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-discovery_imaging_utils.denoise" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Erik Lee
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

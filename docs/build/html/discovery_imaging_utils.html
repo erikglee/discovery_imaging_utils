@@ -34,8 +34,10 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
+    <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Cleaning a Parcellated Dictionary" href="cleaning_parcellated_dictionary.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,26 +82,26 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">discovery_imaging_utils package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-discovery_imaging_utils.denoise_ts_dict">discovery_imaging_utils.denoise_ts_dict module</a></li>
-<li><a class="reference internal" href="#module-discovery_imaging_utils.dictionary_utils">discovery_imaging_utils.dictionary_utils module</a><ul>
-<li><a class="reference internal" href="#dictionary-utilities">Dictionary Utilities</a></li>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">discovery_imaging_utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-discovery_imaging_utils.denoise_ts_dict">discovery_imaging_utils.denoise_ts_dict module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-discovery_imaging_utils.dictionary_utils">discovery_imaging_utils.dictionary_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-discovery_imaging_utils.func_denoising">discovery_imaging_utils.func_denoising module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-discovery_imaging_utils.imaging_utils">discovery_imaging_utils.imaging_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-discovery_imaging_utils.imaging_visualizations">discovery_imaging_utils.imaging_visualizations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-discovery_imaging_utils.nifti_utils">discovery_imaging_utils.nifti_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-discovery_imaging_utils.parc_ts_dictionary">discovery_imaging_utils.parc_ts_dictionary module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-discovery_imaging_utils.triple_network_model">discovery_imaging_utils.triple_network_model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-discovery_imaging_utils">Module contents</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-discovery_imaging_utils.func_denoising">discovery_imaging_utils.func_denoising module</a></li>
-<li><a class="reference internal" href="#module-discovery_imaging_utils.imaging_utils">discovery_imaging_utils.imaging_utils module</a></li>
-<li><a class="reference internal" href="#module-discovery_imaging_utils.imaging_visualizations">discovery_imaging_utils.imaging_visualizations module</a></li>
-<li><a class="reference internal" href="#module-discovery_imaging_utils.nifti_utils">discovery_imaging_utils.nifti_utils module</a></li>
-<li><a class="reference internal" href="#module-discovery_imaging_utils.parc_ts_dictionary">discovery_imaging_utils.parc_ts_dictionary module</a></li>
-<li><a class="reference internal" href="#module-discovery_imaging_utils.triple_network_model">discovery_imaging_utils.triple_network_model module</a></li>
-<li><a class="reference internal" href="#module-discovery_imaging_utils">Module contents</a></li>
 </ul>
-</li>
-</ul>
-</div>
+
             
           
         </div>
@@ -173,12 +175,167 @@
 <dl class="py function">
 <dt id="discovery_imaging_utils.denoise_ts_dict.demean_normalize">
 <code class="sig-prename descclassname">discovery_imaging_utils.denoise_ts_dict.</code><code class="sig-name descname">demean_normalize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">one_d_array</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise_ts_dict.demean_normalize" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Takes a 1d array and subtracts mean, and
+#divides by standard deviation</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.denoise_ts_dict.denoise">
 <code class="sig-prename descclassname">discovery_imaging_utils.denoise_ts_dict.</code><code class="sig-name descname">denoise</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parc_dict</span></em>, <em class="sig-param"><span class="n">hpf_before_regression</span></em>, <em class="sig-param"><span class="n">scrub_criteria_dictionary</span></em>, <em class="sig-param"><span class="n">interpolation_method</span></em>, <em class="sig-param"><span class="n">noise_comps_dict</span></em>, <em class="sig-param"><span class="n">clean_comps_dict</span></em>, <em class="sig-param"><span class="n">high_pass</span></em>, <em class="sig-param"><span class="n">low_pass</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise_ts_dict.denoise" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>A function to denoise a dictionary with parcellated fMRI data.</p>
+<p>Function to denoise resting-state fMRI data. DOCUMENATION UNDERGOING TRANSITION…</p>
+<p>Using the tools in <em>parc_ts_dictionary</em>, a dictionary is generated containing all of the items that would be conventionally used in denoising the fMRI time signal. This dictionary can then be used to generated denoised data with the <em>denoise</em> function within <em>denoise_ts_dict</em>. The <em>denoise</em> function is seen as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>denoise(parc_dict,</dt><dd><p>hpf_before_regression,
+scrub_criteria_dictionary,
+interpolation_method,
+noise_comps_dict,
+clean_comps_dict,
+high_pass,
+low_pass)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parc_dict</strong> (<em>dict</em>) – This is a dictionary that has presumably been generated by parc_ts_dictionary.</p></li>
+<li><p><strong>hpf_before_regression</strong> (<em>bool</em><em> or </em><em>float</em>) – specifies whether or not the nuisance regressors and the time-signals of interest (i.e. the parcellated time-signals) are filtered before the nuisance regressors are regressed from the parcellated time-signals. If you do not want to do this, set to False. Otherwise set to the desired high-pass cutoff point.</p></li>
+<li><p><strong>scrub_criteria_dictionary</strong> (<em>dict</em><em> or </em><em>bool</em>) – <p>This argument allows the user to define how scrubbing should be conducted. If you do not want to do scrubbing, set this argument to False. If you want to do scrubbing, there are a few different configuration options for the dictionary</p>
+<ol class="arabic simple">
+<li><p>{‘std_dvars’ : 1.2, ‘framewise_displacement’ : 0.5}</p></li>
+<li><p>{‘Uniform’ : [0.8, [‘std_dvars’, ‘framewise_displacement’]]}</p></li>
+</ol>
+<p>In the first example, any timepoints with std_dvars &gt; 1.2, and framewise_displacement &gt; 0.5 will be scrubbed. Any number of variables found under the confounds dictionary can be used to do scrubbing, with any cutoff point. In the second example, Uniform scrubbing is specified, with 0.8 meaning that the best 80% of timepoints should be kept. The sub-list with std_dvars and framewise_displacement says that std_dvars and framewise_displacement should be used to determine what the best volumes are. This means the two metrics will be demeaned and variance normalized and then added together, and the 80% of volumes with the lowest score on the combined metric will be kept. Any variables under the confounds dictionary (that are not groupings such as motion_regs_24) can be used to construct these dictionaries.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>interpolation_method<span class="classifier">str</span></dt><dd><p>Can choose between ‘linear’, ‘cubic_spline’, and ‘spectral’. The spectral denoising takes the longest but is expected to perform the best (this is based off of the technique presented in Power’s 2014 NeuroImage paper/Anish Mitra’s work)</p>
+</dd>
+<dt>noise_comps_dict<span class="classifier">dict or bool</span></dt><dd><p>this dictionary configures what nuisance signals will be removed from the parcellated timeseries. Each element represents an entry to the confounds dictionary, where the key is the name of the confound (or group of confounds) to be regressed, and the entry is either False or an integer, which specifies whether the nuisance regressors should be reduced by PCA and if so how many principal components should be kept. Some examples are seen below:</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>#Include 24 motion parameters as regressors
+denoise_dict = {‘motion_regs_twentyfour’ : False}</p>
+<p>#Include 24 motion parameters as regressors, reduced through PCA to 10 regressors
+denoise_dict = {‘motion_regs_twentyfour’ : 10}</p>
+<p>#Include WM/CSF/GSR + motion parameters as regressors
+denoise_dict = {‘wmcsfgsr’ : False, ‘motion_regs_twentyfour’ : False}</p>
+<p>#Include WM/CSF/GSR + ICA-AROMA Noise Timeseries as regressors
+denoise_dict = {‘wmcsfgsr’ : False, ‘aroma_noise_ics’ : False}</p>
+<p>#Skip nuisance regression
+denoise_dict = False</p>
+<ul class="simple">
+<li><p>clean_comps_dict: The formatting of this dictionary is identical to the noise_comps_dict, but this dictionary is used for specifying components whose variance you do not want to be removed from the parcellated timeseries. During the denoising process a linear model will be fit to the parcellated time-series using both the signals specified by the noise_comps_dict and clean_comps_dict, but only the signal explained by the noise_comps_dict will be removed.</p></li>
+<li><p>high_pass: The cutoff frequency for the high-pass filter to be used in denoising. If you want to skip the high-pass filter, set to False.</p></li>
+<li><p>low_pass: The cutoff frequency for the low-pass filter to be used in denoising. If you want tot skip the low-pass filter, set to False.</p></li>
+</ul>
+<p>Running the function will output a dictionary containing the cleaned parcellated signal along with the settings used for denoising, other QC variables, and variables copied from the input dictionary. This includes:</p>
+<ul class="simple">
+<li><p>cleaned_timeseries: The cleaned signal after denoising with shape &lt;n_regions, n_timepoints&gt;. Any scrubbed timepoints, or timepoints removed at beginning of the scan will be NaN</p></li>
+<li><p>denoising_settings.json: The settings specified when using the <em>denoise</em> function</p></li>
+<li><p>dvars_pre_cleaning: DVARS calculated pre-cleaning on all input parcels (timepoints skipped at the beginning of the run + the next timepoint after the initial skipped timepoints will have DVARS set to -0.001)</p></li>
+<li><p>dvars_post_cleaning: DVARS calculated post-cleaning on all input parcels (scrubbed timepoints, timepoints at beginning of the run, and timepoints following scrubbed timepoints will have DVARS set to -0.001)</p></li>
+<li><p>dvars_stats.json: Different statistics about DVARS including (removed TPs not included in any stats):</p></li>
+</ul>
+<ul class="simple">
+<li><p>mean_dvars_pre_cleaning: temporal average dvars before cleaning</p></li>
+<li><p>mean_dvars_post_cleaning: temporal average dvars after cleaning</p></li>
+<li><p>dvars_remaining_ratio: mean_dvars_post_cleaning/mean_dvars_pre_cleaning</p></li>
+<li><p>max_dvars_pre_cleaning: highest dvars value before cleaning</p></li>
+<li><p>max_dvars_post_cleaning: highest dvars value after cleaning</p></li>
+</ul>
+<ul class="simple">
+<li><p>file_path_dictionary.json: copied from input, containing file paths involved in constructing the parcellated dictionary</p></li>
+<li><p>general_info.json: copied from input, containing relevant info such as the name of the subject/session, parcel labels, number of high motion and fd timepoints (calculated from fMRIPREP), etc.</p></li>
+<li><p>good_timepoint_inds: the indices for timepoints with defined signal (i.e. everything but the volumes dropped at the beginning of the scan and scrubbed timepoints)</p></li>
+<li><p>labels: another copy of the parcel label names</p></li>
+<li><p>mean_roi_signal_intensities.json: the mean signal intensities for raw fMRIPREP calculated csf, global_signal, and white_matter variables</p></li>
+<li><p>median_ts_intensities: The spatial mean of the temporal median of all voxels/vertices within each parcel (calculated on fMRIPREP output)</p></li>
+<li><p>num_good_timepoints: the total number of good timepoints left after scrubbing and removing initial volumes</p></li>
+<li><p>std_after_regression: The temporal standard deviation of each parcel’s timesignal after nuisance regression (this is calcualated prior to the final filtering of the signal)</p></li>
+<li><p>std_before_regression: The temporal standard deviation of each parcel’s timesignal prior to nuisance regression (if hpf_before_regression is used, this is calculated after that filtering step)</p></li>
+<li><p>std_regression_statistics</p></li>
+</ul>
+<ul class="simple">
+<li><p>mean_remaining_std_ratio: the average of std_before_regression/std_after_regression across all parcels</p></li>
+<li><p>least_remaining_std_ratio: the minimum of std_before_regression/std_after_regression across all parcels</p></li>
+</ul>
+<p>In totallity, processing follows the sequence below:
+1. Calculate DVARS on the input time-series.
+2. If hpf_before_regression is used, filter the parcellated time-series, and the signals specified by clean_comps_dict, and noise_comps_dict.
+3. Calculate the temporal standard deviation for each parcel (for std_before_regression)
+3. Fit the signals generated from clean_comps_dict and noise_comps_dict to the parcellated timeseries (using only defined, not scrubbed points) and remove the signal explained from the noise_comps_dict.
+4. Calculate the temporal standard deviation for each parcel (for std_after_regression)
+5. Interpolate over any scrubbed timepoints
+6. Apply either highpass, lowpass, or bandpass filter if specified
+7. Set all undefined timepoints to NaN
+8. Calculate DVARS on the output time-series
+9. Calculate remaining meta-data</p>
+<p>#Function inputs:</p>
+<p>#parc_dict = a parc_dict object generated from
+#file “parc_ts_dictionary.py” which will contain both an
+#uncleaned parcellated time series, and other nuisance variables
+# etc. of interest</p>
+<p>#hpf_before_regression = the cutoff frequency for an optional high
+#pass filter that can be applied to the nuisance regressors (noise/clean) and the
+#uncleaned time signal before any regression or scrubbing occurs. Recommended
+#value would be 0.01 or False (False for if you want to skip this step)</p>
+<p>#scrub_criteria_dictionary = a dictionary that describes how scrubbing should be
+#implemented. Three main options are (1) instead of inputting a dictionary, setting this
+#variable to False, which will skip scrubbing, (2) {‘Uniform’ : [AMOUNT_TO_KEEP, [‘std_dvars’, ‘framewise_displacement’]]},
+#which will automatically only keep the best timepoints (for if you want all subjects to be scrubbed an equivelant amount).
+#This option will keep every timepoint if AMOUNT_TO_KEEP was 1, and no timepoints if it was 0. The list of confounds following
+#AMOUNT_TO_KEEP must at least contain one metric (but can be as many as you want) from parc_object.confounds. If more than one
+#metric is given, they will be z-transformed and their sum will be used to determine which timepoints should be
+#kept, with larger values being interpreted as noiser (WHICH MEANS THIS OPTION SHOULD ONLY BE USED WITH METRICS WHERE
+#ZERO OR NEGATIVE BASED VALUES ARE FINE AND LARGE POSITIVE VALUES ARE BAD) - this option could potentially produce
+#slightly different numbers of timepoints accross subjects still if the bad timepoints overlap to varying degrees with
+#the number of timepoints that are dropped at the beginning of the scan. (3) {‘std_dvars’ : 1.2, ‘framewise_displacement’ : 0.5} -
+#similar to the “Uniform” option, the input metrics should be found in parc_object.confounds. Here only timepoints
+#with values below all specified thresholds will be kept for further analyses</p>
+<p>#interpolation_method: options are ‘linear’, ‘cubic_spline’ and ‘spectral’ (spectral uses more CPU time).
+#While scrubbed values are not included to determine any of the weights in the denoising
+#model, they will still be interpolated over and then “denoised” (have nuisance variance
+#removed) so that we have values to put into the optional filter at the end of processing.
+#The interpolated values only have any influence on the filtering proceedure, and will be again
+#removed from the time signal after filtering and thus not included in the final output. Interpolation
+#methods will do weird things if there aren’t many timepoints after scrubbing. All interpolation
+#schemes besides spectral are essentially wrappers over scipy’s 1d interpolation methods. ‘spectral’
+#interpolation is implemented based on code from Anish Mitra/Jonathan Power
+#as shown in Power’s 2014 NeuroImage paper</p>
+<p>#noise_comps_dict and clean_comps_dict both have the same syntax. The values
+#specified by both of these matrices will be used (along with constant and linear trend)
+#to construct the denoising regression model for the input timeseries, but only the
+#noise explained by the noise_comps_dict will be removed from the input timeseries (
+#plus also the constant and linear trend). Unlike the scrub_criteria_dictionary, the
+#data specifed here do not need to come from the confounds section of the parc_object,
+#and because of this, if you want to include something found under parc_object.confounds,
+#you will need to specify “confounds” in the name. An example of the dictionary can be seen below:
+#
+#    clean_comps_dict = {‘aroma_noise_ic_timeseries’ : False}
+#
+#
+#    noise_comps_dict = {‘aroma_noise_ic_timeseries’ : 5,
+#                       ‘confounds.wmcsfgsr’ : False
+#                       ‘confounds.motion_regs_twelve’ : False
+#                        }
+#
+#
+#The dictionary key should specify an element to be included in the denoising process
+#and the dictionary value should be False if you don’t want to do a PCA reduction on
+#the set of nuisance variables (this will be the case more often than not), alternatively
+#if the key represents a grouping of confounds, then you can use the value to specify the
+#number of principal components to kept from a reduction of the grouping. If hpf_before_regression
+#is used, the filtering will happen after the PCA.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.denoise_ts_dict.dvars">
@@ -197,22 +354,94 @@ input timesignal and the first element will always be
 <dl class="py function">
 <dt id="discovery_imaging_utils.denoise_ts_dict.find_timepoints_to_scrub">
 <code class="sig-prename descclassname">discovery_imaging_utils.denoise_ts_dict.</code><code class="sig-name descname">find_timepoints_to_scrub</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parc_object</span></em>, <em class="sig-param"><span class="n">scrubbing_dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise_ts_dict.find_timepoints_to_scrub" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>” Internal function used to find timepoints to scrub.</p>
+<p>Function that takes a parcellated dictionary object and
+another dictionary to specify the scrubbing settings, and
+uses this to find which timepoints to scrub.</p>
+<p>If scrubbing dictionary is set to False, then the initial timepoints
+to remove at the beginning of the scan (specified under parc_object)
+will be the only ones specified for removal. If scrubbing dictioanary
+is defined, either hard thresholds or Uniform scrubbing based on
+criteria specified under the scrubbing dictionary will be used for
+determining bad timepoints. All timepoints identified as bad (outside
+of the initial timepoints) will be padded, and because of this the output
+to the uniform scrubbing may differ by a couple of timepoints depending on
+how the overlap among bad timepoints happens to fall.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parc_object</strong> (<em>dict</em>) – parcellated object dictionary containing confounds class and n_skip_vols</p></li>
+<li><p><strong>scrubbing_dictionary</strong> (<em>bool</em><em> or </em><em>dict</em>) – dictionary to specify scrubbing criteria (see documentation for main denoising
+script)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>array with the same length as the input data, having 1s at defined timepoints and
+0s at undefined timepoints</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.denoise_ts_dict.interpolate">
 <code class="sig-prename descclassname">discovery_imaging_utils.denoise_ts_dict.</code><code class="sig-name descname">interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timepoint_defined</span></em>, <em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">interp_type</span></em>, <em class="sig-param"><span class="n">TR</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise_ts_dict.interpolate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#defined_timepoints should be an array the length of the t with True at timepoints
+#that are defined and False at timepoints that are not defined. signal should also
+#be an array of length t. Timepoints at defined as False will be overwritten. This
+#script supports extrapolation at beginning/end of the time signal. As a quality control
+#for the spline interpolation, the most positive/negative values observed in the defined
+#portion of the signal are set as bounds for the interpolated signal</p>
+<p>#interpolation types supported:</p>
+<blockquote>
+<div><p>#(1) linear - takes closest point before/after undefined timepoint and interpolates.
+#    in end cases, uses the two points before/after
+#(2) cubic_spline - takes 5 closest time points before/after undefined timepoints
+#and applies cubic spline to undefined points. Uses defined signal to determine maximum/minimum
+#bounds for new interpolated points.
+#(3) spectral based off of code from the 2014 Power
+#    paper</p>
+</div></blockquote>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.denoise_ts_dict.load_comps_dict">
 <code class="sig-prename descclassname">discovery_imaging_utils.denoise_ts_dict.</code><code class="sig-name descname">load_comps_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parc_dict</span></em>, <em class="sig-param"><span class="n">comps_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise_ts_dict.load_comps_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Internal function, which is given a “parc_dict”,
+#with different useful resting-state properties
+#(made by module parc_ts_dictionary), and accesses
+#different components specified by comp_dict, and
+#outputs them as a 2d array.</p>
+<p>#All variables specified must be a key in the dictionary
+#accessed by parc_dict[‘confounds’]</p>
+<p>#For pre-computed groupings of variables, this function
+#supports PCA reduction of the variable grouping.</p>
+<p>#An example comps_dict is shown below:
+#
+# example_comps_dict = {‘framewise_displacement’ : False,
+#                       ‘twelve_motion_regs’ : 3,
+#                       ‘aroma_noise_ics’ : 3}
+#
+#This dictionary would form an output array &lt;7,n_timepoints&gt; including
+#framewise displacement, 3 PCs from twelve motion regressors, and
+#3 PCs from the aroma noise ICs. False specifies that no PC reduction
+#should be done on the variable, and otherwise the value in the dictionary
+#specifies the number of PCs to be reduced to.
+#
+#PCA is taken while ignoring the n_skip_vols
+#</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.denoise_ts_dict.reduce_ics">
 <code class="sig-prename descclassname">discovery_imaging_utils.denoise_ts_dict.</code><code class="sig-name descname">reduce_ics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_matrix</span></em>, <em class="sig-param"><span class="n">num_dimensions</span></em>, <em class="sig-param"><span class="n">n_skip_vols</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.denoise_ts_dict.reduce_ics" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Takes input_matrix &lt;num_original_dimensions, num_timepoints&gt;. Returns
+#the num_dimensions top PCs from the input_matrix which are derived excluding
+#n_skip_vols, but zeros are padded to the beginning of the time series
+#in place of the n_skip_vols.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.denoise_ts_dict.spectral_interpolation">
@@ -227,163 +456,6 @@ input timesignal and the first element will always be
 </div>
 <div class="section" id="module-discovery_imaging_utils.dictionary_utils">
 <span id="discovery-imaging-utils-dictionary-utils-module"></span><h2>discovery_imaging_utils.dictionary_utils module<a class="headerlink" href="#module-discovery_imaging_utils.dictionary_utils" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="dictionary-utilities">
-<h3>Dictionary Utilities<a class="headerlink" href="#dictionary-utilities" title="Permalink to this headline">¶</a></h3>
-<dl class="py function">
-<dt id="discovery_imaging_utils.dictionary_utils.json_path_to_dict">
-<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.</code><code class="sig-name descname">json_path_to_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_json_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.json_path_to_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that takes an input path for json file and outputs its corresponding dict.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path_to_json_file</strong> (<em>str</em>) – a string containing the path to a json file</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a dictionary containing the contents from the json pointed to by path_to_json_file</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.dictionary_utils.save_dictionary">
-<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.</code><code class="sig-name descname">save_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">path_for_dictionary_dir</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.save_dictionary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that takes a dictionary and saves it as a directory structure.</p>
-<p>This function takes a dictionary and saves its heirarchical structure to
-a directory. Any keys ending in .json (or .txt) file will be saved to
-.json (or .txt) files. All other key/entries will be saved with numpy.
-The results can be loaded again with the function load_dictionary.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dictionary</strong> (<em>dict</em>) – the dictionary object that is to be saved</p></li>
-<li><p><strong>path_for_dictionary_dir</strong> (<em>str</em>) – the path to the directory that will be made to house the dictionary structure</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em>) – whether or not to overwrite directory at path_for_dictionary_dir if it already exists</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.dictionary_utils.load_dictionary">
-<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.</code><code class="sig-name descname">load_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary_dir_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.load_dictionary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that takes loads a formatted directory structure as a dictionary</p>
-<p>This function takes a path to a directory (that was probably generated by
-save_dictionary) and recursively iterates through the contents to rebuild
-the directory structure as a dictionary. THE ONLY supported file types that
-can be present in the directory are <a href="#id1"><span class="problematic" id="id2">*</span></a>.npy, <a href="#id3"><span class="problematic" id="id4">*</span></a>.json, and <a href="#id5"><span class="problematic" id="id6">*</span></a>.txt files.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dictionary_dir_path</strong> (<em>str</em>) – the path to the directory whose structure should be loaded as a dictionary</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a dictionary constructed from the conentents found in dictionary_dir_path</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.dictionary_utils.flatten_dictionary">
-<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.</code><code class="sig-name descname">flatten_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.flatten_dictionary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that takes a heirarchical dictionary and flattens it to one level.</p>
-<p>The function takes an input dictionary containing multiple levels (i.e. dictionaries
-within dictionaries), and restructures the contents as a single level dictionary with
-underscores placed in between different levels of heirarchy.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dictionary</strong> (<em>dict</em>) – the dictionary to be flattened</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the flattened dictionary</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="id0">
-<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.</code><code class="sig-name descname">flatten_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that takes a heirarchical dictionary and flattens it to one level.</p>
-<p>The function takes an input dictionary containing multiple levels (i.e. dictionaries
-within dictionaries), and restructures the contents as a single level dictionary with
-underscores placed in between different levels of heirarchy.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dictionary</strong> (<em>dict</em>) – the dictionary to be flattened</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the flattened dictionary</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="id7">
-<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.</code><code class="sig-name descname">json_path_to_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_json_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that takes an input path for json file and outputs its corresponding dict.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path_to_json_file</strong> (<em>str</em>) – a string containing the path to a json file</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a dictionary containing the contents from the json pointed to by path_to_json_file</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="id8">
-<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.</code><code class="sig-name descname">load_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary_dir_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that takes loads a formatted directory structure as a dictionary</p>
-<p>This function takes a path to a directory (that was probably generated by
-save_dictionary) and recursively iterates through the contents to rebuild
-the directory structure as a dictionary. THE ONLY supported file types that
-can be present in the directory are <a href="#id9"><span class="problematic" id="id10">*</span></a>.npy, <a href="#id11"><span class="problematic" id="id12">*</span></a>.json, and <a href="#id13"><span class="problematic" id="id14">*</span></a>.txt files.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dictionary_dir_path</strong> (<em>str</em>) – the path to the directory whose structure should be loaded as a dictionary</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>a dictionary constructed from the conentents found in dictionary_dir_path</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="id15">
-<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.</code><code class="sig-name descname">save_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">path_for_dictionary_dir</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function that takes a dictionary and saves it as a directory structure.</p>
-<p>This function takes a dictionary and saves its heirarchical structure to
-a directory. Any keys ending in .json (or .txt) file will be saved to
-.json (or .txt) files. All other key/entries will be saved with numpy.
-The results can be loaded again with the function load_dictionary.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dictionary</strong> (<em>dict</em>) – the dictionary object that is to be saved</p></li>
-<li><p><strong>path_for_dictionary_dir</strong> (<em>str</em>) – the path to the directory that will be made to house the dictionary structure</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em>) – whether or not to overwrite directory at path_for_dictionary_dir if it already exists</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
 </div>
 <div class="section" id="module-discovery_imaging_utils.func_denoising">
 <span id="discovery-imaging-utils-func-denoising-module"></span><h2>discovery_imaging_utils.func_denoising module<a class="headerlink" href="#module-discovery_imaging_utils.func_denoising" title="Permalink to this headline">¶</a></h2>
@@ -438,58 +510,66 @@ The results can be loaded again with the function load_dictionary.</p>
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.apply_filter">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">apply_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">signal</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.apply_filter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.calc_alff_falff">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">calc_alff_falff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parcel_data</span></em>, <em class="sig-param"><span class="n">freq_range_of_interest</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.calc_alff_falff" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Wrapper function to apply the filter coefficients from
+#construct_filter to a signal.</p>
+<p>#should have filtfilt imported from scipy.signal</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.calc_fishers_icc">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">calc_fishers_icc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tp1</span></em>, <em class="sig-param"><span class="n">tp2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.calc_fishers_icc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.calc_icc">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">calc_icc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tp1</span></em>, <em class="sig-param"><span class="n">tp2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.calc_icc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Calculate intraclass correlation coefficient
+#from the equation on wikipedia describing
+#fisher’s formulation. tp1 and tp2 should
+# be of shape (n,1) or (n,) where n is the
+#number of samples</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.calc_norm_std">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">calc_norm_std</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parcel_data</span></em>, <em class="sig-param"><span class="n">confound_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.calc_norm_std" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#This script is used to calculate the normalized standard
+#deviation of a cleaned fmri time signal. This is a metric
+#representative of variability/amplitude in the BOLD signal.
+#This is a particularly good option if you are working with
+#scrubbed data such that the FFT for ALFF can no longer be
+#properly calculated.</p>
+<p>#parcel_data has size &lt;num_regions, num_timepoints&gt;. Confound
+#path is the path to the confound file for the run of interest.
+#The global signal will be taken from the confound file to calculate
+#the median BOLD signal in the brain before pre-processing. This will then
+#be used to normalize the standard deviation of the BOLD signal such that
+#the output measure will be std(BOLD_Time_Series)/median_global_signal_intensity.</p>
+</dd></dl>
 
 <dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.calculate_XT_X_Neg1_XT">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">calculate_XT_X_Neg1_XT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.calculate_XT_X_Neg1_XT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py class">
-<dt id="discovery_imaging_utils.imaging_utils.confounds_class">
-<em class="property">class </em><code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">confounds_class</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">confounds_regressors_tsv_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.confounds_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dt id="discovery_imaging_utils.imaging_utils.calculate_pinv">
+<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">calculate_pinv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.calculate_pinv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Here for QC….</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.construct_filter">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">construct_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">btype</span></em>, <em class="sig-param"><span class="n">cutoff</span></em>, <em class="sig-param"><span class="n">TR</span></em>, <em class="sig-param"><span class="n">order</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.construct_filter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#btype should be ‘lowpass’, ‘highpass’, or ‘bandpass’ and
+#cutoff should be list (in Hz) with length 1 for low and high and
+#2 for band. Order is the order of the filter
+#which will be doubled since filtfilt will be used
+#to remove phase distortion from the filter. Recommended
+#order is 6. Will return filter coefficients b and a for
+#the desired butterworth filter.</p>
+<p>#Constructs filter coefficients. Use apply_filter to use
+#the coefficients to filter a signal.</p>
+<p>#Should have butter imported from scipy.signal</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.convert_to_upper_arr">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">convert_to_upper_arr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_square_matrix</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.convert_to_upper_arr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.demedian_parcellate_func_combine_hemis">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">demedian_parcellate_func_combine_hemis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lh_func</span></em>, <em class="sig-param"><span class="n">rh_func</span></em>, <em class="sig-param"><span class="n">lh_parcel_path</span></em>, <em class="sig-param"><span class="n">rh_parcel_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.demedian_parcellate_func_combine_hemis" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.denoise_func_data">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">denoise_func_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_data</span></em>, <em class="sig-param"><span class="n">confound_path</span></em>, <em class="sig-param"><span class="n">ica_ts_path</span></em>, <em class="sig-param"><span class="n">ica_noise_path</span></em>, <em class="sig-param"><span class="n">list_of_confounds_to_use</span></em>, <em class="sig-param"><span class="n">fd_thresh</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.denoise_func_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Function that takes a square matrix,
+#and outputs its upper triangle without
+#the diagonal as an array</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.find_mean_fd">
@@ -497,39 +577,16 @@ The results can be loaded again with the function load_dictionary.</p>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.flexible_denoise_func">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">flexible_denoise_func</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uncleaned_ts</span></em>, <em class="sig-param"><span class="n">noise_comps</span></em>, <em class="sig-param"><span class="n">clean_comps</span></em>, <em class="sig-param"><span class="n">pca_decomp_num</span></em>, <em class="sig-param"><span class="n">high_pass</span></em>, <em class="sig-param"><span class="n">low_pass</span></em>, <em class="sig-param"><span class="n">tr</span></em>, <em class="sig-param"><span class="n">scrub_thresh</span></em>, <em class="sig-param"><span class="n">fd_arr</span></em>, <em class="sig-param"><span class="n">skip_vols</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.flexible_denoise_func" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.fs_anat_to_array">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">fs_anat_to_array</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_fs_subject</span></em>, <em class="sig-param"><span class="n">folder_for_output_files</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.fs_anat_to_array" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.gather_cleaning_vars">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">gather_cleaning_vars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_func</span></em>, <em class="sig-param"><span class="n">list_of_confounds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.gather_cleaning_vars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.gather_confounds">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">gather_confounds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_func</span></em>, <em class="sig-param"><span class="n">confounds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.gather_confounds" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.hard_clean">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">hard_clean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_signal_of_interest</span></em>, <em class="sig-param"><span class="n">nuisance_vars</span></em>, <em class="sig-param"><span class="n">skip_vols</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.hard_clean" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.imagesc_schaeffer">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">imagesc_schaeffer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connectivity_matrix</span></em>, <em class="sig-param"><span class="n">parcel_labels</span></em>, <em class="sig-param"><span class="n">border_width</span></em>, <em class="sig-param"><span class="n">minmax</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.imagesc_schaeffer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.interpolate">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">timepoint_defined</span></em>, <em class="sig-param"><span class="n">signal</span></em>, <em class="sig-param"><span class="n">interp_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.interpolate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#This function serves the function of collecting the aseg.stats file,
+#lh.aparc.stats file, and rh.aparc.stats files from a freesurfer subject
+#found at the path path_to_fs_subject, and grabs the volumes for all
+#subcortical structures, along with volumes, thicknesses, and surface
+#areas for all cortical structures, and saves them as .npy files under
+#folder_for_output_files. Also saves a text file with the names of the
+#regions (one for subcortical, and one for lh/rh)</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.load_cifti_func">
@@ -537,19 +594,34 @@ The results can be loaded again with the function load_dictionary.</p>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.load_gifti_func">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">load_gifti_func</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.load_gifti_func" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.net_mat_summary_stats">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">net_mat_summary_stats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix_data</span></em>, <em class="sig-param"><span class="n">include_diagonals</span></em>, <em class="sig-param"><span class="n">parcel_labels</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.net_mat_summary_stats" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Function that takes a network matrix of size &lt;num_parcels x num_parcels&gt;
+#and calculates summary statistics for each grouping of parcels within a
+#given network combination (i.e. within DMN would be one grouping, between
+#DMN and Control would be another grouping). If you would like to include
+#the diagonals of the matrix set include_diagonals to true, otherwise,
+#as is the case in conventional functional connectivity matrices, exclude
+#the diagonal since it will most commonly be 1 or Inf.</p>
+<p>#This function only works on data formatted in the Schaeffer/Yeo 7 network
+#configuration.</p>
+<p>#Parcel labels should be a list of strings that has the names of the different
+#parcels in the parcellation. This is how the function knows what parcels
+#belong to what networks.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.net_summary_stats">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">net_summary_stats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parcel_data</span></em>, <em class="sig-param"><span class="n">parcel_labels</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.net_summary_stats" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Function that takes a statistic defined at a parcel level, and
+#resamples that statistic to the network level. This function is a copy of
+#net_mat_summary_stats only now defined to work on 1D instead of 2D data.</p>
+<p>#This function only works on data formatted in the Schaeffer/Yeo 7 network
+#configuration.</p>
+<p>#Parcel labels should be a list of strings that has the names of the different
+#parcels in the parcellation. This is how the function knows what parcels
+#belong to what networks.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.network_bar_chart">
@@ -561,46 +633,33 @@ The results can be loaded again with the function load_dictionary.</p>
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">output_stats_figures_pa_ap_compare</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cleaned_ap</span></em>, <em class="sig-param"><span class="n">cleaned_pa</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.output_stats_figures_pa_ap_compare" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py class">
-<dt id="discovery_imaging_utils.imaging_utils.parc_timeseries">
-<em class="property">class </em><code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">parc_timeseries</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lh_gii_path</span></em>, <em class="sig-param"><span class="n">lh_parcellation_path</span></em>, <em class="sig-param"><span class="n">TR</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.parc_timeseries" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt id="discovery_imaging_utils.imaging_utils.parc_timeseries.load_object">
-<code class="sig-name descname">load_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.parc_timeseries.load_object" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="discovery_imaging_utils.imaging_utils.parc_timeseries.populate_all_fields">
-<code class="sig-name descname">populate_all_fields</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.parc_timeseries.populate_all_fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="discovery_imaging_utils.imaging_utils.parc_timeseries.save_object">
-<code class="sig-name descname">save_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name_of_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.parc_timeseries.save_object" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.parcellate_func_combine_hemis">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">parcellate_func_combine_hemis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lh_func</span></em>, <em class="sig-param"><span class="n">rh_func</span></em>, <em class="sig-param"><span class="n">lh_parcel_path</span></em>, <em class="sig-param"><span class="n">rh_parcel_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.parcellate_func_combine_hemis" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.partial_clean">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">partial_clean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_signal_of_interest</span></em>, <em class="sig-param"><span class="n">nuisance_vars</span></em>, <em class="sig-param"><span class="n">good_vars</span></em>, <em class="sig-param"><span class="n">skip_vols</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.partial_clean" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Function that takes functional data in the form &lt;num_verts, num_timepoints&gt; for
+#both the left and right hemisphere, and averages the functional time series across
+#all vertices defined in a given parcel, for every parcel, with the parcels identified
+#by a annotation file specified at ?h_parcel_path. The function then returns a combined
+#matrix of size &lt;num_parcels, num_timepoints&gt; and &lt;num_labels&gt; for the time series and
+#parcel label names, respectively. The lh parcels will preceed the rh parcels in order.</p>
+<p>#NOTE: THIS ASSUMES THE FIRST PARCEL WILL BE MEDIAL WALL, AND DISREGARDS ANY VERTICES WITHIN
+#THAT PARCEL. IF THIS IS NOT THE CASE FOR YOUR PARCELLATION, DO NOT USE THIS FUNCTION.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.partial_clean_fast">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">partial_clean_fast</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">XT_X_Neg1_XT</span></em>, <em class="sig-param"><span class="n">bad_regressors</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.partial_clean_fast" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.plot_network_average_power_spectrum">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">plot_network_average_power_spectrum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parcel_data</span></em>, <em class="sig-param"><span class="n">parcel_labels</span></em>, <em class="sig-param"><span class="n">TR</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.plot_network_average_power_spectrum" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Function to help in the denoising of time signal Y with shape
+#(n,1) or (n,) where n is the number of timepoints.
+#XT_X_Neg1_XT is ((X^T)*X)^-1*(X^T), where ^T represents transpose
+#and ^-1 represents matrix inversions. X contains bad regressors including
+#noise ICs, a constant component, and a linear trend (etc.), and good regressors
+#containing non-motion related ICs. The Beta weights for the linear model
+#will be solved by multiplying XT_X_Neg1_XT with Y, and then the beta weights
+#determined for the bad regressors will be subtracted off from Y and the residuals
+#from this operation will be returned. For this reason, it is important to
+#put all bad regressors in front when doing matrix multiplication</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.plot_network_timeseries">
@@ -610,24 +669,21 @@ The results can be loaded again with the function load_dictionary.</p>
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_utils.pre_post_carpet_plot">
 <code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">pre_post_carpet_plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">noisy_time_series</span></em>, <em class="sig-param"><span class="n">cleaned_time_series</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.pre_post_carpet_plot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.reduce_noise_ics">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">reduce_noise_ics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">matrix_of_noise_ics</span></em>, <em class="sig-param"><span class="n">num_dimensions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.reduce_noise_ics" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.imaging_utils.simple_imagesc_schaeffer">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_utils.</code><code class="sig-name descname">simple_imagesc_schaeffer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connectivity_matrix</span></em>, <em class="sig-param"><span class="n">parcel_labels</span></em>, <em class="sig-param"><span class="n">minmax</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_utils.simple_imagesc_schaeffer" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#This function is for calculating a carpet plot figure, that
+#will allow for comparison of the BOLD time series before and
+#after denoising takes place. The two input matrices should have
+#shape &lt;num_parcels, num_timepoints&gt;, and will ideally be from a
+#parcellated time series and not whole hemisphere data (lots of points).</p>
+<p>#The script will demean and then normalize all regions’ time signals,
+#and then will display them side by side on grey-scale plots</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-discovery_imaging_utils.imaging_visualizations">
 <span id="discovery-imaging-utils-imaging-visualizations-module"></span><h2>discovery_imaging_utils.imaging_visualizations module<a class="headerlink" href="#module-discovery_imaging_utils.imaging_visualizations" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="discovery_imaging_utils.imaging_visualizations.imagesc_schaeffer_17">
-<code class="sig-prename descclassname">discovery_imaging_utils.imaging_visualizations.</code><code class="sig-name descname">imagesc_schaeffer_17</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connectivity_matrix</span></em>, <em class="sig-param"><span class="n">parcel_labels</span></em>, <em class="sig-param"><span class="n">minmax</span></em>, <em class="sig-param"><span class="n">border_width</span><span class="o">=</span><span class="default_value">14</span></em>, <em class="sig-param"><span class="n">add_colorbar</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">dpi</span><span class="o">=</span><span class="default_value">200</span></em>, <em class="sig-param"><span class="n">x_tick_labels</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">y_tick_labels</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">matplotlib_color_scheme</span><span class="o">=</span><span class="default_value">'jet'</span></em>, <em class="sig-param"><span class="n">x_tick_font_size</span><span class="o">=</span><span class="default_value">'xx-small'</span></em>, <em class="sig-param"><span class="n">y_tick_font_size</span><span class="o">=</span><span class="default_value">'xx-small'</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_visualizations.imagesc_schaeffer_17" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">discovery_imaging_utils.imaging_visualizations.</code><code class="sig-name descname">imagesc_schaeffer_17</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connectivity_matrix</span></em>, <em class="sig-param"><span class="n">parcel_labels</span></em>, <em class="sig-param"><span class="n">minmax</span></em>, <em class="sig-param"><span class="n">border_width</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">add_colorbar</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">dpi</span><span class="o">=</span><span class="default_value">200</span></em>, <em class="sig-param"><span class="n">x_tick_labels</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">y_tick_labels</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">matplotlib_color_scheme</span><span class="o">=</span><span class="default_value">'jet'</span></em>, <em class="sig-param"><span class="n">x_tick_font_size</span><span class="o">=</span><span class="default_value">'xx-small'</span></em>, <em class="sig-param"><span class="n">y_tick_font_size</span><span class="o">=</span><span class="default_value">'xx-small'</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">linewidth</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">linecolor</span><span class="o">=</span><span class="default_value">'black'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.imaging_visualizations.imagesc_schaeffer_17" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function can make a connectomic plot for the 17 network schaeffer parcellation
 at any resolution. Needs to take a nxn numpy matrix, a length n list of parcel names (taken
 directly from the Schaeffer/Yeo parcellation), and a two element list specifying the
@@ -655,14 +711,81 @@ matplotlib.</p>
 <div class="section" id="module-discovery_imaging_utils.nifti_utils">
 <span id="discovery-imaging-utils-nifti-utils-module"></span><h2>discovery_imaging_utils.nifti_utils module<a class="headerlink" href="#module-discovery_imaging_utils.nifti_utils" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
+<dt id="discovery_imaging_utils.nifti_utils.arr2nifti">
+<code class="sig-prename descclassname">discovery_imaging_utils.nifti_utils.</code><code class="sig-name descname">arr2nifti</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span></em>, <em class="sig-param"><span class="n">affine</span></em>, <em class="sig-param"><span class="n">output_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.nifti_utils.arr2nifti" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to convert numpy array to nifti</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>numpy.ndarray</em>) – array whose data will be the contents of a nifti image</p></li>
+<li><p><strong>affine</strong> (<em>numpy.ndarray</em>) – array with shape &lt;4, 4&gt; that will serve as the affine
+for the generated nifti file</p></li>
+<li><p><strong>output_path</strong> (<em>str</em>) – path to nifti file to be created (choose your own extension)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="discovery_imaging_utils.nifti_utils.convert_spherical_roi_coords_to_nifti">
 <code class="sig-prename descclassname">discovery_imaging_utils.nifti_utils.</code><code class="sig-name descname">convert_spherical_roi_coords_to_nifti</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">template_nifti_path</span></em>, <em class="sig-param"><span class="n">spherical_coords</span></em>, <em class="sig-param"><span class="n">radius</span></em>, <em class="sig-param"><span class="n">output_nifti_path</span></em>, <em class="sig-param"><span class="n">spherical_labels</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.nifti_utils.convert_spherical_roi_coords_to_nifti" title="Permalink to this definition">¶</a></dt>
+<dd><p>#Template_nifti_path should point to a nifti with the desired
+#affine matrix/size, should be 3d, not a timeseries. Spherical_coords
+#should be a list of RAS coordinates for the spheres, radius should be a list
+#of radii for the different spheres, output_nifti_path is where the mask file
+#will be saved. Spherical labels is an optional list that can specify the number
+#assigned to values for different spheres. If this isn’t set, spheres will be labeled
+#1, 2, 3 … etc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.nifti_utils.incorporate_nifti_inclusion_mask">
+<code class="sig-prename descclassname">discovery_imaging_utils.nifti_utils.</code><code class="sig-name descname">incorporate_nifti_inclusion_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func_data</span></em>, <em class="sig-param"><span class="n">inclusion_mask_path</span></em>, <em class="sig-param"><span class="n">cutoff</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.nifti_utils.incorporate_nifti_inclusion_mask" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.nifti_utils.nifti_rois_to_time_signals">
 <code class="sig-prename descclassname">discovery_imaging_utils.nifti_utils.</code><code class="sig-name descname">nifti_rois_to_time_signals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_timeseries_nii_path</span></em>, <em class="sig-param"><span class="n">input_mask_nii_path</span></em>, <em class="sig-param"><span class="n">demedian_before_averaging</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.nifti_utils.nifti_rois_to_time_signals" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#Function that takes a 4d nifti file with path input_timeseries_nii_path,
+#and a 3d mask registered to the 4d timeseries (input_mask_nii_path) who has,
+#different values which specify different regions, and returns average time
+#signals for the different regions. By default, each voxel in a given ROI will be
+#divided by its median prior to averaging. The mean of all voxel medians will be
+#provided as output. To turn off this normalization, set demedian_before_averaging
+#to False.
+#
+#Output nifti_time_series - size n_regions, n_timepoints
+#unique_mask_vals - size n_regions (specifying the ID for each mask)
+#parc_mean_median_signal_intensities - size n_regions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.nifti_utils.parcellate_nifti">
+<code class="sig-prename descclassname">discovery_imaging_utils.nifti_utils.</code><code class="sig-name descname">parcellate_nifti</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nifti_data_to_parcellate</span></em>, <em class="sig-param"><span class="n">parcellation_path</span></em>, <em class="sig-param"><span class="n">demean_before_averaging</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.nifti_utils.parcellate_nifti" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>loaded_nifti_to_parcellate</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>or 4d ndarray with data to parcellate</strong> (<em>3d</em>) – </p></li>
+<li><p><strong>parcellation_path</strong> (<em>str</em>) – </p></li>
+<li><p><strong>to the 3d parcellation nifti to use</strong> (<em>path</em>) – </p></li>
+<li><p><strong>demean_before_averaging</strong> (<em>bool</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>or not to demean voxels before averaging</strong> (<em>whether</em>) – </p></li>
+<li><p><strong>that takes a 4d nifti file with path input_timeseries_nii_path</strong><strong>,</strong> (<em>#Function</em>) – </p></li>
+<li><p><strong>a 3d mask registered to the 4d timeseries</strong><strong> (</strong><strong>input_mask_nii_path</strong><strong>) </strong><strong>who has</strong><strong>,</strong> (<em>#and</em>) – </p></li>
+<li><p><strong>values which specify different regions</strong><strong>, </strong><strong>and returns average time</strong> (<em>#different</em>) – </p></li>
+<li><p><strong>for the different regions. By default</strong><strong>, </strong><strong>each voxel in a given ROI will be</strong> (<em>#signals</em>) – </p></li>
+<li><p><strong>by its median prior to averaging. The mean of all voxel medians will be</strong> (<em>#divided</em>) – </p></li>
+<li><p><strong>as output. To turn off this normalization</strong><strong>, </strong><strong>set demedian_before_averaging</strong> (<em>#provided</em>) – </p></li>
+<li><p><strong>False.</strong> (<em>#to</em>) – </p></li>
+<li><p><strong>#</strong> – </p></li>
+<li><p><strong>nifti_time_series - size n_regions</strong><strong>, </strong><strong>n_timepoints</strong> (<em>#Output</em>) – </p></li>
+<li><p><strong>- size n_regions</strong><strong> (</strong><strong>specifying the ID for each mask</strong><strong>)</strong> (<em>#unique_mask_vals</em>) – </p></li>
+<li><p><strong>- size n_regions</strong> (<em>#parc_mean_median_signal_intensities</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="module-discovery_imaging_utils.parc_ts_dictionary">
@@ -690,12 +813,11 @@ point to a file.</p>
 <dl class="py function">
 <dt id="discovery_imaging_utils.parc_ts_dictionary.generate_file_paths">
 <code class="sig-prename descclassname">discovery_imaging_utils.parc_ts_dictionary.</code><code class="sig-name descname">generate_file_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lh_gii_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lh_parcellation_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nifti_ts_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nifti_parcellation_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">aroma_included</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.parc_ts_dictionary.generate_file_paths" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.parc_ts_dictionary.load_dictionary">
-<code class="sig-prename descclassname">discovery_imaging_utils.parc_ts_dictionary.</code><code class="sig-name descname">load_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary_dir_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.parc_ts_dictionary.load_dictionary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>#This function gathers paths useful for imaging analyses… either a gifti or nifti
+#or both must be specified along with accompanying parcellation paths, outputs a dictionary
+#with relevant paths, output of this function can be used with “all_file_paths_exist”, then
+#with “populate_parc_dictionary”, then can be saved with “save_dictionary”</p>
+</dd></dl>
 
 <dl class="py function">
 <dt id="discovery_imaging_utils.parc_ts_dictionary.populate_confounds_dict">
@@ -710,11 +832,6 @@ point to a file.</p>
 <dl class="py function">
 <dt id="discovery_imaging_utils.parc_ts_dictionary.populate_parc_dictionary">
 <code class="sig-prename descclassname">discovery_imaging_utils.parc_ts_dictionary.</code><code class="sig-name descname">populate_parc_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path_dictionary</span></em>, <em class="sig-param"><span class="n">TR</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.parc_ts_dictionary.populate_parc_dictionary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="discovery_imaging_utils.parc_ts_dictionary.save_dictionary">
-<code class="sig-prename descclassname">discovery_imaging_utils.parc_ts_dictionary.</code><code class="sig-name descname">save_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">path_for_dictionary_dir</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.parc_ts_dictionary.save_dictionary" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -761,6 +878,13 @@ point to a file.</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="cleaning_parcellated_dictionary.html" class="btn btn-neutral float-left" title="Cleaning a Parcellated Dictionary" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

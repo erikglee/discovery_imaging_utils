@@ -14,6 +14,18 @@ Welcome to discovery_imaging_utils's documentation!
    install
    tutorials
    discovery_imaging_utils
+   denoising
+   image_data_dictionary
+
+
+.. toctree::
+   :maxdepth: 5
+   :caption: Contents:
+
+   discovery_imaging_utils.denoise
+   discovery_imaging_utils.dictionary_utils
+   discovery_imaging_utils.reports
+
 
 
 

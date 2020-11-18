@@ -1,0 +1,9 @@
+:mod:`discovery_imaging_utils.gifti_utils`
+=============
+
+.. automodule:: discovery_imaging_utils.gifti_utils
+   :members:
+   :undoc-members:
+   :special-members:
+   :inherited-members:
+   :show-inheritance:

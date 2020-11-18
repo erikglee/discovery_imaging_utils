@@ -1,0 +1,563 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>discovery_imaging_utils.dictionary_utils package &mdash; discovery_imaging_utils v0.0.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> discovery_imaging_utils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="discovery_imaging_utils.html">discovery_imaging_utils package</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">discovery_imaging_utils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>discovery_imaging_utils.dictionary_utils package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/discovery_imaging_utils.dictionary_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="discovery-imaging-utils-dictionary-utils-package">
+<h1>discovery_imaging_utils.dictionary_utils package<a class="headerlink" href="#discovery-imaging-utils-dictionary-utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-discovery_imaging_utils.dictionary_utils.fmriprep">
+<span id="discovery-imaging-utils-dictionary-utils-fmriprep-module"></span><h2>discovery_imaging_utils.dictionary_utils.fmriprep module<a class="headerlink" href="#module-discovery_imaging_utils.dictionary_utils.fmriprep" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.dictionary_utils.fmriprep.generate_paths">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.fmriprep.</code><code class="sig-name descname">generate_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lh_gii_data_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lh_inclusion_mask_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lh_parcellation_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nifti_data_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nifti_inclusion_mask_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nifti_parcellation_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">aroma_included</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.fmriprep.generate_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to generate paths for an image_data_dictionary.</p>
+<p>Function that populates file paths for an image_data_dictionary.
+This image_data_dictionary can support nifti data, surface data (gifti),
+either in input image space or reduced through a parcellation scheme. At a minimum,
+the function can simply take a path to a nifti file or alternatively a gifti file (or both).
+Beyond this functionality, if only certain voxels/vertices should be included in the
+image_data_dictionary, then then nifti/gifti masks specifying which elements should be included
+can be specified. Further, if either the gifti or nifti images should be reduced via a parcellation
+scheme, that can be specified also. For spaces where a parcellation is specified, only data
+averages within parcels/rois will be propogated to the image_data_dictionary.</p>
+<p>At minimum - either lh_gii_path or nifti_path must be defined to run function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lh_gii_data_path</strong> (<em>str</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>to a lh gifti image that will be used to define an image_data_dictionary.</strong> (<em>path</em>) – </p></li>
+<li><p><strong>remaining gifti parameters will only be used if the lh_gii_path is defined.</strong> (<em>All</em>) – </p></li>
+<li><p><strong>rh gifti path will be inferred based on the lh_gii_path.</strong> (<em>The</em>) – </p></li>
+<li><p><strong>lh_inclusion_mask_path</strong> (<em>str</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>to a lh gifti image that will be used to specify which vertices should be</strong> (<em>path</em>) – </p></li>
+<li><p><strong>in the image_data_dictionary. Non-zero values will be included in final</strong> (<em>included</em>) – </p></li>
+<li><p><strong>If this argument is not set</strong><strong>, </strong><strong>then all vertices will be included.</strong> (<em>dictionary.</em>) – </p></li>
+<li><p><strong>rh path will be inferred.</strong> (<em>Again</em>) – </p></li>
+<li><p><strong>lh_parcellation_path</strong> (<em>str</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>to an annotation image that will be used to parcellate the data. If this</strong> (<em>path</em>) – </p></li>
+<li><p><strong>is used</strong><strong>, </strong><strong>only parcel level data and not vertex level data will be included</strong> (<em>option</em>) – </p></li>
+<li><p><strong>the image_data_dictionary. rh_path will be inferred</strong> (<em>in</em>) – </p></li>
+<li><p><strong>nifti_data_path</strong> (<em>str</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>to a nifti image that will be used to define an image_data_dictionary. All</strong> (<em>path</em>) – </p></li>
+<li><p><strong>nifti parameters will only be used if the nifti_path is defined.</strong> (<em>remaining</em>) – </p></li>
+<li><p><strong>nifti_inclusion_mask_path</strong> (<em>str</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>to a nifti image whose non-zero locations will be used to define which voxels</strong> (<em>path</em>) – </p></li>
+<li><p><strong>be included in the image_data_dictionary. If not specified</strong><strong>, </strong><strong>then all voxels</strong> (<em>will</em>) – </p></li>
+<li><p><strong>be included.</strong> (<em>will</em>) – </p></li>
+<li><p><strong>nifti_parcellation_path</strong> (<em>str</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>to a nifti image whose unique</strong><strong> (</strong><strong>non-zero</strong><strong>) </strong><strong>values will be used to parcellate the</strong> (<em>path</em>) – </p></li>
+<li><p><strong>nifti data. If this option is used</strong><strong>, </strong><strong>only region level data and not voxel level</strong> (<em>input</em>) – </p></li>
+<li><p><strong>will be included in the image_data_dictionary.</strong> (<em>data</em>) – </p></li>
+<li><p><strong>aroma_included</strong> (<em>bool</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>to True</strong><strong>, </strong><strong>specifies whether</strong><strong> or </strong><strong>not aroma files should be included in the dictionary.</strong> (<em>defaults</em>) – </p></li>
+<li><p><strong>fmriprep was ran without the AROMA flag</strong><strong>, </strong><strong>set to False.</strong> (<em>If</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>dict</em></p></li>
+<li><p><em>Dictionary with file paths that will be used to generate image_data_dictionary after running</em></p></li>
+<li><p><em>all_file_paths_exist, then populate_image_data_dictionary.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.dictionary_utils.fmriprep.populate_hdf5">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.fmriprep.</code><code class="sig-name descname">populate_hdf5</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path_dictionary</span></em>, <em class="sig-param"><span class="n">hdf5_file_path</span></em>, <em class="sig-param"><span class="n">TR</span></em>, <em class="sig-param"><span class="n">normalize_within_parcels</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">normalize_within_dataset</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.fmriprep.populate_hdf5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to populate a dictionary with data to use in denoising</p>
+<p>Creates an hdf5 image data dictionary by aggregating elements of fMRIPREP
+output. In addition to the standard image data dictionary elements, this
+will include a new group titled ‘fmriprep_metadata’, containing a dataset
+for each confound, and attributes for things like TR, mean_fd, subject and
+session IDs, etc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path_dictionary</strong> (<em>dict of str</em>) – dictionary with file paths (created by generate_file_paths)</p></li>
+<li><p><strong>TR</strong> (<em>float</em>) – repetition time of acquisition in seconds</p></li>
+<li><p><strong>normalize_within_dataset</strong> (<em>bool</em>) – whether or not all output data elements should normalized to have a temporal
+mean of 10000</p></li>
+<li><p><strong>normalize_within_parcels</strong> (<em>bool</em>) – whether or not all elements in a given parcel/ROI should be intensity
+normalized prior to averaging. If set to true, the mean will be inserted
+again after averaging.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.dictionary_utils.general">
+<span id="discovery-imaging-utils-dictionary-utils-general-module"></span><h2>discovery_imaging_utils.dictionary_utils.general module<a class="headerlink" href="#module-discovery_imaging_utils.dictionary_utils.general" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dictionary-utilities">
+<h3>Dictionary Utilities<a class="headerlink" href="#dictionary-utilities" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="discovery_imaging_utils.dictionary_utils.general.json_path_to_dict">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.general.</code><code class="sig-name descname">json_path_to_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_json_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.general.json_path_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that takes an input path for json file and outputs its corresponding dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path_to_json_file</strong> (<em>str</em>) – a string containing the path to a json file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary containing the contents from the json pointed to by path_to_json_file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.dictionary_utils.general.save_dictionary">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.general.</code><code class="sig-name descname">save_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">path_for_dictionary_dir</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.general.save_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that takes a dictionary and saves it as a directory structure.</p>
+<p>This function takes a dictionary and saves its heirarchical structure to
+a directory. Any keys ending in .json (or .txt) file will be saved to
+.json (or .txt) files. All other key/entries will be saved with numpy.
+The results can be loaded again with the function load_dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> (<em>dict</em>) – the dictionary object that is to be saved</p></li>
+<li><p><strong>path_for_dictionary_dir</strong> (<em>str</em>) – the path to the directory that will be made to house the dictionary structure</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) – whether or not to overwrite directory at path_for_dictionary_dir if it already exists</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.dictionary_utils.general.load_dictionary">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.general.</code><code class="sig-name descname">load_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary_dir_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.general.load_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that takes loads a formatted directory structure as a dictionary</p>
+<p>This function takes a path to a directory (that was probably generated by
+save_dictionary) and recursively iterates through the contents to rebuild
+the directory structure as a dictionary. THE ONLY supported file types that
+can be present in the directory are <a href="#id1"><span class="problematic" id="id2">*</span></a>.npy, <a href="#id3"><span class="problematic" id="id4">*</span></a>.json, and <a href="#id5"><span class="problematic" id="id6">*</span></a>.txt files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary_dir_path</strong> (<em>str</em>) – the path to the directory whose structure should be loaded as a dictionary</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary constructed from the conentents found in dictionary_dir_path</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.dictionary_utils.general.flatten_dictionary">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.general.</code><code class="sig-name descname">flatten_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">flatten_char</span><span class="o">=</span><span class="default_value">'_'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.general.flatten_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that takes a heirarchical dictionary and flattens it to one level.</p>
+<p>The function takes an input dictionary containing multiple levels (i.e. dictionaries
+within dictionaries), and restructures the contents as a single level dictionary with
+underscores placed in between different levels of heirarchy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> (<em>dict</em>) – the dictionary to be flattened</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the flattened dictionary</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.dictionary_utils.general.all_file_paths_exist">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.general.</code><code class="sig-name descname">all_file_paths_exist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path_dictionary</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.general.all_file_paths_exist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a dictionary of file paths and checks if they exist.</p>
+<p>Takes a dictionary where each entry is a string representing a file
+path, and iterates over all entries checking whether or not they each
+point to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path_dictionary</strong> (<em>dict</em>) – </p></li>
+<li><p><strong>dictionary where all entries are paths to files</strong> (<em>a</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>files_present</strong> (<em>bool</em>)</p></li>
+<li><p><em>a boolean saying whether or not all files in the dictionary were found</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="id0">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.general.</code><code class="sig-name descname">flatten_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">flatten_char</span><span class="o">=</span><span class="default_value">'_'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that takes a heirarchical dictionary and flattens it to one level.</p>
+<p>The function takes an input dictionary containing multiple levels (i.e. dictionaries
+within dictionaries), and restructures the contents as a single level dictionary with
+underscores placed in between different levels of heirarchy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary</strong> (<em>dict</em>) – the dictionary to be flattened</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the flattened dictionary</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="id7">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.general.</code><code class="sig-name descname">json_path_to_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_to_json_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that takes an input path for json file and outputs its corresponding dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path_to_json_file</strong> (<em>str</em>) – a string containing the path to a json file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary containing the contents from the json pointed to by path_to_json_file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="id8">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.general.</code><code class="sig-name descname">load_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary_dir_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that takes loads a formatted directory structure as a dictionary</p>
+<p>This function takes a path to a directory (that was probably generated by
+save_dictionary) and recursively iterates through the contents to rebuild
+the directory structure as a dictionary. THE ONLY supported file types that
+can be present in the directory are <a href="#id9"><span class="problematic" id="id10">*</span></a>.npy, <a href="#id11"><span class="problematic" id="id12">*</span></a>.json, and <a href="#id13"><span class="problematic" id="id14">*</span></a>.txt files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dictionary_dir_path</strong> (<em>str</em>) – the path to the directory whose structure should be loaded as a dictionary</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary constructed from the conentents found in dictionary_dir_path</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="id15">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.general.</code><code class="sig-name descname">save_dictionary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dictionary</span></em>, <em class="sig-param"><span class="n">path_for_dictionary_dir</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id15" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that takes a dictionary and saves it as a directory structure.</p>
+<p>This function takes a dictionary and saves its heirarchical structure to
+a directory. Any keys ending in .json (or .txt) file will be saved to
+.json (or .txt) files. All other key/entries will be saved with numpy.
+The results can be loaded again with the function load_dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> (<em>dict</em>) – the dictionary object that is to be saved</p></li>
+<li><p><strong>path_for_dictionary_dir</strong> (<em>str</em>) – the path to the directory that will be made to house the dictionary structure</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) – whether or not to overwrite directory at path_for_dictionary_dir if it already exists</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-discovery_imaging_utils.dictionary_utils.image_data">
+<span id="discovery-imaging-utils-dictionary-utils-image-data-module"></span><h2>discovery_imaging_utils.dictionary_utils.image_data module<a class="headerlink" href="#module-discovery_imaging_utils.dictionary_utils.image_data" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="discovery_imaging_utils.dictionary_utils.image_data.convert_hdf5_to_images">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.image_data.</code><code class="sig-name descname">convert_hdf5_to_images</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hdf5_file_path</span></em>, <em class="sig-param"><span class="n">output_folder</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.image_data.convert_hdf5_to_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that converts image data dictionaries back to nifti/gifti</p>
+<p>Takes an image data dictionary, possibly parcellated and or transformed
+data from a gifti and or nifti file and uses information about the base
+files (affine, size, parcel_ids) from the image_data_dict and saves
+the corresponding gifti/nifti files in a new folder
+data, and</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_data_dict</strong> (<em>dict</em>) – </p></li>
+<li><p><strong>whose data will be used to reconstruct nifti and</strong> (<em>dictionary</em>) – </p></li>
+<li><p><strong>files when relevant</strong> (<em>gifti</em>) – </p></li>
+<li><p><strong>output_folder</strong> (<em>str</em>) – </p></li>
+<li><p><strong>to folder that will be created to store the nifti/gifti files</strong> (<em>path</em>) – </p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>to continue if the output_folder already exists</strong> (<em>whether</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="discovery_imaging_utils.dictionary_utils.image_data.populate_hdf5">
+<code class="sig-prename descclassname">discovery_imaging_utils.dictionary_utils.image_data.</code><code class="sig-name descname">populate_hdf5</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hdf5_file_path</span></em>, <em class="sig-param"><span class="n">lh_gii_data_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lh_inclusion_mask_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lh_parcellation_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rh_gii_data_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rh_inclusion_mask_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rh_parcellation_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nifti_data_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nifti_inclusion_mask_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">nifti_parcellation_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">normalize_within_parcels</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">normalize_within_dataset</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">repack</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">max_verts_per_chunk</span><span class="o">=</span><span class="default_value">1000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#discovery_imaging_utils.dictionary_utils.image_data.populate_hdf5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that creates an HDF5 file to store neuroimaging data</p>
+<p>The purpose of this function is to create an hdf5 file referred to as an
+‘image_data_dictionary’ that can be used to facilitate easy use of neuroimaging
+data for different analyses. With details outlined below, this structure
+supports scalar (i.e. anatomical), or vector (i.e. functional) data, in
+both volumetric and surface spaces, allowing for sparse representation (i.e.
+excluding a brain mask), and mixed parcellation schemes (i.e. you could
+parcellate one hemisphere but not the other if desired). The main element
+of the created HDF5 file is its dataset ‘data’ that contains combined data
+from all input sources. An important feature of this data structure, is that
+all information required to convert the data back into original form is
+contained within the HDF5, such that after future data manipulations the
+resulting data structure can easily be converted back to nifti/gifti files
+so that the results can be viewed with standard neuroimaging visualization
+packages.</p>
+<p>This function can take 1-3 sources, constituting nifti, lh gifti, and rh
+gifti data. In simplest form, if paths to all three possible source types
+are given, then this function will create a hdf5 file with a ‘data’ dataset
+that contains the combined data from all sources, with shape
+&lt;n_regions, n_timepoints&gt; (in vector case)</p>
+<p>‘data’ will be a dataset that containing data from each data source. The
+elements from each data source can be identified by using ‘lh_ids’, ‘rh_ids’,
+and ‘nifti_ids’. Such that idd[‘data’][idd[‘lh_ids’],:] would return all
+the data elements corresponding to the left hemisphere.</p>
+<p>Each source will also have its own data_inds dataset such as ‘lh_data_inds’.
+The data_inds datasets show what each element of ‘data’ is in the original
+source format (i.e. which voxel, vertex, or parcel depending on usage). In
+the most basic case this will give one index per location in the data source.
+If a inclusion mask is incorporated, this will only index desired voxels/
+vertices. If a parcellation is included, this will represent the names of
+the different parcels/ROIs.</p>
+<p>Metadata that is associated with a specific source (i.e. lh parcellation path)
+can be found as attributes under the sources <a href="#id16"><span class="problematic" id="id17">*</span></a>_ids dataset. Source agnostic
+metadata, such as whether or not normalization was used, can be found as
+attrbutes under the dummy dataset ‘general_idd_metadata’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hdf5_file_path</strong> (<em>dict</em>) – dictionary created by generate_file_paths. Must have at a minimum entries
+with paths for</p></li>
+<li><p><strong>TR</strong> (<em>float</em>) – the repitition time in seconds</p></li>
+<li><p><strong>normalize_within_parcels</strong> (<em>bool</em><em>, </em><em>defaults to False</em>) – if true, and if parcels are provided, and if data has temporal dimension,
+then voxels/vertices contributing to parcels/rois will be temporally
+demeaned before averaging, AND then the average voxel/vertex intensity
+will be inserted back into the time course.</p></li>
+<li><p><strong>normalize_within_dataset</strong> (<em>bool</em><em>, </em><em>defaults to True</em>) – whether data should be normalized to have a global mean of 1k. Currently
+only supported for data with temporal dimension.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-discovery_imaging_utils.dictionary_utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-discovery_imaging_utils.dictionary_utils" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Erik Lee
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
