@@ -191,6 +191,8 @@ def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_par
 
 	if 'aroma_noise_ics_path' in file_path_dictionary.keys():
 		aroma_used = True
+	else:
+		aroma_used = False
 
 
 	if 'lh_gii_data_path' in file_path_dictionary.keys():
