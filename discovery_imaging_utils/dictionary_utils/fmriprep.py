@@ -156,8 +156,8 @@ def generate_paths(lh_gii_data_path=None,
 		path_dictionary['melodic_mixing_path'] = prefix + '_desc-MELODIC_mixing.tsv'
 		path_dictionary['aroma_noise_ics_path'] = prefix + '_AROMAnoiseICs.csv'
 
-		#Confounds path
-		path_dictionary['confounds_regressors_path'] = prefix + '_desc-confounds_regressors.tsv'
+	#Confounds path
+	path_dictionary['confounds_regressors_path'] = prefix + '_desc-confounds_regressors.tsv'
 
 
 	return path_dictionary
