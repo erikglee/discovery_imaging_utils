@@ -407,4 +407,4 @@ def _populate_confounds_dict(file_path_dictionary, aroma_used = True):
 		confounds_dictionary['aroma_noise_ics'] = np.transpose(all_ics[:,~mask])
 		confounds_dictionary['aroma_clean_ics'] = np.transpose(all_ics[:,mask])
 
-		return confounds_dictionary
+	return confounds_dictionary
