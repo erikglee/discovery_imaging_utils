@@ -233,6 +233,9 @@ def denoise_hdf5_from_json(hdf5_input_path, hdf5_output_path, denoising_json_pat
         current_directory = '/'.join(os.path.realpath(__file__).split('/')[:-1])
         denoising_json_path = os.path.join(current_directory, 'presets', preset)
 
+    if os.path.exists(denoising_json_path) == False:
+        raise NameError('Error: check path/name of denoising settings')
+
 
     #Load denoising settings from JSON
 
