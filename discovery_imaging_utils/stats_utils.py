@@ -1,6 +1,8 @@
 import numpy as np
 from discovery_imaging_utils import imaging_utils
 import statsmodels
+import h5py
+
 
 
 def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
@@ -312,3 +314,94 @@ def construct_contrast_matrix(dict_of_features, add_constant = True):
     values = np.vstack(values).transpose()
 
     return [keys, values]
+
+
+
+def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', metadata_to_grab = None):
+
+    '''Produces connectivity matrix from hdf5 file(s) with cleaned timeseries
+
+
+    Parameters
+    ----------
+
+    hdf5_paths: str or list
+        Path to hdf5 file with cleaned fMRI data, or a list of file paths.
+        If list of file paths was given, connectivity will be generated based
+        on the average of the two sets of timeseries.
+
+    output_path: str or None
+        Defaults to None, otherwise string specifying output file to be created
+        with connectivity data
+
+    method: str
+        Type of connectivity method to use. Defaults to pearson_r_to_z which is the
+        pearson correlation coefficient fisher transformed to z scores
+
+    metadata_to_grab: None
+        Currently not implemented.. may be able to use this to also grab metadata from
+        the hdf5 files in the future
+
+
+    Returns
+    -------
+
+    conn_mat: numpy.ndarray
+        A square numpy array with functional connectivity data. If output_path is
+        specified, the function will also save functional connectivity data using numpy
+
+    '''
+
+
+
+
+    hdf5_files = []
+    if type(hdf5_paths) == type('string'):
+
+        hdf5_files.append(hdf5_paths)
+
+    elif type(hdf5_paths) == type([]):
+
+        for temp_file in hdf5_paths:
+
+            hdf5_files.append(temp_file)
+
+    else:
+
+        raise NameError('Error: Input must be string or list')
+
+
+    timeseries = []
+    good_inds = []
+    for temp_file in hdf5_files:
+        with h5py.File(temp_file, 'r') as f:
+            timeseries.append(f['data'][:])
+            good_inds.append(f['denoising_info']['inclusion_inds'][:])
+
+
+    if method == 'pearson_r_to_z':
+
+        conn_mats = np.zeros((timeseries[0].shape[0],timeseries[0].shape[0],len(timeseries)))
+        for i, temp_timeseries in enumerate(timeseries):
+
+            temp_conn = np.corrcoef(temp_timeseries[:,good_inds[i]])
+            temp_z = np.arctanh(temp_conn)
+            conn_mats[:,:,i] = temp_z
+
+        conn_mat = np.mean(conn_mats, axis = -1)
+        np.fill_diagonal(conn_mat, 0)
+
+
+    else:
+
+        raise NameError('Error: Use Defined Connectivity Method')
+
+
+
+
+
+    if type(output_path) != type(None):
+
+        np.save(output_path, conn_mat)
+
+    return conn_mat
