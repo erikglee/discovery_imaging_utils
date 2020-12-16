@@ -2,6 +2,8 @@ import numpy as np
 from discovery_imaging_utils import imaging_utils
 import statsmodels
 import h5py
+import warnings
+
 
 
 
@@ -385,7 +387,10 @@ def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', m
         for i, temp_timeseries in enumerate(timeseries):
 
             temp_conn = np.corrcoef(temp_timeseries[:,good_inds[i]])
-            temp_z = np.arctanh(temp_conn)
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                temp_z = np.arctanh(temp_conn)
+
             conn_mats[:,:,i] = temp_z
 
         conn_mat = np.mean(conn_mats, axis = -1)
@@ -405,3 +410,4 @@ def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', m
         np.save(output_path, conn_mat)
 
     return conn_mat
+            
