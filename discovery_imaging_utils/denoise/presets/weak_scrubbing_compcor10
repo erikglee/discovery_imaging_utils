@@ -1,0 +1,24 @@
+{
+    "hpf_before_regression": false,
+    "scrub_criteria_dictionary": {
+        "std_dvars" : 2,
+        "framewise_displacement" : 0.75
+    },
+    "interpolation_method": "spectral",
+    "noise_comps_dict": {
+        "a_comp_cor_00": false,
+        "a_comp_cor_01": false,
+        "a_comp_cor_02": false,
+        "a_comp_cor_03": false,
+        "a_comp_cor_04": false,
+        "a_comp_cor_05": false,
+        "a_comp_cor_06": false,
+        "a_comp_cor_07": false,
+        "a_comp_cor_08": false,
+        "a_comp_cor_09": false,
+        "motion_regs_twelve": false
+    },
+    "clean_comps_dict": false,
+    "high_pass": 0.01,
+    "low_pass": 0.08
+}

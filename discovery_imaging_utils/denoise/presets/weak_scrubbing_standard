@@ -1,0 +1,15 @@
+{
+    "hpf_before_regression": false,
+    "scrub_criteria_dictionary": {
+        "std_dvars" : 2,
+        "framewise_displacement" : 0.75
+    },
+    "interpolation_method": "spectral",
+    "noise_comps_dict": {
+        "wmcsfgsr_derivs": false,
+        "motion_regs_twelve": false
+    },
+    "clean_comps_dict": false,
+    "high_pass": 0.01,
+    "low_pass": 0.08
+}
