@@ -439,6 +439,8 @@ def _load_comps_dict(fmriprep_out_dict, comps_dict):
 
     return comps_matrix
 
+
+
 def _hdf5_load_comps_dict(fmriprep_metadata_group, comps_dict):
     """
     #Internal function, which is given a "fmriprep_out_dict",
@@ -469,9 +471,9 @@ def _hdf5_load_comps_dict(fmriprep_metadata_group, comps_dict):
     #
     """
 
-    if comps_dict == False:
+    if type(comps_dict) == type(False):
         return False
-    comps_matrix = []
+    comps_matrix = None
 
     n_skip_vols = fmriprep_metadata_group.attrs['n_skip_vols']
 
@@ -479,12 +481,7 @@ def _hdf5_load_comps_dict(fmriprep_metadata_group, comps_dict):
     for key, value in comps_dict.items():
 
         #Load the current attribute of interest
-        temp_arr = fmriprep_metadata_group[key]
-
-        #If temp_arr is only 1d, at a second dimension for comparison
-        if len(temp_arr.shape) == 1:
-
-            temp_arr = np.reshape(temp_arr, (temp_arr.shape[0],1))
+        temp_arr = fmriprep_metadata_group[key][:]
 
         #If necessary, use PCA on the temp_arr
         if value != False:
@@ -492,12 +489,11 @@ def _hdf5_load_comps_dict(fmriprep_metadata_group, comps_dict):
             temp_arr = reduce_ics(temp_arr, value, n_skip_vols)
 
         #Either start a new array or stack to existing
-        if comps_matrix == []:
+        if type(comps_matrix) == type(None):
 
             comps_matrix = temp_arr
 
-        else:
-
+        else:                
             comps_matrix = np.vstack((comps_matrix, temp_arr))
 
     return comps_matrix
