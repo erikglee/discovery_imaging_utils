@@ -319,7 +319,7 @@ def construct_contrast_matrix(dict_of_features, add_constant = True):
 
 
 
-def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', metadata_to_grab = None):
+def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', grab_metadata = False, required_proportion_of_volumes = None):
 
     '''Produces connectivity matrix from hdf5 file(s) with cleaned timeseries
 
@@ -340,9 +340,10 @@ def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', m
         Type of connectivity method to use. Defaults to pearson_r_to_z which is the
         pearson correlation coefficient fisher transformed to z scores
 
-    metadata_to_grab: None
-        Currently not implemented.. may be able to use this to also grab metadata from
-        the hdf5 files in the future
+    grab_metadata: bool, default False
+        If true (and if output_path is specified), then this will output a json
+        file (same name as output_path with .json at end) with parcel ids, plus
+        fd and dvars summary stats
 
 
     Returns
@@ -375,10 +376,33 @@ def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', m
 
     timeseries = []
     good_inds = []
+    metadata_dict = {}
+    metadata_dict['mean_dvars'] = []
+    metadata_dict['mean_fd'] = []
+    metadata_dict['num_defined_vols'] = []
+
     for temp_file in hdf5_files:
         with h5py.File(temp_file, 'r') as f:
             timeseries.append(f['data'][:])
             good_inds.append(f['denoising_info']['inclusion_inds'][:])
+
+
+            if grab_metadata:
+                try:
+                    lh_parcel_names = f['ids']['lh_ids'].attrs['parcel_names']
+                    rh_parcel_names = f['ids']['rh_ids'].attrs['parcel_names']
+                    parcel_names = list(np.hstack((lh_parcel_names, rh_parcel_names)))
+                    mean_dvars = f['fmriprep_metadata'].attrs['mean_dvars']
+                    mean_fd = f['fmriprep_metadata'].attrs['mean_fd']
+                    num_vols = f['denoising_info']['inclusion_inds'][:].shape[0]
+
+                    metadata_dict['parcel_names'] = parcel_names
+                    metadata_dict['mean_dvars'].append(mean_dvars)
+                    metadata_dict['mean_fd'].append(mean_fd)
+                    metadata_dict['num_defined_vols'].append(num_vols)
+
+                except:
+                    pass
 
 
     if method == 'pearson_r_to_z':
@@ -409,5 +433,13 @@ def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', m
 
         np.save(output_path, conn_mat)
 
+        if grab_metadata == True:
+
+            json_text = json.dumps(metadata_dict, indent = 4)
+            json_out_path = output_path + '.json'
+            with open(json_out_path,'w') as f:
+                f.write(json_text)
+
+
+
     return conn_mat
-            
