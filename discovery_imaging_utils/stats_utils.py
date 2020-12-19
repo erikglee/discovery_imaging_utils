@@ -341,6 +341,10 @@ def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', g
         Type of connectivity method to use. Defaults to pearson_r_to_z which is the
         pearson correlation coefficient fisher transformed to z scores
 
+        All options
+            - 'pearson_r_to_z'
+            - 'pearson_r'
+
     grab_metadata: bool, default False
         If true (and if output_path is specified), then this will output a json
         file (same name as output_path with .json at end) with parcel ids, plus
@@ -417,6 +421,18 @@ def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', g
                 temp_z = np.arctanh(temp_conn)
 
             conn_mats[:,:,i] = temp_z
+
+        conn_mat = np.mean(conn_mats, axis = -1)
+        np.fill_diagonal(conn_mat, 0)
+
+
+    elif method == 'pearson_r':
+
+        conn_mats = np.zeros((timeseries[0].shape[0],timeseries[0].shape[0],len(timeseries)))
+        for i, temp_timeseries in enumerate(timeseries):
+
+            temp_conn = np.corrcoef(temp_timeseries[:,good_inds[i]])
+            conn_mats[:,:,i] = temp_conn
 
         conn_mat = np.mean(conn_mats, axis = -1)
         np.fill_diagonal(conn_mat, 0)
