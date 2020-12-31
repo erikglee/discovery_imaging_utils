@@ -460,3 +460,63 @@ def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', g
 
 
     return conn_mat
+
+
+    def calculate_white_noise_estimate(power_spectrum, increment = .01 , required_segment_length = 5):
+    '''Function to estimate the level of gaussian noise.
+
+    This function uses a simple technique to estimate the
+    baseline level of gaussian noise in a signal. Given
+    a power spectrum, the function starts at the lowest
+    observed power, and increments up by a factor of
+    (1 + increment) until the function reaches an
+    estimated level of noise that results in a number
+    of consevutive power estimates (in order of the
+    power spectrum) surpassing the count set by
+    required_segment_length
+
+    Note - the presets determined here happen to
+    produce good results for the data I am working
+    with at the moment.. check to see that this produces
+    reasonable results for your data...
+
+    Parameters
+    ----------
+
+    power_spectrum: numpy.ndarray
+        power spectrum (all values must be above 0 for this technique to work)
+    increment: float, default .01
+        the amount (relative to baseline) to increase the baseline power
+        spectrum estimate between each iteration
+    required_segment_length: int, default 5
+        the number of consecutive power_spectrum elements that must be
+        observed to have power be below the final estimate of gaussian noise
+
+    Returns
+    -------
+
+    current_white_noise_estimate : float
+        an estimate of the power of white noise
+
+
+
+    '''
+
+    if np.min(power_spectrum) <= 0:
+        raise NameError('Error: minimum power spectrum value must be at least zero for this function to work')
+
+    current_white_noise_estimate = np.min(power_spectrum)
+    max_segment_found = 0
+    while max_segment_found < required_segment_length:
+        current_white_noise_estimate = current_white_noise_estimate  * (1 + increment)
+        current_segment_length = 0
+        for temp_pow in power_spectrum:
+
+            if temp_pow <= current_white_noise_estimate:
+                current_segment_length += 1
+            else:
+                if current_segment_length > max_segment_found:
+                    max_segment_found = current_segment_length
+                current_segment_length = 0
+
+    return current_white_noise_estimate
