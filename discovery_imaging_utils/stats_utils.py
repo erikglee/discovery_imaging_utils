@@ -462,7 +462,8 @@ def conn_from_hdf5s(hdf5_paths, output_path = None, method = 'pearson_r_to_z', g
     return conn_mat
 
 
-    def calculate_white_noise_estimate(power_spectrum, increment = .01 , required_segment_length = 5):
+def calculate_white_noise_estimate(power_spectrum, increment = .01 , required_segment_length = 5):
+
     '''Function to estimate the level of gaussian noise.
 
     This function uses a simple technique to estimate the
