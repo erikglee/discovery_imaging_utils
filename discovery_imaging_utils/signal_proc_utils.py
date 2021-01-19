@@ -33,7 +33,7 @@ def estimate_broadband_noise(signal, TR, low_freq_cutoff = 0.2):
 
     broadband_pow : float
         the median power in broadband range
-        (or amplitude? need to double check...) 
+        (or amplitude? need to double check...)
 
     '''
 
