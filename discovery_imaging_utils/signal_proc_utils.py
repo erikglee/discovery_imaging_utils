@@ -13,7 +13,7 @@ def estimate_broadband_noise(signal, TR, low_freq_cutoff = 0.2):
     is mainly eliminated after ~.2 Hz, and (2) median is used instead of mean as
     a cheap solution to overcome the fact that there may be some noise components
     that crop up because of breathing, or cardiac effects - it would be better
-    to handle this with a more principled approach though.
+    to handle this with a more principled approach though..
 
     Parameters
     ----------
