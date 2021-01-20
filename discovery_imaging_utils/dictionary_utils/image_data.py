@@ -595,7 +595,7 @@ def populate_hdf5(hdf5_file_path,
 		try:
 			completed_proc = run(['h5repack', hdf5_file_path, hdf5_file_path + '_repack'])
 		except:
-			raise NameError('Erroor: repacking of hdf5 file (to reduce hdf5 file size) failed. This presumably means h5repack is not on your shell path. To continue either (1) add h5repack to shell path, or (2) set repack = False')
+			raise NameError('Repacking of hdf5 file (to reduce hdf5 file size) failed. This presumably means h5repack is not on your shell path. To continue either (1) add h5repack to shell path, or (2) set repack = False')
 
 		if completed_proc.returncode != 0:
 
