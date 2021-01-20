@@ -500,6 +500,7 @@ def populate_hdf5(hdf5_file_path,
 			inds_counted = int(inds_counted + f['rh_data'].shape[0])
 
 			#Update virtual source/layout
+			print(f['rh_data_inds'][:])
 			data_dataset[f['rh_data_inds'][:],:] = f['rh_data']
 			del f['rh_data']
 
