@@ -163,7 +163,7 @@ def generate_paths(lh_gii_data_path=None,
 	return path_dictionary
 
 
-def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_parcels = False, normalize_within_dataset = True):
+def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_parcels = False, normalize_within_dataset = True, repack = True, repack_path = None):
 	"""Function to populate a dictionary with data to use in denoising
 
 	Creates an hdf5 image data dictionary by aggregating elements of fMRIPREP
@@ -247,7 +247,9 @@ def populate_hdf5(file_path_dictionary, hdf5_file_path, TR, normalize_within_par
 							nifti_inclusion_mask_path=nifti_inclusion_mask_path,
 							nifti_parcellation_path=nifti_parcellation_path,
 							normalize_within_parcels = normalize_within_parcels,
-							normalize_within_dataset = normalize_within_dataset)
+							normalize_within_dataset = normalize_within_dataset,
+							repack = repack,
+							repack_path = repack_path)
 
 	confounds_dict = _populate_confounds_dict(file_path_dictionary, aroma_used = aroma_used)
 	general_info_dict = _populate_general_info_dict(confounds_dict, file_path_dictionary, TR)

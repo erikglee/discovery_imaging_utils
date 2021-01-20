@@ -150,6 +150,7 @@ def populate_hdf5(hdf5_file_path,
 			normalize_within_dataset = True,
 			overwrite = False,
 			repack = True,
+			repack_path = None,
 			max_verts_per_chunk = 1000):
 	"""Function that creates an HDF5 file to store neuroimaging data
 
@@ -590,7 +591,19 @@ def populate_hdf5(hdf5_file_path,
 	#Optional - repack the data to make big savings on storage
 	#since otherwise HDF5 will assume some intermediate attributes
 	#that may be large are still in the HDF5 file....
-	if repack == True:
+
+	if type(repack_path) != type(None):
+
+		completed_proc = run([repack_path, hdf5_file_path, hdf5_file_path + '_repack'])
+
+		if completed_proc.returncode != 0:
+
+			os.remove(hdf5_file_path + '_repack')
+			raise NameError('Error: repacking the HDF5 file to save on space was not successful. Rerun with keyword argument repack set to False or add h5repack to your subprocess path. HDF5s repack tool can also be ran outside of the context of this script later to save on space.')
+		else:
+			shutil.move(hdf5_file_path + '_repack', hdf5_file_path)
+
+	elif repack == True:
 
 		try:
 			completed_proc = run(['h5repack', hdf5_file_path, hdf5_file_path + '_repack'])
