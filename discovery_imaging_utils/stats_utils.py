@@ -6,7 +6,7 @@ import warnings
 import json
 
 
-def fast_regression_beta_resids(Y, X_PINV):
+def fast_regression_beta_resids(Y, X_PINV, X):
 
     '''Function that calculates regression
 
