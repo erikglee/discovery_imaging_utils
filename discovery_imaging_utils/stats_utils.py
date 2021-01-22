@@ -6,6 +6,216 @@ import warnings
 import json
 
 
+def fast_regression_beta_resids(Y, PINV):
+
+    '''Function that calculates regression
+
+    Based on the pseudo-inverse, calculates
+    beta-weights and residuals for linear
+    regression problem to predict values
+    of Y
+
+    Parameters
+    ----------
+
+    Y : numpy.ndarray
+        Dependent variables to be predicted.
+        Shape <n> or <n,1>
+    PINV : numpy.ndarray
+        The pseudo-inverse for independent variables
+        X used as predictors in linear regression.
+        This is the result of np.linalg.pinv(X)
+
+    Returns
+    -------
+
+    B : numpy.ndarray
+        The beta-weights for the linear regression
+    residuals : numpy.ndarray
+        The residuals of the least squares model
+    '''
+
+
+    B = np.matmul(PINV, Y)
+    residuals = Y - np.matmul(bad_regressors, B)
+    return B, residuals
+
+
+def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
+                    reinsert_mean = True, tstat_map = None, pval_map = False, net_vecs = False):
+
+    """Function to remove unwanted effects from connectivity matrices
+
+    This function will move the effects of specified regressors from
+    the functional connectivity matrix, and either return the
+    matrices after these effects have been removed, or the test-statistic
+    for a particular regressor/s. The input net_mats can also supper
+    net_vectors (i.e. subj by region) if net_vecs is set to true.
+
+
+    Parameters
+    ----------
+
+    net_mats : numpy.ndarray
+        Array with shape <n_subjs, n_regions, n_regions> of the
+        data to be cleaned.
+    regressors : numpy.ndarray
+        Array with shape <n_subjs, n_regressors> whose content
+        will be removed from the net_mats
+    include_diagonals : bool, default False
+        If False, diagonals will be skipped/set to 0
+    reinsert_mean : bool, default True
+        Whether the mean should be reinserted after
+        regression
+    tstat_map: list of ints, or None, default None
+        If something outside of False is provided here,
+        then instead of returning the cleaned net_mats
+        the function will return t-stat maps associated
+        with the parameter estimates for the contrast
+        or contrasts of interest. [0] would return the first
+        contrast's tstat map, and [0,1] would return the
+        first two contrast's tstat maps
+    pval_map : bool, default False
+        Only used if tstat_map not None. If True, function also outputs pvals
+        as second output.
+    net_vecs: bool, default False
+        Whether the function should expect net_vectors
+        instead of matrices (i.e. shape <n_subjs, n_regions>)
+
+
+    Returns
+    -------
+
+    If tstat_map is None, then returns a matrix with the same
+    shape as net_mats with influence of regressors removed through
+    linear regression. If tstat_map is a list of integers,
+    then returns the tstat maps associated with the specified
+    parameter estimates as list of numpy.ndarrays. If tstat_map
+    is used, and pval_map is set to True, a second output will be
+    included with p-values for the contrasts of interest.
+
+
+    """
+
+    #Check if cleaned data or tstat maps should be returned
+    if type(tstat_map) == type(None):
+
+        cleaned_net_mats = np.zeros(net_mats.shape)
+
+    else:
+
+        tstat_maps = []
+        for i in range(len(tstat_map)):
+
+            tstat_maps.append(np.zeros(net_mats.shape[1:]))
+
+        #see if p-val maps should be returned
+        if pval_map == True:
+            pval_maps = []
+            for i in range(len(tstat_map)):
+
+                pval_maps.append(np.zeros(net_mats.shape[1:]))
+
+
+    #calculate pinv for regressors
+    pinv_mat = np.linalg.pinv(regressors)
+    df = regressors.shape[0] - regressors.shape[1]
+    xtxs = np.zeros(regressors.shape[1]):
+    for temp_x in range(regressors.shape[1]):
+        xtxs[temp_x] = np.matmul(regressors[:,temp_x].squeeze().transpose(), regressors[:,temp_x].squeeze())
+    se_
+
+    #Process in case of net_mats
+    if net_vecs == False:
+
+        if net_mats.ndim != 3:
+
+            raise NameError('Error: if net_vecs set to False, then net_mats must be shape <subjects, regions, regions>')
+
+        else:
+
+            for i in range(net_mats.shape[1]):
+                for j in range(net_mats.shape[1]):
+
+
+                    if include_diagonals == False:
+                        if i == j:
+                            continue
+
+                    coefficients, residuals = fast_regression_beta_resids(net_mats[:,i,j].squeeze(), pinv_mat)
+
+                    if type(tstat_map) == type(None):
+
+                        cleaned_net_mats[:,i,j] = residuals
+
+                        if reinsert_mean:
+
+                            cleaned_net_mats[:,i,j] = cleaned_net_mats[:,i,j] + np.mean(net_mats[:,i,j])
+
+                    else:
+
+                        ssr = np.sum(np.power(residuals,2))
+                        for iteration, contrast in enumerate(tstat_map):
+
+                            temp_fstat = (coefficients[contrast]**2)*xtxs[contrast]*df/ssr
+                            temp_tstat = np.sign(coefficients[contrast])*np.sqrt(temp_fstat)
+                            tstat_maps[iteration][i,j] = temp_tstat
+
+                            if pval_map == True:
+
+                                continue
+                                #pval_maps[iteration][i,j] = results.pvalues[contrast]
+
+
+    #Process in case of net_vecs
+    else:
+
+        if net_mats.ndim != 2:
+
+            raise NameError('Error: if net_vecs set to True, then net_mats must be shape <subjects, regions>')
+
+        else:
+
+            for i in range(net_mats.shape[1]):
+
+                    coefficients, residuals = fast_regression_beta_resids(net_mats[:,i].squeeze(), pinv_mat)
+
+                    if type(tstat_map) == type(None):
+
+                        cleaned_net_mats[:,i] = residuals
+
+                        if reinsert_mean:
+
+                            cleaned_net_mats[:,i] = cleaned_net_mats[:,i] + np.mean(net_mats[:,i])
+
+                    else:
+
+                        ssr = np.sum(np.power(residuals,2))
+                        for iteration, contrast in enumerate(tstat_map):
+
+                            temp_fstat = (coefficients[contrast]**2)*xtxs[contrast]*df/ssr
+                            temp_tstat = np.sign(coefficients[contrast])*np.sqrt(temp_fstat)
+                            tstat_maps[iteration][i] = temp_tstat
+
+                            if pval_map == True:
+
+                                continue
+                                #pval_maps[iteration][i] = results.pvalues[contrast]
+
+
+    if type(tstat_map) != type(None):
+
+        if pval_map == False:
+
+            return tstat_maps
+
+        else:
+
+            return tstat_maps, pval_maps
+
+    else:
+
+        return cleaned_net_mats
 
 
 def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
