@@ -6,7 +6,7 @@ import warnings
 import json
 
 
-def fast_regression_beta_resids(Y, PINV):
+def fast_regression_beta_resids(Y, X_PINV):
 
     '''Function that calculates regression
 
@@ -21,10 +21,11 @@ def fast_regression_beta_resids(Y, PINV):
     Y : numpy.ndarray
         Dependent variables to be predicted.
         Shape <n> or <n,1>
-    PINV : numpy.ndarray
+    X_PINV : numpy.ndarray
         The pseudo-inverse for independent variables
         X used as predictors in linear regression.
         This is the result of np.linalg.pinv(X)
+    X : numpy.ndarray
 
     Returns
     -------
@@ -36,8 +37,8 @@ def fast_regression_beta_resids(Y, PINV):
     '''
 
 
-    B = np.matmul(PINV, Y)
-    residuals = Y - np.matmul(bad_regressors, B)
+    B = np.matmul(X_PINV, Y)
+    residuals = Y - np.matmul(X, B)
     return B, residuals
 
 
@@ -141,7 +142,7 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
                         if i == j:
                             continue
 
-                    coefficients, residuals = fast_regression_beta_resids(net_mats[:,i,j].squeeze(), pinv_mat)
+                    coefficients, residuals = fast_regression_beta_resids(net_mats[:,i,j].squeeze(), pinv_mat, regressors)
 
                     if type(tstat_map) == type(None):
 
@@ -177,7 +178,7 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
 
             for i in range(net_mats.shape[1]):
 
-                    coefficients, residuals = fast_regression_beta_resids(net_mats[:,i].squeeze(), pinv_mat)
+                    coefficients, residuals = fast_regression_beta_resids(net_mats[:,i].squeeze(), pinv_mat, regressors)
 
                     if type(tstat_map) == type(None):
 
