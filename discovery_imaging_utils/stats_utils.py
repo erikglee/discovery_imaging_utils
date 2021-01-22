@@ -120,7 +120,7 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
     #calculate pinv for regressors
     pinv_mat = np.linalg.pinv(regressors)
     df = regressors.shape[0] - regressors.shape[1]
-    xtxs = np.zeros(regressors.shape[1]):
+    xtxs = np.zeros(regressors.shape[1])
     for temp_x in range(regressors.shape[1]):
         xtxs[temp_x] = np.matmul(regressors[:,temp_x].squeeze().transpose(), regressors[:,temp_x].squeeze())
     se_
