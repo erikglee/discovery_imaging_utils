@@ -123,7 +123,6 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
     xtxs = np.zeros(regressors.shape[1])
     for temp_x in range(regressors.shape[1]):
         xtxs[temp_x] = np.matmul(regressors[:,temp_x].squeeze().transpose(), regressors[:,temp_x].squeeze())
-    se_
 
     #Process in case of net_mats
     if net_vecs == False:
