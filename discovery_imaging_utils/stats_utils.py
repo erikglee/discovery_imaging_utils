@@ -154,7 +154,7 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
 
                     else:
 
-                        ssr = np.sum(np.power(residuals,2))
+                        ssr = np.matmul(residuals.transpose(), residuals)
                         for iteration, contrast in enumerate(tstat_map):
 
                             temp_fstat = (coefficients[contrast]**2)*xtxs[contrast]*df/ssr
@@ -190,7 +190,7 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
 
                     else:
 
-                        ssr = np.sum(np.power(residuals,2))
+                        ssr = np.matmul(residuals.transpose(), residuals)
                         for iteration, contrast in enumerate(tstat_map):
 
                             temp_fstat = (coefficients[contrast]**2)*xtxs[contrast]*df/ssr
