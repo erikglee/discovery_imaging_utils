@@ -274,6 +274,12 @@ def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
 
     """
 
+    #Check if the regressors have full rank
+    if np.linalg.matrix_rank(regressors) != regressors.shape[1]:
+
+        raise NameError('Error: the regressors dont have full rank (i.e. at least one is redundant)')
+
+
     #Check if cleaned data or tstat maps should be returned
     if type(tstat_map) == type(None):
 
