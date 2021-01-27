@@ -652,7 +652,9 @@ def hdf5_from_template(data_arr, existing_hdf5_path, new_hdf5_path, overwrite = 
 
 		if f['data'].shape[0] != data_arr.shape[0]:
 			raise NameError('Error: the first dimension of the data_arr must match with existing hdf5')
+		del f['data']
 
 		f['data'] = data_arr
+		f.flush()
 
 		return
