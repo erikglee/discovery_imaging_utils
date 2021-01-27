@@ -617,3 +617,42 @@ def populate_hdf5(hdf5_file_path,
 
 
 	return
+
+
+	def hdf5_from_template(data_arr, existing_hdf5_path, new_hdf5_path, overwrite = False):
+		'''Takes an hdf5 and makes a new one with new data array
+
+		Currently does not repack the hdf5 file (which can help with storage
+		efficiency)
+
+		Parameters
+		----------
+
+		data_arr: numpy.ndarray
+			Data array to insert into new hdf5
+
+		existing_hdf5_path : str
+			String to existing hdf5
+
+		new_hdf5_path : str
+			Path to hdf5 file to be created
+
+		overwrite : bool, default False
+			Whether to overwrite if new_hdf5_path already exists
+
+
+		'''
+
+		if os.path.exists(new_hdf5_path) and (overwrite == False):
+			raise NameError('Error: HDF5 already exists at new_hdf5_path. Delete file or set overwrite to True')
+		else:
+			shutil.copy(existing_hdf5_path, new_hdf5_path)
+
+		with h5py.File(new_hdf5_path, 'r+') as f:
+
+			if f['data'].shape[0] != data_arr.shape[0]:
+				raise NameError('Error: the first dimension of the data_arr must match with existing hdf5')
+
+			f['data'] = data_arr
+
+		return
