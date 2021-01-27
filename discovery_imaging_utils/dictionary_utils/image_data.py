@@ -52,7 +52,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 		#Make LH gifti if necessary
 		if 'lh_data_inds' in f.keys():
 
-			lh_data = f['data'][f['lh_data_inds']]
+			lh_data = f['data'][f['lh_data_inds'][:]]
 
 			if lh_data.ndim == 1:
 				dim = 1
@@ -81,7 +81,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 		#Make RH gifti if necessary
 		if 'rh_data_inds' in f.keys():
 
-			rh_data = f['data'][f['rh_data_inds']]
+			rh_data = f['data'][f['rh_data_inds'][:]]
 			rh_gifti_data = np.zeros((f['ids/rh_ids'].attrs['rh_gifti_shape'][0], dim))
 
 			if rh_data.ndim == 1:
@@ -108,7 +108,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 		if 'nifti_data_inds' in f.keys():
 
 			print('Warning Nifti part of this function needs adjustment...')
-			nifti_partial_data = f['data'][f['nifti_data_inds']]
+			nifti_partial_data = f['data'][f['nifti_data_inds'][:]]
 			nifti_data = np.zeros((f['ids/nifti_ids'].attrs['nifti_shape']))
 
 			#Unparcellate the data
