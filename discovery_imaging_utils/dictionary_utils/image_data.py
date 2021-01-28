@@ -65,8 +65,10 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 			if 'parcel_names' in f['ids/lh_ids'].attrs.keys():
 
 				i = 0
-				for parcel, inds in f['ids/lh_ids'].items():
+				temp_parcels = f['ids']['lh_ids'].attrs['parcel_names']
+				for parcel in temp_parcels:
 
+					inds = f['ids/lh_ids'][parcel][:]
 					lh_gifti_data[tuple(inds)] = lh_data[i]
 					i += 1
 
@@ -93,7 +95,10 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 			if 'parcel_names' in f['ids/rh_ids'].attrs.keys():
 
 				i = 0
-				for parcel, inds in f['ids/rh_ids'].items():
+				temp_parcels = f['ids']['rh_ids'].attrs['parcel_names']
+				for parcel in temp_parcels:
+
+					inds = f['ids/rh_ids'][parcel][:]
 					rh_gifti_data[tuple(inds)] = rh_data[i]
 					i += 1
 
