@@ -210,7 +210,7 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
         return cleaned_net_mats
 
 
-def calc_matrix_lms(net_mats, regressors, include_diagonals = False,
+def calc_matrix_lms_OLD(net_mats, regressors, include_diagonals = False,
                     reinsert_mean = True, tstat_map = None, pval_map = False, net_vecs = False):
 
     """Function to remove unwanted effects from connectivity matrices
