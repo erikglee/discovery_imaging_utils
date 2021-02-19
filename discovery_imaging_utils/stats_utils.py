@@ -4,6 +4,7 @@ import statsmodels
 import h5py
 import warnings
 import json
+from scipy import stats
 
 
 def fast_regression_beta_resids(Y, X_PINV, X):
@@ -121,9 +122,9 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
     #calculate pinv for regressors
     pinv_mat = np.linalg.pinv(regressors)
     df = regressors.shape[0] - regressors.shape[1]
-    xtxs = np.zeros(regressors.shape[1])
-    for temp_x in range(regressors.shape[1]):
-        xtxs[temp_x] = np.matmul(regressors[:,temp_x].squeeze().transpose(), regressors[:,temp_x].squeeze())
+    c = np.linalg.inv(np.matmul(regressors.transpose(), regressors))
+
+
 
     #Process in case of net_mats
     if net_vecs == False:
@@ -157,14 +158,8 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
                         ssr = np.matmul(residuals.transpose(), residuals)
                         for iteration, contrast in enumerate(tstat_map):
 
-                            temp_fstat = (coefficients[contrast]**2)*xtxs[contrast]*df/ssr
-                            temp_tstat = np.sign(coefficients[contrast])*np.sqrt(temp_fstat)
+                            temp_tstat = coefficients[contrast]/np.sqrt((ssr/df)*c[contrast,contrast])
                             tstat_maps[iteration][i,j] = temp_tstat
-
-                            if pval_map == True:
-
-                                continue
-                                #pval_maps[iteration][i,j] = results.pvalues[contrast]
 
 
     #Process in case of net_vecs
@@ -193,14 +188,8 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
                         ssr = np.matmul(residuals.transpose(), residuals)
                         for iteration, contrast in enumerate(tstat_map):
 
-                            temp_fstat = (coefficients[contrast]**2)*xtxs[contrast]*df/ssr
-                            temp_tstat = np.sign(coefficients[contrast])*np.sqrt(temp_fstat)
+                            temp_tstat = coefficients[contrast]/np.sqrt((ssr/df)*c[contrast,contrast])
                             tstat_maps[iteration][i] = temp_tstat
-
-                            if pval_map == True:
-
-                                continue
-                                #pval_maps[iteration][i] = results.pvalues[contrast]
 
 
     if type(tstat_map) != type(None):
@@ -210,6 +199,9 @@ def calc_matrix_lms_fast(net_mats, regressors, include_diagonals = False,
             return tstat_maps
 
         else:
+
+            for iteration, contrast in enumerate(tstat_map):
+                pval_maps[iteration] = stats.t.sf(np.abs(tstat_maps[iteration]), df)*2
 
             return tstat_maps, pval_maps
 
