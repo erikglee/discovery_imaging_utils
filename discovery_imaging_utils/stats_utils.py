@@ -495,7 +495,7 @@ def construct_contrast_matrix(dict_of_features, add_constant = True):
             else:
 
 
-                for temp_unique in unique_entries:
+                for temp_unique in unique_entries[1:]:
                     temp_nominal = np.zeros(num_features)
 
                     for i, temp_entry in enumerate(temp_item):
