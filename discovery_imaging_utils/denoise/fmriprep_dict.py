@@ -6,7 +6,7 @@ import h5py
 import os
 
 
-def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass, max_batch_size = 1000):
+def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub_criteria_dictionary, interpolation_method, noise_comps_dict, clean_comps_dict, high_pass, low_pass, max_batch_size = 1000, filter_order = 6):
 
     """Wrapper function for imaging_utils.denoise.general.run_denoising
 
@@ -132,7 +132,8 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                                     high_pass,
                                                     low_pass,
                                                     n_skip_vols,
-                                                    TR)
+                                                    TR,
+                                                    filter_order = filter_order)
 
                     new_data[next_ind_to_clean:,:] = temp_out_dict['cleaned_timeseries'][:,:]
                     next_ind_to_clean = time_series.shape[0]
@@ -493,7 +494,7 @@ def _hdf5_load_comps_dict(fmriprep_metadata_group, comps_dict):
 
             comps_matrix = temp_arr
 
-        else:                
+        else:
             comps_matrix = np.vstack((comps_matrix, temp_arr))
 
     return comps_matrix

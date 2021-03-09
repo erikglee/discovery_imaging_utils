@@ -6,7 +6,7 @@ from sklearn.decomposition import PCA
 
 
 def run_denoising(time_series, hpf_before_regression, inds_to_include, interpolation_method,
-                    noise_comps, clean_comps, high_pass, low_pass, n_skip_vols, TR):
+                    noise_comps, clean_comps, high_pass, low_pass, n_skip_vols, TR, filter_order = 6):
 
     """Function to denoise fMRI data.
 
@@ -38,7 +38,7 @@ def run_denoising(time_series, hpf_before_regression, inds_to_include, interpola
     #but does skips the first n_skip_vols (which will be set to 0 and not used in subsequent steps)
     if hpf_before_regression != False:
 
-        b, a = imaging_utils.construct_filter('highpass', [hpf_before_regression], TR, 6)
+        b, a = imaging_utils.construct_filter('highpass', [hpf_before_regression], TR, filter_order)
 
         #start with the clean comps matrix
         if type(clean_comps_pre_filter) != type(False):
@@ -160,15 +160,15 @@ def run_denoising(time_series, hpf_before_regression, inds_to_include, interpola
 
         if high_pass != False and low_pass == False:
 
-            b, a = imaging_utils.construct_filter('highpass', [high_pass], TR, 6)
+            b, a = imaging_utils.construct_filter('highpass', [high_pass], TR, filter_order)
 
         elif high_pass == False and low_pass != False:
 
-            b, a = imaging_utils.construct_filter('lowpass', [low_pass], TR, 6)
+            b, a = imaging_utils.construct_filter('lowpass', [low_pass], TR, filter_order)
 
         elif high_pass != False and low_pass != False:
 
-            b, a = imaging_utils.construct_filter('bandpass', [high_pass, low_pass], TR, 6)
+            b, a = imaging_utils.construct_filter('bandpass', [high_pass, low_pass], TR, filter_order)
 
         filtered_time_signal = np.zeros(regressed_time_signal.shape)
         for dim in range(regressed_time_signal.shape[0]):
