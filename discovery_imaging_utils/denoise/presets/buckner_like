@@ -9,4 +9,5 @@
     "clean_comps_dict": false,
     "high_pass": 0.01,
     "low_pass": 0.08
+    
 }
