@@ -138,6 +138,14 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                     new_data[next_ind_to_clean:,:] = temp_out_dict['cleaned_timeseries'][:,:]
                     next_ind_to_clean = time_series.shape[0]
 
+            #Manually reformat the scrubbing dictionary if 'Uniform' scrubbing is used 
+            #prior to storing as metadata
+            reformatted_scrubbing_dict = {}
+            if 'Uniform' in scrub_criteria_dictionary.keys()
+
+                reformatted_scrubbing_dict['Uniform_Thresh'] = scrub_criteria_dictionary[0]
+                reformatted_scrubbing_dict['Uniform_Evaluation_Metrics'] = scrub_criteria_dictionary[1]
+                scrub_criteria_dictionary = reformatted_scrubbing_dict
 
             #Now update all the metadata
             denoising_settings = {'/denoise_settings/hpf_before_regression' : hpf_before_regression,
@@ -147,6 +155,8 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
                                   '/denoise_settings/clean_comps_dict' : clean_comps_dict,
                                   '/denoise_settings/high_pass' : high_pass,
                                   '/denoise_settings/low_pass' : low_pass}
+
+
 
             denoising_settings = gen_dict_utils.flatten_dictionary(denoising_settings, flatten_char = '/')
 
