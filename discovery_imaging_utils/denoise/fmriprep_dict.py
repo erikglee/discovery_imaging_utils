@@ -143,8 +143,8 @@ def denoise_hdf5(hdf5_input_path, hdf5_output_path, hpf_before_regression, scrub
             reformatted_scrubbing_dict = {}
             if 'Uniform' in scrub_criteria_dictionary.keys():
 
-                reformatted_scrubbing_dict['Uniform_Thresh'] = scrub_criteria_dictionary[0]
-                reformatted_scrubbing_dict['Uniform_Evaluation_Metrics'] = scrub_criteria_dictionary[1]
+                reformatted_scrubbing_dict['Uniform_Thresh'] = scrub_criteria_dictionary['Uniform'][0]
+                reformatted_scrubbing_dict['Uniform_Evaluation_Metrics'] = scrub_criteria_dictionary['Uniform'][1]
                 scrub_criteria_dictionary = reformatted_scrubbing_dict
 
             #Now update all the metadata
