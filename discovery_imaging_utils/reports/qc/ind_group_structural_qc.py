@@ -244,14 +244,21 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
         #where pos/neg values
         #have mirrrored colors
 
+        print('D.10')
         norm = matplotlib.colors.Normalize(vmin=0, vmax=vmax, clip=False)
+        print('D.11')
         cm = matplotlib.cm.ScalarMappable(norm=norm, cmap='viridis')
+        print('D.12')
         c = [colors.rgb2hex(x) for x in cm.to_rgba(np.abs(s.values))]
+        print('D.13')
         return ['background-color: %s' % color for color in c]
 
     print('D')
 
     styler = qc_df.style.apply(absolute_viridis)
+
+    print('D.2')
+
     html_content = styler.render()
 
     print('D1')
