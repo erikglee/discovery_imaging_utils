@@ -154,7 +154,6 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     norm_vols = np.zeros(len(all_ids))
     snr = np.zeros(len(all_ids))
 
-    print('A')
 
     mean_thickness = np.zeros(len(all_ids))
     std_thickness = np.zeros(len(all_ids))
@@ -203,7 +202,6 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
     nan_policy='omit'
 
-    print('B')
 
     reference_vols = np.vstack((reference_vols, vols))
     z_normalized_ref_vols = scipy.stats.zscore(reference_vols, axis=0)
@@ -224,7 +222,6 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     z_prediction_errors = scipy.stats.zscore(prediction_errors)[-1,:]
 
 
-    print('C')
 
     #Now make dataframe to store results
     index_names = all_ids
@@ -237,6 +234,8 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     qc_df['snr_zscore'] = z_snr
 
 
+    #For some reason, applying the custom styler causes this script to fail..
+    #seems to be related to some package pandas relies on
     def absolute_viridis(s, vmax=4):
 
         #Function to do color
@@ -244,39 +243,30 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
         #where pos/neg values
         #have mirrrored colors
 
-        print('D.10')
         norm = matplotlib.colors.Normalize(vmin=0, vmax=vmax, clip=False)
-        print('D.11')
         cm = matplotlib.cm.ScalarMappable(norm=norm, cmap='viridis')
-        print('D.12')
         temp_series = s[s.isna() == False]
         c = [colors.rgb2hex(x) for x in cm.to_rgba(np.abs(temp_series.values))]
-        print('D.13')
         return ['background-color: %s' % color for color in c]
 
 
-    print('D')
 
     #styler = qc_df.style.apply(absolute_viridis)
     #styler = qc_df.style.apply(absolute_viridis)
     #html_content = styler.render()
     html_content = qc_df.to_html()
 
-    print('D1')
 
     if os.path.exists(report_path) == False:
         os.makedirs(report_path)
 
-    print('D2')
 
     with open(os.path.join(report_path, 'table.html'),'w') as temp_file:
         temp_file.write(html_content)
 
-    print('D3')
 
     qc_df.to_csv(os.path.join(report_path, 'subject_qc_stats.csv'))
 
-    print('E')
 
     #Make a different plot for the number of surface holes
     num_lh_holes = float(subj_fs_dict['extra_elements_lhSurfaceHoles'])
@@ -293,12 +283,10 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     holes_df = pd.DataFrame(data=holes_stats, index=holes_inds, columns=['Stats'])
     holes_df.to_csv(os.path.join(report_path, 'subject_holes_stats.csv'))
 
-    print('F')
 
     with open(os.path.join(report_path, 'holes_table.html'),'w') as temp_file:
         html_content = holes_df.to_html()
         temp_file.write(html_content)
 
-    print('G')
 
     return qc_df
