@@ -84,6 +84,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
     """
 
+    printt('running ind_group_structural_qc')
 
     reference_df = pd.read_csv(reference_csv_path)
 

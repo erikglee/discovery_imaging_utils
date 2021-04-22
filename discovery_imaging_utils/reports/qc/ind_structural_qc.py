@@ -23,6 +23,7 @@ def construct_report(subject_path, report_path):
 
     """
 
+    print('running ind_structural_qc')
 
     subject_name = subject_path.split('/')[-1]
     if len(subject_name) == 0:
