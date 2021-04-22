@@ -256,7 +256,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     print('D')
 
     print('D.10')
-    norm = matplotlib.colors.Normalize(vmin=0, vmax=vmax, clip=False)
+    norm = matplotlib.colors.Normalize(vmin=0, vmax=4, clip=False)
     print('D.11')
     cm = matplotlib.cm.ScalarMappable(norm=norm, cmap='viridis')
     print('D.12')
