@@ -254,21 +254,13 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
         print('D.13')
         return ['background-color: %s' % color for color in c]
 
-    def highlight_max(s):
-        '''
-        highlight the maximum in a Series yellow.
-        '''
-        is_max = s == s.max()
-        return ['background-color: yellow' if v else '' for v in is_max]
 
     print('D')
 
     #styler = qc_df.style.apply(absolute_viridis)
-    styler = qc_df.style.apply(highlight_max)
-
-    print('D.2')
-
-    html_content = styler.render()
+    #styler = qc_df.style.apply(absolute_viridis)
+    #html_content = styler.render()
+    html_content = qc_df.to_html()
 
     print('D1')
 
