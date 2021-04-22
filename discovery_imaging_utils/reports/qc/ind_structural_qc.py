@@ -31,12 +31,14 @@ def construct_report(subject_path, report_path):
 
     os.chdir(subject_path)
 
+    #Single subject image paths
     path_to_t1 = './anat/' + subject_name + '_desc-preproc_T1w.nii.gz'
     path_to_aparcaseg_dseg = './anat/' + subject_name + '_desc-aparcaseg_dseg.nii.gz'
     path_to_csf_mask = './anat/' + subject_name + '_label-CSF_probseg.nii.gz'
     path_to_wm_mask = './anat/' + subject_name + '_label-WM_probseg.nii.gz'
     path_to_gm_mask = './anat/' + subject_name + '_label-GM_probseg.nii.gz'
 
+    #Reference image paths
     path_to_t1_mni = './anat/' + subject_name + '_space-MNI152NLin6Asym_desc-preproc_T1w.nii.gz'
     path_to_harv_oxf_mni = '/'.join(os.path.abspath(inspect.getfile(construct_report)).split('/')[:-1]) + '/HarvOxf-sub-maxprob-thr50-1mm.nii.gz'
 
