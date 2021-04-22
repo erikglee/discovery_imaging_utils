@@ -254,11 +254,17 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     styler = qc_df.style.apply(absolute_viridis)
     html_content = styler.render()
 
+    print('D1')
+
     if os.path.exists(report_path) == False:
         os.makedirs(report_path)
 
+    print('D2')
+
     with open(os.path.join(report_path, 'table.html'),'w') as temp_file:
         temp_file.write(html_content)
+
+    print('D3')
 
     qc_df.to_csv(os.path.join(report_path, 'subject_qc_stats.csv'))
 
