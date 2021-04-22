@@ -191,11 +191,11 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
             reference_std_thickness[:,i] = reference_df[temp_id + '_ThickStd']
 
 
-    z_vols = scipy.stats.zscore(np.vstack((reference_vols, vols)))[-1,:]
-    z_eTIV_normed_vols = scipy.stats.zscore(np.vstack((norm_reference_vols, norm_vols)))[-1,:]
+    z_vols = scipy.stats.zscore(np.vstack((reference_vols, vols)), nan_policy='omit')[-1,:]
+    z_eTIV_normed_vols = scipy.stats.zscore(np.vstack((norm_reference_vols, norm_vols)), nan_policy='omit')[-1,:]
     z_mean_thickness = scipy.stats.zscore(np.vstack((reference_mean_thickness, mean_thickness)), nan_policy='omit')[-1,:]
     z_std_thickness = scipy.stats.zscore(np.vstack((reference_std_thickness, std_thickness)), nan_policy='omit')[-1,:]
-    z_snr = scipy.stats.zscore(np.vstack((reference_snr, snr)))[-1,:]
+    z_snr = scipy.stats.zscore(np.vstack((reference_snr, snr)), nan_policy='omit')[-1,:]
 
 
     nan_policy='omit'
