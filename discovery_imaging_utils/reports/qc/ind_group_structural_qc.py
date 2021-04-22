@@ -9,6 +9,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib import colors
 from pandas.plotting import table
+import warnings
 
 from discovery_imaging_utils.freesurfer import fs_anat_to_dict
 from discovery_imaging_utils.freesurfer import anat_dictionaries_to_csv
@@ -193,11 +194,13 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
             reference_std_thickness[:,i] = reference_df[temp_id + '_ThickStd']
 
     print('D4')
-    z_vols = scipy.stats.zscore(np.vstack((reference_vols, vols)), nan_policy='omit')[-1,:]
-    z_eTIV_normed_vols = scipy.stats.zscore(np.vstack((norm_reference_vols, norm_vols)), nan_policy='omit')[-1,:]
-    z_mean_thickness = scipy.stats.zscore(np.vstack((reference_mean_thickness, mean_thickness)), nan_policy='omit')[-1,:]
-    z_std_thickness = scipy.stats.zscore(np.vstack((reference_std_thickness, std_thickness)), nan_policy='omit')[-1,:]
-    z_snr = scipy.stats.zscore(np.vstack((reference_snr, snr)), nan_policy='omit')[-1,:]
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        z_vols = scipy.stats.zscore(np.vstack((reference_vols, vols)), nan_policy='omit')[-1,:]
+        z_eTIV_normed_vols = scipy.stats.zscore(np.vstack((norm_reference_vols, norm_vols)), nan_policy='omit')[-1,:]
+        z_mean_thickness = scipy.stats.zscore(np.vstack((reference_mean_thickness, mean_thickness)), nan_policy='omit')[-1,:]
+        z_std_thickness = scipy.stats.zscore(np.vstack((reference_std_thickness, std_thickness)), nan_policy='omit')[-1,:]
+        z_snr = scipy.stats.zscore(np.vstack((reference_snr, snr)), nan_policy='omit')[-1,:]
 
 
     nan_policy='omit'
