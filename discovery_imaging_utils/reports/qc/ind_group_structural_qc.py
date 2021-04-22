@@ -254,20 +254,17 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
         print('D.13')
         return ['background-color: %s' % color for color in c]
 
+    def highlight_max(s):
+        '''
+        highlight the maximum in a Series yellow.
+        '''
+        is_max = s == s.max()
+        return ['background-color: yellow' if v else '' for v in is_max]
+
     print('D')
 
-    print('D.10')
-    norm = matplotlib.colors.Normalize(vmin=0, vmax=4, clip=False)
-    print('D.11')
-    cm = matplotlib.cm.ScalarMappable(norm=norm, cmap='viridis')
-    print('D.12')
-    c = [colors.rgb2hex(x) for x in cm.to_rgba(np.abs([0,1,2,3,4,5,6,7,8,9,10]))]
-    print('D.13')
-    tttt = ['background-color: %s' % color for color in c]
-    print('D.14')
-
-
-    styler = qc_df.style.apply(absolute_viridis)
+    #styler = qc_df.style.apply(absolute_viridis)
+    styler = qc_df.style.apply(highlight_max)
 
     print('D.2')
 
