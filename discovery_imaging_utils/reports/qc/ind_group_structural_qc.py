@@ -154,6 +154,8 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     norm_vols = np.zeros(len(all_ids))
     snr = np.zeros(len(all_ids))
 
+    print('A')
+
     mean_thickness = np.zeros(len(all_ids))
     std_thickness = np.zeros(len(all_ids))
     for i, temp_id in enumerate(all_ids):
@@ -201,6 +203,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
     nan_policy='omit'
 
+    print('B')
 
     reference_vols = np.vstack((reference_vols, vols))
     z_normalized_ref_vols = scipy.stats.zscore(reference_vols, axis=0)
@@ -221,7 +224,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     z_prediction_errors = scipy.stats.zscore(prediction_errors)[-1,:]
 
 
-
+    print('C')
 
     #Now make dataframe to store results
     index_names = all_ids
@@ -246,6 +249,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
         c = [colors.rgb2hex(x) for x in cm.to_rgba(np.abs(s.values))]
         return ['background-color: %s' % color for color in c]
 
+    print('D')
 
     styler = qc_df.style.apply(absolute_viridis)
     html_content = styler.render()
@@ -258,6 +262,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
     qc_df.to_csv(os.path.join(report_path, 'subject_qc_stats.csv'))
 
+    print('E')
 
     #Make a different plot for the number of surface holes
     num_lh_holes = float(subj_fs_dict['extra_elements_lhSurfaceHoles'])
@@ -274,10 +279,12 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     holes_df = pd.DataFrame(data=holes_stats, index=holes_inds, columns=['Stats'])
     holes_df.to_csv(os.path.join(report_path, 'subject_holes_stats.csv'))
 
+    print('F')
+
     with open(os.path.join(report_path, 'holes_table.html'),'w') as temp_file:
         html_content = holes_df.to_html()
         temp_file.write(html_content)
 
-
+    print('G')
 
     return qc_df
