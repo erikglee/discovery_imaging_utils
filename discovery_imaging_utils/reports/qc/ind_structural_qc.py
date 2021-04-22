@@ -51,6 +51,7 @@ def construct_report(subject_path, report_path):
     print(3.1)
 
     relevant_paths = [path_to_t1, path_to_aparcaseg_dseg, path_to_csf_mask, path_to_wm_mask, path_to_gm_mask, path_to_t1_mni, path_to_harv_oxf_mni]
+    print(relevant_paths)
     for temp_path in relevant_paths:
         if os.path.exists(temp_path) == Fase:
             print('Missing: ' + temp_path)
