@@ -234,8 +234,6 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     qc_df['thickness_std_zscore'] = z_std_thickness
     qc_df['snr_zscore'] = z_snr
 
-    return
-
 
     def absolute_viridis(s, vmax=4):
 
