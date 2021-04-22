@@ -11,7 +11,7 @@ from nibabel import load as nib_load
 def construct_report(subject_path, report_path, reference_csv_path):
 
 
-    print('    Running ind_group_functional_qc')
+    print('    running ind_group_functional_qc')
 
     os.chdir(subject_path)
     subject_name = subject_path.split('/')[-1]
