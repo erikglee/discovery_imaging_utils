@@ -5,7 +5,7 @@ from discovery_imaging_utils.reports.qc.visualizations import make_outline_overl
 def construct_report(subject_path, report_path):
 
 
-    print('running ind_functional_qc')
+    print('    running ind_functional_qc')
 
     os.chdir(subject_path)
     subject_name = subject_path.split('/')[-1]
