@@ -190,7 +190,6 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
             reference_mean_thickness[:,i] = reference_df[temp_id + '_ThickAvg']
             reference_std_thickness[:,i] = reference_df[temp_id + '_ThickStd']
 
-    print('D4')
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         z_vols = scipy.stats.zscore(np.vstack((reference_vols, vols)), nan_policy='omit')[-1,:]
