@@ -255,6 +255,17 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
     print('D')
 
+    print('D.10')
+    norm = matplotlib.colors.Normalize(vmin=0, vmax=vmax, clip=False)
+    print('D.11')
+    cm = matplotlib.cm.ScalarMappable(norm=norm, cmap='viridis')
+    print('D.12')
+    c = [colors.rgb2hex(x) for x in cm.to_rgba(np.abs(s.values))]
+    print('D.13')
+    tttt = ['background-color: %s' % color for color in c]
+    print('D.14')
+
+
     styler = qc_df.style.apply(absolute_viridis)
 
     print('D.2')
