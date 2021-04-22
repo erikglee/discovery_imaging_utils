@@ -236,7 +236,6 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     return
 
 
-
     def absolute_viridis(s, vmax=4):
 
         #Function to do color

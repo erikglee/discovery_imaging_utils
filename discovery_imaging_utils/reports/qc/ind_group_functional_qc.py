@@ -1,4 +1,4 @@
-from discovery_imaging_utils.reports.qc.visualizations import plt_ind_on_dist
+from discovery_imaging_utils.reports.qc.visualizations import make_kde_plot_with_line
 from discovery_imaging_utils.reports.qc.alignment_metrics import batch_calc_alignment_metrics
 import os
 import glob
@@ -51,12 +51,12 @@ def construct_report(subject_path, report_path, reference_csv_path):
         if os.path.exists(run_report_path) == False:
             os.makedirs(run_report_path)
 
-        plt_ind_on_dist(reference_df['mean_std_dvars'].values, confounds_dict['mean_std_dvars'], xlabel='mean_std_dvars', out_path = os.path.join(run_report_path, 'mean_std_dvars.jpg'))
-        plt_ind_on_dist(reference_df['num_high_std_dvars_tps'].values, confounds_dict['num_high_std_dvars_tps'], xlabel='num_high_std_dvars_tps', out_path = os.path.join(run_report_path, 'num_high_std_dvars_tps.jpg'))
-        plt_ind_on_dist(reference_df['mean_fd'].values, confounds_dict['mean_fd'], xlabel='mean_fd', out_path = os.path.join(run_report_path, 'mean_fd.jpg'))
-        plt_ind_on_dist(reference_df['num_high_motion_tps'].values, confounds_dict['num_high_motion_tps'], xlabel='num_high_motion_tps', out_path = os.path.join(run_report_path, 'num_high_motion_tps.jpg'))
-        plt_ind_on_dist(reference_df['mean_dvars'].values, confounds_dict['mean_dvars'], xlabel='mean_dvars', out_path = os.path.join(run_report_path, 'mean_dvars.jpg'))
-        plt_ind_on_dist(reference_df['mean_gs'].values, confounds_dict['mean_gs'], xlabel='mean_gs', out_path = os.path.join(run_report_path, 'mean_gs.jpg'))
+        make_kde_plot_with_line(reference_df['mean_std_dvars'].values, confounds_dict['mean_std_dvars'], xlabel='mean_std_dvars', out_path = os.path.join(run_report_path, 'mean_std_dvars.jpg'))
+        make_kde_plot_with_line(reference_df['num_high_std_dvars_tps'].values, confounds_dict['num_high_std_dvars_tps'], xlabel='num_high_std_dvars_tps', out_path = os.path.join(run_report_path, 'num_high_std_dvars_tps.jpg'))
+        make_kde_plot_with_line(reference_df['mean_fd'].values, confounds_dict['mean_fd'], xlabel='mean_fd', out_path = os.path.join(run_report_path, 'mean_fd.jpg'))
+        make_kde_plot_with_line(reference_df['num_high_motion_tps'].values, confounds_dict['num_high_motion_tps'], xlabel='num_high_motion_tps', out_path = os.path.join(run_report_path, 'num_high_motion_tps.jpg'))
+        make_kde_plot_with_line(reference_df['mean_dvars'].values, confounds_dict['mean_dvars'], xlabel='mean_dvars', out_path = os.path.join(run_report_path, 'mean_dvars.jpg'))
+        make_kde_plot_with_line(reference_df['mean_gs'].values, confounds_dict['mean_gs'], xlabel='mean_gs', out_path = os.path.join(run_report_path, 'mean_gs.jpg'))
 
         #plt_ind_on_dist(reference_df['local_dev_ratio'].values, confounds_dict['local_dev_ratio'], xlabel='local_dev_ratio', out_path = os.path.join(run_report_path, 'local_dev_ratio.jpg'))
         #plt_ind_on_dist(reference_df['brainmask_var_component_ratio'].values, confounds_dict['brainmask_var_component_ratio'], xlabel='brainmask_var_component_ratio', out_path = os.path.join(run_report_path, 'brainmask_var_component_ratio.jpg'))

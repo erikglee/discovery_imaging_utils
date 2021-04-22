@@ -543,10 +543,10 @@ def plt_ind_on_dist(distribution, ind_val, xlabel='', dpi = 150, out_path = None
     return
 
 
-def make_bell_curve_plot(individual_val, distribution_vals, out_path = None, dpi = 150, title = '', xlabel = '',
-                         tolerance = 0, range_buffer = .2, num_density_points = 100, close_plot = True):
+def make_kde_plot_with_line(distribution_vals, individual_val, out_path = None, dpi = 150, title = '', xlabel = '',
+                            range_buffer = .2, num_density_points = 100, close_plot = True):
     """
-    Function to make bell curve visualizations for normative data.
+    Function to make plot showing vertical line on top of density estimate.
 
 
     This function is for visualizing normative values for a single subject
@@ -554,10 +554,10 @@ def make_bell_curve_plot(individual_val, distribution_vals, out_path = None, dpi
     three different color map schemes, and solutions for cases where outliers
     are present.
 
-    individual_val : float
-        value for vertical line
     distribution_vals : numpy.ndarry
         1d numpy array to build distribution for visualization
+    individual_val : float
+        value for vertical line
     out_path : str, default None
         If string is provided, the plot will be saved at path
     dpi : float, default 150
@@ -595,7 +595,7 @@ def make_bell_curve_plot(individual_val, distribution_vals, out_path = None, dpi
 
 
     #top value in plot
-    plot_ymax = np.max(y_vals) + 0.2
+    plot_ymax = np.max(y_vals)*1.25
 
     #fill distribution
     plt.fill_between(x_vals, y_vals, color = 'grey')
