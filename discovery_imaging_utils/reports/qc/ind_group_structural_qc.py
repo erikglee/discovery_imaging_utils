@@ -249,7 +249,8 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
         print('D.11')
         cm = matplotlib.cm.ScalarMappable(norm=norm, cmap='viridis')
         print('D.12')
-        c = [colors.rgb2hex(x) for x in cm.to_rgba(np.abs(s.values))]
+        temp_series = s[s.isna() == False]
+        c = [colors.rgb2hex(x) for x in cm.to_rgba(np.abs(temp_series.values))]
         print('D.13')
         return ['background-color: %s' % color for color in c]
 
