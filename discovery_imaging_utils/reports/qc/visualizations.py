@@ -13,6 +13,7 @@ import nibabel as nib
 import inspect
 import matplotlib.patches as mpatches
 import seaborn as sns
+from scipy import stats
 
 
 
@@ -538,3 +539,87 @@ def plt_ind_on_dist(distribution, ind_val, xlabel='', dpi = 150, out_path = None
 
     if close_plot == True:
         plt.close()
+
+    return
+
+
+def make_bell_curve_plot(individual_val, distribution_vals, out_path = None, dpi = 150, title = '', xlabel = '',
+                         tolerance = 0, range_buffer = .2, num_density_points = 100, close_plot = True):
+    """
+    Function to make bell curve visualizations for normative data.
+
+
+    This function is for visualizing normative values for a single subject
+    and supports both single-session and longitudinal data, unceartainty,
+    three different color map schemes, and solutions for cases where outliers
+    are present.
+
+    individual_val : float
+        value for vertical line
+    distribution_vals : numpy.ndarry
+        1d numpy array to build distribution for visualization
+    out_path : str, default None
+        If string is provided, the plot will be saved at path
+    dpi : float, default 150
+        quality of image
+    title : str, default ''
+        title for main plot
+    xlabel : str, default ''
+        xlabel description for main plot
+    range_buffer : float, default 0.2
+        >0 -> proportion to add to min/max on plot xlim
+    num_density_points: int, default 100
+        num points to use to make the density distribution
+
+
+
+    """
+
+
+    #Make figure
+    plt.figure(dpi = dpi, figsize = (5,2))
+
+    #Generate locations for xticks
+    min_range = np.min([np.min(distribution_vals), individual_val])
+    min_range = min_range - np.abs(min_range)*range_buffer
+
+    max_range = np.max([np.max(distribution_vals), individual_val])
+    max_range = max_range + np.abs(min_range)*range_buffer
+
+    #Generate values for normal distribution and plot them
+    x_vals = np.arange(np.min(distribution_vals), np.max(distribution_vals), (max_range - min_range)/num_density_points)
+    dist = stats.gaussian_kde(distribution_vals)
+    y_vals = dist(x_vals)
+
+    plt.plot(x_vals, y_vals, linestyle = '-', color = 'black', linewidth = 1.5)
+
+
+    #top value in plot
+    plot_ymax = np.max(y_vals) + 0.2
+
+    #fill distribution
+    plt.fill_between(x_vals, y_vals, color = 'grey')
+
+    #Put in the ticks and set limits
+    plt.ylim(0, plot_ymax)
+    plt.xlim(min_range, max_range)
+    plt.yticks([])
+
+
+    # get rid of the frame
+    for spine in plt.gca().spines.values():
+        spine.set_visible(False)
+
+    #Now put in an arrow to show the score
+    plt.axvline(individual_val, color = 'black', linstyle = '--')
+
+    plt.title(title)
+    plt.xlabel(xlabel)
+
+    if type(out_path) != type(None):
+        plt.savefig(out_path, dpi=dpi, bbox_inches='tight')
+
+    if close_plot == True:
+        plt.close()
+
+    return
