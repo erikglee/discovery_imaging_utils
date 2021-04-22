@@ -44,6 +44,10 @@ def construct_report(subject_path, report_path):
     if os.path.exists(report_path) == False:
         os.makedirs(report_path)
 
+    relevant_paths = [path_to_t1, path_to_aparcaseg_dseg, path_to_csf_mask, path_to_wm_mask, path_to_gm_mask, path_to_t1_mni, path_to_harv_oxf_mni]
+    for temp_path in relevant_paths:
+        if os.path.exists(temp_path) == Fase:
+            print('Missing: ' + temp_path)
 
     make_outline_overlay_underlay_plot(path_to_t1, path_to_aparcaseg_dseg, aparcaseg=True, underlay_cmap='gray', output_path = os.path.join(report_path, 'fs_segmentation'))
     make_gmwmcsf_underlay_plot(path_to_t1, path_to_gm_mask, path_to_wm_mask, path_to_csf_mask, output_path = os.path.join(report_path, 't1_regressors'))
