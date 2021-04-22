@@ -86,6 +86,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
     print('running ind_group_structural_qc')
 
+    print('D1')
     reference_df = pd.read_csv(reference_csv_path)
 
     if os.path.exists(os.path.join(subject_path, 'stats','aseg.stats')) == False:
@@ -99,7 +100,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     reference_df = reference_df[reference_df.isna().any(axis=1) == False]
 
     #def make_fs_qc_stats(subject_fs_path, reference_csv_path, num_pcs = 1):
-
+    print('D2')
     region_ids = ['Left-Lateral-Ventricle', 'Left-Inf-Lat-Vent', 'Left-Cerebellum-White-Matter',
             'Left-Cerebellum-Cortex', 'Left-Thalamus-Proper', 'Left-Caudate',
             'Left-Putamen', 'Left-Pallidum', '3rd-Ventricle', '4th-Ventricle',
@@ -149,6 +150,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
 
     eTIV_id = 'extra_elements_eTIV_mm3'
 
+    print('D3')
     #Grab volumes and volumes normalized to eTIV
     vols = np.zeros(len(all_ids))
     norm_vols = np.zeros(len(all_ids))
@@ -190,7 +192,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
             reference_mean_thickness[:,i] = reference_df[temp_id + '_ThickAvg']
             reference_std_thickness[:,i] = reference_df[temp_id + '_ThickStd']
 
-
+    print('D4')
     z_vols = scipy.stats.zscore(np.vstack((reference_vols, vols)), nan_policy='omit')[-1,:]
     z_eTIV_normed_vols = scipy.stats.zscore(np.vstack((norm_reference_vols, norm_vols)), nan_policy='omit')[-1,:]
     z_mean_thickness = scipy.stats.zscore(np.vstack((reference_mean_thickness, mean_thickness)), nan_policy='omit')[-1,:]
@@ -201,7 +203,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     nan_policy='omit'
 
 
-
+    print('D5')
     reference_vols = np.vstack((reference_vols, vols))
     z_normalized_ref_vols = scipy.stats.zscore(reference_vols, axis=0)
     prediction_errors = np.zeros(reference_vols.shape)
@@ -211,6 +213,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
     pca_obj.fit(z_normalized_ref_vols)
     pca_scores = pca_obj.transform(z_normalized_ref_vols)
 
+    print('D6')
     for i in range(0,reference_vols.shape[1]):
 
         temp_lin_model = sklearn.linear_model.LinearRegression().fit(pca_scores, reference_vols[:,i])
@@ -218,6 +221,7 @@ def construct_report(subject_path, report_path, reference_csv_path, num_pcs=1, o
         temp_prediction_errors = reference_vols[:,i] - predictions
         prediction_errors[:,i] = temp_prediction_errors
 
+    print('D7')
     z_prediction_errors = scipy.stats.zscore(prediction_errors)[-1,:]
 
 
