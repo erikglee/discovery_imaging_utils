@@ -611,7 +611,7 @@ def make_bell_curve_plot(individual_val, distribution_vals, out_path = None, dpi
         spine.set_visible(False)
 
     #Now put in an arrow to show the score
-    plt.axvline(individual_val, color = 'black', linstyle = '--')
+    plt.axvline(individual_val, color = 'black', linestyle = '--')
 
     plt.title(title)
     plt.xlabel(xlabel)
