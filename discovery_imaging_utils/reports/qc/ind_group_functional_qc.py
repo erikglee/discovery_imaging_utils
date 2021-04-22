@@ -65,6 +65,8 @@ def construct_report(subject_path, report_path, reference_csv_path):
         output_df = pd.DataFrame(confounds_dict, index=['Registration Stats'])
         output_df.to_csv(os.path.join(run_report_path, 'functional_qc_summary_stats.csv'))
 
+    return
+
 
 
 def calc_run_stats(path_to_confounds, high_std_dvars_thresh = 1.5, high_motion_thresh = 0.5):
@@ -218,3 +220,5 @@ def make_reference_csv(path_to_fmriprep_dir, output_reference_csv_path):
 
     output_df = pd.DataFrame(temp_dict)
     output_df.to_csv(output_reference_csv_path)
+
+    return
