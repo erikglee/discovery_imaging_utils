@@ -729,3 +729,49 @@ def calculate_white_noise_estimate(power_spectrum, increment = .01 , required_se
                 current_segment_length = 0
 
     return current_white_noise_estimate
+
+
+def calc_tau_mat(data):
+
+    """Calculates Kendall's tau on a matrix
+
+    This function calculate's Kendall's tau on a matrix.
+    The reason for this function is that scipy's stats
+    implementation of Kendall's tau only takes an array
+    x and y as input, making the calculation of a tau
+    matrix indexing the similarity between many variables
+    computationally inefficient. It is possible that this
+    program will take too much RAM for large matrices. The
+    program has so far been tested against matrices of shape
+    ~200x500.
+
+    Parameters
+    ----------
+    data : numpy.ndarray
+        Array with shape <n_variables, n_observations>
+
+    Returns
+    -------
+
+    An numpy.ndarray shape <n_variables, n_variables> with
+    the kendall's tau between each combination of variables
+
+    """
+
+    num_voxels = data.shape[0]
+    num_obs = data.shape[1]
+
+    internal_concordance_mat = np.zeros((num_voxels, int(num_obs*(num_obs - 1)/2)))
+    denominator  = num_obs*(num_obs - 1)/2
+
+    for temp_vox in range(num_voxels):
+
+        temp_data = data[temp_vox]
+        internal_concordance_mat[temp_vox,:] = diu.imaging_utils.convert_to_upper_arr((temp_data[:,None] > temp_data[None,:]))
+
+    cordance_mat = np.zeros((num_voxels, num_voxels))
+    binary_internal_con_mat = internal_concordance_mat*2 - 1
+    cordance_mat = np.matmul(binary_internal_con_mat, binary_internal_con_mat.transpose())
+    tau_mat = cordance_mat/denominator
+
+    return tau_mat
