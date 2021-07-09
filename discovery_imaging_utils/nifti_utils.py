@@ -233,4 +233,4 @@ def incorporate_nifti_inclusion_mask(func_data, inclusion_mask_path, cutoff = 0.
 	#func_data[inds_to_exclude] = np.nan
 
 	#return func_data, inds_to_include
-    return masked_func_data, inds_to_include
+	return masked_func_data, inds_to_include
