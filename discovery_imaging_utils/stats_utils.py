@@ -877,14 +877,11 @@ def optimal_SVHT_coef(num_dimensions, num_observations):
 
 	def incMarPas(x0,B):
 
-		topSpec = (1 + np.sqrt(B))**2;
-		botSpec = (1 - np.sqrt(B))**2;
-
-
-
+		topSpec = (1 + np.sqrt(B))**2
+		botSpec = (1 - np.sqrt(B))**2
 
 		def IfElse(Q,point):
-			y = point;
+			y = point
 			return y
 
 		def MarPas(x, topSpec, botSpec):
