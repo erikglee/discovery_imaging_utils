@@ -911,7 +911,7 @@ def optimal_SVHT_coef(num_dimensions, num_samples):
     B = np.min([num_dimensions, num_observations])/np.max([num_dimensions, num_observations])
     return optimal_SVHT_coef_sigma_unknown(B)
 
-	def pca_denoise(data):
+    def pca_denoise(data):
     	'''Function that uses PCA to denoise data
 
     	This function assumes that the data matrix
@@ -949,4 +949,4 @@ def optimal_SVHT_coef(num_dimensions, num_samples):
     	num_good_svs = np.max(np.where(s > cutoff))
     	cleaned = u[:,:(num_good_svs + 1)] @ np.diag(s[:(num_good_svs+1)]) @ vh[:(num_good_svs+1),:]
 
-	return cleaned, num_good_svs
+    return cleaned, num_good_svs
