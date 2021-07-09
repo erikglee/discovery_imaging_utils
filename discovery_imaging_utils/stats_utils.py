@@ -5,6 +5,7 @@ import h5py
 import warnings
 import json
 from scipy import stats
+from scipy.integrate import quad
 
 
 def fast_regression_beta_resids(Y, X_PINV, X):
@@ -775,3 +776,137 @@ def calc_tau_mat(data):
     tau_mat = cordance_mat/denominator
 
     return tau_mat
+
+
+def optimal_SVHT_coef(num_dimensions, num_samples):
+    '''Code to find cutoff threshold for PCA
+
+    This code implements the Matlab supplement from
+    the paper "The optimal hard threshold for singular
+    values is 4/sqrt(3)" by Gavish and Donoho. This
+    code then generates a by-product that (when used
+    with the output of PCA) allows you to determine
+    how many principal components to keep when using
+    PCA for denoising. This formulation assumes that
+    you have some data matrix that is some low-rank
+    signal + noise. To reconstruct the low-rank
+    structure of the signal without noise, we then take
+    the output of this function (omega) and combine it
+    with the median of singular values from the data matrix
+    following PCA to determine which components to preserve:
+
+    singular_values > omega*np.median(singular_values)
+
+    Any singular values satisfying the above condition
+    can then be used to create a reconstructed version
+    of the matrix.
+
+    (it doesn't matter the order that you input the two
+    variables)
+
+    Parameters
+    ----------
+
+    num_dimensions : int
+        The number of dimensions in the data array
+    num_samples : int
+        The number of samples
+
+    Returns
+    ------
+
+    omega : float
+        The constant to combine with SVD output for
+        determining which PCs to truncate
+
+    '''
+
+
+
+    def optimal_SVHT_coef_sigma_unknown(B):
+
+        # Beta = np.min(data.shape)/np.max(data.shape)
+
+        if B < 0:
+            raise NameError('Error: B must be greater than 0')
+        elif B > 1:
+            raise NameError('Error: B must be between 0 and 1')
+
+        B = np.array([B])[:,None]
+        w = 8*B / (B + 1 + np.sqrt(B**2 + 14 * B + 1))
+        coef = np.sqrt(2 * (B + 1) + w)
+
+        MPmedian = MedianMarcenkoPastur(B)
+        omega = coef/np.sqrt(MPmedian)
+
+        return omega[0][0]
+
+
+    def MedianMarcenkoPastur(B):
+
+        def MarPas(x, B):
+
+            temp = incMarPas(x,B)
+            return np.subtract(1, temp)
+
+        lobnd = (1 - np.sqrt(B))**2;
+        hibnd = (1 + np.sqrt(B))**2;
+        change = 1;
+
+        while change and (hibnd - lobnd > .001):
+            change = 0
+            x = np.linspace(lobnd,hibnd,5);
+            y = np.zeros(x.shape[0])
+
+            #needs fixing in here somewhere.......
+            for i in range(x.shape[0]):
+                temp = MarPas(x[i], B)
+                y[i] = temp
+            if np.any(y < 0.5):
+                lobnd = np.max(x[np.where(y < 0.5)])
+                #lobnd = np.max(x[0])
+                change = 1
+            if np.any(y > 0.5):
+                hibnd = np.min(x[np.where(y > 0.5)])
+                #hibnd = np.min(x[1])
+                change = 1;
+
+        med = (hibnd+lobnd)/2;
+        return med
+
+
+    def incMarPas(x0,B):
+
+        topSpec = (1 + np.sqrt(B))**2;
+        botSpec = (1 - np.sqrt(B))**2;
+
+        #print(topSpec)
+        #print(botSpec)
+
+
+
+        def IfElse(Q,point):
+            y = point;
+            return y
+
+        def MarPas(x, topSpec, botSpec):
+
+            #print((np.multiply(topSpec-x, x-botSpec) > 0).shape)
+            #print(np.sqrt(np.divide(np.multiply(topSpec-x, x-botSpec),np.multiply(B, x)/(2 * np.pi))).shape)
+
+            temp = IfElse(np.multiply(topSpec-x, x-botSpec) > 0,
+                          np.divide(np.sqrt(np.multiply(topSpec-x, x-botSpec)),B*x*2*np.pi))
+
+            #print(temp)
+            return(temp)
+
+        #print(MarPas(x0,topSpec,botSpec))
+        #print(np.multiply(topSpec-x0, x0-botSpec) > 0)
+        #print(np.divide(np.sqrt(np.multiply(topSpec-x0, x0-botSpec)),B*x0*2*np.pi))
+
+        I = quad(MarPas, x0, topSpec, args = (topSpec, botSpec))[0]
+
+        return I
+
+    B = np.min([num_dimensions, num_observations])/np.max([num_dimensions, num_observations])
+    return optimal_SVHT_coef_sigma_unknown(B)
