@@ -136,6 +136,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 					x = f['ids/nifti_ids'][0]
 					y = f['ids/nifti_ids'][1]
 					z = f['ids/nifti_ids'][2]
+					print(x)
 					nifti_data[x,y,z,:] = nifti_partial_data
 
 			nifti_path = os.path.join(output_folder, 'data.nii.gz')
