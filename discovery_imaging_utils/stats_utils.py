@@ -778,7 +778,7 @@ def calc_tau_mat(data):
     return tau_mat
 
 
-def optimal_SVHT_coef(num_dimensions, num_observations):
+def optimal_SVHT_coef(num_dimensions, num_samples):
     '''Code to find cutoff threshold for PCA
 
     This code implements the Matlab supplement from
@@ -875,29 +875,41 @@ def optimal_SVHT_coef(num_dimensions, num_observations):
         return med
 
 
-	def incMarPas(x0,B):
+    def incMarPas(x0,B):
 
-		topSpec = (1 + np.sqrt(B))**2
-		botSpec = (1 - np.sqrt(B))**2
+        topSpec = (1 + np.sqrt(B))**2;
+        botSpec = (1 - np.sqrt(B))**2;
 
-		def IfElse(Q,point):
-			y = point
-			return y
-
-		def MarPas(x, topSpec, botSpec):
-
-			temp = IfElse(np.multiply(topSpec-x, x-botSpec) > 0,
-						np.divide(np.sqrt(np.multiply(topSpec-x, x-botSpec)),B*x*2*np.pi))
-
-			return(temp)
+        #print(topSpec)
+        #print(botSpec)
 
 
-		I = quad(MarPas, x0, topSpec, args = (topSpec, botSpec))[0]
 
-		return I
+        def IfElse(Q,point):
+            y = point;
+            return y
 
-	B = np.min([num_dimensions, num_observations])/np.max([num_dimensions, num_observations])
-	return optimal_SVHT_coef_sigma_unknown(B)
+        def MarPas(x, topSpec, botSpec):
+
+            #print((np.multiply(topSpec-x, x-botSpec) > 0).shape)
+            #print(np.sqrt(np.divide(np.multiply(topSpec-x, x-botSpec),np.multiply(B, x)/(2 * np.pi))).shape)
+
+            temp = IfElse(np.multiply(topSpec-x, x-botSpec) > 0,
+                          np.divide(np.sqrt(np.multiply(topSpec-x, x-botSpec)),B*x*2*np.pi))
+
+            #print(temp)
+            return(temp)
+
+        #print(MarPas(x0,topSpec,botSpec))
+        #print(np.multiply(topSpec-x0, x0-botSpec) > 0)
+        #print(np.divide(np.sqrt(np.multiply(topSpec-x0, x0-botSpec)),B*x0*2*np.pi))
+
+        I = quad(MarPas, x0, topSpec, args = (topSpec, botSpec))[0]
+
+        return I
+
+    B = np.min([num_dimensions, num_observations])/np.max([num_dimensions, num_observations])
+    return optimal_SVHT_coef_sigma_unknown(B)
 
 	def pca_denoise(data):
     	'''Function that uses PCA to denoise data
