@@ -114,6 +114,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 
 			print('Warning Nifti part of this function needs adjustment...')
 			nifti_partial_data = f['data'][f['nifti_data_inds'][:]]
+			print(nifti_partial_data.shape)
 			nifti_data = np.zeros((f['ids/nifti_ids'].attrs['nifti_shape']))
 			print(nifti_data.shape)
 
