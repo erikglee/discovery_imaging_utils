@@ -229,8 +229,7 @@ def incorporate_nifti_inclusion_mask(func_data, inclusion_mask_path, cutoff = 0.
 
 	inds_to_include = np.where(inclusion_mask_data > cutoff)
 	inds_to_exclude = np.where(inclusion_mask_data <= cutoff)
-
-    masked_func_data = func_data[inds_to_include]
-	func_data[inds_to_exclude] = np.nan
+	masked_func_data = func_data[inds_to_include]
+	#func_data[inds_to_exclude] = np.nan
 
 	return func_data, inds_to_include
