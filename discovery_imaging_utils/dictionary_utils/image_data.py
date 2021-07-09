@@ -138,6 +138,7 @@ def convert_hdf5_to_images(hdf5_file_path, output_folder, overwrite = False):
 					z = f['ids/nifti_ids'][2]
 					print(x)
 					nifti_data[x,y,z,:] = nifti_partial_data
+					print('max nifti data: ' + str(np.nanmax(nifti_data)))
 
 			nifti_path = os.path.join(output_folder, 'data.nii.gz')
 			nifti_utils.arr2nifti(nifti_data, f['ids/nifti_ids'].attrs['nifti_affine'], nifti_path)
