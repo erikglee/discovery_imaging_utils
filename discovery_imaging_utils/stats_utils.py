@@ -949,4 +949,4 @@ def pca_denoise(data):
 	num_good_svs = np.max(np.where(s > cutoff))
 	cleaned = u[:,:(num_good_svs + 1)] @ np.diag(s[:(num_good_svs+1)]) @ vh[:(num_good_svs+1),:]
 
-return cleaned, num_good_svs
+    return cleaned, num_good_svs
