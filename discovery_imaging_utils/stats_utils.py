@@ -941,7 +941,6 @@ def pca_denoise(data):
         The estimated rank used for reconstruction
 
     '''
-
     u, s, vh = scipy.linalg.svd(data, full_matrices = False)
     y = np.diagonal(data).copy()
     omega = optimal_SVHT_coef(data.shape[0], data.shape[1])
