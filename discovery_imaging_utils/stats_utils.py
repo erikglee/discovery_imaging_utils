@@ -912,7 +912,7 @@ def optimal_SVHT_coef(num_dimensions, num_samples):
     return optimal_SVHT_coef_sigma_unknown(B)
 
 def pca_denoise(data):
-	'''Function that uses PCA to denoise data
+    '''Function that uses PCA to denoise data
 
     This function assumes that the data matrix
     has some low-rank feature set + gaussian
