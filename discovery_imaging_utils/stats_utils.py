@@ -914,33 +914,33 @@ def optimal_SVHT_coef(num_dimensions, num_samples):
 def pca_denoise(data):
 	'''Function that uses PCA to denoise data
 
-	This function assumes that the data matrix
-	has some low-rank feature set + gaussian
-	noise. Given that, this function uses SVD
-	to decompose the matrix, then reconstructs
-	the matrix using a subset of the components
-	from SVD/PCA with the goal of retaining the
-	low-rank features without the noise.
+    This function assumes that the data matrix
+    has some low-rank feature set + gaussian
+    noise. Given that, this function uses SVD
+    to decompose the matrix, then reconstructs
+    the matrix using a subset of the components
+    from SVD/PCA with the goal of retaining the
+    low-rank features without the noise.
 
-	See Gavish and Donoho 2014 for reference.
+    See Gavish and Donoho 2014 for reference.
 
-	Parameters
-	----------
+    Parameters
+    ----------
 
-	data : numpy.ndarray
-		A 2-d array with low rank data + noise
+    data : numpy.ndarray
+        A 2-d array with low rank data + noise
 
-	Returns
-	-------
+    Returns
+    -------
 
-	cleaned : numpy.ndarrray
-		A denoised version of the data array with
-		the same dimensions
+    cleaned : numpy.ndarrray
+        A denoised version of the data array with
+        the same dimensions
 
-	num_good_svs : int
-		The estimated rank used for reconstruction
+    num_good_svs : int
+        The estimated rank used for reconstruction
 
-	'''
+    '''
 
     u, s, vh = scipy.linalg.svd(data, full_matrices = False)
     y = np.diagonal(data).copy()
