@@ -6,6 +6,7 @@ import warnings
 import json
 from scipy import stats
 from scipy.integrate import quad
+import scipy
 
 
 def fast_regression_beta_resids(Y, X_PINV, X):
