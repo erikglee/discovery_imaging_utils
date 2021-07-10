@@ -779,7 +779,7 @@ def calc_tau_mat(data):
     return tau_mat
 
 
-def optimal_SVHT_coef(num_dimensions, num_samples):
+def optimal_SVHT_coef(num_dimensions, num_observations):
     '''Code to find cutoff threshold for PCA
 
     This code implements the Matlab supplement from
@@ -810,7 +810,7 @@ def optimal_SVHT_coef(num_dimensions, num_samples):
 
     num_dimensions : int
         The number of dimensions in the data array
-    num_samples : int
+    num_observations : int
         The number of samples
 
     Returns
