@@ -769,7 +769,7 @@ def calc_tau_mat(data):
     for temp_vox in range(num_voxels):
 
         temp_data = data[temp_vox]
-        internal_concordance_mat[temp_vox,:] = diu.imaging_utils.convert_to_upper_arr((temp_data[:,None] > temp_data[None,:]))
+        internal_concordance_mat[temp_vox,:] = imaging_utils.convert_to_upper_arr((temp_data[:,None] > temp_data[None,:]))
 
     cordance_mat = np.zeros((num_voxels, num_voxels))
     binary_internal_con_mat = internal_concordance_mat*2 - 1
