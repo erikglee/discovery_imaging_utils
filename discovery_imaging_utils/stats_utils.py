@@ -942,11 +942,11 @@ def pca_denoise(data):
 
 	'''
 
-	u, s, vh = scipy.linalg.svd(data, full_matrices = False)
-	y = np.diagonal(data).copy()
-	omega = optimal_SVHT_coef(data.shape[0], data.shape[1])
-	cutoff = omega * np.median(s)
-	num_good_svs = np.max(np.where(s > cutoff))
-	cleaned = u[:,:(num_good_svs + 1)] @ np.diag(s[:(num_good_svs+1)]) @ vh[:(num_good_svs+1),:]
+    u, s, vh = scipy.linalg.svd(data, full_matrices = False)
+    y = np.diagonal(data).copy()
+    omega = optimal_SVHT_coef(data.shape[0], data.shape[1])
+    cutoff = omega * np.median(s)
+    num_good_svs = np.max(np.where(s > cutoff))
+    cleaned = u[:,:(num_good_svs + 1)] @ np.diag(s[:(num_good_svs+1)]) @ vh[:(num_good_svs+1),:]
 
-return cleaned, num_good_svs
+    return cleaned, num_good_svs
