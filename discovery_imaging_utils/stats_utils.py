@@ -911,42 +911,42 @@ def optimal_SVHT_coef(num_dimensions, num_samples):
     B = np.min([num_dimensions, num_observations])/np.max([num_dimensions, num_observations])
     return optimal_SVHT_coef_sigma_unknown(B)
 
-    def pca_denoise(data):
-    	'''Function that uses PCA to denoise data
+def pca_denoise(data):
+	'''Function that uses PCA to denoise data
 
-    	This function assumes that the data matrix
-    	has some low-rank feature set + gaussian
-    	noise. Given that, this function uses SVD
-    	to decompose the matrix, then reconstructs
-    	the matrix using a subset of the components
-    	from SVD/PCA with the goal of retaining the
-    	low-rank features without the noise.
+	This function assumes that the data matrix
+	has some low-rank feature set + gaussian
+	noise. Given that, this function uses SVD
+	to decompose the matrix, then reconstructs
+	the matrix using a subset of the components
+	from SVD/PCA with the goal of retaining the
+	low-rank features without the noise.
 
-    	See Gavish and Donoho 2014 for reference.
+	See Gavish and Donoho 2014 for reference.
 
-    	Parameters
-    	----------
+	Parameters
+	----------
 
-    	data : numpy.ndarray
-    		A 2-d array with low rank data + noise
+	data : numpy.ndarray
+		A 2-d array with low rank data + noise
 
-    	Returns
-    	-------
+	Returns
+	-------
 
-    	cleaned : numpy.ndarrray
-    		A denoised version of the data array with
-    		the same dimensions
+	cleaned : numpy.ndarrray
+		A denoised version of the data array with
+		the same dimensions
 
-    	num_good_svs : int
-    		The estimated rank used for reconstruction
+	num_good_svs : int
+		The estimated rank used for reconstruction
 
-    	'''
+	'''
 
-    	u, s, vh = scipy.linalg.svd(data, full_matrices = False)
-    	y = np.diagonal(data).copy()
-    	omega = optimal_SVHT_coef(data.shape[0], data.shape[1])
-    	cutoff = omega * np.median(s)
-    	num_good_svs = np.max(np.where(s > cutoff))
-    	cleaned = u[:,:(num_good_svs + 1)] @ np.diag(s[:(num_good_svs+1)]) @ vh[:(num_good_svs+1),:]
+	u, s, vh = scipy.linalg.svd(data, full_matrices = False)
+	y = np.diagonal(data).copy()
+	omega = optimal_SVHT_coef(data.shape[0], data.shape[1])
+	cutoff = omega * np.median(s)
+	num_good_svs = np.max(np.where(s > cutoff))
+	cleaned = u[:,:(num_good_svs + 1)] @ np.diag(s[:(num_good_svs+1)]) @ vh[:(num_good_svs+1),:]
 
-    return cleaned, num_good_svs
+return cleaned, num_good_svs
