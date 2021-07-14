@@ -233,7 +233,7 @@ def incorporate_nifti_inclusion_mask(func_data, inclusion_mask_path, cutoff = 0.
     if len(func_data.shape) == 3:
         depth = 1
     else:
-        depth = func_data.shape[4]
+        depth = func_data.shape[3]
 
     masked_func_data = np.zeros((inds_to_include[0].shape[0], depth))
     if depth == 1:
