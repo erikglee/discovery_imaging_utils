@@ -360,3 +360,57 @@ def imagesc_schaeffer_7(connectivity_matrix, parcel_labels, minmax, border_width
 
 
     return #fig
+
+
+def _net_mat_summary_stats_baker(matrix_data, parcel_labels, include_diagonals = False):
+
+    #The names of the different networks
+    network_names = ['TempPar', 'DefaultC', 'DefaultB', 'DefaultA', 'ContC', 'ContB', 'ContA',
+                    'Limbic', 'SalVentAttnB', 'SalVentAttnA', 'DorsAttnB', 'DorsAttnA',
+                    'SomMotB', 'SomMotA', 'VisPeri', 'VisCent']
+
+
+    #alt_network_names = ['VisCent','VisPeri','SomMotA','SomMotB','TempPar', 'DorsAttnA',
+    #                   'DorsAttnB','SalVentAttnA','SalVentAttnB','ContA','ContB','ContC','DefaultA',
+    #                   'DefaultB','DefaultC','Limbic']
+
+
+
+    #Array to store network IDs (0-6, corresponding to order of network names)
+    network_ids = np.zeros((len(parcel_labels),1))
+
+    #Find which network each parcel belongs to
+    for i in range(0,len(parcel_labels)):
+        id_found = 0
+        for j in range(0,len(network_names)):
+
+            if network_names[j] in parcel_labels[i]:
+                network_ids[i] = j
+                id_found = 1
+
+        if id_found == 0:
+            raise NameError('Error: Network ID ' + parcel_labels[i] + ' Not Found')
+
+
+    #Calculate the average stat for each network combination
+    network_stats = np.zeros((len(network_names),len(network_names)))
+    for i in range(0,len(network_names)):
+        for j in range(0,len(network_names)):
+            temp_stat = 0
+            temp_stat_count = 0
+            rel_inds_i = np.where(network_ids == i)[0]
+            rel_inds_j = np.where(network_ids == j)[0]
+            for inds_i in rel_inds_i:
+                for inds_j in rel_inds_j:
+                    if inds_i == inds_j:
+                        if include_diagonals == True:
+                            temp_stat += matrix_data[inds_i, inds_j]
+                            temp_stat_count += 1
+                    else:
+                        temp_stat += matrix_data[inds_i, inds_j]
+                        temp_stat_count += 1
+
+            network_stats[i,j] = temp_stat/temp_stat_count
+
+
+    return network_stats, network_names
