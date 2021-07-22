@@ -361,56 +361,45 @@ def imagesc_schaeffer_7(connectivity_matrix, parcel_labels, minmax, border_width
 
     return #fig
 
-
-def _net_mat_summary_stats_baker(matrix_data, parcel_labels, include_diagonals = False):
-
-    #The names of the different networks
-    network_names = ['TempPar', 'DefaultC', 'DefaultB', 'DefaultA', 'ContC', 'ContB', 'ContA',
-                    'Limbic', 'SalVentAttnB', 'SalVentAttnA', 'DorsAttnB', 'DorsAttnA',
-                    'SomMotB', 'SomMotA', 'VisPeri', 'VisCent']
+def quantile_quantile_dist_plot(observed_pvals, null_dists = None, percentiles = [1, 5, 10], title = '', dpi = 150):
 
 
-    #alt_network_names = ['VisCent','VisPeri','SomMotA','SomMotB','TempPar', 'DorsAttnA',
-    #                   'DorsAttnB','SalVentAttnA','SalVentAttnB','ContA','ContB','ContC','DefaultA',
-    #                   'DefaultB','DefaultC','Limbic']
+    #p-values below 50 so we can represent them symmetrically
+    if np.max(percentiles) > 50:
+        raise NameError('Error - all percentiles should be less than 50')
+
+    percentiles = np.sort(percentiles)
+    legend_str = []
+
+    line_types = ['dashed','dashdot','dotted','solid']
+
+    sorted_negtrans_pvals = np.sort(-1*np.log(observed_pvals))
+
+    if type(null_dists) == type(None):
+        raise NameError('Error: not implemented yet, need to provide null dists')
+    else:
 
 
+        negtrans_nulls = np.sort(-1*np.log(null_dists), axis = 1)
+        median_null = np.median(negtrans_nulls, axis = 0)
 
-    #Array to store network IDs (0-6, corresponding to order of network names)
-    network_ids = np.zeros((len(parcel_labels),1))
+        plt.figure(dpi = dpi)
+        for i, temp_perc_upper in enumerate(percentiles):
 
-    #Find which network each parcel belongs to
-    for i in range(0,len(parcel_labels)):
-        id_found = 0
-        for j in range(0,len(network_names)):
+            upper_dist = np.percentile(negtrans_nulls, temp_perc_upper, axis=0)
+            lower_dist = np.percentile(negtrans_nulls, 100 - temp_perc_upper, axis=0)
+            plt.fill_between(median_null, upper_dist, lower_dist, alpha = 0.3, color = 'grey')
 
-            if network_names[j] in parcel_labels[i]:
-                network_ids[i] = j
-                id_found = 1
+            temp_line_type = line_types[np.mod(i, len(line_types))]
+            plt.plot(median_null, upper_dist, linestyle = temp_line_type, color = 'black', linewidth = 1)
+            plt.plot(median_null, lower_dist, linestyle = temp_line_type, color = 'black', linewidth = 1, label = '_nolegend_')
+            legend_str.append('> ' + str(temp_perc_upper) + ' perc.')
 
-        if id_found == 0:
-            raise NameError('Error: Network ID ' + parcel_labels[i] + ' Not Found')
-
-
-    #Calculate the average stat for each network combination
-    network_stats = np.zeros((len(network_names),len(network_names)))
-    for i in range(0,len(network_names)):
-        for j in range(0,len(network_names)):
-            temp_stat = 0
-            temp_stat_count = 0
-            rel_inds_i = np.where(network_ids == i)[0]
-            rel_inds_j = np.where(network_ids == j)[0]
-            for inds_i in rel_inds_i:
-                for inds_j in rel_inds_j:
-                    if inds_i == inds_j:
-                        if include_diagonals == True:
-                            temp_stat += matrix_data[inds_i, inds_j]
-                            temp_stat_count += 1
-                    else:
-                        temp_stat += matrix_data[inds_i, inds_j]
-                        temp_stat_count += 1
-
-            network_stats[i,j] = temp_stat/temp_stat_count
-
-
-    return network_stats, network_names
+        plt.plot(median_null, median_null, color = 'black', linewidth = 1)
+        legend_str.append('Null Median')
+        plt.plot(median_null, sorted_negtrans_pvals, color = 'blue')
+        legend_str.append('Observed P-vals')
+        plt.legend(legend_str)
+        plt.xlabel('Expected p-values (-log10(p))')
+        plt.ylabel('Observed p-values (-log10(p))')
+        plt.title(title)
