@@ -1,0 +1,11 @@
+{
+    "hpf_before_regression": false,
+    "scrub_criteria_dictionary": false,
+    "interpolation_method": "linear",
+    "noise_comps_dict": {
+        "motion_regs_six": false
+    },
+    "clean_comps_dict": false,
+    "high_pass": 0.01,
+    "low_pass": false
+}
